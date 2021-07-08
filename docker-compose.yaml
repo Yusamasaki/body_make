@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+
+  db:
+    env_file: development.env
+    build:
+      context: ./
+      dockerfile: Dockerfile_db
+      args:
+        - DB_LANG=ja_JP
+    volumes:
+      - ./src/tmp/postgres_data:/var/lib/postgresql/data
+    
+  web: &web
+    env_file: development.env
+    build:
+      context: ./
+      dockerfile: Dockerfile_web
+      args:
+        - WEB_LANG=ja_JP
+    command: bash -c "rm -f ./tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - ./src:/myapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+    
+  webpacker:
+    <<: *web
+    env_file: webpacker.env
+    command: bundle exec ./bin/webpack-dev-server
+    ports:
+      - "3035:3035"
+    depends_on:
+      - web
+    stdin_open: false
+    tty: false
