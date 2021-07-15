@@ -2,17 +2,13 @@
 <div class= "center">
   <h1>ボディメイク管理システム</h1>
   <div id= "top-btn">
-    <span>
-      <p>Login</p>
-      <%= link_to (image_tag "login.png", size: '60x60', class: "top-btn"), "#" %>
+    <span class= "login-top-btn">
+      <label>Login</label>
+      <%= link_to (image_tag "login.png", size: '60x60', class: "top-btn-img"), "#" %>
     </span>
-    <span>
-      <p>新規登録</p>
-      <%= link_to (image_tag "hiyoko-touroku.png", size: '60x60', class: "top-btn"), "#" %>
+    <span class= "new-top-btn">
+      <label>新規登録</label>
+      <%= link_to (image_tag "hiyoko-touroku.png", size: '60x60', class: "top-btn-img"), "#" %>
     </span>
-  </div>
-  <div id= "top-btn2">
-    <%= link_to "login", "#", class: "btn btn-lg btn-primary top-btn2" %>
-    <%= link_to "新規登録", "#", class: "btn btn-lg btn-dark top-btn2" %>
   </div>
 </div>

@@ -3,45 +3,54 @@
 // 共通設定
 //全体
 body{
-  padding-top: 10px;
   width: 100%;
+  height: 100%;
 }
 
-// Topページ
+// Top
 .center{
-  background-color: yellow;
+  background-color: aquamarine;
+  background-size: 100% 100%;
+
+  h1 {
+    padding-top: 10px;
+    font-family: serif;
+  }
+
+  label {
+   font-family: serif;
+  }
 }
 
 // 画面サイズ1024ピクセル以上用
 @media screen and (min-width: 1024px){
   // Topページ
   .center{
+    height: 1920px;
 
     h1 {
       text-align: center;
-      color: red;
+      color: blueviolet;
       font-size: 6em;
     }
 
     // ボタン位置設定
     #top-btn{
       text-align: center;
-      padding-top: 10%;
+      padding-top: 30%;
     }
-    #top-btn2{
-      text-align: center;
-      padding-top: 10%;
-    }
-
     // ボタン画像設定
-    .top-btn{
+    .top-btn-img{
       width: 20%;
       height: 20%;
     }
-    .top-btn2{
-      font-size: 3.5em;
-      width: 30%;
-      line-height: 700%;
+
+    label{
+      font-size: 3em;
+    }
+
+    .new-top-btn{
+      padding-left: 10%;
     }
   }
 }
@@ -50,31 +59,31 @@ body{
 @media screen and (min-width: 428px) and (max-width: 1023px){
   // Topページ
   .center{
+    height: 1023px;
 
     h1 {
       text-align: center;
+      color: blueviolet;
       font-size: 4em;
     }
 
     // ボタン位置設定
     #top-btn{
       text-align: center;
-      padding-top: 10%;
-    }
-    #top-btn2{
-      text-align: center;
-      padding-top: 10%;
+      padding-top: 40%;
     }
 
     // ボタン画像設定
-    .top-btn{
-      width: 15%;
-      height: 15%;
+    .top-btn-img{
+      width: 20%;
+      height: 20%;
     }
-    .top-btn2{
-      font-size: 2.5em;
-      width: 30%;
-      line-height: 700%;
+    label{
+      font-size: 2em;
+    }
+
+    .new-top-btn{
+      padding-left: 10%;
     }
   }
 }
@@ -83,32 +92,29 @@ body{
 @media screen and (max-width: 428px){
   // Topページ
   .center{
+    height: 768px;
 
     h1{
       text-align: center;
-      font-size: 1.6em;
-      color: blue;
+      font-size: 1.8em;
+      color: blueviolet;
     }
     
     // ボタン位置設定
     #top-btn{
       text-align: center;
-      padding-top: 10%;
-    }
-    #top-btn2{
-      text-align: center;
-      padding-top: 10%;
+      padding-top: 60%;
     }
 
     // ボタン画像設定
-    .top-btn{
+    .top-btn-img{
       width: 15%;
       height: 15%;
     }
-    .top-btn2{
-      font-size: 1.3em;
-      width: 30%;
-      line-height: 500%;
+
+    // ボタン間隔設定
+    .new-top-btn{
+      padding-left: 10%;
     }
   }
 }
