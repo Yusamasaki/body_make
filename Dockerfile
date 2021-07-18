@@ -27,7 +27,7 @@ ARG WEB_LANG=en_US
 RUN localedef -i $WEB_LANG -c -f UTF-8 -A /usr/share/locale/locale.alias $WEB_LANG.UTF-8
 
 # root権限にパスワード設定
-RUN echo 'root:root' | chpasswd
+RUN echo 'root\nroot' | passwd root
 
 RUN mkdir /myapp
 WORKDIR /myapp
@@ -38,3 +38,6 @@ RUN bundle config --local set path 'vendor/bundle' && bundle install
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
+EXPOSE 3000
+
+CMD [ "rails", "server", "-b", "0.0.0.0" ]

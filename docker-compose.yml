@@ -3,23 +3,17 @@ version: '3'
 services:
 
   db:
-    env_file: development.env
-    build:
-      context: ./
-      dockerfile: Dockerfile_db
-      args:
-        - DB_LANG=ja_JP
+    env_file: web_db.env
+    image: postgres:12
     volumes:
       - ./src/tmp/postgres_data:/var/lib/postgresql/data
     
   web: &web
-    env_file: development.env
+    env_file: web_db.env
     build:
       context: ./
-      dockerfile: Dockerfile_web
-      args:
-        - WEB_LANG=ja_JP
-    command: bash -c "rm -f ./tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+      dockerfile: Dockerfile
+    command: bash -c "rm -f ./src/tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - ./src:/myapp
     ports:
