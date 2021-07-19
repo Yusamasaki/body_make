@@ -2,6 +2,8 @@ FROM ruby:2.7.3
 
 LABEL name="Artificial intern" version="1.0" description="Artificial intern"
 
+ARG rails_arg="production"
+
 # 色々インストール
 RUN apt-get update && apt-get -y install gosu sudo apt-utils
 
@@ -28,7 +30,7 @@ COPY ./src /myapp
 RUN bundle config --local set path 'vendor/bundle' && bundle install
 
 # entrypoint.shをコピーし、実行権限を与える
-COPY entrypoint.sh /usr/bin/
+COPY entrypoint_${rails_arg}.sh /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT [ "entrypoint.sh" ]
 EXPOSE 3000
