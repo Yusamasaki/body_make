@@ -1,0 +1,122 @@
+@import "bootstrap";
+
+// 共通設定
+//全体
+body{
+  width: 100%;
+  height: 100%;
+}
+
+// Top
+.top{
+  background-color: aquamarine;
+  background-size: 100% 100%;
+
+  h1 {
+    padding-top: 10px;
+    font-family: serif;
+  }
+
+  label {
+   font-family: serif;
+  }
+}
+
+// 画面サイズ1024ピクセル以上用
+@media screen and (min-width: 1024px){
+  // Topページ
+  .top{
+    height: 1920px;
+
+    h1 {
+      text-align: center;
+      color: blueviolet;
+      font-size: 6em;
+    }
+
+    // ボタン位置設定
+    #top-btn{
+      text-align: center;
+      padding-top: 30%;
+    }
+    // ボタン画像設定
+    .top-btn-img{
+      width: 20%;
+      height: 20%;
+    }
+
+    label{
+      font-size: 3em;
+    }
+
+    // ボタン間隔設定
+    .new-top-btn{
+      padding-left: 10%;
+    }
+  }
+}
+
+// 画面サイズ428ピクセル以上1024ピクセル未満用
+@media screen and (min-width: 428px) and (max-width: 1023px){
+  // Topページ
+  .top{
+    height: 1023px;
+
+    h1 {
+      text-align: center;
+      color: blueviolet;
+      font-size: 4em;
+    }
+
+    // ボタン位置設定
+    #top-btn{
+      text-align: center;
+      padding-top: 40%;
+    }
+
+    // ボタン画像設定
+    .top-btn-img{
+      width: 20%;
+      height: 20%;
+    }
+    label{
+      font-size: 2em;
+    }
+
+    // ボタン間隔設定
+    .new-top-btn{
+      padding-left: 10%;
+    }
+  }
+}
+
+// 画面サイズ500ピクセル以下用
+@media screen and (max-width: 428px){
+  // Topページ
+  .top{
+    height: 768px;
+
+    h1{
+      text-align: center;
+      font-size: 1.8em;
+      color: blueviolet;
+    }
+    
+    // ボタン位置設定
+    #top-btn{
+      text-align: center;
+      padding-top: 60%;
+    }
+
+    // ボタン画像設定
+    .top-btn-img{
+      width: 15%;
+      height: 15%;
+    }
+
+    // ボタン間隔設定
+    .new-top-btn{
+      padding-left: 10%;
+    }
+  }
+}

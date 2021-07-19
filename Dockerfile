@@ -2,6 +2,8 @@ FROM ruby:2.7.3
 
 LABEL name="Artificial intern" version="1.0" description="Artificial intern"
 
+ARG rails_arg="production"
+
 # 色々インストール
 RUN apt-get update && apt-get -y install gosu sudo apt-utils
 
@@ -22,19 +24,15 @@ apt-get update && apt-get -y install --no-install-recommends yarn
 # axiosインストール
 RUN yarn add axios
 
-# 日本語環境設定
-ARG WEB_LANG=en_US
-RUN localedef -i $WEB_LANG -c -f UTF-8 -A /usr/share/locale/locale.alias $WEB_LANG.UTF-8
-
-# root権限にパスワード設定
-RUN echo 'root:root' | chpasswd
-
 RUN mkdir /myapp
 WORKDIR /myapp
 COPY ./src /myapp
 RUN bundle config --local set path 'vendor/bundle' && bundle install
 
 # entrypoint.shをコピーし、実行権限を与える
-COPY entrypoint.sh /usr/bin/
+COPY entrypoint_${rails_arg}.sh /usr/bin/entrypoint.sh
 RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT [ "entrypoint.sh" ]
+EXPOSE 3000
+
+CMD [ "rails", "server", "-b", "0.0.0.0" ]
