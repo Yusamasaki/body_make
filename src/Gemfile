@@ -31,9 +31,16 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap', '~> 4.6.0'
 
+# devide機能
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
+
+# SNSログイン
+gem 'omniauth', '1.9.1'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-facebook'
+gem 'dotenv-rails'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

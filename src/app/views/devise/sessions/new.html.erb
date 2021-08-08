@@ -1,49 +1,35 @@
-<body class="align">
-
-  <div class="login">
-
-    <header class="login__header">
-      <h2><svg class="icon">
-          <use xlink:href="#icon-lock" />
-        </svg>Sign In</h2>
-    </header>
-    <div class="login__form">
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="field">
-          <%= f.label :email %>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="box">
+  <div class="box-inner">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <h2>ログイン</h2>
+      <div class="box-email">
+        <%= f.label :email, "Eメール" %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+      <div class="box-password">
+        <div class="a-row">
+          <div class="column-left">
+            <%= f.label :password, "パスワード" %>
+          </div>
+          <div class="column-right">
+            <%= link_to "パスワードを忘れた場合", new_user_password_path %>
+          </div>
         </div>
+        <%= f.password_field :password, autocomplete: "current-password" %>
+      </div><br />
       
-        <div class="field">
-          <%= f.label :password %>
-          <%= f.password_field :password, autocomplete: "current-password" %>
-        </div>
-      
+      <div class="box-login">
+        <%= f.submit "ログイン" %>
         <% if devise_mapping.rememberable? %>
-          <div class="field">
+          <div class="remember">
             <%= f.check_box :remember_me %>
-            <%= f.label :remember_me %>
-          </div><br />
+            <%= f.label :remember, "ログインしたままにする" %>
+          </div>
         <% end %>
-      
-        <div class="actions">
-          <%= f.submit t('.sign_in'), class: "button" %>
-        </div>
-      <% end %>
+      </div>
+    <% end %>
+
+    <div class="box-newusr">
+      <%= link_to "アカウントを作成", new_user_registration_path %>
     </div>
-  </div><br />
-  
-  <svg xmlns="http://www.w3.org/2000/svg" class="icons">
-
-    <symbol id="icon-lock" viewBox="0 0 448 512">
-      <path d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z" />
-    </symbol>
-
-  </svg>
-  
-</body>
-
-<footer>
-  <%= render "devise/shared/links" %>
-</footer>
-
+</div><br />
