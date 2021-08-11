@@ -8,6 +8,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     user_path(current_user)
   end
 
+  
+
   # GET /resource/sign_up
   # def new
   #   super
