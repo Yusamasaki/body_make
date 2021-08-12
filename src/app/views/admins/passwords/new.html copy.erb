@@ -1,0 +1,21 @@
+<%= render "devise/shared/error_messages", resource: resource %>
+<div class="box">
+  <div class="box-inner">
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      　<h1><%= t('.forgot_your_password') %></h1>
+        <div class="box-email">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div><br />
+      
+        <div class="box-login">
+          <%= f.submit t('.send_me_reset_password_instructions'), class: "button" %>
+        </div>
+      <% end %>
+    
+    </div>
+  </div>
+<footer>
+  <%= render "devise/shared/links" %>
+</footer>
+
