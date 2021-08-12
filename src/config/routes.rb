@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   
   root to: 'staticpages#top'
-  get 'homes/show'
 
   devise_for :users,
     controllers: {
@@ -15,4 +14,6 @@ Rails.application.routes.draw do
       registrations: "admins/registrations",
     }
 
+  resources :users, only: [:show]
+  resources :admins, only: [:show]
 end
