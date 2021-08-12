@@ -2,13 +2,13 @@
 
 // 共通設定
 //全体
-body{
+body {
   width: 100%;
   height: 100%;
 }
 
 // Top
-.top{
+.top {
   background-color: aquamarine;
   background-size: 100% 100%;
 
@@ -18,48 +18,85 @@ body{
   }
 
   label {
-   font-family: serif;
+    font-family: serif;
   }
 }
 
+//side menu
+.side-menu {
+  position: fixed;
+}
+
 // 画面サイズ1024ピクセル以上用
-@media screen and (min-width: 1024px){
+@media screen and (min-width: 1024px) {
   // Topページ
-  .top{
+  .top {
     height: 1920px;
+    width: 100%;
+    padding-left: 20%;
 
     h1 {
       text-align: center;
       color: blueviolet;
-      font-size: 6em;
+      font-size: 5em;
     }
 
     // ボタン位置設定
-    #top-btn{
+    #top-btn {
       text-align: center;
       padding-top: 30%;
     }
     // ボタン画像設定
-    .top-btn-img{
+    .top-btn-img {
       width: 20%;
       height: 20%;
     }
 
-    label{
+    label {
       font-size: 3em;
     }
 
     // ボタン間隔設定
-    .new-top-btn{
+    .new-top-btn {
       padding-left: 10%;
+    }
+  }
+
+  // side menu
+  .side-menu {
+    width: 20%;
+    height: 100%;
+    background-color: bisque;
+    position: absolute;
+
+    .body-name {
+      font-size: 40px;
+      text-align: center;
+    }
+
+    .menu-link {
+      font-size: 25px;
+      text-align: center;
+      padding-top: 30px;
+    }
+
+    .menu-link span {
+      display: block;
+    }
+
+    .menu {
+      margin-left: 20%;
+      margin-right: 25%;
+      line-height: 2em;
+      width: 60%;
     }
   }
 }
 
 // 画面サイズ428ピクセル以上1024ピクセル未満用
-@media screen and (min-width: 428px) and (max-width: 1023px){
+@media screen and (min-width: 428px) and (max-width: 1023px) {
   // Topページ
-  .top{
+  .top {
     height: 1023px;
 
     h1 {
@@ -69,54 +106,94 @@ body{
     }
 
     // ボタン位置設定
-    #top-btn{
+    #top-btn {
       text-align: center;
       padding-top: 40%;
     }
 
     // ボタン画像設定
-    .top-btn-img{
+    .top-btn-img {
       width: 20%;
       height: 20%;
     }
-    label{
+    label {
       font-size: 2em;
     }
 
     // ボタン間隔設定
-    .new-top-btn{
+    .new-top-btn {
       padding-left: 10%;
     }
+  }
+
+  // side-menu
+  .side-menu {
+    background-color: bisque;
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+    margin-top: 85%;
+  }
+
+  .menu-link {
+    font-size: 25px;
+    text-align: center;
+    padding-bottom: 1em;
+  }
+
+  .menu {
+    padding-left: 20px;
+    width: 30%;
   }
 }
 
 // 画面サイズ500ピクセル以下用
-@media screen and (max-width: 428px){
+@media screen and (max-width: 428px) {
   // Topページ
-  .top{
+  .top {
     height: 768px;
 
-    h1{
+    h1 {
       text-align: center;
       font-size: 1.8em;
       color: blueviolet;
     }
-    
+
     // ボタン位置設定
-    #top-btn{
+    #top-btn {
       text-align: center;
       padding-top: 60%;
     }
 
     // ボタン画像設定
-    .top-btn-img{
+    .top-btn-img {
       width: 15%;
       height: 15%;
     }
 
     // ボタン間隔設定
-    .new-top-btn{
+    .new-top-btn {
       padding-left: 10%;
     }
+  }
+
+  // side-menu
+  .side-menu {
+    background-color: bisque;
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+    margin-top: 100%;
+  }
+
+  .menu-link {
+    font-size: 10px;
+    text-align: center;
+    padding-bottom: 1em;
+  }
+
+  .menu {
+    padding-left: 5px;
+    width: 30%;
   }
 }
