@@ -32,3 +32,5 @@ src/node_modules
 src/yarn-error.log
 src/yarn-debug.log*
 src/.yarn-integrity
+
+.env

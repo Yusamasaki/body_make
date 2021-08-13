@@ -2,7 +2,7 @@ FROM ruby:2.7.3
 
 LABEL name="Artificial intern" version="1.0" description="Artificial intern"
 
-ARG rails_arg="production"
+ARG rails_arg="development"
 
 # 色々インストール
 RUN apt-get update && apt-get -y install gosu sudo apt-utils
