@@ -1,0 +1,2 @@
+class Bmr < ApplicationRecord
+end
