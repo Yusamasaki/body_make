@@ -32,6 +32,7 @@ body {
 //side menu
 .side-menu {
   position: fixed;
+  z-index: inherit;
 }
 
 // 画面サイズ1024ピクセル以上用
@@ -74,7 +75,6 @@ body {
     width: 20%;
     height: 100%;
     background-color: bisque;
-    position: absolute;
 
     .body-name {
       font-size: 40px;
@@ -138,7 +138,6 @@ body {
     background-color: bisque;
     width: 100%;
     bottom: 0;
-    position: absolute;
     margin-top: 85%;
   }
 
@@ -189,7 +188,6 @@ body {
     background-color: bisque;
     width: 100%;
     bottom: 0;
-    position: absolute;
     margin-top: 100%;
   }
 

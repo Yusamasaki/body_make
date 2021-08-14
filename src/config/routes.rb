@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  
   root to: 'staticpages#top'
 
   devise_for :users,
@@ -14,6 +13,8 @@ Rails.application.routes.draw do
       registrations: "admins/registrations",
     }
 
-  resources :users, only: [:show]
+  resources :users, only: [:show] do
+    get 'targetweights/new'
+  end
   resources :admins, only: [:show]
 end
