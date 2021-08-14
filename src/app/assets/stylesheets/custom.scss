@@ -1,6 +1,13 @@
 @import "bootstrap";
 
 // 共通設定
+
+//画面を真ん中へ
+.container{
+  display: grid;
+  place-items: center;
+}
+
 //全体
 body {
   width: 100%;
