@@ -6,7 +6,7 @@ services:
     env_file: web_db.env
     image: postgres:12
     volumes:
-      - ./src/tmp/postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     
   web: &web
     env_file: web_db.env
@@ -31,3 +31,8 @@ services:
       - web
     stdin_open: false
     tty: false
+
+volumes:
+  postgres_data:
+    driver: local
+  
