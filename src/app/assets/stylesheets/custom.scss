@@ -1,32 +1,21 @@
 @import "bootstrap";
 
 // 共通設定
-
-//画面を真ん中へ
-.container{
-  display: grid;
-  place-items: center;
+body,
+html {
+  margin: 0;
+  padding: 0;
 }
+
 
 //全体
-body {
-  width: 100%;
-  height: 100%;
-}
-
-// Top
 .top {
   background-color: aquamarine;
-  background-size: 100% 100%;
+}
 
-  h1 {
-    padding-top: 10px;
-    font-family: serif;
-  }
-
-  label {
-    font-family: serif;
-  }
+.alert,.notice {
+  position: absolute;
+  margin-left: 25%;
 }
 
 //side menu
@@ -35,24 +24,38 @@ body {
   z-index: inherit;
 }
 
+// debug(params)
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 70%;
+  margin-top: 45px;
+  margin-left: 25%;
+  padding: 5px 0 5px 2%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: solid 3px red; 
+}
+
 // 画面サイズ1024ピクセル以上用
 @media screen and (min-width: 1024px) {
   // Topページ
   .top {
-    height: 1920px;
-    width: 100%;
-    padding-left: 20%;
+    margin-left: 20%;
 
     h1 {
       text-align: center;
       color: blueviolet;
+      padding-top: 10px;
+      font-family: serif;
       font-size: 5em;
     }
 
     // ボタン位置設定
     #top-btn {
       text-align: center;
-      padding-top: 30%;
+      padding-top: 30em;
     }
     // ボタン画像設定
     .top-btn-img {
@@ -62,6 +65,7 @@ body {
 
     label {
       font-size: 3em;
+      font-family: serif;
     }
 
     // ボタン間隔設定
@@ -96,6 +100,31 @@ body {
       margin-right: 25%;
       line-height: 2em;
       width: 60%;
+    }
+  }
+
+  //ユーザー画面
+  .user-show {
+    margin-left: 50%;
+  }
+
+  // 目標設定(show)
+  .weight-new {
+    width: 50%;
+    margin-left: 25%;
+    h1 {
+      font-size: 5em;
+      font-family: serif;
+    }
+    .label-weight {
+      margin-top: 10px;
+    }
+    .form-control {
+      margin-bottom: 10px;
+    }
+    .btn-setup {
+      margin-top: 30px; 
+      line-height: 20px;
     }
   }
 }
