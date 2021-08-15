@@ -1,0 +1,2 @@
+class Bodyweight < ApplicationRecord
+end
