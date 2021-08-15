@@ -1,5 +1,8 @@
 <% provide(:title, "目標設定") %>
 <h1>目標設定</h1>
-<%#= form_with(model: , local: true) do |f| %>
+<%= form_with(model: @user, local: true) do |f| %>
+  <%= f.label :now_weight %>
+  <%= f.text_field :now_weight, class: "" %>
 
+  
 <% end %>
