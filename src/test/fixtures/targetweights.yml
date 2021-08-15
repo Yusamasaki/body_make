@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  body_weight: 1
+  bodyfat_paercentage: 1
+
+two:
+  body_weight: 1
+  bodyfat_paercentage: 1
