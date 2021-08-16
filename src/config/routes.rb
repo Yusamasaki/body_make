@@ -1,11 +1,5 @@
 Rails.application.routes.draw do
   
-  get 'bodyweights/index'
-  get 'bodyweights/new'
-  get 'bodyweights/create'
-  get 'bodyweights/show'
-  get 'bodyweights/update'
-  get 'bodyweights/destroy'
   root to: 'staticpages#top'
 
   devise_for :users,
@@ -20,6 +14,9 @@ Rails.application.routes.draw do
       registrations: "admins/registrations",
     }
 
-  resources :users, only: [:show]
+  resources :users, only: [:show] do
+    resources :bodyweights
+  end
   resources :admins, only: [:show]
+
 end
