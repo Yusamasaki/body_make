@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     }
 
   resources :users, only: [:show] do
-    get 'targetweights/new'
+    resources :targetweights, only: [:new, :create]
   end
   resources :admins, only: [:show]
 end

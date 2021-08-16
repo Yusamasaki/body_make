@@ -1,9 +1,21 @@
 class TargetweightsController < ApplicationController
-  before_action :set_user, only:[:update]
 
   def new
+    @user = User.find(params[:user_id])
+    @tw = Targetweight.new
   end
-  def update
-    
+  def create
+    @user = User.find(params[:user_id])
+    @tw = Targetweight.new(targetweight_params)
+    if @tw.save
+      redirect_to root
+    else
+      render :new
+    end
+  end
+
+  private
+  def targetweight_params
+    params.require(:targetweight).permit(:body_weight, :bodyfat_parcentag, :target_days)
   end
 end
