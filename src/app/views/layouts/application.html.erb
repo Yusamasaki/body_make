@@ -15,8 +15,12 @@
       <%= render 'layouts/side_menu' %>
     <% end %>
     <div class="container">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+    <% flash.each do |message_type, msg| %>
+      <div class="alert alert-<%= message_type %>"><%= msg.html_safe %></div>
+      
+    <% end %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <p class="notice"><%= notice %></p>
       <%= yield %>
     </div>
     <div class="container">
