@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   
+  get 'bodyweights/index'
+  get 'bodyweights/new'
+  get 'bodyweights/create'
+  get 'bodyweights/show'
+  get 'bodyweights/update'
+  get 'bodyweights/destroy'
   root to: 'staticpages#top'
 
   devise_for :users,
