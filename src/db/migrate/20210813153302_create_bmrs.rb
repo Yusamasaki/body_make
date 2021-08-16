@@ -5,6 +5,7 @@ class CreateBmrs < ActiveRecord::Migration[5.2]
       t.integer :age
       t.integer :height
 
+      t.references :user, foreign_key: true
       t.timestamps
     end
   end
