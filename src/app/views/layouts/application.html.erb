@@ -12,15 +12,12 @@
   </head>
   <body>
     <% if user_signed_in? %>
-      <%= render 'layouts/side_menu' %>
     <% end %>
     <div class="container">
-    <% flash.each do |message_type, msg| %>
-      <div class="alert alert-<%= message_type %>"><%= msg.html_safe %></div>
-      
-    <% end %>
-    <%= render "devise/shared/error_messages", resource: resource %>
-    <p class="notice"><%= notice %></p>
+      <% flash.each do |message_type, msg| %>
+        <div class="alert alert-<%= message_type %>"><%= msg.html_safe %></div>
+      <% end %>
+      <p class="notice"><%= notice %></p>
       <%= yield %>
     </div>
     <div class="container">

@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    models:
+      user:
+    attributes:
+        user:
+        bodyweight:
+          body_weight: 体重
+          bodyfat_percentages:　体脂肪率
+
