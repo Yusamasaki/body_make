@@ -21,8 +21,8 @@
       <th scope="row"><%= body_weight.id %></th>
       <td><%= body_weight.body_weight %></td>
       <td><%= body_weight.bodyfat_percentage %></td>
-      <td><%= link_to "編集", "#", class: "btn btn-default btn-success" %></td>
-      <td><%= link_to "削除", "#", class: "btn btn-default btn-danger" %></td>
+      <td><%= link_to "編集", edit_user_bodyweight_path(current_user, body_weight), class: "btn btn-default btn-success" %></td>
+      <td><%= link_to "削除", user_bodyweight_path(current_user, body_weight), method: :delete, class: "btn btn-default btn-danger" %></td>
     </tr>
     <% end %>
   </tbody>
