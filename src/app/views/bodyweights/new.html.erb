@@ -1,2 +1,14 @@
 <h1>Bodyweights#new</h1>
 <p>Find me in app/views/bodyweights/new.html.erb</p>
+
+<%= form_with(model: @body_weight, url: user_bodyweights_path, method: :post, local: true) do |f| %>
+
+  <%= f.label :body_weight, class: "label-form" %>
+  <%= f.number_field :body_weight, class: "form-control" %>
+
+  <%= f.label :bodyfat_percentage, class: "label-form" %>
+  <%= f.number_field :bodyfat_percentage, class: "form-control" %>
+  
+  <%= f.submit "新規登録", class: "btn btn-lg btn-primary btn-form" %>
+
+<% end %>
