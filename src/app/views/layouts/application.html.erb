@@ -11,7 +11,9 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <%= render 'layouts/side_menu' %>
+    <% if user_signed_in? %>
+      <%= render 'layouts/side_menu' %>
+    <% end %>
     <div class="container">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
