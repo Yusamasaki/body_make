@@ -231,3 +231,161 @@ html {
     width: 30%;
   }
 }
+
+/*------------------------------------
+- COLOR original (サイトイメージカラー)
+------------------------------------*/
+
+$original_t1: #274277;
+$original_t2: #1a2c50;
+$original_t3: #6c8ecf;
+$original_t4: #809cd5;
+$original_t5: #080e1a;
+$original_t6: #162645;
+$original_t7: #1e335c;
+$original_t8: #000000;
+$original_t9: #8fa8da;
+
+$original_shadow: rgba(39, 66, 119, 0.5);
+$original_text_color_dark_bright: #fff;
+
+
+.alert-original {
+  color: $original_t5;
+  background-color: $original_t9;
+  border-color: $original_t4;
+}
+
+.alert-original hr {
+  border-top-color: $original_t3;
+}
+
+.alert-original .alert-link {
+  color: $original_t8;
+}
+
+.badge-original {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t1;
+}
+
+.badge-original[href]:hover, .badge-original[href]:focus {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t2;
+}
+
+.bg-original {
+  background-color: $original_t1 !important;
+}
+
+a.bg-original:hover, a.bg-original:focus,
+button.bg-original:hover,
+button.bg-original:focus {
+  background-color: $original_t2 !important;
+}
+
+.border-original {
+  border-color: $original_t1 !important;
+}
+
+.btn-original {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t1;
+  border-color: $original_t1;
+}
+
+.btn-original:hover {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t7;
+  border-color: $original_t2;
+}
+
+.btn-original:focus, .btn-original.focus {
+  box-shadow: 0 0 0 0.2rem $original_shadow;
+}
+
+.btn-original.disabled, .btn-original:disabled {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t1;
+  border-color: $original_t1;
+}
+
+.btn-original:not(:disabled):not(.disabled):active, .btn-original:not(:disabled):not(.disabled).active, .show > .btn-original.dropdown-toggle {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t2;
+  border-color: $original_t6;
+}
+
+.btn-original:not(:disabled):not(.disabled):active:focus, .btn-original:not(:disabled):not(.disabled).active:focus, .show > .btn-original.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem $original_shadow;
+}
+
+.btn-outline-original {
+  color: $original_t1;
+  background-color: transparent;
+  border-color: $original_t1;
+}
+
+.btn-outline-original:hover {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t1;
+  border-color: $original_t1;
+}
+
+.btn-outline-original:focus, .btn-outline-original.focus {
+  box-shadow: 0 0 0 0.2rem $original_shadow;
+}
+
+.btn-outline-original.disabled, .btn-outline-original:disabled {
+  color: $original_t1;
+  background-color: transparent;
+}
+
+.btn-outline-original:not(:disabled):not(.disabled):active, .btn-outline-original:not(:disabled):not(.disabled).active, .show > .btn-outline-original.dropdown-toggle {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t1;
+  border-color: $original_t1;
+}
+
+.btn-outline-original:not(:disabled):not(.disabled):active:focus, .btn-outline-original:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-original.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem $original_shadow;
+}
+
+.list-group-item-original {
+  color: $original_t5;
+  background-color: $original_t4;
+}
+
+.list-group-item-original.list-group-item-action:hover, .list-group-item-original.list-group-item-action:focus {
+  color: $original_t5;
+  background-color: $original_t3;
+}
+
+.list-group-item-original.list-group-item-action.active {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t5;
+  border-color: $original_t5;
+}
+
+.table-original,
+.table-original > th,
+.table-original > td {
+  background-color: $original_t4;
+}
+
+.table-hover .table-original:hover {
+  background-color: $original_t3;
+}
+
+.table-hover .table-original:hover > td,
+.table-hover .table-original:hover > th {
+  background-color: $original_t3;
+}
+
+.text-original {
+  color: $original_t1 !important;
+}
+
+a.text-original:hover, a.text-original:focus {
+  color: $original_t2 !important;
+}

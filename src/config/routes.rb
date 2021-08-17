@@ -17,4 +17,5 @@ Rails.application.routes.draw do
     resources :targetweights, only: [:new, :create]
   end
   resources :admins, only: [:show]
+  resources :exercise_categories
 end
