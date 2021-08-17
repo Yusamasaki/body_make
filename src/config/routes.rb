@@ -16,4 +16,5 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show]
   resources :admins, only: [:show]
+  resources :exercise_categories
 end
