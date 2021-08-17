@@ -20,11 +20,27 @@ class BodyweightsController < ApplicationController
 
   def show
   end
+  
+  def edit
+    @body_weight = current_user.bodyweights.find(params[:id])
+  end
 
   def update
+    @body_weight = current_user.bodyweights.find(params[:id])
+    if @body_weight.update_attributes!(body_weight_params)
+      flash[:success] = "更新に成功しました。"
+      redirect_to user_bodyweights_path(current_user)
+    else
+      flash[:danger] = "更新に失敗しました。"
+      redirect_to user_bodyweights_path(current_user)
+    end
   end
 
   def destroy
+    @body_weight = current_user.bodyweights.find(params[:id])
+    @body_weight.destroy
+    flash[:danger] = "#{@body_weight.body_weight}を削除しました"
+    redirect_to user_bodyweights_path(current_user)
   end
 
   private
