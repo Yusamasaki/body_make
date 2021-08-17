@@ -48,15 +48,6 @@ ActiveRecord::Schema.define(version: 2021_08_15_053613) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "bodyweights", force: :cascade do |t|
-    t.datetime "start_time"
-    t.integer "body_weight"
-    t.integer "bodyfat_percentage"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_bmrs_on_user_id"
-  end
-
   create_table "sns_credentials", force: :cascade do |t|
     t.string "provider"
     t.string "uid"
