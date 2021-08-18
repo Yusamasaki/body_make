@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  
-  get 'exercise_contents/new'
   root to: 'staticpages#top'
 
   devise_for :users,
@@ -15,7 +13,9 @@ Rails.application.routes.draw do
       registrations: "admins/registrations",
     }
 
-  resources :users, only: [:show]
+  resources :users, only: [:show] do
+    resources :targetweights, only: [:new, :create]
+  end
   resources :admins, only: [:show]
   
   resources :exercise_categories do
