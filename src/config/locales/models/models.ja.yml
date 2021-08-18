@@ -9,5 +9,9 @@ ja:
         answer: 回答
       targetweight:
         body_weight: 現在の体重
-        bodyfat_parcentag: 目標体重
+        bodyfat_parcentage: 目標体重
         target_days: 目標日数
+      bmr:
+          gender: 性別
+          age: 年齢
+          height: 身長

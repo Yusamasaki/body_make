@@ -1,0 +1,21 @@
+<% provide(:title, "基礎代謝設定") %>
+
+<%= form_with(model: [@user, @bmr], local: true) do |f| %>
+  <%= render 'shared/error_messages', object: @bmr %>
+  <div class= "bmr-new">
+    <h1>基礎代謝設定</h1>
+
+    <%= f.label :gender, class: "label" %>
+    <%= f.select :gender, {'男性':"男性", '女性':"女性"}, {include_blank: "選択してください"}, class: "form-control" %>
+
+    <%= f.label :age, class: "label" %>
+    <%= f.text_field :age, class: "form-control" %>
+
+    <%= f.label :height, class: "label" %>
+    <%= f.text_field :height, class: "form-control" %>
+
+    <%= f.hidden_field :user_id, value: @user.id %>
+
+    <%= f.submit "登録", class: "btn btn-primary btn-block btn-setup" %>
+  </div>
+<% end %>
