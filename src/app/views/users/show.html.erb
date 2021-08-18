@@ -1,8 +1,7 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
-<div><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></div>
-<div>ログインしているユーザー[<%= current_user.username %>]</div>
-<div><%= link_to "ユーザー情報変更", edit_user_registration_path %></div>
-<%= month_calendar do |date| %>
-  <%= link_to date.day, "#" %>
-<% end %>
+<div class= "user-show">
+  <h1>Users#show</h1>
+  <p>Find me in app/views/users/show.html.erb</p>
+  <div><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></div>
+  <div>ログインしているユーザー[<%= current_user.username %>]</div>
+  <div><%= link_to "ユーザー情報変更", edit_user_registration_path %></div>
+</div>
