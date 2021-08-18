@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'bmrs/new'
   root to: 'staticpages#top'
 
   devise_for :users,
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show] do
     resources :targetweights, only: [:new, :create]
+    resources :bmrs, only: [:new, :create]
   end
   resources :admins, only: [:show]
   resources :exercise_categories

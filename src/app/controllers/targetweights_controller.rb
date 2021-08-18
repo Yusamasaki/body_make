@@ -16,6 +16,6 @@ class TargetweightsController < ApplicationController
 
   private
   def targetweight_params
-    params.require(:targetweight).permit(:body_weight, :bodyfat_parcentag, :target_days, :user_id)
+    params.require(:targetweight).permit(:body_weight, :bodyfat_parcentage, :target_days, :user_id)
   end
 end
