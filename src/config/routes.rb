@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  get 'exercise_contents/new'
   root to: 'staticpages#top'
 
   devise_for :users,
@@ -16,5 +17,8 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show]
   resources :admins, only: [:show]
-  resources :exercise_categories
+  
+  resources :exercise_categories do
+    resources :exercise_contents
+  end
 end
