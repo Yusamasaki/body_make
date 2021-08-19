@@ -10,7 +10,7 @@ class BmrsController < ApplicationController
     if @bmr.save
       redirect_to @user
     else
-      return :new
+      render :new
     end
   end
 
