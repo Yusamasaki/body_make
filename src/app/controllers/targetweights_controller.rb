@@ -8,7 +8,7 @@ class TargetweightsController < ApplicationController
     @user = User.find(params[:user_id])
     @tw = Targetweight.new(targetweight_params)
     if @tw.save
-      redirect_to @user
+      redirect_to new_user_bmr_path
     else
       render :new
     end
