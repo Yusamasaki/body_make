@@ -1,0 +1,32 @@
+<h1>Bodyweights#index</h1>
+<p>Find me in app/views/bodyweights/index.html.erb</p>
+<%= link_to "新規作成", new_user_bodyweight_path(current_user) %>
+<% @body_weights.each do |body_weight| %>
+  
+  
+<% end %>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>#</th>
+      <th><%= Bodyweight.human_attribute_name  :body_weight %></th>
+      <th><%= Bodyweight.human_attribute_name  :bodyfat_percentage %></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @body_weights.each do |body_weight| %>
+    <tr>
+      <th scope="row"><%= body_weight.id %></th>
+      <td><%= body_weight.body_weight %></td>
+      <td><%= body_weight.bodyfat_percentage %></td>
+      <td><%= link_to "編集", edit_user_bodyweight_path(current_user, body_weight), class: "btn btn-default btn-success" %></td>
+      <td>
+        <%= link_to "削除", user_bodyweight_path(user_id: current_user, id: body_weight),
+            method: :delete, data:{confirm:"本当に削除していいですか？"}, class: "btn btn-default btn-danger" %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

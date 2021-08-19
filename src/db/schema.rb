@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_16_110643) do
+ActiveRecord::Schema.define(version: 2021_08_17_114211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,14 +44,24 @@ ActiveRecord::Schema.define(version: 2021_08_16_110643) do
     t.datetime "start_time"
     t.integer "body_weight"
     t.integer "bodyfat_percentage"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_bodyweights_on_user_id"
+  end
+
+  create_table "exercise_categories", force: :cascade do |t|
+    t.string "name", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "exercise_categories", force: :cascade do |t|
-    t.string "name", null: false
+  create_table "exercise_contents", force: :cascade do |t|
+    t.string "content", default: "", null: false
+    t.bigint "exercise_category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["exercise_category_id"], name: "index_exercise_contents_on_exercise_category_id"
   end
 
   create_table "sns_credentials", force: :cascade do |t|
@@ -89,6 +99,8 @@ ActiveRecord::Schema.define(version: 2021_08_16_110643) do
   end
 
   add_foreign_key "bmrs", "users"
+  add_foreign_key "bodyweights", "users"
+  add_foreign_key "exercise_contents", "exercise_categories"
   add_foreign_key "sns_credentials", "users"
   add_foreign_key "targetweights", "users"
 end

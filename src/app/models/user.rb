@@ -1,33 +1,38 @@
 class User < ApplicationRecord
+
+  has_many :bodyweights, dependent: :destroy
+
   has_one :targetweights
   has_one :bmrs
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[facebook google_oauth2]
+         
 
   def self.without_sns_data(auth)
     user = User.where(email: auth.info.email).first
       
-      if user.present?
-        sns = SnsCredential.create(
-          uid: auth.uid,
-          provider: auth.provider,
-          user_id: user.id
-          )
-      else
-        user = User.new(
-          username: auth.info.name,
-          email: auth.info.email,
-          )
-        sns = SnsCredential.new(
-          uid: auth.uid,
-          provider: auth.provider
-          )
-        end
-        return { user: user ,sns: sns}
-      end
+    if user.present?
+      sns = SnsCredential.create(
+        uid: auth.uid,
+        provider: auth.provider,
+        user_id: user.id
+      )
+    else
+      user = User.new(
+        username: auth.info.name,
+        email: auth.info.email,
+      )
+      sns = SnsCredential.new(
+        uid: auth.uid,
+        provider: auth.provider
+      )
+    end
+    return { user: user ,sns: sns}
+  end
       
   def self.with_sns_data(auth, snscredential)
     user = User.where(id: snscredential.user_id).first
