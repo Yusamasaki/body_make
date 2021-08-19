@@ -4,7 +4,16 @@
   <div><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></div>
   <div>ログインしているユーザー[<%= current_user.username %>]</div>
   <div><%= link_to "ユーザー情報変更", edit_user_registration_path %></div>
-</div>
+</div>  
+  <div class="calender">
+    <%= month_calendar do |date| %>
+      <%= link_to date.day, user_bodyweights_path(current_user, start_time: date)  %>
+    <% end %>
+  </div>
+  
+
+
+
 
 
 
