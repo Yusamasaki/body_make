@@ -8,7 +8,7 @@ class TargetweightsController < ApplicationController
     @user = User.find(params[:user_id])
     @tw = Targetweight.new(targetweight_params)
     if @tw.save
-      redirect_to @user
+      redirect_to new_user_bmr_path
     else
       render :new
     end
@@ -16,6 +16,6 @@ class TargetweightsController < ApplicationController
 
   private
   def targetweight_params
-    params.require(:targetweight).permit(:body_weight, :bodyfat_parcentag, :target_days, :user_id)
+    params.require(:targetweight).permit(:body_weight, :bodyfat_parcentage, :target_days, :user_id)
   end
 end

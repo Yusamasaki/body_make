@@ -109,14 +109,14 @@ html {
   }
 
   // 目標設定(show)
-  .weight-new {
+  .weight-new, .bmr-new {
     width: 50%;
     margin-left: 25%;
     h1 {
       font-size: 5em;
       font-family: serif;
     }
-    .label-weight {
+    .label {
       margin-top: 10px;
     }
     .form-control {
