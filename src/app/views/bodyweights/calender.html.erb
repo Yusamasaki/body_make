@@ -1,0 +1,19 @@
+<div class="modal-dialog modal-lg modal-dialog-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h1 class="modal-title">カレンダー</h1><br>
+      <div>
+        <%= month_calendar do |date| %>
+          <% if @body_weight.start_time == date %>
+            <%= link_to date.day, user_path(current_user, start_time: date) %>
+          <% else %>
+            <%= link_to date.day, new_user_bodyweight_path(current_user, start_time: date) %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

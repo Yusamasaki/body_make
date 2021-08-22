@@ -17,13 +17,23 @@
       <% @body_weights.each do |body_weight| %>
       <tr>
         <th scope="row"><%= body_weight.id %></th>
-        <td><%= body_weight.start_time %></td>
+        <td><%= l body_weight.start_time %></td>
         <td><%= body_weight.body_weight %></td>
         <td><%= body_weight.bodyfat_percentage %></td>
-        <td><%= link_to "編集", edit_user_bodyweight_path(current_user, body_weight), class: "btn btn-default btn-success" %></td>
         <td>
-          <%= link_to "削除", user_bodyweight_path(user_id: current_user, id: body_weight),
-              method: :delete, data:{confirm:"本当に削除していいですか？"}, class: "btn btn-default btn-danger" %>
+          <%= 
+            link_to "編集", edit_user_bodyweight_path(
+            current_user, body_weight, start_time: params[:start_time]), 
+            class: "btn btn-default btn-success" 
+          %>
+        </td>
+        <td>
+          <%= 
+            link_to "削除", user_bodyweight_path(
+            user_id: current_user, id: body_weight, start_time: params[:start_time]),
+            method: :delete, data:{confirm:"本当に削除していいですか？"},
+            class: "btn btn-default btn-danger" 
+          %>
         </td>
       </tr>
       <% end %>
