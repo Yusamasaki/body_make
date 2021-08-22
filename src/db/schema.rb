@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2021_08_19_122859) do
 
   create_table "exercise_contents", force: :cascade do |t|
     t.string "content", default: "", null: false
+    t.integer "calorie", default: 0, null: false
     t.bigint "exercise_category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -84,9 +85,8 @@ ActiveRecord::Schema.define(version: 2021_08_19_122859) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-08-19", null: false
-    t.datetime "exercise_time", default: "2021-08-19 00:00:00", null: false
-    t.integer "calorie", default: 0, null: false
+    t.date "start_time", default: "2021-08-22", null: false
+    t.datetime "exercise_time", default: "2021-08-22 00:00:00", null: false
     t.string "note"
     t.bigint "exercise_category_id"
     t.bigint "user_id"
