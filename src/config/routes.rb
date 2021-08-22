@@ -19,7 +19,10 @@ Rails.application.routes.draw do
     
     resources :bodyweights
     resources :targetweights, only: [:new, :create]
+    resources :bmrs, only: [:new, :create]
   end
+
+  resources :today_exercises
 
   resources :exercise_categories do
     resources :exercise_contents
