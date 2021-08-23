@@ -7,15 +7,21 @@
   <div>日にち<%= params[:start_time] %></div>
   <div>あなたの本日の体重は<%= @body_weight.body_weight %>です</div>
 </div>  
-  <div class="calender">
-    <%= month_calendar do |date| %>
-      <% if @body_weight.start_time == date %>
-        <%= link_to date.day, user_path(current_user, start_time: date) %>
-      <% else %>
-        <%= link_to date.day, new_user_bodyweight_path(current_user, start_time: date) %>
-      <% end %>
+<div class="calender">
+  <%= month_calendar do |date| %>
+    <% if @body_weight.start_time == date %>
+      <%= link_to date.day, user_path(current_user, start_time: date) %>
+    <% else %>
+      <%= link_to date.day, new_user_bodyweight_path(current_user, start_time: date) %>
     <% end %>
-  </div>
+  <% end %>
+</div>
+<div class="bodyweight-chart">
+  <%= line_chart current_user.bodyweights.pluck(:start_time, :body_weight),
+      width: "800px", height: "500px"
+  %>
+</div>
+  
   
 
 
