@@ -1,3 +1,6 @@
+
+<!--その他仮置き-->
+
 <div class= "user-show">
   <h1>Users#show</h1>
   <p>Find me in app/views/users/show.html.erb</p>
@@ -8,18 +11,35 @@
   <% if @body_weight.nil? %>
     <div></div>
   <% else %>
-    <div>あなたの本日の体重は<%= @body_weight.body_weight %>です</div>
+    <div>本日の体重は<%= @body_weight.body_weight %>kgです</div>
   <% end %>
-</div>  
+  <div>
+    <%= 
+      link_to "体重編集", edit_user_bodyweight_path(
+      user_id: current_user, id: params[:bodyweight_id], start_time: params[:start_time])
+    %>
+  </div>
+</div>
+
+<!--カレンダー-->
+
 <div class="calender">
-  <%= month_calendar do |date| %>
+  <%= month_calendar events: @body_weights do |date, events| %>
     <% if @body_weight.start_time == date %>
       <%= link_to date.day, user_path(current_user, start_time: date) %>
     <% else %>
       <%= link_to date.day, new_user_bodyweight_path(current_user, start_time: date) %>
     <% end %>
+      <% events.each do |event| %>
+        <div>
+          <%= event.body_weight %>kg
+        </div>
+      <% end %>
   <% end %>
 </div>
+
+<!--グラフ-->
+
 <div class="bodyweight-chart">
   <%= line_chart current_user.bodyweights.pluck(:start_time, :body_weight),
       width: "800px", height: "500px"

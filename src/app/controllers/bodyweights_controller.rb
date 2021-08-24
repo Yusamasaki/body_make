@@ -11,7 +11,7 @@ class BodyweightsController < ApplicationController
     @body_weight = current_user.bodyweights.new(body_weight_params)
     if @body_weight.save
       flash[:success] = "新規作成に成功しました。"
-      redirect_to user_path(current_user, bodyweight_id: @body_weight, start_time: params[:start_time] )
+      redirect_to user_path(current_user, bodyweight_id: @body_weight, start_time: params[:start_time])
     else
       flash[:danger] = "新規作成に失敗しました。"
       redirect_to new_user_bodyweight_path(current_user, start_time: params[:start_time])
@@ -29,10 +29,10 @@ class BodyweightsController < ApplicationController
     @body_weight = current_user.bodyweights.find(params[:id])
     if @body_weight.update_attributes!(body_weight_params)
       flash[:success] = "更新に成功しました。"
-      redirect_to user_bodyweights_path(current_user, start_time: params[:start_time])
+      redirect_to user_path(current_user, bodyweight_id: @body_weight, start_time: params[:start_time])
     else
       flash[:danger] = "更新に失敗しました。"
-      redirect_to user_bodyweights_path(current_user, start_time: params[:start_time])
+      redirect_to user_path(current_user, bodyweight_id: @body_weight, start_time: params[:start_time])
     end
   end
 

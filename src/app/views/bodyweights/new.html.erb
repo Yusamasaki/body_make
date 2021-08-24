@@ -18,14 +18,4 @@
     </div>
   <% end %>
   
-  <%= form_with(model: @body_weight, url: user_bodyweights_path(start_time: params[:start_time]), method: :post, local: true) do |f| %>
-  
-    <%= f.hidden_field :start_time, value: params[:start_time] %>
-    <%= f.hidden_field :body_weight, value: "" %>
-    <%= f.hidden_field :bodyfat_percentage, value: "" %>
-    
-    <div class="bodyweights_box">
-      <%= f.submit "skip", class: "btn btn-sm btn-default" %>
-    </div>
-  <% end %>
 </div>
