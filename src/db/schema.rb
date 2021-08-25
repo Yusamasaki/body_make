@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_17_114211) do
+ActiveRecord::Schema.define(version: 2021_08_19_122859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2021_08_17_114211) do
 
   create_table "exercise_contents", force: :cascade do |t|
     t.string "content", default: "", null: false
+    t.integer "calorie", default: 0, null: false
     t.bigint "exercise_category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -83,6 +84,18 @@ ActiveRecord::Schema.define(version: 2021_08_17_114211) do
     t.index ["user_id"], name: "index_targetweights_on_user_id"
   end
 
+  create_table "today_exercises", force: :cascade do |t|
+    t.date "start_time", default: "2021-08-22", null: false
+    t.datetime "exercise_time", default: "2021-08-22 00:00:00", null: false
+    t.string "note"
+    t.bigint "exercise_category_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_category_id"], name: "index_today_exercises_on_exercise_category_id"
+    t.index ["user_id"], name: "index_today_exercises_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -103,4 +116,6 @@ ActiveRecord::Schema.define(version: 2021_08_17_114211) do
   add_foreign_key "exercise_contents", "exercise_categories"
   add_foreign_key "sns_credentials", "users"
   add_foreign_key "targetweights", "users"
+  add_foreign_key "today_exercises", "exercise_categories"
+  add_foreign_key "today_exercises", "users"
 end

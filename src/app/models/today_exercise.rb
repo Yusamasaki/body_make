@@ -1,0 +1,2 @@
+class TodayExercise < ApplicationRecord
+end
