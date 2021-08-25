@@ -6,12 +6,12 @@ class TargetweightsController < ApplicationController
   end
   
   def new
-    if Targetweight.where(user_id: @user.id).blank?
+    # if Targetweight.where(user_id: @user.id).blank?
       @tw = Targetweight.new
-    else
-      flash[:success] = "登録済みです"
-      redirect_to @user
-    end
+    # else
+      # flash[:success] = "登録済みです"
+      # redirect_to @user
+    # end
   end
   def create
     @tw = Targetweight.new(targetweight_params)
@@ -23,11 +23,17 @@ class TargetweightsController < ApplicationController
   end
 
   def edit
-    @tw = Targetweight.find(params[:id])
+    @tw = Targetweight.find_by(user_id: @user.id)
   end
 
   def update
-
+    @tw = Targetweight.find_by(user_id: @user.id)
+    if @tw.update_attributes(targetweight_params)
+      flash[:success] = "更新完了しました"
+      redirect_to @user
+    else
+      render :edit
+    end
   end
 
   private
