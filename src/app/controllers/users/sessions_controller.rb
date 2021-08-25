@@ -4,12 +4,8 @@ class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
   
   def after_sign_in_path_for(resource)
-    @bodyweight = current_user.bodyweights.find_by(start_time: Date.current) 
-    if @bodyweight.nil?
-      new_user_bodyweight_path(current_user, start_time: Date.current)
-    else
-      user_path(current_user, start_time: Date.current, bodyweight_id: @bodyweight)
-    end
+    @bodyweight = current_user.bodyweights.find_by(start_time: Date.current)
+    user_path(current_user, start_time: Date.current, bodyweight_id: @bodyweight)
   end
   
   def after_sign_out_path_for(resource)

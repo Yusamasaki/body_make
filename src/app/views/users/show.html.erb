@@ -8,28 +8,20 @@
   <div>ログインしているユーザー[<%= current_user.username %>]</div>
   <div><%= link_to "ユーザー情報変更", edit_user_registration_path %></div>
   <div>日にち<%= params[:start_time] %></div>
-  <% if @body_weight.nil? %>
-    <div></div>
-  <% else %>
+  <div><%= link_to "体重追加", new_user_bodyweight_path(current_user, start_time: params[:start_time]) if @body_weight.blank? %></div>
+  <% if @body_weight.present? %>
     <div>本日の体重は<%= @body_weight.body_weight %>kgです</div>
-  <% end %>
-  <div>
     <%= 
       link_to "体重編集", edit_user_bodyweight_path(
       user_id: current_user, id: params[:bodyweight_id], start_time: params[:start_time])
     %>
-  </div>
+  <% end %>
 </div>
 
 <!--カレンダー-->
-
 <div class="calender">
   <%= month_calendar events: @body_weights do |date, events| %>
-    <% if @body_weight.start_time == date %>
-      <%= link_to date.day, user_path(current_user, start_time: date) %>
-    <% else %>
-      <%= link_to date.day, new_user_bodyweight_path(current_user, start_time: date) %>
-    <% end %>
+      <%= link_to date.day, user_path(current_user, start_time: date, start_date: params[:start_date]) %>
       <% events.each do |event| %>
         <div>
           <%= event.body_weight %>kg
@@ -41,10 +33,15 @@
 <!--グラフ-->
 
 <div class="bodyweight-chart">
-  <%= line_chart current_user.bodyweights.pluck(:start_time, :body_weight),
-      width: "800px", height: "500px"
-  %>
+  <!--<= line_chart current_user.bodyweights.pluck(:start_time, :body_weight),-->
+  <!--    width: "800px", height: "500px"-->
+  <!--%>-->
+  
+  <canvas id="myChart" width="1500" height="500"></canvas>
+  <script>draw_graph();</script>
 </div>
+
+
   
   
 
