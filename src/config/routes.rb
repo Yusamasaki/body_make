@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show] do
     resources :bodyweights
-    resources :targetweights, only: [:new, :create]
+    resources :targetweights, only: [:new, :create, :edit, :update]
     resources :bmrs, only: [:new, :create]
   end
 

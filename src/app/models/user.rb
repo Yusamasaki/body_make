@@ -1,9 +1,8 @@
 class User < ApplicationRecord
 
   has_many :bodyweights, dependent: :destroy
-
-  has_one :targetweights
-  has_one :bmrs
+  has_one :targetweight, dependent: :destroy
+  has_one :bmr, dependent: :destroy
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
