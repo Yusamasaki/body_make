@@ -13,4 +13,8 @@
     <%= f.hidden_field :user_id, value: @user.id %>
 
     <%= f.submit yield(:btn_text), class: "btn btn-primary btn-block btn-setup" %>
+    
+    <% if "#{yield(:btn_text)}" == "編集" %>
+      <%= link_to "戻る", @user, class: "btn btn-danger btn-block btn-setup" %>
+    <% end %>
   <% end %>

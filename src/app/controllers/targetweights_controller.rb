@@ -6,12 +6,12 @@ class TargetweightsController < ApplicationController
   end
   
   def new
-    # if Targetweight.where(user_id: @user.id).blank?
+    if Targetweight.where(user_id: @user.id).blank?
       @tw = Targetweight.new
-    # else
-      # flash[:success] = "登録済みです"
-      # redirect_to @user
-    # end
+    else
+      flash[:success] = "登録済みです"
+      redirect_to @user
+    end
   end
   def create
     @tw = Targetweight.new(targetweight_params)
