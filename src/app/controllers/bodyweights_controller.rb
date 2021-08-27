@@ -1,11 +1,4 @@
 class BodyweightsController < ApplicationController
-  def index
-    @body_weights = current_user.bodyweights.where(start_time: params[:start_time])
-  end
-
-  def new
-    @body_weight = current_user.bodyweights.new
-  end
 
   def create
     @body_weight = current_user.bodyweights.new(body_weight_params)
@@ -16,9 +9,6 @@ class BodyweightsController < ApplicationController
       flash[:danger] = "新規作成に失敗しました。"
       redirect_to new_user_bodyweight_path(current_user, start_time: params[:start_time])
     end
-  end
-
-  def show
   end
   
   def edit
@@ -39,13 +29,6 @@ class BodyweightsController < ApplicationController
   rescue ActiveRecord::RecordInvalid
       flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
       redirect_to edit_user_bodyweight_url(start_date: params[:start_date], start_time: params[:start_time])
-  end
-
-  def destroy
-    @body_weight = current_user.bodyweights.find(params[:id])
-    @body_weight.destroy
-    flash[:danger] = "#{@body_weight.body_weight}を削除しました"
-    redirect_to user_bodyweights_path(current_user, start_time: params[:start_time])
   end
 
   private

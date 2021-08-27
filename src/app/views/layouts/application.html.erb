@@ -14,9 +14,6 @@
   
   <body>
     <%= render 'layouts/side_menu' %>
-    <% flash.each do |message_type, msg| %>
-      <div class="alert-fleam alert-<%= message_type %>"><%= msg.html_safe %></div>
-    <% end %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>

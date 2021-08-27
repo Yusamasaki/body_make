@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   
-  before_action :set_one_month, only: [:show]
+  before_action :bodyweight_set_one_month, only: [:show]
   
   def show
     @body_weight = current_user.bodyweights.find_by(start_time: params[:start_time])
