@@ -1,10 +1,6 @@
 class TargetweightsController < ApplicationController
   before_action :set_user, only: [:new, :create, :edit, :update]
 
-  def set_user
-    @user= User.find(params[:user_id])
-  end
-  
   def new
     if Targetweight.where(user_id: @user.id).blank?
       @tw = Targetweight.new
