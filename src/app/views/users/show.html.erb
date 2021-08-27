@@ -9,7 +9,7 @@
   <div><%= link_to "ユーザー情報変更", edit_user_registration_path %></div>
   <div>日にち<%= params[:start_time] %></div>
   <div>本日の体重は<%= @body_weight.body_weight if @body_weight.present? %>kgです</div>
-  <%=
+  <%= 
     link_to "体重記録", edit_user_bodyweight_path(
     user_id: current_user, id: @body_weight, start_date: params[:start_date], start_time: params[:start_time]) if @body_weight.present?
   %>
@@ -19,8 +19,8 @@
 
 <div class="calender">
   <%= month_calendar events: @body_weights do |date, events| %>
+      <%= link_to date.day, user_path(current_user, bodyweight_id: @bodyweight, start_time: date, start_date: @first_day) %>
       <% events.each do |event| %>
-      <%= link_to date.day, user_path(current_user, bodyweight_id: event, start_time: date, start_date: @first_day) %>
         <div>
           <% if event.body_weight.present? %>
             <%= event.body_weight %>kg
@@ -36,3 +36,14 @@
   <canvas id="myChart" width="1500" height="500"></canvas>
   <script>draw_graph();</script>
 </div>
+
+
+  
+  
+
+
+
+
+
+
+
