@@ -7,6 +7,7 @@
   <div><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></div>
   <div>ログインしているユーザー[<%= current_user.username %>]</div>
   <div><%= link_to "ユーザー情報変更", edit_user_registration_path %></div>
+  <%= link_to "目標編集", edit_user_targetweight_path(current_user), class: "btn btn-md btn-primary btn-edit" %>
   <div>日にち<%= params[:start_time] %></div>
   <div>本日の体重は<%= @body_weight.body_weight if @body_weight.present? %>kgです</div>
   <%= 

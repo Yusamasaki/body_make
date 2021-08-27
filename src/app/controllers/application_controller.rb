@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   
-  
   def set_user
     @user = User.current_user.id
   end
@@ -23,5 +22,4 @@ class ApplicationController < ActionController::Base
       @bodyweights = current_user.bodyweights.where(start_time: @first_day..@last_day).order(:start_time)
     end
   end
-
 end
