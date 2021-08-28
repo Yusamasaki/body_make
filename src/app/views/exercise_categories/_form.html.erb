@@ -1,0 +1,8 @@
+<%= form_with model: @category, local: true do |f|  %>
+  <%= render 'shared/error_messages', object: @category %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, class: "form-control" %>
+  
+  <%= f.submit class: "btn btn-original" %>
+<% end %>
