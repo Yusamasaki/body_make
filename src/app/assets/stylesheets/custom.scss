@@ -13,9 +13,13 @@ html {
   background-color: aquamarine;
 }
 
+.flash_messages {
+  margin-left: 20%;
+}
+
 .alert,.notice {
-  position: absolute;
-  margin-left: 25%;
+  // position: absolute;
+  // margin-left: 25%;
 }
 
 //side menu

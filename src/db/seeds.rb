@@ -8,18 +8,18 @@
 
 # ユーザー
 User.create!(
-    email: "user@email.com",
-    password: "password",
-    username: "user"
-    )
+	email: "user@email.com",
+	password: "password",
+	username: "user"
+)
 
 puts 'sample user created!'
 
 # 管理者
 Admin.create!(
-    email: "admin@email.com",
-    password: "password",
-    username: "admin"
+  email: "admin@email.com",
+  password: "password",
+  username: "admin"
 )
 
 puts 'sample admin created!'

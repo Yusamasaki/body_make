@@ -3,15 +3,24 @@ ja:
     models:
       targetweight: 目標設定
       bmr: 基礎代謝設定
+      exercise_category: 運動カテゴリー
+      exercise_content: 運動コンテンツ
+      today_exercise: 今日の運動
     attributes:
-      post: #これがmodel
-        question_title: 質問
-        answer: 回答
       targetweight:
         body_weight: 現在の体重
         bodyfat_parcentage: 目標体重
         target_days: 目標日数
       bmr:
-          gender: 性別
-          age: 年齢
-          height: 身長
+        gender: 性別
+        age: 年齢
+        height: 身長
+      exercise_category:
+        name: カテゴリー
+      exercise_content:
+        content: コンテンツ
+        calorie: カロリー
+      today_exercise:
+        start_time: 日付
+        exercise_time: 運動時間
+        note: 備考

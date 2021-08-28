@@ -1,2 +1,15 @@
-<h1>ExerciseCategories#new</h1>
-<p>Find me in app/views/exercise_categories/new.html.erb</p>
+<div class= "exercise_category">
+  <h5>運動カテゴリー登録</h5>
+  <div class="row">
+    <div class="col-md-12">
+      <%= form_with model: @category, local: true do |f|  %>
+        <%= render 'shared/error_messages', object: @category %>
+
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control" %>
+        
+        <%= f.submit class: "btn btn-original" %>
+      <% end %>
+    </div>
+  </div>
+</div>
