@@ -1,3 +1,6 @@
+
+<!--その他仮置き-->
+
 <div class= "user-show">
   <h1>Users#show</h1>
   <p>Find me in app/views/users/show.html.erb</p>
@@ -5,8 +8,46 @@
   <div>ログインしているユーザー[<%= current_user.username %>]</div>
   <div><%= link_to "ユーザー情報変更", edit_user_registration_path %></div>
   <%= link_to "目標編集", edit_user_targetweight_path(current_user), class: "btn btn-md btn-primary btn-edit" %>
+<<<<<<< HEAD
   <%= link_to "基礎代謝編集", edit_user_bmr_path(current_user), class: "btn btn-md btn-primary btn-edit" %>
+=======
+  <div>日にち<%= params[:start_time] %></div>
+  <div>本日の体重は<%= @body_weight.body_weight if @body_weight.present? %>kgです</div>
+  <%= 
+    link_to "体重記録", edit_user_bodyweight_path(
+    user_id: current_user, id: @body_weight, start_date: params[:start_date], start_time: params[:start_time]) if @body_weight.present?
+  %>
+>>>>>>> f28f255c54dac697ec39ac6baf24184af92281a5
 </div>
+
+<!--カレンダー-->
+
+<div class="calender">
+  <%= month_calendar events: @body_weights do |date, events| %>
+      <%= link_to date.day, user_path(current_user, bodyweight_id: @bodyweight, start_time: date, start_date: @first_day) %>
+      <% events.each do |event| %>
+        <div>
+          <% if event.body_weight.present? %>
+            <%= event.body_weight %>kg
+          <% end %>
+        </div>
+      <% end %>
+  <% end %>
+</div>
+
+<!--グラフ-->
+
+<div class="bodyweight-chart">
+  <canvas id="myChart" width="1500" height="500"></canvas>
+  <script>draw_graph();</script>
+</div>
+
+
+  
+  
+
+
+
 
 
 

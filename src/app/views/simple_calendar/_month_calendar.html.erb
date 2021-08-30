@@ -1,8 +1,9 @@
 <div class="simple-calendar">
   <div class="calendar-heading">
-    <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view %>
+    <!--パスをデフォルトから変更してる。calendar.url_for_previous_view → user_path-->
+    <%= link_to t('simple_calendar.previous', default: 'Previous'), user_path(current_user, start_date: @first_day.prev_month) %>
     <span class="calendar-title"> <%= start_date.year %>年 <%= t('date.month_names')[start_date.month] %></span>
-    <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view %>
+    <%= link_to t('simple_calendar.next', default: 'Next'), user_path(current_user, start_date: @first_day.next_month) %>
   </div>
 
   <table class="table table-striped">
@@ -15,7 +16,7 @@
     </thead>
 
     <tbody>
-      <% date_range.each_slice(7) do |week| %>
+        <% date_range.each_slice(7) do |week| %>
         <tr>
           <% week.each do |day| %>
             <%= content_tag :td, class: calendar.td_classes_for(day) do %>

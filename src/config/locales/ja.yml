@@ -111,6 +111,12 @@ ja:
       day: 日
       month: 月
       year: 年
+    formats:
+      default: "%Y/%m/%d"
+      long: "%Y年%m月%d日(%a)"
+      middle: "%Y年%m月"
+      short: "%-m/%-d"
+      month: "%-m"
   errors:
     format: "%{attribute}%{message}"
     messages:
