@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   
   def set_user
-    @user = User.current_user.id
+    @user = User.find(current_user.id)
   end
   
   # BodyWeightクラスの1ヶ月分start_time(日にち)を作成
