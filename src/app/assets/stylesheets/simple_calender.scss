@@ -1,12 +1,49 @@
-
-.simple-calendar{
-  width: 800px;
+// 画面サイズ1024ピクセル以上用
+@media screen and (min-width: 1024px) {
+  
+  .simple-calendar {
+    .day {}
+  
+    .wday-0 {}
+    .wday-1 {}
+    .wday-2 {}
+    .wday-3 {}
+    .wday-4 {}
+    .wday-5 {}
+    .wday-6 {}
+  
+    .today {}
+    .past {}
+    .future {}
+  
+    .start-date {}
+  
+    .prev-month {}
+    .next-month { }
+    .current-month {}
+  
+    .has-events {}
+  }
+  
+  .calender{
+    margin-left: 32%;
+  }
+  
+  .simple-calendar{
+    width: 800px;
+  }
+  .calendar-heading{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: x-large;
+  }
+  
 }
 
-.calendar-heading{
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  font-weight: bold;
-  font-size: x-large;
+@media screen and (min-width: 428px) and (max-width: 1023px) {
+  
 }
+
+

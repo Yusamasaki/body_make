@@ -44,6 +44,12 @@ gem 'dotenv-rails'
 # カレンダー機能
 gem 'simple_calendar', '~> 2.0'
 
+# グラフ
+gem 'chartkick'
+gem 'chart-js-rails', '~> 0.1.4'
+
+gem 'gon'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
