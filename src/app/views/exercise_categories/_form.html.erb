@@ -1,8 +1,35 @@
 <%= form_with model: @category, local: true do |f|  %>
   <%= render 'shared/error_messages', object: @category %>
 
-  <%= f.label :name %>
-  <%= f.text_field :name, class: "form-control" %>
+  <div>
+    <div style="text-align: right;">
+      <%= f.submit class: "btn btn-original" %>
+    </div>
+    <div class="exercise_category-form">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  <div>
+
+  <div>
+    <div>
+      
+      <div class="links add-exercise_content-form">
+        <%= f.label :content, '運動コンテンツ' %>
+        <span class="badge badge-pill badge-original">
+          <%= link_to_add_association '追加', f, :exercise_contents,
+            class: "add-exercise_content-button",
+            data: {association_insertion_node: '#detail-association-insertion-point'}
+          %>
+        </span>
+      </div>
+      <%= f.fields_for :exercise_contents do |exercise_content| %>
+        <%= render 'exercise_content_fields', f: exercise_content %>
+      <% end %>
+    </div>
+    
+    
+    <div id="detail-association-insertion-point"></div>
+  <div>
   
-  <%= f.submit class: "btn btn-original" %>
 <% end %>

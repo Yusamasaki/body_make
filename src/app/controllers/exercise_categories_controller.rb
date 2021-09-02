@@ -40,8 +40,9 @@ class ExerciseCategoriesController < ApplicationController
       @category = ExerciseCategory.find(params[:id])
     end
 
+    # exercise_contents_attributes: [:id ...] ここに:idを渡してないとupdateした時、コンテンツ情報が新たに重複登録されてしまう。
     def category_params
-      params.require(:exercise_category).permit(:name)
+      params.require(:exercise_category).permit(:name, exercise_contents_attributes: [:id, :content, :calorie])
     end
 
     def content_params

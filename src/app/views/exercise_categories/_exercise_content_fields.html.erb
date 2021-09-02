@@ -1,0 +1,9 @@
+<div class="nested-fields">
+  <div class="input-group exercise_content-form">
+    <%= f.text_field :content, class: "form-control" %>
+
+    <div class="input-group-append">
+      <%= link_to_remove_association '削除', f, class: 'btn btn-danger' %>
+    </div>
+  </div>
+</div>
