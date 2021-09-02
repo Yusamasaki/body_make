@@ -22,8 +22,10 @@
 .add-exercise_content-button {
   color: #fff;
   text-decoration: none;
-  font-size:larger;
+  font-size: small;
   font-weight: 900;
+
+  border-radius:100%;
 }
 
 .add-exercise_content-button:hover {
@@ -31,3 +33,6 @@
   text-decoration: none;
 }
 
+.exercise_category-submit {
+  margin-top: 10px;
+}

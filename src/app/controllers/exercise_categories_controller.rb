@@ -8,6 +8,7 @@ class ExerciseCategoriesController < ApplicationController
 
   def new
     @category = ExerciseCategory.new
+    @category.exercise_contents.build
   end
 
   def create
@@ -42,7 +43,7 @@ class ExerciseCategoriesController < ApplicationController
 
     # exercise_contents_attributes: [:id ...] ここに:idを渡してないとupdateした時、コンテンツ情報が新たに重複登録されてしまう。
     def category_params
-      params.require(:exercise_category).permit(:name, exercise_contents_attributes: [:id, :content, :calorie])
+      params.require(:exercise_category).permit(:name, exercise_contents_attributes: [:id, :content, :calorie, :exercise_category_id, :_destroy])
     end
 
     def content_params

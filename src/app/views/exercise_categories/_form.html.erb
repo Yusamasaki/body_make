@@ -3,7 +3,8 @@
 
   <div>
     <div style="text-align: right;">
-      <%= f.submit class: "btn btn-original" %>
+      <%= link_to '一覧へ戻る', '#', class: "btn btn-secondary" %>
+      
     </div>
     <div class="exercise_category-form">
       <%= f.label :name %>
@@ -12,24 +13,52 @@
   <div>
 
   <div>
-    <div>
-      
+    <div id="categories">
       <div class="links add-exercise_content-form">
         <%= f.label :content, '運動コンテンツ' %>
-        <span class="badge badge-pill badge-original">
-          <%= link_to_add_association '追加', f, :exercise_contents,
-            class: "add-exercise_content-button",
-            data: {association_insertion_node: '#detail-association-insertion-point'}
+        <span class="">
+          <%= link_to_add_association '＋', f, :exercise_contents,
+            id: "add-link",
+            class: "add-exercise_content-button btn btn-sm btn-original",
+            data: {
+              association_insertion_node: '#detail-association-insertion-point',
+              association_insertion_method: 'append'
+            }
           %>
         </span>
       </div>
+
       <%= f.fields_for :exercise_contents do |exercise_content| %>
         <%= render 'exercise_content_fields', f: exercise_content %>
       <% end %>
     </div>
     
-    
     <div id="detail-association-insertion-point"></div>
   <div>
-  
+  <div class="exercise_category-submit">
+    <%= f.submit class: "btn btn-original btn-block" %>
+  </div>
 <% end %>
+
+<script>
+$(function() {
+  // limits the number of categories
+  $('#detail-association-insertion-point').on('cocoon:after-insert', function() {
+    check_to_hide_or_show_add_link();
+  });
+
+  $('#detail-association-insertion-point').on('cocoon:after-remove', function() {
+    check_to_hide_or_show_add_link();
+  });
+
+  check_to_hide_or_show_add_link();
+
+  function check_to_hide_or_show_add_link() {
+    if ($('#detail-association-insertion-point .nested-fields').length == 5) {
+      $('#add-link').hide();
+    } else {
+      $('#add-link').show();
+    }
+  }
+})
+</script>
