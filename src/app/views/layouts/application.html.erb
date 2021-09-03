@@ -13,17 +13,17 @@
   </head>
   
   <body>
-    <div class="side-bar">
-      <%= render 'layouts/side_menu' %>
-    </div>
+    <%= render 'layouts/side_menu' %>
     <div class="contents">
       <%= render 'layouts/header' %>
       <p class="notice"><%= notice %></p>
       <% flash.each do |message_type, msg| %>
         <div class= "alert alert-<%= message_type %>"><%= msg.html_safe %></div>
       <% end %>
-      <%= yield %>
-      <%= debug(params) if Rails.env.development? %>
+      <div class="container">
+        <%= yield %>
+        <%= debug(params) if Rails.env.development? %>
+      </div>
     </div>
   </body>
   <footer>

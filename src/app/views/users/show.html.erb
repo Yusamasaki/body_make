@@ -1,48 +1,51 @@
+<div class="box11 center">
+  <a href="#" class="arrow round-arrow-left"></a>
+  <a style="color: #274277;"><%= params[:start_time] %></a>
+  <a href="#" class="arrow round-arrow-right"></a>
+  <%= link_to "カレンダー", user_bodyweights_calender_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), remote: true %>
+</div>
 
-<!--その他仮置き-->
-
-<h1><%= params[:start_time] %></h1>
-
-<div class="circle">
-  <p class="circle-inner">
-    <a>どうも</a>
-    <b>こんにちは</b>
+<div class="box11">
+  <div class="circle">
+    <p class="circle-inner">
+      <a>どうも</a>
+      <b>こんにちは</b>
+    </p>
+  </div>
+  <p>
+    <%= link_to "目標編集", edit_user_targetweight_path(current_user), class: "btn btn-md btn-primary btn-edit" %>
+    <div>本日の体重は<%= @body_weight.body_weight if @body_weight.present? %>kgです</div>
+    <%= 
+      link_to "体重記録", edit_user_bodyweight_path(
+      user_id: current_user, id: @body_weight, start_date: params[:start_date], start_time: params[:start_time]) if @body_weight.present?
+    %>
   </p>
 </div>
 
-<div class= "user-show">
-  
-  
-  <%= link_to "目標編集", edit_user_targetweight_path(current_user), class: "btn btn-md btn-primary btn-edit" %>
-  
-  <div>本日の体重は<%= @body_weight.body_weight if @body_weight.present? %>kgです</div>
-  <%= 
-    link_to "体重記録", edit_user_bodyweight_path(
-    user_id: current_user, id: @body_weight, start_date: params[:start_date], start_time: params[:start_time]) if @body_weight.present?
-  %>
+  <!--グラフ-->
+<div class="box11">
+  <div class="bodyweight-chart">
+    <canvas id="myChart"></canvas>
+    <script>draw_graph();</script>
+  </div>
 </div>
 
-<!--カレンダー-->
 
+<!--カレンダー-->
 <div class="calender">
   <%= month_calendar events: @body_weights do |date, events| %>
-      <%= link_to date.day, user_path(current_user, bodyweight_id: @bodyweight, start_time: date, start_date: @first_day) %>
-      <% events.each do |event| %>
-        <div>
-          <% if event.body_weight.present? %>
-            <%= event.body_weight %>kg
-          <% end %>
-        </div>
-      <% end %>
+    <%= link_to date.day, user_path(current_user, bodyweight_id: @bodyweight, start_time: date, start_date: @first_day) %>
+    <% events.each do |event| %>
+      <div>
+        <% if event.body_weight.present? %>
+          <%= event.body_weight %>kg
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 </div>
 
-<!--グラフ-->
-
-<div class="bodyweight-chart">
-  <canvas id="myChart" width="1500" height="500"></canvas>
-  <script>draw_graph();</script>
-</div>
+<div id="calender" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 
 
   

@@ -14,6 +14,9 @@ Rails.application.routes.draw do
     }
 
   resources :users, only: [:show] do
+    
+    get 'bodyweights/calender'
+    
     resources :bodyweights, only: [:create, :edit, :update]
     resources :targetweights, only: [:new, :create, :edit, :update]
     resources :bmrs, only: [:new, :create]

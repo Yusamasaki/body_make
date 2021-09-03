@@ -1,4 +1,6 @@
 class BodyweightsController < ApplicationController
+  
+  before_action :bodyweight_set_one_month, only: [:calender]
 
   def create
     @body_weight = current_user.bodyweights.new(body_weight_params)
@@ -29,6 +31,11 @@ class BodyweightsController < ApplicationController
   rescue ActiveRecord::RecordInvalid
       flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
       redirect_to edit_user_bodyweight_url(start_date: params[:start_date], start_time: params[:start_time])
+  end
+  
+  def calender
+    @body_weight = current_user.bodyweights.find_by(start_time: params[:start_time])
+    @body_weights = current_user.bodyweights.all
   end
 
   private
