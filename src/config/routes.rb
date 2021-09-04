@@ -12,7 +12,8 @@ Rails.application.routes.draw do
       sessions: 'admins/sessions',
       registrations: "admins/registrations",
     }
-
+  
+  resources :admin, only: [:show]
   resources :users, only: [:show] do
     
     get 'bodyweights/calender'
