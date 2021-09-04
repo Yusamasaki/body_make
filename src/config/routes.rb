@@ -14,9 +14,9 @@ Rails.application.routes.draw do
     }
 
   resources :users, only: [:show] do
-    resources :bodyweights
-    resources :targetweights, only: [:new, :create]
-    resources :bmrs, only: [:new, :create]
+    resources :bodyweights, only: [:create, :edit, :update]
+    resources :targetweights, only: [:new, :create, :edit, :update]
+    resources :bmrs, only: [:new, :create, :edit, :update]
   end
 
   resources :today_exercises

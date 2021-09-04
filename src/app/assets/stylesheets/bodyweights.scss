@@ -1,3 +1,20 @@
-// Place all the styles related to the bodyweights controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@media screen and (min-width: 1024px) {
+  
+  .bodyweights_flame{
+    padding-left: 20%;
+    text-align: center;
+  }
+  .bodyweights_box input[type="number"]{
+    width: 300px;
+    height: 40px;
+  }
+  .bodyweight-chart{
+    padding-left: 20%;
+  }
+}
+
+@media screen and (max-width: 428px) {
+  
+  
+}

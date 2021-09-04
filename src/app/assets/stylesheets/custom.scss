@@ -22,6 +22,11 @@ html {
   // margin-left: 25%;
 }
 
+.alert-fleam {
+  margin-left: 20%;
+  text-align: center;
+}
+
 //side menu
 .side-menu {
   position: fixed;
@@ -120,26 +125,6 @@ html {
   //ユーザー画面
   .user-show {
     margin-left: 50%;
-  }
-
-  // 目標設定(show)
-  .weight-new, .bmr-new {
-    width: 50%;
-    margin-left: 25%;
-    h1 {
-      font-size: 5em;
-      font-family: serif;
-    }
-    .label {
-      margin-top: 10px;
-    }
-    .form-control {
-      margin-bottom: 10px;
-    }
-    .btn-setup {
-      margin-top: 30px; 
-      line-height: 20px;
-    }
   }
 }
 
