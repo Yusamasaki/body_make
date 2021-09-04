@@ -3,9 +3,9 @@
 
   <div>
     <div style="text-align: right;">
-      <%= link_to '一覧へ戻る', '#', class: "btn btn-secondary" %>
-      
+      <%= link_to '一覧へ戻る', exercise_categories_path, class: "btn btn-secondary" %>
     </div>
+
     <div class="exercise_category-form">
       <%= f.label :name %>
       <%= f.text_field :name, class: "form-control" %>
@@ -16,7 +16,7 @@
     <div id="categories">
       <div class="links add-exercise_content-form">
         <%= f.label :content, '運動コンテンツ' %>
-        <span class="">
+        <span>
           <%= link_to_add_association '＋', f, :exercise_contents,
             id: "add-link",
             class: "add-exercise_content-button btn btn-sm btn-original",
@@ -36,29 +36,10 @@
     <div id="detail-association-insertion-point"></div>
   <div>
   <div class="exercise_category-submit">
-    <%= f.submit class: "btn btn-original btn-block" %>
+    <% if controller.action_name == "new" %>
+      <%= f.submit class: "btn btn-original btn-block" %>
+    <% elsif controller.action_name == "edit" %>
+      <%= f.submit class: "btn btn-original btn-block", data: {confirm: "更新しますか？削除したコンテンツは同時に削除されます。"} %>
+    <% end %>
   </div>
 <% end %>
-
-<script>
-$(function() {
-  // limits the number of categories
-  $('#detail-association-insertion-point').on('cocoon:after-insert', function() {
-    check_to_hide_or_show_add_link();
-  });
-
-  $('#detail-association-insertion-point').on('cocoon:after-remove', function() {
-    check_to_hide_or_show_add_link();
-  });
-
-  check_to_hide_or_show_add_link();
-
-  function check_to_hide_or_show_add_link() {
-    if ($('#detail-association-insertion-point .nested-fields').length == 5) {
-      $('#add-link').hide();
-    } else {
-      $('#add-link').show();
-    }
-  }
-})
-</script>

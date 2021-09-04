@@ -28,6 +28,16 @@ html {
   z-index: inherit;
 }
 
+.center {
+  text-align: center;
+}
+
+//table color
+.thead-original {
+  color: #fff;
+  background-color: #274277;
+}
+
 // debug(params)
 .debug_dump {
   clear: both;
