@@ -8,10 +8,11 @@
 
 # ユーザー
 User.create!(
-    email: "user@email.com",
-    password: "password",
-    username: "user"
-    )
+        email: "user@email.com",
+        password: "password",
+        username: "user"
+        )
+
 
 puts 'sample user created!'
 
