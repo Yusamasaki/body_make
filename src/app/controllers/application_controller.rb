@@ -11,11 +11,10 @@ class ApplicationController < ActionController::Base
   end
   
   def set_user
-    @user = User.current_user.id
+    @user = User.find(current_user.id)
   end
   
   # BodyWeightクラスの1ヶ月分start_time(日にち)を作成
-  
   def bodyweight_set_one_month
     @first_day = params[:start_date].nil? ?
     Date.current.beginning_of_month : params[:start_date].to_date

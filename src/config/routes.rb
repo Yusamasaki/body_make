@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     
     resources :bodyweights, only: [:create, :edit, :update]
     resources :targetweights, only: [:new, :create, :edit, :update]
-    resources :bmrs, only: [:new, :create]
+    resources :bmrs, only: [:new, :create, :edit, :update]
   end
 
   resources :today_exercises
