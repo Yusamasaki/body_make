@@ -8,7 +8,7 @@ class BmrsController < ApplicationController
     @user = User.find(params[:user_id])
     @bmr = Bmr.new(bmr_params)
     if @bmr.save
-      redirect_to @user
+      redirect_to user_path(@user, start_date: Date.current.beginning_of_month, start_time: Date.current)
     else
       render :new
     end

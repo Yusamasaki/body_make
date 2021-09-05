@@ -29,6 +29,11 @@ html {
   z-index: inherit;
 }
 
+//header
+.header {
+  background-color: #274277;
+}
+
 // debug(params)
 .debug_dump {
   clear: both;
@@ -42,6 +47,7 @@ html {
   box-sizing: border-box;
   border: solid 3px red; 
 }
+
 .center {
   text-align: center;
 }
@@ -50,7 +56,6 @@ html {
 @media screen and (min-width: 1024px) {
   // Topページ
   .top {
-    margin-left: 20%;
 
     h1 {
       text-align: center;
@@ -116,11 +121,6 @@ html {
     margin-left: 20%;
   }
   
-  //header
-  .header {
-    background-color: #274277;
-  }
-  
   #logo {
     float: left;
     margin-right: 10px;
@@ -161,7 +161,6 @@ html {
       padding: 0;
   }
   
-  //
   
   .arrow{
     position: relative;
