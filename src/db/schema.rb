@@ -85,8 +85,8 @@ ActiveRecord::Schema.define(version: 2021_08_19_122859) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-09-06", null: false
-    t.datetime "exercise_time", default: "2021-09-05 15:00:00", null: false
+    t.date "start_time", default: "2021-08-31", null: false
+    t.datetime "exercise_time", default: "2021-08-30 15:00:00", null: false
     t.string "note"
     t.bigint "exercise_category_id"
     t.bigint "user_id"
