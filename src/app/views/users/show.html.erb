@@ -1,17 +1,13 @@
-<div class="box11 center">
+<div class="box center">
   <a href="#" class="arrow round-arrow-left"></a>
   <a style="color: #274277;"><%= params[:start_time] %></a>
   <a href="#" class="arrow round-arrow-right"></a>
   <%= link_to "カレンダー", user_bodyweights_calender_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), remote: true %>
 </div>
 
-<div class="box11">
-  <div class="circle">
-    <p class="circle-inner">
-      <a>どうも</a>
-      <b>こんにちは</b>
-    </p>
-  </div>
+<div class="box">
+  <!--<canvas id="chart-area" width="500" height="240"></canvas>-->
+  <!--<script>doughnut_graph();</script>-->
   <p>
     <%= link_to "目標編集", edit_user_targetweight_path(current_user), class: "btn btn-md btn-primary btn-edit" %>
     <%= link_to "基礎代謝編集", edit_user_bmr_path(current_user), class: "btn btn-md btn-primary btn-edit" %>
@@ -20,11 +16,22 @@
       link_to "体重記録", edit_user_bodyweight_path(
       user_id: current_user, id: @body_weight, start_date: params[:start_date], start_time: params[:start_time]) if @body_weight.present?
     %>
+    <div>
+      <% if @bmr.present? %>
+        <%= @bmr.gender %>, <%= @bmr.age %>, <%= @bmr.height %>
+      <% end %>
+    </div>
+    <div>
+      <% if @target_weight.present? %>
+        <%= @target_weight.body_weight %>, <%= @target_weight.bodyfat_parcentage %>, <%= @target_weight.target_days %>
+      <% end %>
+    </div>
+    
   </p>
 </div>
 
   <!--グラフ-->
-<div class="box11">
+<div class="box">
   <div class="bodyweight-chart">
     <canvas id="myChart"></canvas>
     <script>draw_graph();</script>

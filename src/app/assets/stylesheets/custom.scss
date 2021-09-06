@@ -29,11 +29,6 @@ html {
   z-index: inherit;
 }
 
-//header
-.header {
-  background-color: #274277;
-}
-
 // debug(params)
 .debug_dump {
   clear: both;
@@ -48,13 +43,37 @@ html {
   border: solid 3px red; 
 }
 
+// 中央に寄せる
+
 .center {
   text-align: center;
+}
+
+//box
+  
+.box{
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  color: #274277;
+  background: white;
+  border-top: solid 5px #274277;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+  height: 100%;
+}
+.box p {
+  margin: 0; 
+  padding: 0;
 }
 
 // 画面サイズ1024ピクセル以上用
 @media screen and (min-width: 1024px) {
   // Topページ
+  
+  //contents
+  .contents {
+    margin-left: 20%;
+  }
+  
   .top {
 
     h1 {
@@ -115,104 +134,7 @@ html {
       width: 60%;
     }
   }
-  
-  //contents
-  .contents {
-    margin-left: 20%;
-  }
-  
-  #logo {
-    float: left;
-    margin-right: 10px;
-    font-size: 1.7em;
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: -1px;
-    padding-top: 9px;
-    font-weight: bold;
-  }
-  
-  #logo:hover {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .dropdown b {
-    color: #fff;
-  }
-  
-  .header-date {
-    margin-left: auto;
-  }
-  
-  //box
-  
-  .box11{
-    padding: 0.5em 1em;
-    margin: 2em 0;
-    color: #274277;
-    background: white;
-    border-top: solid 5px #274277;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
-    height: 100%;
-  }
-  .box11 p {
-      margin: 0; 
-      padding: 0;
-  }
-  
-  
-  .arrow{
-    position: relative;
-    display: inline-block;
-    padding: 0 0 0 25px;
-    color: #000;
-    vertical-align: middle;
-    text-decoration: none;
-    font-size: 15px;
-  }
-  .arrow::before,
-  .arrow::after{
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      margin: auto;
-      content: "";
-      vertical-align: middle;
-  }
-    
-  .round-arrow-left::before{
-    width: 20px;
-    height: 20px;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-    background: #274277;
-  }
-  .round-arrow-left::after{
-      right: 8px;
-      box-sizing: border-box;
-      width: 3px;
-      height: 3px;
-      border: 3px solid transparent;
-      border-right: 5px solid #fff;
-  }
-  .round-arrow-right::before{
-    width: 20px;
-    height: 20px;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-    background: #274277;
-  }
-  .round-arrow-right::after{
-      left: 8px;
-      box-sizing: border-box;
-      width: 3px;
-      height: 3px;
-      border: 3px solid transparent;
-      border-left: 5px solid #fff;
-  }
-  
+
 }
 
 // 画面サイズ428ピクセル以上1024ピクセル未満用

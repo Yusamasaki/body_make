@@ -52,3 +52,31 @@ window.draw_graph = ->
     #         ]
     #     }
     #     :
+    
+window.doughnut_graph = -> 
+    ctx = document.getElementById("chart-area").getContext('2d')
+    myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: '',
+            datasets: [{
+                label: '',
+                data: '',
+                backgroundColor: '#0000FF',
+                borderColor: '#0000FF',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        },
+                    gridLines: {
+                        },
+                    ticks: {
+                    }
+                }]
+            }
+        }
+    })

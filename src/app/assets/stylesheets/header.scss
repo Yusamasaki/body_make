@@ -1,0 +1,57 @@
+
+//header-bg-color
+.header {
+  background-color: #274277;
+}
+
+// ドロップダウンの文字色
+  
+.dropdown b {
+  color: #fff;
+}
+
+#logo {
+    float: left;
+    margin-right: 10px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    padding-top: 9px;
+    font-weight: bold;
+  }
+
+// 画面サイズ1024ピクセル以上用
+@media screen and (min-width: 1024px) {
+  
+  // ロゴデザイン
+  
+  #logo {
+    font-size: 1.7em;
+  }
+  
+  #logo:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+}
+
+// 画面サイズ428ピクセル以上1024ピクセル未満用
+@media screen and (min-width: 428px) and (max-width: 1023px) {
+  
+  #logo {
+    font-size: 1em;
+  }
+  
+}
+
+// 画面サイズ500ピクセル以下用
+@media screen and (max-width: 428px) {
+  
+  #logo {
+    font-size: 1em;
+  }
+  
+}
+
+
