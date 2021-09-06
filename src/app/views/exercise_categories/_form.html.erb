@@ -1,0 +1,45 @@
+<%= form_with model: @category, local: true do |f|  %>
+  <%= render 'shared/error_messages', object: @category %>
+
+  <div>
+    <div style="text-align: right;">
+      <%= link_to '一覧へ戻る', exercise_categories_path, class: "btn btn-secondary" %>
+    </div>
+
+    <div class="exercise_category-form">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  <div>
+
+  <div>
+    <div id="categories">
+      <div class="links add-exercise_content-form">
+        <%= f.label :content, '運動コンテンツ' %>
+        <span>
+          <%= link_to_add_association '＋', f, :exercise_contents,
+            id: "add-link",
+            class: "add-exercise_content-button btn btn-sm btn-original",
+            data: {
+              association_insertion_node: '#detail-association-insertion-point',
+              association_insertion_method: 'append'
+            }
+          %>
+        </span>
+      </div>
+
+      <%= f.fields_for :exercise_contents do |exercise_content| %>
+        <%= render 'exercise_content_fields', f: exercise_content %>
+      <% end %>
+    </div>
+    
+    <div id="detail-association-insertion-point"></div>
+  <div>
+  <div class="exercise_category-submit">
+    <% if controller.action_name == "new" %>
+      <%= f.submit class: "btn btn-original btn-block" %>
+    <% elsif controller.action_name == "edit" %>
+      <%= f.submit class: "btn btn-original btn-block", data: {confirm: "更新しますか？削除したコンテンツは同時に削除されます。"} %>
+    <% end %>
+  </div>
+<% end %>
