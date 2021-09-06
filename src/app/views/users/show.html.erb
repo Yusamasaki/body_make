@@ -1,11 +1,11 @@
-<div class="box center">
+<div class="box1 center">
   <a href="#" class="arrow round-arrow-left"></a>
   <a style="color: #274277;"><%= params[:start_time] %></a>
   <a href="#" class="arrow round-arrow-right"></a>
   <%= link_to "カレンダー", user_bodyweights_calender_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), remote: true %>
 </div>
 
-<div class="box">
+<div class="box1">
   <!--<canvas id="chart-area" width="500" height="240"></canvas>-->
   <!--<script>doughnut_graph();</script>-->
   <p>
@@ -31,7 +31,7 @@
 </div>
 
   <!--グラフ-->
-<div class="box">
+<div class="box1">
   <div class="bodyweight-chart">
     <canvas id="myChart"></canvas>
     <script>draw_graph();</script>

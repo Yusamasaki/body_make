@@ -49,21 +49,7 @@ html {
   text-align: center;
 }
 
-//box
-  
-.box{
-  padding: 0.5em 1em;
-  margin: 2em 0;
-  color: #274277;
-  background: white;
-  border-top: solid 5px #274277;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
-  height: 100%;
-}
-.box p {
-  margin: 0; 
-  padding: 0;
-}
+
 
 // 画面サイズ1024ピクセル以上用
 @media screen and (min-width: 1024px) {
@@ -133,6 +119,22 @@ html {
       line-height: 2em;
       width: 60%;
     }
+  }
+  
+  //box1
+  
+  .box1{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    color: #274277;
+    background: white;
+    border-top: solid 5px #274277;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+    height: 100%;
+  }
+  .box11 p {
+    margin: 0; 
+    padding: 0;
   }
 
 }
