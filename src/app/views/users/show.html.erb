@@ -6,9 +6,11 @@
 </div>
 
 <div class="box1">
-  <!--<canvas id="chart-area" width="500" height="240"></canvas>-->
-  <!--<script>doughnut_graph();</script>-->
-  <p>
+  <div class="doughnut_graph">
+    <canvas id="chart-area" width="1000" height="240"></canvas>
+    <script>doughnut_graph();</script>
+  </div>
+  <div class="bodyweight_items">
     <%= link_to "目標編集", edit_user_targetweight_path(current_user), class: "btn btn-md btn-primary btn-edit" %>
     <%= link_to "基礎代謝編集", edit_user_bmr_path(current_user), class: "btn btn-md btn-primary btn-edit" %>
     <div>本日の体重は<%= @body_weight.body_weight if @body_weight.present? %>kgです</div>
@@ -26,8 +28,9 @@
         <%= @target_weight.body_weight %>, <%= @target_weight.bodyfat_parcentage %>, <%= @target_weight.target_days %>
       <% end %>
     </div>
+  
     
-  </p>
+  </div>
 </div>
 
   <!--グラフ-->
