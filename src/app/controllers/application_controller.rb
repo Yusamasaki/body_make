@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     Date.current.beginning_of_month : params[:start_date].to_date
     @last_day = @first_day.end_of_month
     
-     one_month = [*@first_day..@last_day]
+    one_month = [*@first_day..@last_day]
     
     @bodyweights = current_user.bodyweights.where( start_time: @first_day..@last_day).order(:start_time)
     
