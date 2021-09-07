@@ -4,6 +4,21 @@
   .doughnut_graph{
     width: 50%;
     height: 100%;
+    position: relative;
+  }
+
+  .doughnut_graph p {
+    position: absolute;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: auto;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%); 
   }
 
   .bodyweights_flame{

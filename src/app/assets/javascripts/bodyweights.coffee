@@ -61,21 +61,32 @@ window.doughnut_graph = ->
             labels: '',
             datasets: [{
                 label: '',
-                data: '',
-                backgroundColor: '#0000FF',
-                borderColor: '#0000FF',
+                data: gon.bodyweight_latest_target,
+                backgroundColor: ['#FF0000','#0000FF'],
+                borderColor: ['#FF0000','#0000FF'],
                 borderWidth: 1
             }]
         },
         options: {
             scales: {
-                yAxes: [{
-                    scaleLabel: {
-                        },
+                xAxes: [{
+                    display: true,
+                    stacked: false,
                     gridLines: {
-                        },
-                    ticks: {
+                        display: false
+                        drawBorder: false
+                    }   
+                }],
+                yAxes: [{
+                    display: true,
+                    stacked: false,
+                    gridLines: {
+                        display: false
+                        drawBorder: false
                     }
+                    ticks: {
+                        display: false
+                    }  
                 }]
             }
         }

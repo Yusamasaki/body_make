@@ -9,6 +9,7 @@
   <div class="doughnut_graph">
     <canvas id="chart-area" width="1000" height="500"></canvas>
     <script>doughnut_graph();</script>
+    <p><%= @bodyweight_achievement_rate.floor %>％</p>
   </div>
   <div >
     <%= link_to "目標編集", edit_user_targetweight_path(current_user), class: "btn btn-md btn-primary btn-edit" %>
@@ -27,6 +28,9 @@
       <% if @target_weight.present? %>
         <%= @target_weight.body_weight %>, <%= @target_weight.bodyfat_parcentage %>, <%= @target_weight.target_days %>
       <% end %>
+    </div>
+    <div>
+      
     </div>
   </div>
 </div>

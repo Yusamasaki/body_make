@@ -16,10 +16,15 @@ class UsersController < ApplicationController
     gon.start_times = current_user.bodyweights.where( start_time: @first_day..@last_day).order(:start_time).pluck(:start_time)
     gon.body_weights = current_user.bodyweights.where( start_time: @first_day..@last_day).order(:start_time).pluck(:body_weight)
     
-    @latest = @user.bodyweights.order(:body_weight).limit(1).pluck(:body_weight)
-    @target_weights = [@target_weight.body_weight] + @latest
-    @s = ((@target_weight.body_weight - @latest.sum) / @target_weight.body_weight) * 100
-    debugger
+    # ドーナツグラフData
+    # 最新の体重
+    @bodyweight_latest = @user.bodyweights.order(:body_weight).limit(1).pluck(:body_weight)
     
+    @target_weight_pull_bodyweight_latest = [@bodyweight_latest.sum - @target_weight.body_weight]
+    # 最新の体重, 目標
+    gon.bodyweight_latest_target = @bodyweight_latest + @target_weight_pull_bodyweight_latest
+    # 体重の達成率
+    @bodyweight_achievement_rate = @target_weight.body_weight.to_f / @bodyweight_latest.sum.to_f * 100
+
   end
 end
