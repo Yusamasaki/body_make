@@ -8,8 +8,10 @@ ja:
       today_exercise: 今日の運動
     attributes:
       targetweight:
-        body_weight: 現在の体重
-        bodyfat_parcentage: 目標体重
+        now_body_weight: 現在の体重
+        goal_body_weight: 目標体重
+        now_bodyfat_percentage: 現在の体脂肪率
+        goal_bodyfat_percentage: 目標体脂肪率
         target_days: 目標日数
       bmr:
         gender: 性別

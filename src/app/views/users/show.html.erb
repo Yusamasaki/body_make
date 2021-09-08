@@ -9,8 +9,9 @@
   <div class="doughnut_graph">
     <canvas id="chart-area" width="1000" height="500"></canvas>
     <script>doughnut_graph();</script>
-    <p><%= @bodyweight_achievement_rate.floor %>％</p>
-  </div>
+    <!--<p><= @bodyweight_achievement_rate.floor %>％</p>-->
+                    <%= 10.to_f / 20.to_f * 100 %>
+                  </div>
   <div >
     <%= link_to "目標編集", edit_user_targetweight_path(current_user), class: "btn btn-md btn-primary btn-edit" %>
     <%= link_to "基礎代謝編集", edit_user_bmr_path(current_user), class: "btn btn-md btn-primary btn-edit" %>
@@ -20,17 +21,9 @@
       user_id: current_user, id: @body_weight, start_date: params[:start_date], start_time: params[:start_time]) if @body_weight.present?
     %>
     <div>
-      <% if @bmr.present? %>
-        <%= @bmr.gender %>, <%= @bmr.age %>, <%= @bmr.height %>
-      <% end %>
-    </div>
-    <div>
-      <% if @target_weight.present? %>
-        <%= @target_weight.body_weight %>, <%= @target_weight.bodyfat_parcentage %>, <%= @target_weight.target_days %>
-      <% end %>
-    </div>
-    <div>
-      
+      落とす体重：<%= @now_body_weight_pull_goal_body_weight %>, 落とす体脂肪率：<%= @now_bodyfat_percentage_pull_goal_bodyfat_percentage %>,
+      最新の体重：<%= @newwest_bodyweight if @newwest_bodyweight.present?  %>, 最新の体脂肪率：<%= @newwest_bodyfat_percentage if @newwest_bodyfat_percentage.present?  %>
+      体重の進捗：<%= @progress_bodyweight %>, 体脂肪率の進捗：<%= @progress_bodyfat_percentage %>
     </div>
   </div>
 </div>

@@ -75,8 +75,10 @@ ActiveRecord::Schema.define(version: 2021_08_19_122859) do
   end
 
   create_table "targetweights", force: :cascade do |t|
-    t.integer "body_weight"
-    t.integer "bodyfat_parcentage"
+    t.integer "now_body_weight"
+    t.integer "goal_body_weight"
+    t.integer "now_bodyfat_percentage"
+    t.integer "goal_bodyfat_percentage"
     t.integer "target_days"
     t.bigint "user_id"
     t.datetime "created_at", null: false

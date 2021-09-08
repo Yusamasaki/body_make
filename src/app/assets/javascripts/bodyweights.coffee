@@ -61,7 +61,7 @@ window.doughnut_graph = ->
             labels: '',
             datasets: [{
                 label: '',
-                data: gon.bodyweight_latest_target,
+                data: [],
                 backgroundColor: ['#FF0000','#0000FF'],
                 borderColor: ['#FF0000','#0000FF'],
                 borderWidth: 1
