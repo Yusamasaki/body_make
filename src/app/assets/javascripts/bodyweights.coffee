@@ -73,27 +73,10 @@ window.doughnut_graph = ->
             }
             scales: {
                 xAxes: [{
-                    scaleLabel: {
-                        display: false
-                    }
-                    display: true,
-                    stacked: false,
-                    gridLines: {
-                        display: false
-                        drawBorder: false
-                    }   
+                    display: false,
                 }],
                 yAxes: [{
-                    
-                    display: true,
-                    stacked: false,
-                    gridLines: {
-                        display: false
-                        drawBorder: false
-                    }
-                    ticks: {
-                        display: false
-                    }  
+                    display: false
                 }]
             }
         }
