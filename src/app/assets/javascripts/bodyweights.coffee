@@ -58,7 +58,7 @@ window.doughnut_graph = ->
     myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: ['減った体重', '残り体重'],
+            labels: ['増減体重', '残り体重'],
             datasets: [{
                 data: gon.body_weight_area,
                 backgroundColor: ['#274277', '#8fa8da'],
@@ -67,9 +67,9 @@ window.doughnut_graph = ->
             }]
         },
         options: {
-            cutoutPercentage: 70, 
+            cutoutPercentage: 80, 
             legend: {                
-                position: 'left'
+                position: 'top'
             }
             scales: {
                 xAxes: [{

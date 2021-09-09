@@ -5,7 +5,10 @@ class CreateTargetweights < ActiveRecord::Migration[5.2]
       t.integer :goal_body_weight
       t.integer :now_bodyfat_percentage
       t.integer :goal_bodyfat_percentage
-      t.integer :target_days
+      
+      t.datetime :Beginning_date, default: Time.current
+      t.datetime :target_date, default: Time.current
+      
       t.references :user, foreign_key: true
 
       t.timestamps

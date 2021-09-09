@@ -28,7 +28,7 @@ class BmrsController < ApplicationController
     @bmr = Bmr.find_by(user_id: @user.id)
     if @bmr.update_attributes(bmr_params)
       flash[:success] = "更新しました"
-      redirect_to @user
+      redirect_to user_path(@user, start_date: params[:start_date], start_time: params[:start_time])
     else
       render :edit
     end

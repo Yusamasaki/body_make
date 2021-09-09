@@ -5,21 +5,32 @@
   <%= link_to "カレンダー", user_bodyweights_calender_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), remote: true %>
 </div>
 
+
 <div class="box1">
-  <div class="doughnut_graph">
-    <canvas id="chart-area" width="1000" height="500"></canvas>
-    <script>doughnut_graph();</script>
-  </div>
-  <div >
-    <%= link_to "目標編集", edit_user_targetweight_path(current_user), class: "btn btn-md btn-primary btn-edit" %>
-    <%= link_to "基礎代謝編集", edit_user_bmr_path(current_user), class: "btn btn-md btn-primary btn-edit" %>
-    <div>本日の体重は<%= @body_weight.body_weight if @body_weight.present? %>kgです</div>
-    <%= 
-      link_to "体重記録", edit_user_bodyweight_path(
-      user_id: current_user, id: @body_weight, start_date: params[:start_date], start_time: params[:start_time]) if @body_weight.present?
-    %>
+  <div class="row">
+    <div class="col-md-7">
+      <div class="doughnut_graph">
+        <canvas id="chart-area" width="1000" height="600"></canvas>
+        <script>doughnut_graph();</script>
+        <p><%= @bodyweight_achievement_rate.floor.abs %>％達成</p>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+    <div>
+      <%= link_to "目標編集", edit_user_targetweight_path(current_user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary btn-edit" %>
+      <%= link_to "基礎代謝編集", edit_user_bmr_path(current_user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary btn-edit" %>
+      <div>本日の体重は<%= @body_weight.body_weight if @body_weight.present? %>kgです</div>
+      <%= 
+        link_to "体重記録", edit_user_bodyweight_path(
+        user_id: current_user, id: @body_weight, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-original" if @body_weight.present?
+      %>
+    </div>
+    </div>
   </div>
 </div>
+  
+
 
   <!--グラフ-->
 <div class="box1">
