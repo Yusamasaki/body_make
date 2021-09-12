@@ -1,0 +1,2 @@
+class TraningBodypart < ApplicationRecord
+end
