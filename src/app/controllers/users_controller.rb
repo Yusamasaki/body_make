@@ -15,13 +15,14 @@ class UsersController < ApplicationController
     # グラフ用にgonでjs用の配列に変更
     gon.start_times = current_user.bodyweights.where( start_time: @first_day..@last_day).order(:start_time).pluck(:start_time)
     gon.body_weights = current_user.bodyweights.where( start_time: @first_day..@last_day).order(:start_time).pluck(:body_weight)
-    
 # --------- doughnut_graphのData ---------
 
   # --------- 体重計算 ---------
   
     # 最新の体重
     @newwest_bodyweight = @user.bodyweights.order(:body_weight).limit(1).pluck(:body_weight)
+
+    @newwest_bodyweight_update_at = @user.bodyweights.order(:body_weight).limit(1).pluck(:start_time)
     
     # 落とす体重
     @now_body_weight_pull_goal_body_weight =  if @newwest_bodyweight == [nil]

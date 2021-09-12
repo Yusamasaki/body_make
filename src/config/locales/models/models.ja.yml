@@ -12,7 +12,8 @@ ja:
         goal_body_weight: 目標体重
         now_bodyfat_percentage: 現在の体脂肪率
         goal_bodyfat_percentage: 目標体脂肪率
-        target_days: 目標日数
+        beginning_date: スタート日
+        target_date: 目標日
       bmr:
         gender: 性別
         age: 年齢

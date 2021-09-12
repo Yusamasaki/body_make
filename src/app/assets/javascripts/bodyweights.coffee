@@ -19,29 +19,28 @@ window.draw_graph = ->
         },
         options: {
             scales: {
-                x: [{
-                    title:{
-                        display: false
+                xAxes: [{
+                    ticks: {
                     }
                 }],
-                y: [{
+                yAxes: [{
+                    ticks: {
+                        min: 30,
+                        max: 100
+                    }
                 }]
             },
             plugins: {
+                autocolors: false,
                 annotation: {
                     annotations: [{
+                        line1: {
                         type: 'line',
-                        drawTime: 'afterDatasetsDraw',
-                        id: 'a-line-1',
-                        mode: 'horizontal', 
-                        scaleID: 'y', 
-                        ymin: 70,
-                        ymax: 70,
-                        borderColor: 'red',
-                        borderWidth: 3, 
-                        borderDash: [2, 2],
-                        borderDashOffset: 1,
-                            
+                        yMin: 60,
+                        yMax: 60,
+                        borderColor: 'rgb(255, 99, 132)',
+                        borderWidth: 2,
+                        }
                     }]
                 }
             }
