@@ -43,12 +43,14 @@ class UsersController < ApplicationController
     # 体重の達成率
     @bodyweight_achievement_rate = (@progress_bodyweight.to_f / (@target_weight.now_body_weight.to_f - @target_weight.goal_body_weight.to_f)) * 100
     
-    
-    
+
   # --------- 体脂肪率計算 ---------
     
     # 最新の体脂肪率
     @newwest_bodyfat_percentage = @user.bodyweights.order(:bodyfat_percentage).limit(1).pluck(:bodyfat_percentage)
+    
+    @bodyweights.each{|day|}
+    
     
     # 落とす体脂肪率
     gon.now_bodyfat_percentage_pull_goal_bodyfat_percentage = @target_weight.now_bodyfat_percentage - @target_weight.goal_bodyfat_percentage

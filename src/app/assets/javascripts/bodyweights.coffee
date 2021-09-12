@@ -19,39 +19,36 @@ window.draw_graph = ->
         },
         options: {
             scales: {
-                yAxes: [{
-                    scaleLabel: {
-                        },
-                    gridLines: {
-                        },
-                    ticks: {
+                x: [{
+                    title:{
+                        display: false
                     }
+                }],
+                y: [{
                 }]
+            },
+            plugins: {
+                annotation: {
+                    annotations: [{
+                        type: 'line',
+                        drawTime: 'afterDatasetsDraw',
+                        id: 'a-line-1',
+                        mode: 'horizontal', 
+                        scaleID: 'y', 
+                        ymin: 70,
+                        ymax: 70,
+                        borderColor: 'red',
+                        borderWidth: 3, 
+                        borderDash: [2, 2],
+                        borderDashOffset: 1,
+                            
+                    }]
+                }
             }
         }
     })
     
-    #  options: {
-    #     :
-    #     scales: {         // 軸設定
-    #         xAxes: [           // Ｘ軸設定
-    #             {
-    #                 scaleLabel: {   // 軸ラベル
-    #                     :
-    #                 },
-    #                 gridLines: {    // 目盛線
-    #                     :
-    #                 },
-    #                 ticks: {        // 目盛り
-    #                     :
-    #                 },
-    #             }
-    #         ],
-    #         yAxes: [           // Ｙ軸設定
-    #             :      xAxesと同様  
-    #         ]
-    #     }
-    #     :
+   
     
 window.doughnut_graph = -> 
     ctx = document.getElementById("chart-area").getContext('2d')

@@ -8,15 +8,20 @@
 
 <div class="box1">
   <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-6">
       <div class="doughnut_graph">
         <canvas id="chart-area" width="1000" height="600"></canvas>
         <script>doughnut_graph();</script>
         <p><%= @bodyweight_achievement_rate.floor.abs %>％達成</p>
       </div>
     </div>
+
+    <div class="col-md-3">
+      <div>
+      </div>
+    </div>
     
-    <div class="col-md-4">
+    <div class="col-md-3">
     <div>
       <%= link_to "目標編集", edit_user_targetweight_path(current_user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary btn-edit" %>
       <%= link_to "基礎代謝編集", edit_user_bmr_path(current_user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary btn-edit" %>

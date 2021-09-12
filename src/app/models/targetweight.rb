@@ -5,5 +5,6 @@ class Targetweight < ApplicationRecord
   validates :goal_body_weight, presence: true
   validates :now_bodyfat_percentage, presence: true
   validates :goal_bodyfat_percentage, presence: true
-  validates :target_days, presence: true
+  validates :beginning_date, presence: true
+  validates :target_date, presence: true
 end
