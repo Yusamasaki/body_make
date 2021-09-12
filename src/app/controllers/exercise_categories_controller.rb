@@ -1,5 +1,5 @@
 class ExerciseCategoriesController < ApplicationController
-  # before_action あとで管理者のみ編集可能を設置
+  before_action :authenticate_admin!
   before_action :set_category, only: %i(edit update destroy)
 
   def index

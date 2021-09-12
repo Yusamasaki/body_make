@@ -1,15 +1,15 @@
-<div class="box1 center">
+<div class="admin-box center">
   運動カテゴリ編集
 </div>
 
-<div class="box1">
-  <%= button_tag '更新', class: "btn btn-primary w-100px",
+<div class="admin-box">
+  <%= button_tag '更新', class: "btn btn-original w-100px",
                         form: "exercise_category-btn",
                         data: {confirm: "更新しますか？削除したコンテンツは同時に削除されます。"} %>
   <%= link_to '一覧へ戻る', exercise_categories_path, class: "btn btn-secondary" %>
 </div>
 
-<div class="box1">
+<div class="admin-box">
   <%= render 'form' %>
 </div>
 
