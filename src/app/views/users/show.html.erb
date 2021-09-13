@@ -10,16 +10,26 @@
   <div class="row">
     <div class="col-md-6">
       <div class="doughnut_graph">
-        <canvas id="chart-area" width="1000" height="600"></canvas>
+        <canvas id="chart-area" width="1000" height="800"></canvas>
         <script>doughnut_graph();</script>
         <p><%= @bodyweight_achievement_rate.floor.abs %>％達成</p>
+        <a>残り<%= @now_body_weight_pull_goal_body_weight.to_s %>kg</a>
+      </div>
+      
+    </div>
+    
+    <div class="col-md-3">
+      <div>
+        現在の体重<%= @newwest_bodyweight.sum %>
+      </div>
+      <div>
+        目標の体重<%= @target_weight.goal_body_weight %>
+      </div>
+      <div>
+        残り体重<%=  %>
       </div>
     </div>
 
-    <div class="col-md-3">
-      <%= @newwest_bodyweight_update_at %>
-    </div>
-    
     <div class="col-md-3">
     <div>
       <%= link_to "目標編集", edit_user_targetweight_path(current_user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary btn-edit" %>

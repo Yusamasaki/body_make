@@ -22,13 +22,12 @@ class UsersController < ApplicationController
     # 最新の体重
     @newwest_bodyweight = @user.bodyweights.order(:body_weight).limit(1).pluck(:body_weight)
 
-    @newwest_bodyweight_update_at = @user.bodyweights.order(:body_weight).limit(1).pluck(:start_time)
     
     # 落とす体重
     @now_body_weight_pull_goal_body_weight =  if @newwest_bodyweight == [nil]
                                                 @target_weight.now_body_weight - @target_weight.goal_body_weight
                                               else
-                                                (@target_weight.now_body_weight - @target_weight.goal_body_weight) - (@target_weight.now_body_weight - @newwest_bodyweight.sum)
+                                                (@target_weight.now_body_weight - @newwest_bodyweight.sum) - (@target_weight.now_body_weight - @target_weight.goal_body_weight)
                                               end
                                               
     # 体重の進捗

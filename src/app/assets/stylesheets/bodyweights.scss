@@ -1,27 +1,41 @@
 
-@media screen and (min-width: 1024px) {
-  
-  .doughnut_graph{
-    width: 50%;
-    height: 100%;
-    position: relative;
-  }
+.doughnut_graph{
+  width: 50%;
+  height: 100%;
+  position: relative;
+}
 
-  .doughnut_graph p {
-    position: absolute;
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: auto;
-    right: 0;
-    margin: auto;
-    text-align: center;
-    top: 57%;
-    font-weight: bold;
-    font-size: 20px;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%); 
-  }
+.doughnut_graph p {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: auto;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  top: 45%;
+  font-weight: bold;
+  font-size: 20px;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%); 
+}
+  
+.doughnut_graph a{
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: auto;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  top: 65%;
+  font-weight: bold;
+  font-size: 20px;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+@media screen and (min-width: 1024px) {
 
   .bodyweights_flame{
     text-align: center;
