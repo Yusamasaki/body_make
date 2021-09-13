@@ -5,19 +5,16 @@
         <span aria-hidden="true">&times;</span>
       </button>
       <h1 class="modal-title"></h1><br>
-      
-      <div class="calender">
         <%= month_calendar events: @body_weights do |date, events| %>
-            <%= link_to date.day, user_path(current_user, bodyweight_id: @bodyweight, start_time: date, start_date: @first_day) %>
-            <% events.each do |event| %>
-              <div>
-                <% if event.body_weight.present? %>
-                  <%= event.body_weight %>kg
-                <% end %>
-              </div>
-            <% end %>
+          <%= link_to date.day, user_path(current_user, bodyweight_id: @bodyweight, start_time: date, start_date: @first_day) %>
+          <% events.each do |event| %>
+            <div>
+              <% if event.body_weight.present? %>
+                <%= event.body_weight %>kg
+              <% end %>
+            </div>
+          <% end %>
         <% end %>
-      </div>
     </div>
   </di>
 <div></div>

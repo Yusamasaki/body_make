@@ -7,6 +7,9 @@ ja:
       exercise_content: 運動コンテンツ
       today_exercise: 今日の運動
     attributes:
+      bodyweight:
+        body_weight: 体重
+        bodyfat_percentage: 体脂肪率
       targetweight:
         now_body_weight: 現在の体重
         goal_body_weight: 目標体重

@@ -22,7 +22,9 @@ class UsersController < ApplicationController
     # 最新の体重
     @newwest_bodyweight = @user.bodyweights.order(:body_weight).limit(1).pluck(:body_weight)
 
-    
+    # 記録日
+    @newwest_bodyweight_starttime = @user.bodyweights.order(:body_weight).limit(1).pluck(:start_time)
+
     # 落とす体重
     @now_body_weight_pull_goal_body_weight =  if @newwest_bodyweight == [nil]
                                                 @target_weight.now_body_weight - @target_weight.goal_body_weight
@@ -38,7 +40,7 @@ class UsersController < ApplicationController
                             end
     
     # gonでグラフデータ化
-    gon.body_weight_area = [@progress_bodyweight.abs] +  [@now_body_weight_pull_goal_body_weight.abs]
+    gon.body_weight_area = [@progress_bodyweight.floor(1).abs] +  [@now_body_weight_pull_goal_body_weight.floor(1).abs]
     
     # 体重の達成率
     @bodyweight_achievement_rate = (@progress_bodyweight.to_f / (@target_weight.now_body_weight.to_f - @target_weight.goal_body_weight.to_f)) * 100
