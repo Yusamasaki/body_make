@@ -2,8 +2,10 @@ class UsersController < ApplicationController
   
   before_action :bodyweight_set_one_month, only: [:show]
   before_action :set_user, only: [:show]
+  before_action :date_set, only: [:show]
   
   def show
+    
     @body_weight = current_user.bodyweights.find_by(start_time: params[:start_time])
     @body_weights = current_user.bodyweights.all
     
@@ -12,9 +14,15 @@ class UsersController < ApplicationController
     @target_weight = @user.targetweight
     gon.target_weight = @target_weight
     
+    # @first_day = params[:start_date].nil? ?
+    # Date.current.beginning_of_month : params[:start_date].to_date
+    # @last_day = @first_day.end_of_month
+    
     # グラフ用にgonでjs用の配列に変更
-    gon.start_times = current_user.bodyweights.where( start_time: @first_day..@last_day).order(:start_time).pluck(:start_time)
-    gon.body_weights = current_user.bodyweights.where( start_time: @first_day..@last_day).order(:start_time).pluck(:body_weight)
+    @week_before = params[:start_time].to_date.ago(6.days)
+    @after_week = @week_before.since(12.days)
+    gon.start_times = current_user.bodyweights.where( start_time: @week_before..@after_week).order(:start_time).pluck(:start_time)
+    gon.body_weights = current_user.bodyweights.where( start_time: @week_before..@after_week).order(:start_time).pluck(:body_weight)
 # --------- doughnut_graphのData ---------
 
   # --------- 体重計算 ---------
