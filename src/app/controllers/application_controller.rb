@@ -31,8 +31,4 @@ class ApplicationController < ActionController::Base
       @bodyweights = current_user.bodyweights.where(start_time: @first_day..@last_day).order(:start_time)
     end
   end
-  
-  def date_set
-    @date = params[:start_time], params[:start_date]
-  end
 end

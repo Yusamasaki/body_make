@@ -12,37 +12,45 @@ window.draw_graph = ->
             datasets: [{
                 label: '体重',
                 data: gon.body_weights,
-                backgroundColor: '#0000FF',
+                fill: false,
+                backgroundColor: 'rgba(0, 0, 255, 0.3)',
                 borderColor: '#0000FF',
-                borderWidth: 1
+                borderWidth: 1,
+                hoverBackgroundColor: undefined,
+                spanGaps: true
             }]
         },
         options: {
             scales: {
                 xAxes: [{
+                    id: 'X軸',
                     ticks: {
+                    
                     }
                 }],
                 yAxes: [{
+                    id: 'y左軸',
                     ticks: {
-                        min: 30,
-                        max: 100
+                        min: gon.newwest_bodyweight_low_with,
+                        max: gon.newwest_bodyweight_high_with,
+                        stepSize: 20
                     }
                 }]
             },
-            plugins: {
-                autocolors: false,
-                annotation: {
-                    annotations: [{
-                        line1: {
-                        type: 'line',
-                        yMin: 60,
-                        yMax: 60,
-                        borderColor: 'rgb(255, 99, 132)',
-                        borderWidth: 2,
-                        }
-                    }]
-                }
+            annotation: {
+                annotations: [{
+                    type: 'line',
+                    drawTime: 'afterDatasetsDraw',
+                    id: 'a-line-1',
+                    mode: 'horizontal',
+                    scaleID: 'y左軸',
+                    value: 80,
+                    endValue: 80,
+                    borderColor: 'red',
+                    borderWidth: 3,
+                    borderDash: [2, 2],
+                    borderDashOffset: 1
+                }]
             }
         }
     })

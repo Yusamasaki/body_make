@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   
   before_action :bodyweight_set_one_month, only: [:show]
   before_action :set_user, only: [:show]
-  before_action :date_set, only: [:show]
   
   def show
     
@@ -13,10 +12,6 @@ class UsersController < ApplicationController
     
     @target_weight = @user.targetweight
     gon.target_weight = @target_weight
-    
-    # @first_day = params[:start_date].nil? ?
-    # Date.current.beginning_of_month : params[:start_date].to_date
-    # @last_day = @first_day.end_of_month
     
     # グラフ用にgonでjs用の配列に変更
     @week_before = params[:start_time].to_date.ago(6.days)
@@ -32,6 +27,10 @@ class UsersController < ApplicationController
 
     # 記録日
     @newwest_bodyweight_starttime = @user.bodyweights.order(:body_weight).limit(1).pluck(:start_time)
+
+    gon.newwest_bodyweight_high_with = (@newwest_bodyweight.sum + 50).floor
+
+    gon.newwest_bodyweight_low_with = (@newwest_bodyweight.sum - 50).floor  
 
     # 落とす体重
     @now_body_weight_pull_goal_body_weight =  if @newwest_bodyweight == [nil]
