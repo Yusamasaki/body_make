@@ -2,13 +2,13 @@ class CreateRecipes < ActiveRecord::Migration[5.2]
   def change
     create_table :recipes do |t|
       t.string :recipe_name
-      t.integer :calorie
-      t.integer :protein
-      t.integer :fat
-      t.integer :carbo
-      t.integer :suger
-      t.integer :dietary_fiber
-      t.integer :salt
+      t.float :calorie
+      t.float :protein
+      t.float :fat
+      t.float :carbo
+      t.float :suger
+      t.float :dietary_fiber
+      t.float :salt
       t.string :note
       t.references :user, foreign_key: true
 
