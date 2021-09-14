@@ -16,9 +16,11 @@
     <%= render 'layouts/side_menu' %>
     <div class="contents">
       <%= render 'layouts/header' %>
+      <!--
       <div class="flash_messages">
         <%= render 'layouts/flash_messages' %>
       </div>
+      -->
       <% flash.each do |message_type, msg| %>
         <div class= "alert-original alert-<%= message_type %>"><%= msg.html_safe %></div>
       <% end %>

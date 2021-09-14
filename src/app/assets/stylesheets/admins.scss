@@ -1,3 +1,17 @@
-// Place all the styles related to the Admins controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@media screen and (min-width: 1024px) {
+  .admin-box{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    color: #000;
+    background: white;
+    border-top: solid 5px #000;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+    height: 100%;
+  }
+}
+
+.admin-menu {
+  color: #274277;
+  font-weight: bolder;
+  margin-left: 5px;
+}
