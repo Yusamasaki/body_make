@@ -1,61 +1,63 @@
-<div class="box1 center">
-  <div class="date">
-    <a href="#" class="arrow round-arrow-left"></a>
-    <a style="color: #274277;"><%= params[:start_time] %></a>
-    <a href="#" class="arrow round-arrow-right"></a>
-  </div>
-  <div class="calender-icon">
-  <%= link_to(user_bodyweights_calender_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), remote: true) do %>
-    <div class="calendar"></div>
-  <% end %>
+<div class="box1">
+  <div class="row">
+    <div class="col-md-3 offset-md-5 align-self-center">
+      <a href="#" class="arrow round-arrow-left"></a>
+      <a style="color: #274277;"><%= params[:start_time] %></a>
+      <a href="#" class="arrow round-arrow-right"></a>
+    </div>
+    <div class="col-md-3 align-self-center">
+      <%= link_to(user_bodyweights_calender_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), remote: true) do %>
+        <div class="calendar"></div>
+      <% end %>
+    </div>
   </div>
 </div>
 
 
 <div class="box1">
   <div class="row">
-    <div class="col-md-6 offset-md-2">
+    
+    <div class="col-md-6 offset-md-2 ">
       <div class="doughnut_graph">
-        <canvas id="chart-area" width="1000" height="800"></canvas>
+        <canvas id="chart-area" class="doughnut_graph" width="1000" height="800"></canvas>
         <script>doughnut_graph();</script>
         <p><%= @bodyweight_achievement_rate.floor.abs %>％達成</p>
         <a>残り<%= @now_body_weight_pull_goal_body_weight.floor(1) %>kg</a>
       </div>
     </div>
 
-    <div class="col-md-3">
-      <div class="bodyweight-record">
-        <%= link_to "目標編集", edit_user_targetweight_path(current_user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary btn-edit" %>
-        <%= link_to "基礎代謝編集", edit_user_bmr_path(current_user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary btn-edit" %>
-        <%= 
-          link_to "体重記録", edit_user_bodyweight_path(
-          user_id: current_user, id: @body_weight, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-lg btn-original" if @body_weight.present?
-        %>
-      </div>
+    <div class="col-md-3 align-self-center">
+      <%= link_to "目標編集", edit_user_targetweight_path(current_user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary btn-edit" %>
+      <%= link_to "基礎代謝編集", edit_user_bmr_path(current_user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary btn-edit" %>
+      <%= 
+        link_to "体重記録", edit_user_bodyweight_path(
+        user_id: current_user, id: @body_weight, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-lg btn-original" if @body_weight.present?
+      %>
     </div> 
-    <div class="col-md-2 offset-md-1  ">
+    
+    <div class="col-md-2 offset-md-1 align-self-center">
       <div class="box2">
         <div class="box-title">現在の体重</div>
         <p><%= @newwest_bodyweight.sum %>kg</p>
       </div>
     </div>
-    <div class="col-md-1"><a class="arrow sample5-1"></a></div>
-    <div class="col-md-2">
+    
+    <div class="col-md-1 align-self-center"><a class="arrow sample5-1"></a></div>
+    
+    <div class="col-md-2 align-self-center">
       <div class="box2">
         <div class="box-title">目標の体重</div>
         <p><%= @target_weight.goal_body_weight %>kg</p>
       </div>
     </div>
-  </div>
-</div>
-  
-
-
-  <!--グラフ-->
-<div class="box1">
-  <div class="bodyweight-chart">
-    <canvas id="myChart"></canvas>
-    <script>draw_graph();</script>
+    
+    <div class="col-md-6 align-self-center">
+      <div class="bodyweight-chart">
+        <canvas id="myChart" width="400" height="200"></canvas>
+        <script>draw_graph();</script>
+      </div>
+    </div>
+    
   </div>
 </div>
 
