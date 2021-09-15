@@ -12,15 +12,15 @@ module BmrsHelper
   end
   
   # 基礎代謝計算
-  def bmr_format(gender, now_body_weight, newwest_body_weight, height, age)
+  def bmr_format(gender, now_body_weight, newwest_body_weight, height, age, activity)
     if newwest_body_weight == 0 && gender == "男性"
-      (now_body_weight * 13.397) + (height * 4.799) - (age * 5.677) + 88.362
+      ((now_body_weight * 13.397) + (height * 4.799) - (age * 5.677) + 88.362) * activity.to_f
     elsif newwest_body_weight == 0 && gender == "女性"
-      (now_body_weight * 9.247) + (height * 3.098) - (age * 4.33) + 447.593
+      ((now_body_weight * 9.247) + (height * 3.098) - (age * 4.33) + 447.593) * activity.to_f
     elsif  newwest_body_weight.present? && gender == "男性"
-      (newwest_body_weight * 13.397) + (height * 4.799) - (age * 5.677) + 88.362
+      ((newwest_body_weight * 13.397) + (height * 4.799) - (age * 5.677) + 88.362) * activity.to_f
     elsif
-      (newwest_body_weight * 9.247) + (height * 3.098) - (age * 4.33) + 447.593
+      ((newwest_body_weight * 9.247) + (height * 3.098) - (age * 4.33) + 447.593) * activity.to_f
     end
   end
 end

@@ -9,8 +9,8 @@ class UsersController < ApplicationController
     @body_weights = current_user.bodyweights.all
     
     @bmr = @user.bmr
-    
     @target_weight = @user.targetweight
+
     gon.target_weight = @target_weight
 
 
@@ -23,14 +23,20 @@ class UsersController < ApplicationController
     # week_beforeの2週間後
     @after_week = @week_before.since(14.days)
 
-    # @week_before　〜　@after_week　までの日付を配列表示してグラフ化
+    # @week_before　〜　@after_week　までの日付を配列表示してLine-chart化
     gon.start_times = current_user.bodyweights.where( start_time: @week_before..@after_week).order(:start_time).pluck(:start_time)
 
-    # @week_before　〜　@after_week　までの体重を配列表示してグラフ化
+    # @week_before　〜　@after_week　までの体重を配列表示してLine-chart化
     gon.body_weights = current_user.bodyweights.where( start_time: @week_before..@after_week).order(:start_time).pluck(:body_weight)
   
     # 最新の体重
     @newwest_bodyweight = @user.bodyweights.order(:body_weight).limit(1).pluck(:body_weight)
+
+    @bodyweight_update =  if @newwest_bodyweight == [nil]
+                            @target_weight.updated_at
+                          else
+                            @user.bodyweights.order(:body_weight).limit(1).pluck(:updated_at).sum
+                          end
 
     # 体重記録日
     @newwest_bodyweight_starttime = @user.bodyweights.order(:body_weight).limit(1).pluck(:start_time)
