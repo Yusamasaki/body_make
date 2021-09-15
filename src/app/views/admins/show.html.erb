@@ -1,5 +1,37 @@
-<h1>Admins#show</h1>
-<p>Find me in app/views/admins/show.html.erb</p>
-<div><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></div>
+<div class="admin-box center">
+  管理者画面
+</div>
+
+<div class="admin-box">
+  <div class="mb-1">
+    <%= link_to "運動カテゴリ情報", exercise_categories_path, class: "btn btn-original w-25" %>
+    <span class="admin-menu">登録件数：<%= ExerciseCategory.count %>件</span>
+  </div>
+  <div class="mb-1">
+    <%= link_to "サンプル", "#", class: "btn btn-original w-25" %>
+    <span class="admin-menu">登録件数：件</span>
+  </div>
+  <div class="mb-1">
+    <%= link_to "サンプル", "#", class: "btn btn-original w-25" %>
+    <span class="admin-menu">登録件数：件</span>
+  </div>
+  <div class="mb-1">
+    <%= link_to "サンプル", "#", class: "btn btn-original w-25" %>
+    <span class="admin-menu">登録件数：件</span>
+  </div>
+
+  <div class="mb-1 mt-5">
+    <%= link_to "管理者情報", edit_admin_registration_path, class: "btn btn-original w-25" %>
+  </div>
+  <div class="mb-1">
+    <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-secondary w-25" %>
+  </div>
+</div>
+
 <div>ログインしているユーザー<%= current_admin.username %></div>
-<div><%= link_to "ユーザー情報変更", edit_admin_registration_path %></div>
+
+<style>
+.aaa {
+  color: #274277;
+}
+</style>
