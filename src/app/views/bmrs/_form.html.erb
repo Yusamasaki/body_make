@@ -1,4 +1,4 @@
-  <%= form_with(model: [@user, @bmr], url: user_bmr_path(@user, start_date: params[:start_date], start_time: params[:start_time]), local: true) do |f| %>
+  <%= form_with(model: [@user, @bmr], local: true) do |f| %>
     <%= render 'shared/error_messages', object: @bmr %>
 
 
@@ -6,10 +6,13 @@
     <%= f.select :gender, {'男性':"男性", '女性':"女性"}, {include_blank: "選択してください"}, class: "form-control" %>
 
     <%= f.label :age, class: "label" %>
-    <%= f.text_field :age, class: "form-control" %>
+    <%= f.number_field :age, class: "form-control" %>
 
     <%= f.label :height, class: "label" %>
-    <%= f.text_field :height, class: "form-control" %>
+    <%= f.number_field :height, step: '0.1', class: "form-control" %>
+    
+    <%= f.label :activity, class: "label" %>
+    <%= f.select :activity, activity_select, {include_blank: "選択してください"}, class: "form-control" %>
 
     <%= f.hidden_field :user_id, value: @user.id %>
 

@@ -39,6 +39,6 @@ class BmrsController < ApplicationController
   private
 
   def bmr_params
-    params.require(:bmr).permit(:gender, :age, :height, :user_id)
+    params.require(:bmr).permit(:gender, :age, :height, :user_id, :activity)
   end
 end

@@ -12,7 +12,7 @@ ja:
         bodyfat_percentage: 体脂肪率
       targetweight:
         now_body_weight: 現在の体重
-        goal_body_weight: 目標体重
+        goal_body_weight: 目標体重  
         now_bodyfat_percentage: 現在の体脂肪率
         goal_bodyfat_percentage: 目標体脂肪率
         beginning_date: スタート日
@@ -21,6 +21,7 @@ ja:
         gender: 性別
         age: 年齢
         height: 身長
+        activity: 活動レベル
       exercise_category:
         name: カテゴリー
       exercise_content:

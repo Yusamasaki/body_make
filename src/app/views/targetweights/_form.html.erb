@@ -1,17 +1,17 @@
-<%= form_with(model:[@user, @tw], url: user_targetweight_path(@user, start_date: params[:start_date], start_time: params[:start_time]), local: true) do |f| %>
+<%= form_with(model:[@user, @tw], local: true) do |f| %>
     <%= render 'shared/error_messages', object: @tw %>
 
     <%= f.label :now_body_weight, class: "label" %>
-    <%= f.text_field :now_body_weight, class: "form-control" %>
+    <%= f.number_field :now_body_weight, class: "form-control" %>
     
     <%= f.label :goal_body_weight, class: "label" %>
-    <%= f.text_field :goal_body_weight, class: "form-control" %>
+    <%= f.number_field :goal_body_weight, class: "form-control" %>
     
     <%= f.label :now_bodyfat_percentage, class: "label" %>
-    <%= f.text_field :now_bodyfat_percentage, class: "form-control" %>
+    <%= f.number_field :now_bodyfat_percentage, class: "form-control" %>
 
     <%= f.label :goal_bodyfat_percentage, class: "label" %>
-    <%= f.text_field :goal_bodyfat_percentage, class: "form-control" %>
+    <%= f.number_field :goal_bodyfat_percentage, class: "form-control" %>
 
     <%= f.label :beginning_date, class: "label" %>
     <%= f.date_field :beginning_date, class: "form-control" %>

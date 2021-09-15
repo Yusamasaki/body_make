@@ -64,8 +64,9 @@
     <div class="col">
       <%= link_to "目標編集", edit_user_targetweight_path(current_user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary btn-edit" %>
       <%= link_to "基礎代謝編集", edit_user_bmr_path(current_user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary btn-edit" %>
-      基礎代謝：<%= bmr_format(@bmr.gender, @newwest_bodyweight.sum, @bmr.height, @bmr.age).floor(1) %>kcal
+      基礎代謝：<%= bmr_format(@bmr.gender, @target_weight.now_body_weight, @newwest_bodyweight.sum, @bmr.height, @bmr.age).floor(1) %>kcal
     </div>
+    
   </div>
 </div>
 

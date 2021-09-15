@@ -33,7 +33,8 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
   create_table "bmrs", force: :cascade do |t|
     t.string "gender"
     t.integer "age"
-    t.integer "height"
+    t.float "height"
+    t.string "activity"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -47,9 +48,9 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
   end
 
   create_table "bodyweights", force: :cascade do |t|
-    t.datetime "start_time"
-    t.integer "body_weight"
-    t.integer "bodyfat_percentage"
+    t.date "start_time"
+    t.float "body_weight"
+    t.float "bodyfat_percentage"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -104,7 +105,7 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
   end
 
   create_table "myfoods", force: :cascade do |t|
-    t.integer "food_name"
+    t.string "food_name"
     t.integer "amount"
     t.integer "caloriie"
     t.integer "protein"
@@ -167,8 +168,8 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
     t.integer "goal_body_weight"
     t.integer "now_bodyfat_percentage"
     t.integer "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-09-13 03:03:06"
-    t.datetime "target_date", default: "2021-09-14 03:03:06"
+    t.datetime "beginning_date", default: "2021-09-15 05:39:59"
+    t.datetime "target_date", default: "2021-09-16 05:39:59"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -182,13 +183,8 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-<<<<<<< HEAD
-    t.date "start_time", default: "2021-09-13", null: false
-    t.datetime "exercise_time", default: "2021-09-12 15:00:00", null: false
-=======
-    t.date "start_time", default: "2021-08-22", null: false
-    t.datetime "exercise_time", default: "2021-08-22 00:00:00", null: false
->>>>>>> origin
+    t.date "start_time", default: "2021-09-15", null: false
+    t.datetime "exercise_time", default: "2021-09-14 15:00:00", null: false
     t.string "note"
     t.bigint "exercise_category_id"
     t.bigint "user_id"
