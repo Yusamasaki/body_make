@@ -67,6 +67,9 @@ class UsersController < ApplicationController
     # 体重の達成率
     @bodyweight_achievement_rate = (@progress_bodyweight.to_f / (@target_weight.now_body_weight.to_f - @target_weight.goal_body_weight.to_f)) * 100
     
+    # 予想体重
+    @predict_bodyweight = BigDecimal(@target_weight.now_body_weight - @target_weight.goal_body_weight) / BigDecimal(@target_weight.target_date.yday - @bodyweight_update.yday)
+    
 
   # --------- 体脂肪率計算 ---------
     

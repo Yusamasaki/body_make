@@ -44,7 +44,7 @@
                 <%= @newwest_bodyweight.sum %>kg
               <% end %>
             </p>
-            <p><%= @bodyweight_update.to_date %>登録</p>
+            <p><%= @bodyweight_update.to_date %>現在</p>
           </div>
         </div>
         
@@ -54,8 +54,15 @@
           <div class="box2">
             <div class="box-title">目標の体重</div>
             <p><%= @target_weight.goal_body_weight %>kg</p>
-            <p><%= @target_weight.updated_at.to_date %>登録</p>
+            <p><%= @target_weight.target_date.to_date %>まで</p>
           </div>
+        </div>
+        
+        <div class="col-md-4">
+          あと何日：<%= @target_weight.target_date.yday - @bodyweight_update.yday %>日
+        </div>
+        <div class="col-md-4">
+          <%= params[:start_time] %>の予測体重：<%= @predict_bodyweight.to_f %>
         </div>
       </div>
     </div>
