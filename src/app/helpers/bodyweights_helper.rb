@@ -1,5 +1,10 @@
 module BodyweightsHelper
   
+  # 体重の進捗率
+  def bodyweight_achievement_rate(progress_bodyweight, target_weight)
+    ((@progress_bodyweight.to_f / (@target_weight.now_body_weight.to_f - @target_weight.goal_body_weight.to_f)) * 100).floor(1).abs
+  end
+
   # 後何日か
   def how_many_days_later(target_weight, starttime)
     target_weight.target_date.yday - starttime.to_date.yday
@@ -16,6 +21,7 @@ module BodyweightsHelper
       ((BigDecimal(target_weight.now_body_weight - target_weight.goal_body_weight) / 
         BigDecimal(target_weight.target_date.yday - target_weight.beginning_date.yday)) *
         BigDecimal(target_weight.beginning_date.yday - start_time.to_date.yday)).abs.floor(1)
+        debugger
     end
   end
   

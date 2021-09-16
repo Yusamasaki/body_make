@@ -26,7 +26,7 @@
           <div class="doughnut_graph">
             <canvas id="chart-area" class="doughnut_graph" width="1500" height="1000"></canvas>
             <script>doughnut_graph();</script>
-            <p><%= @bodyweight_achievement_rate.floor.abs %>％達成</p>
+            <p><%= bodyweight_achievement_rate(@progress_bodyweight, @target_weight) %>％達成</p>
             <a>残り<%= @now_body_weight_pull_goal_body_weight.floor(1) %>kg</a>
           </div>
         </div>
@@ -63,10 +63,14 @@
         </div>
         
         <div class="col-md-4">
-          あと何日：<%= how_many_days_later(@target_weight, params[:start_time]) %>日
+          <div class="box2">
+            あと何日：<%= how_many_days_later(@target_weight, params[:start_time]) %>日
+          </div>
         </div>
         <div class="col-md-4">
-          <%= params[:start_time] %>の予測体重：<%= predict_bodyweight(@target_weight, params[:start_time]) %>
+          <div class="box2">
+            <%= params[:start_time] %>の予測体重：<%= predict_bodyweight(@target_weight, params[:start_time]) %>
+          </div>
         </div>
       </div>
     </div>
