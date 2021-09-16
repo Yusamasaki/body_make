@@ -8,13 +8,14 @@ Rails.application.routes.draw do
       registrations: "users/registrations",
       omniauth_callbacks: 'users/omniauth_callbacks'
     }
-  devise_for :admin,
+  
+  devise_for :admins,
     controllers: {
       sessions: 'admins/sessions',
       registrations: "admins/registrations",
     }
   
-  resources :admin, only: [:show]
+  resources :admins, only: [:show]
   resources :users, only: [:show] do
     
     get 'bodyweights/calender'
