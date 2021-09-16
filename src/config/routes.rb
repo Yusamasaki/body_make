@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'today_exercises/new'
   root to: 'staticpages#top'
 
   devise_for :users,
@@ -21,9 +22,9 @@ Rails.application.routes.draw do
     resources :bodyweights, only: [:create, :edit, :update]
     resources :targetweights, only: [:new, :create, :edit, :update]
     resources :bmrs, only: [:new, :create, :edit, :update]
+    
+    resources :today_exercises
   end
-
-  resources :today_exercises
 
   resources :exercise_categories do
     resources :exercise_contents
