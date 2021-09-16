@@ -32,14 +32,12 @@ class UsersController < ApplicationController
     # 最新の体重
     @newwest_bodyweight = @user.bodyweights.order(:body_weight).limit(1).pluck(:body_weight)
 
-    @bodyweight_update =  if @newwest_bodyweight == [nil]
-                            @target_weight.updated_at
-                          else
-                            @user.bodyweights.order(:body_weight).limit(1).pluck(:updated_at).sum
-                          end
-
-    # 体重記録日
-    @newwest_bodyweight_starttime = @user.bodyweights.order(:body_weight).limit(1).pluck(:start_time)
+    # 最新の体重の記録日
+    @newwest_bodyweight_starttime = if @newwest_bodyweight == [nil]
+                                      @target_weight.updated_at
+                                    else
+                                      @user.bodyweights.order(:body_weight).limit(1).pluck(:start_time).sum
+                                    end
 
     # 体重グラフX軸上限値
     gon.newwest_bodyweight_high_with = (@newwest_bodyweight.sum + 50).floor
@@ -66,10 +64,6 @@ class UsersController < ApplicationController
     
     # 体重の達成率
     @bodyweight_achievement_rate = (@progress_bodyweight.to_f / (@target_weight.now_body_weight.to_f - @target_weight.goal_body_weight.to_f)) * 100
-    
-    # 予想体重
-    @predict_bodyweight = BigDecimal(@target_weight.now_body_weight - @target_weight.goal_body_weight) / BigDecimal(@target_weight.target_date.yday - @bodyweight_update.yday)
-    
 
   # --------- 体脂肪率計算 ---------
     

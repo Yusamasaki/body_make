@@ -1,9 +1,13 @@
 <div class="box1">
   <div class="row">
     <div class="col-md-3 offset-md-5 align-self-center">
-      <a href="#" class="arrow round-arrow-left"></a>
+      <%= link_to(user_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date].to_date.prev_month)) do %>
+        <div class="arrow round-arrow-left"></div>
+      <% end %>
       <a style="color: #274277;"><%= params[:start_time] %></a>
-      <a href="#" class="arrow round-arrow-right"></a>
+      <%= link_to(user_path(current_user, start_time: params[:start_time].to_date.tomorrow, start_date: params[:start_date].to_date.next_month)) do %>
+        <div class="arrow round-arrow-right"></div>
+      <% end %> 
     </div>
     <div class="col-md-3 align-self-center">
       <%= link_to(user_bodyweights_calender_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), remote: true) do %>
@@ -44,7 +48,7 @@
                 <%= @newwest_bodyweight.sum %>kg
               <% end %>
             </p>
-            <p><%= @bodyweight_update.to_date %>現在</p>
+            <p><%= @newwest_bodyweight_starttime.to_date %>現在</p>
           </div>
         </div>
         
@@ -59,10 +63,10 @@
         </div>
         
         <div class="col-md-4">
-          あと何日：<%= @target_weight.target_date.yday - @bodyweight_update.yday %>日
+          あと何日：<%= how_many_days_later(@target_weight, params[:start_time]) %>日
         </div>
         <div class="col-md-4">
-          <%= params[:start_time] %>の予測体重：<%= @predict_bodyweight.to_f %>
+          <%= params[:start_time] %>の予測体重：<%= predict_bodyweight(@target_weight, params[:start_time]) %>
         </div>
       </div>
     </div>
