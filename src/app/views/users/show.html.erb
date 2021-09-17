@@ -26,85 +26,88 @@
     <div class="col-md-6 offset-md-3">
       <div class="tab-area">
         <div class="tab active">
-          タブ１
+          体重
         </div>
         <div class="tab">
-          タブ２
+          体脂肪率
         </div>
       </div>  
     </div>
   </div>
   <div class="content-area">
-  <div class="content show">
-  <div class="row">
-    <div class="col-md-6">
+    <div class="content show">
+      <%= render 'bodyweight' %>
+    </div>
+    <div class="content show">
       <div class="row">
-        <div class="col-md-7">
-          <div class="doughnut_graph">
-            <canvas id="chart-area" class="doughnut_graph" width="1500" height="1000"></canvas>
-            <script>doughnut_graph();</script>
-            <p><%= bodyweight_achievement_rate(@progress_bodyweight, @target_weight) %>％達成</p>
-            <a>残り<%= @now_body_weight_pull_goal_body_weight.floor(1) %>kg</a>
-          </div>
-        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-7">
+              <div class="doughnut_graph">
+                <canvas id="chart-area" class="doughnut_graph" width="1500" height="1000"></canvas>
+                <script>doughnut_graph();</script>
+                <p><%= bodyweight_achievement_rate(@progress_bodyweight, @target_weight) %>％達成</p>
+                <a>残り<%= @now_body_weight_pull_goal_body_weight.floor(1) %>kg</a>
+              </div>
+            </div>
 
-        <div class="col-md-4 align-self-center">
-          <%= 
-            link_to "体重記録", edit_user_bodyweight_path(
-            user_id: current_user, id: @body_weight, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-lg btn-original" if @body_weight.present?
-          %>
-        </div> 
-        
-        <div class="col-md-4 offset-md-1 align-self-center">
-          <div class="box2">
-            <div class="box-title">現在の体重</div>
-            <p>
-              <% if @newwest_bodyweight == [nil] %>
-                <%= @target_weight.now_body_weight %>kg
-              <% else %>
-                <%= @newwest_bodyweight.sum %>kg
-              <% end %>
-            </p>
-            <p><%= @newwest_bodyweight_starttime.to_date %>現在</p>
+            <div class="col-md-4 align-self-center">
+              <%= 
+                link_to "体重記録", edit_user_bodyweight_path(
+                user_id: current_user, id: @body_weight, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-lg btn-original" if @body_weight.present?
+              %>
+            </div> 
+            
+            <div class="col-md-4 offset-md-1 align-self-center">
+              <div class="box2">
+                <div class="box-title">現在の体重</div>
+                <p>
+                  <% if @newwest_bodyweight == [nil] %>
+                    <%= @target_weight.now_body_weight %>kg
+                  <% else %>
+                    <%= @newwest_bodyweight.sum %>kg
+                  <% end %>
+                </p>
+                <p><%= @newwest_bodyweight_starttime.to_date %>現在</p>
+              </div>
+            </div>
+            
+            <div class="col-md-2 align-self-center"><a class="arrow sample5-1"></a></div>
+            
+            <div class="col-md-4 align-self-center">
+              <div class="box2">
+                <div class="box-title">目標の体重</div>
+                <p><%= @target_weight.goal_body_weight %>kg</p>
+                <p><%= @target_weight.target_date.to_date %>まで</p>
+              </div>
+            </div>
+            
+            <div class="col-md-4 offset-md-1">
+              <div class="box2">
+                あと何日：<%= how_many_days_later(@target_weight, params[:start_time]) %>日
+              </div>
+            </div>
+            <div class="col-md-4 offset-md-2">
+              <div class="box2">
+                <%= params[:start_time] %>の予測体重：<%= predict_bodyweight(@target_weight, params[:start_time]) %>
+              </div>
+            </div>
           </div>
         </div>
-        
-        <div class="col-md-2 align-self-center"><a class="arrow sample5-1"></a></div>
-        
-        <div class="col-md-4 align-self-center">
-          <div class="box2">
-            <div class="box-title">目標の体重</div>
-            <p><%= @target_weight.goal_body_weight %>kg</p>
-            <p><%= @target_weight.target_date.to_date %>まで</p>
-          </div>
-        </div>
-        
-        <div class="col-md-4 offset-md-1">
-          <div class="box2">
-            あと何日：<%= how_many_days_later(@target_weight, params[:start_time]) %>日
-          </div>
-        </div>
-        <div class="col-md-4 offset-md-2">
-          <div class="box2">
-            <%= params[:start_time] %>の予測体重：<%= predict_bodyweight(@target_weight, params[:start_time]) %>
+          
+        <div class="col-md-6 align-self-center">
+          <div class="bodyweight-chart">
+            <canvas id="myChart" width="400" height="300"></canvas>
+            <script>draw_graph();</script>
           </div>
         </div>
       </div>
     </div>
-      
-    <div class="col-md-6 align-self-center">
-      <div class="bodyweight-chart">
-        <canvas id="myChart" width="400" height="300"></canvas>
-        <script>draw_graph();</script>
-      </div>
-    </div>
-  </div>
-  </div>
   </div>
 </div>
-<div class="content show">
-  
-</div>
+
+
+
 
 <div class="box1">
   <div class="row">
