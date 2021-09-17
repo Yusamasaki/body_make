@@ -1,5 +1,8 @@
+
+
 <div class="box1">
   <div class="row">
+    
     <div class="col-md-3 offset-md-5 align-self-center">
       <%= link_to(user_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date].to_date.prev_month)) do %>
         <div class="arrow round-arrow-left"></div>
@@ -19,6 +22,20 @@
 
 
 <div class="box1">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="tab-area">
+        <div class="tab active">
+          タブ１
+        </div>
+        <div class="tab">
+          タブ２
+        </div>
+      </div>  
+    </div>
+  </div>
+  <div class="content-area">
+  <div class="content show">
   <div class="row">
     <div class="col-md-6">
       <div class="row">
@@ -62,12 +79,12 @@
           </div>
         </div>
         
-        <div class="col-md-4">
+        <div class="col-md-4 offset-md-1">
           <div class="box2">
             あと何日：<%= how_many_days_later(@target_weight, params[:start_time]) %>日
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 offset-md-2">
           <div class="box2">
             <%= params[:start_time] %>の予測体重：<%= predict_bodyweight(@target_weight, params[:start_time]) %>
           </div>
@@ -82,6 +99,11 @@
       </div>
     </div>
   </div>
+  </div>
+  </div>
+</div>
+<div class="content show">
+  
 </div>
 
 <div class="box1">

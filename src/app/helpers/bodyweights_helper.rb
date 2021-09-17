@@ -17,11 +17,10 @@ module BodyweightsHelper
     elsif target_weight.updated_at.to_date > start_time.to_date
       target_weight.now_body_weight
     else
-      target_weight.goal_body_weight -
+      BigDecimal(target_weight.now_body_weight -
       ((BigDecimal(target_weight.now_body_weight - target_weight.goal_body_weight) / 
         BigDecimal(target_weight.target_date.yday - target_weight.beginning_date.yday)) *
-        BigDecimal(target_weight.beginning_date.yday - start_time.to_date.yday)).abs.floor(1)
-        debugger
+        BigDecimal(target_weight.beginning_date.yday - start_time.to_date.yday).abs)).abs.floor(1)
     end
   end
   

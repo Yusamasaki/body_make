@@ -44,12 +44,28 @@ window.draw_graph = ->
                     id: 'a-line-1',
                     mode: 'horizontal',
                     scaleID: 'y左軸',
-                    value: 80,
-                    endValue: 80,
-                    borderColor: 'red',
+                    value: gon.goal_body_weight,
+                    endValue: gon.goal_body_weight,
+                    borderColor: '#274277',
                     borderWidth: 3,
                     borderDash: [2, 2],
-                    borderDashOffset: 1
+                    borderDashOffset: 1,
+                    label: {
+                        backgroundColor: 'rgba(255,255,255,0.8)',
+                        bordercolor: 'rgba(0,0,60,0.8)',
+                        borderwidth: 2,
+                        fontSize: 10,
+                        fontStyle: 'bold',
+                        fontColor: 'rgba(10,60,255,0.8)',
+                        xPadding: 10,
+                        yPadding: 10,
+                        cornerRadius: 3,
+                        position: 'left',
+                        xAdjust: 0,
+                        yAdjust: 0,
+                        enabled: true,
+                        content: '目標体重'
+                    }
                 }]
             }
         }

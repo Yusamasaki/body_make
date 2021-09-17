@@ -5,8 +5,8 @@ class UsersController < ApplicationController
   
   def show
     
-    @body_weight = current_user.bodyweights.find_by(start_time: params[:start_time])
-    @body_weights = current_user.bodyweights.all
+    @body_weight = @user.bodyweights.find_by(start_time: params[:start_time])
+    @body_weights = @user.bodyweights.all
     
     @bmr = @user.bmr
     @target_weight = @user.targetweight
@@ -44,6 +44,9 @@ class UsersController < ApplicationController
                             else
                                 @target_weight.now_body_weight - @newwest_bodyweight.sum
                             end
+                            
+                            
+    gon.goal_body_weight = @target_weight.goal_body_weight
     
     # @week_before　〜　@after_week　までの日付を配列表示してLine-chart化
     gon.start_times = current_user.bodyweights.where( start_time: @week_before..@after_week).order(:start_time).pluck(:start_time)
@@ -52,10 +55,10 @@ class UsersController < ApplicationController
     gon.body_weights = current_user.bodyweights.where( start_time: @week_before..@after_week).order(:start_time).pluck(:body_weight)
 
     # 体重グラフX軸上限値
-    gon.newwest_bodyweight_high_with = (@newwest_bodyweight.sum + 50).floor
+    gon.newwest_bodyweight_high_with = (@newwest_bodyweight.sum + 20).floor
 
     # 体重グラフX軸下限値
-    gon.newwest_bodyweight_low_with = (@newwest_bodyweight.sum - 50).floor  
+    gon.newwest_bodyweight_low_with = (@newwest_bodyweight.sum - 20).floor  
     
     # gonで体重グラフデータ化
     gon.body_weight_area = [@progress_bodyweight.floor(1).abs] + [@now_body_weight_pull_goal_body_weight.floor(1).abs]
