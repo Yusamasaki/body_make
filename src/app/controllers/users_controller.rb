@@ -65,21 +65,45 @@ class UsersController < ApplicationController
 
 
   # --------- 体脂肪率計算 ---------
-    
+  
     # 最新の体脂肪率
     @newwest_bodyfat_percentage = @user.bodyweights.order(:bodyfat_percentage).limit(1).pluck(:bodyfat_percentage)
-    
-    @bodyweights.each{|day|}
-    
-    
+
+    # 最新の体脂肪率の記録日
+    @newwest_bodyfat_percentage_starttime = if @newwest_bodyfat_percentage == [nil]
+                                      @target_weight.updated_at
+                                    else
+                                      @user.bodyweights.order(:bodyfat_percentage).limit(1).pluck(:start_time).sum
+                                    end
+
     # 落とす体脂肪率
-    gon.now_bodyfat_percentage_pull_goal_bodyfat_percentage = @target_weight.now_bodyfat_percentage - @target_weight.goal_bodyfat_percentage
-    
+    @now_bodyfat_percentage_pull_goal_bodyfat_percentage =  if @newwest_bodyfat_percentage == [nil]
+                                                @target_weight.now_bodyfat_percentage - @target_weight.goal_bodyfat_percentage
+                                              else
+                                                (@target_weight.now_bodyfat_percentage - @newwest_bodyfat_percentage.sum) - (@target_weight.now_bodyfat_percentage - @target_weight.goal_bodyfat_percentage)
+                                              end
+                                              
     # 体脂肪率の進捗
-    gon.progress_bodyfat_percentage = if @newwest_bodyfat_percentage == [nil]
-                                        0
-                                      else
-                                        @target_weight.now_bodyfat_percentage - @newwest_bodyfat_percentage.sum
-                                      end
+    @progress_bodyfat_percentage =  if @newwest_bodyfat_percentage == [nil]
+                              0
+                            else
+                                @target_weight.now_bodyfat_percentage - @newwest_bodyfat_percentage.sum
+                            end
+                            
+                            
+    gon.goal_bodyfat_percentage = @target_weight.goal_bodyfat_percentage
+    
+
+    # @week_before　〜　@after_week　までの体重を配列表示してLine-chart化
+    gon.bodyfat_percentages = current_user.bodyweights.where( start_time: @week_before..@after_week).order(:start_time).pluck(:bodyfat_percentage)
+
+    # 体重グラフX軸上限値
+    gon.newwest_bodyfat_percentage_high_with = (@newwest_bodyfat_percentage.sum + 20).floor
+
+    # 体重グラフX軸下限値
+    gon.newwest_bodyfat_percentage_low_with = (@newwest_bodyfat_percentage.sum - 20).floor  
+    
+    # gonで体重グラフデータ化
+    gon.bodyfat_percentage_area = [@progress_bodyfat_percentage.floor(1).abs] + [@now_bodyfat_percentage_pull_goal_bodyfat_percentage.floor(1).abs]
   end
 end
