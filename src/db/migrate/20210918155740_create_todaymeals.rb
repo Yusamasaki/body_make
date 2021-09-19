@@ -1,19 +1,18 @@
-class CreateMyMeals < ActiveRecord::Migration[5.2]
+class CreateTodaymeals < ActiveRecord::Migration[5.2]
   def change
-    create_table :my_meals do |t|
+    create_table :todaymeals do |t|
       t.datetime :start_time
       t.string :food_name
       t.float :calorie
-      t.string :protein
-      t.string :fat
-      t.string :carbo
+      t.float :protein
+      t.float :fat
+      t.float :carbo
       t.float :suger
       t.float :dietary_fiber
       t.float :salt
       t.string :note
-      t.references :timezone
       t.references :user, foreign_key: true
-      
+      t.references :timezone
 
       t.timestamps
     end
