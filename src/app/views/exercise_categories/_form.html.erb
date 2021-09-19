@@ -1,11 +1,7 @@
-<%= form_with model: @category, local: true do |f|  %>
+<%= form_with model: @category, id: "exercise_category-btn", local: true do |f|  %>
   <%= render 'shared/error_messages', object: @category %>
 
   <div>
-    <div style="text-align: right;">
-      <%= link_to '一覧へ戻る', exercise_categories_path, class: "btn btn-secondary" %>
-    </div>
-
     <div class="exercise_category-form">
       <%= f.label :name %>
       <%= f.text_field :name, class: "form-control" %>
@@ -35,11 +31,4 @@
     
     <div id="detail-association-insertion-point"></div>
   <div>
-  <div class="exercise_category-submit">
-    <% if controller.action_name == "new" %>
-      <%= f.submit class: "btn btn-original btn-block" %>
-    <% elsif controller.action_name == "edit" %>
-      <%= f.submit class: "btn btn-original btn-block", data: {confirm: "更新しますか？削除したコンテンツは同時に削除されます。"} %>
-    <% end %>
-  </div>
 <% end %>
