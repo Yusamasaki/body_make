@@ -45,6 +45,7 @@ class UsersController < ApplicationController
                                 @target_weight.now_body_weight - @newwest_bodyweight.sum
                             end
                             
+    
                             
     gon.goal_body_weight = @target_weight.goal_body_weight
     
@@ -106,4 +107,8 @@ class UsersController < ApplicationController
     # gonで体重グラフデータ化
     gon.bodyfat_percentage_area = [@progress_bodyfat_percentage.floor(1).abs] + [@now_bodyfat_percentage_pull_goal_bodyfat_percentage.floor(1).abs]
   end
+
+  def setting
+  end
+
 end

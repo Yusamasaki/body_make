@@ -34,4 +34,8 @@ class ApplicationController < ActionController::Base
       @bodyweights = current_user.bodyweights.where(start_time: @first_day..@last_day).order(:start_time)
     end
   end
+
+  def body_weight_Calculation
+    
+  end
 end

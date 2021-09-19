@@ -1,27 +1,27 @@
 <%= form_with(model:[@user, @tw], local: true) do |f| %>
     <%= render 'shared/error_messages', object: @tw %>
 
-    <%= f.label :now_body_weight, class: "label" %>
-    <%= f.number_field :now_body_weight, class: "form-control" %>
+    <%= f.label :now_body_weight, class: "label" %><br>
+    <%= f.number_field :now_body_weight, class: "form-control" %><br>
     
-    <%= f.label :goal_body_weight, class: "label" %>
-    <%= f.number_field :goal_body_weight, class: "form-control" %>
+    <%= f.label :goal_body_weight, class: "label" %><br>
+    <%= f.number_field :goal_body_weight, class: "form-control" %><br>
     
-    <%= f.label :now_bodyfat_percentage, class: "label" %>
-    <%= f.number_field :now_bodyfat_percentage, class: "form-control" %>
+    <%= f.label :now_bodyfat_percentage, class: "label" %><br>
+    <%= f.number_field :now_bodyfat_percentage, class: "form-control" %><br>
 
-    <%= f.label :goal_bodyfat_percentage, class: "label" %>
-    <%= f.number_field :goal_bodyfat_percentage, class: "form-control" %>
+    <%= f.label :goal_bodyfat_percentage, class: "label" %><br>
+    <%= f.number_field :goal_bodyfat_percentage, class: "form-control" %><br>
 
-    <%= f.label :beginning_date, class: "label" %>
-    <%= f.date_field :beginning_date, class: "form-control" %>
+    <%= f.label :beginning_date, class: "label" %><br>
+    <%= f.date_field :beginning_date, class: "form-control" %><br>
     
-    <%= f.label :target_date, class: "label" %>
-    <%= f.date_field :target_date, class: "form-control" %>
+    <%= f.label :target_date, class: "label" %><br>
+    <%= f.date_field :target_date, class: "form-control" %><br>
 
     <%= f.hidden_field :user_id, value: @user.id %>
 
-    <%= f.submit yield(:btn_text), class: "btn btn-primary btn-block btn-setup" %>
+    <%= f.submit yield(:btn_text), class: "btn btn-primary btn-block btn-setup" %><br>
     
     <% if "#{yield(:btn_text)}" == "編集" %>
       <%= link_to "戻る", user_path(@user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-danger btn-block btn-setup" %>

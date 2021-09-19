@@ -5,7 +5,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
 
   def after_sign_up_path_for(resource)
-    new_user_targetweight_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)
+    new_user_bmr_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)
   end
 
 

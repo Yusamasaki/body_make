@@ -12,7 +12,7 @@ class TargetweightsController < ApplicationController
   def create
     @tw = Targetweight.new(targetweight_params)
     if @tw.save
-      redirect_to new_user_bmr_path
+      redirect_to user_path(@user, start_date: Date.current.beginning_of_month, start_time: Date.current)
     else
       render :new
     end

@@ -14,7 +14,7 @@ class BmrsController < ApplicationController
   def create
     @bmr = Bmr.new(bmr_params)
     if @bmr.save
-      redirect_to user_path(@user, start_date: Date.current.beginning_of_month, start_time: Date.current)
+      redirect_to new_user_targetweight_path(@user, start_date: Date.current.beginning_of_month, start_time: Date.current)
     else
       render :new
     end
