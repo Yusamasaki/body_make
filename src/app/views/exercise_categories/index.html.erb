@@ -1,36 +1,37 @@
-<div class= "exercise_category">
-  <div class="row">
-    <div class="col-md-8">
-      <h5 class="exercise_category-title">運動カテゴリー一覧</h5>
-      <div class="exercise_category-new-btn">
-        <%= link_to '新規登録', new_exercise_category_path, class: "btn btn-original" %>
-      </div>
+<div class="admin-box center">
+  運動カテゴリ一覧
+</div>
 
-      <table class="table table-bordered table-striped">
-        <thead class="thead-original">
-          <tr>
-            <th><%= ExerciseCategory.human_attribute_name :name %></th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        
-        <tbody>
-          <% @categories.each do |category| %>
-            <tr>
-              <td><%= category.name %></td>
-              <td class="center">
-                <%= link_to '編集', edit_exercise_category_path(category), class: "exercise_categoty-table-edit" %>
-              </td>
-              <td class="center">
-                <%= link_to '削除', exercise_category_path(category), method: :delete,
-                                                                      class: "exercise_categoty-table-delete",
-                                                                      data: {confirm: "本当に削除しますか？"}  %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div class="admin-box">
+  <%= link_to '新規登録', new_exercise_category_path, class: "btn btn-original" %>
+</div>
+
+<div class="admin-box">
+  <table class="table table-bordered table-striped">
+    <thead class="thead-original">
+      <tr>
+        <th><%= ExerciseCategory.human_attribute_name :name %></th>
+        <th>コンテンツ数</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <% @categories.each do |category| %>
+        <tr>
+          <td><%= category.name %></td>
+          <td class="center" style="width: 130px"><%= category.exercise_contents.count %></td>
+          <td class="center" style="width: 100px">
+            <%= link_to '編集', edit_exercise_category_path(category), class: "exercise_categoty-table-edit" %>
+          </td>
+          <td class="center" style="width: 100px">
+            <%= link_to '削除', exercise_category_path(category), method: :delete,
+                                                                  class: "exercise_categoty-table-delete",
+                                                                  data: {confirm: "本当に削除しますか？"}  %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
