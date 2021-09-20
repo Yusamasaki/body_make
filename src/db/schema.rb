@@ -71,48 +71,16 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
     t.index ["exercise_category_id"], name: "index_exercise_contents_on_exercise_category_id"
   end
 
-  create_table "food_menus", force: :cascade do |t|
-    t.string "food_name"
-    t.integer "amount"
-    t.integer "calorie"
-    t.integer "protein"
-    t.integer "fat"
-    t.integer "carbo"
-    t.integer "suger"
-    t.integer "salt"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "my_meals", force: :cascade do |t|
-    t.datetime "start_time"
-    t.string "food_name"
-    t.integer "calorie"
-    t.string "protein"
-    t.string "fat"
-    t.string "carbo"
-    t.integer "suger"
-    t.integer "dietary_fiber"
-    t.integer "salt"
-    t.string "note"
-    t.bigint "timezone_id"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["timezone_id"], name: "index_my_meals_on_timezone_id"
-    t.index ["user_id"], name: "index_my_meals_on_user_id"
-  end
-
   create_table "myfoods", force: :cascade do |t|
-    t.integer "food_name"
-    t.integer "amount"
-    t.integer "caloriie"
-    t.integer "protein"
-    t.integer "fat"
-    t.integer "carbo"
-    t.integer "suger"
-    t.integer "dietary_fiber"
-    t.integer "salt"
+    t.string "food_name"
+    t.float "amount"
+    t.float "caloriie"
+    t.float "protein"
+    t.float "fat"
+    t.float "carbo"
+    t.float "suger"
+    t.float "dietary_fiber"
+    t.float "salt"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -121,14 +89,14 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
 
   create_table "recipefoods", force: :cascade do |t|
     t.string "food_name"
-    t.integer "amount"
-    t.integer "calorie"
-    t.integer "protein"
-    t.integer "fat"
-    t.integer "carbo"
-    t.integer "suger"
-    t.integer "dietary_fiber"
-    t.integer "salt"
+    t.float "amount"
+    t.float "calorie"
+    t.float "protein"
+    t.float "fat"
+    t.float "carbo"
+    t.float "suger"
+    t.float "dietary_fiber"
+    t.float "salt"
     t.bigint "user_id"
     t.bigint "recipe_id"
     t.datetime "created_at", null: false
@@ -139,13 +107,13 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
 
   create_table "recipes", force: :cascade do |t|
     t.string "recipe_name"
-    t.integer "calorie"
-    t.integer "protein"
-    t.integer "fat"
-    t.integer "carbo"
-    t.integer "suger"
-    t.integer "dietary_fiber"
-    t.integer "salt"
+    t.float "calorie"
+    t.float "protein"
+    t.float "fat"
+    t.float "carbo"
+    t.float "suger"
+    t.float "dietary_fiber"
+    t.float "salt"
     t.string "note"
     t.bigint "user_id"
     t.datetime "created_at", null: false
@@ -179,8 +147,8 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-08-22", null: false
-    t.datetime "exercise_time", default: "2021-08-22 00:00:00", null: false
+    t.date "start_time", default: "2021-09-19", null: false
+    t.datetime "exercise_time", default: "2021-09-18 15:00:00", null: false
     t.string "note"
     t.bigint "exercise_category_id"
     t.bigint "user_id"
@@ -188,6 +156,25 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
     t.datetime "updated_at", null: false
     t.index ["exercise_category_id"], name: "index_today_exercises_on_exercise_category_id"
     t.index ["user_id"], name: "index_today_exercises_on_user_id"
+  end
+
+  create_table "todaymeals", force: :cascade do |t|
+    t.datetime "start_time"
+    t.string "food_name"
+    t.float "calorie"
+    t.float "protein"
+    t.float "fat"
+    t.float "carbo"
+    t.float "suger"
+    t.float "dietary_fiber"
+    t.float "salt"
+    t.string "note"
+    t.bigint "user_id"
+    t.bigint "timezone_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["timezone_id"], name: "index_todaymeals_on_timezone_id"
+    t.index ["user_id"], name: "index_todaymeals_on_user_id"
   end
 
   create_table "traning_bodyparts", force: :cascade do |t|
@@ -241,7 +228,6 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
   add_foreign_key "bmrs", "users"
   add_foreign_key "bodyweights", "users"
   add_foreign_key "exercise_contents", "exercise_categories"
-  add_foreign_key "my_meals", "users"
   add_foreign_key "myfoods", "users"
   add_foreign_key "recipefoods", "users"
   add_foreign_key "recipes", "users"
@@ -249,4 +235,5 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
   add_foreign_key "targetweights", "users"
   add_foreign_key "today_exercises", "exercise_categories"
   add_foreign_key "today_exercises", "users"
+  add_foreign_key "todaymeals", "users"
 end
