@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'pfc_ratio/new'
+  get 'pfc_ratio/edit'
   root to: 'staticpages#top'
 
   devise_for :users,
