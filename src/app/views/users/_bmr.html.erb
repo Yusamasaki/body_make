@@ -3,7 +3,8 @@
     <div class="col-md-4 offset-md-4">
       <%= link_to "目標編集", edit_user_targetweight_path(current_user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary btn-edit" %>
       <%= link_to "基本設定編集", edit_user_bmr_path(current_user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary btn-edit" %>
-    </div>
+      <%= link_to "PFC", new_user_pfc_ratio_path(@user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary" %>
+      </div>
     <div class="col-md-12 offset-md-1">
       <table class="table table-striped table-responsive">
         <thead>

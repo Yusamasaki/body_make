@@ -89,9 +89,9 @@ ActiveRecord::Schema.define(version: 2021_09_20_140736) do
   end
 
   create_table "pfc_ratios", force: :cascade do |t|
-    t.float "protein"
-    t.float "fat"
-    t.float "carbo"
+    t.float "protein", default: 20.0
+    t.float "fat", default: 20.0
+    t.float "carbo", default: 60.0
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -146,8 +146,8 @@ ActiveRecord::Schema.define(version: 2021_09_20_140736) do
     t.integer "goal_body_weight"
     t.integer "now_bodyfat_percentage"
     t.integer "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-09-20 14:10:33"
-    t.datetime "target_date", default: "2021-09-21 14:10:33"
+    t.datetime "beginning_date", default: "2021-09-20 21:48:43"
+    t.datetime "target_date", default: "2021-09-21 21:48:43"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -161,8 +161,8 @@ ActiveRecord::Schema.define(version: 2021_09_20_140736) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-09-20", null: false
-    t.datetime "exercise_time", default: "2021-09-19 15:00:00", null: false
+    t.date "start_time", default: "2021-09-21", null: false
+    t.datetime "exercise_time", default: "2021-09-20 15:00:00", null: false
     t.string "note"
     t.bigint "exercise_category_id"
     t.bigint "user_id"

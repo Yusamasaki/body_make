@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  get 'pfc_ratio/new'
-  get 'pfc_ratio/edit'
+  
   root to: 'staticpages#top'
 
   devise_for :users,
@@ -24,8 +23,11 @@ Rails.application.routes.draw do
     get 'bodyweights/calender'
     
     resources :bodyweights, only: [:create, :edit, :update]
+
     resources :targetweights, only: [:new, :create, :edit, :update]
     resources :bmrs, only: [:new, :create, :edit, :update]
+    resources :pfc_ratios, only: [:new, :create, :edit, :update]
+
   end
 
   resources :today_exercises
