@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_12_133104) do
+ActiveRecord::Schema.define(version: 2021_09_18_155740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,7 +74,6 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
 
   create_table "myfoods", force: :cascade do |t|
     t.string "food_name"
-
     t.float "amount"
     t.float "caloriie"
     t.float "protein"
@@ -83,7 +82,6 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
     t.float "suger"
     t.float "dietary_fiber"
     t.float "salt"
->>>>>>> origin
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -138,8 +136,8 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
     t.integer "goal_body_weight"
     t.integer "now_bodyfat_percentage"
     t.integer "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-09-18 15:28:06"
-    t.datetime "target_date", default: "2021-09-19 15:28:06"
+    t.datetime "beginning_date", default: "2021-09-20 12:29:43"
+    t.datetime "target_date", default: "2021-09-21 12:29:43"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -153,8 +151,8 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-09-19", null: false
-    t.datetime "exercise_time", default: "2021-09-18 15:00:00", null: false
+    t.date "start_time", default: "2021-09-20", null: false
+    t.datetime "exercise_time", default: "2021-09-19 15:00:00", null: false
     t.string "note"
     t.bigint "exercise_category_id"
     t.bigint "user_id"
@@ -203,8 +201,8 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
     t.string "traning_name"
     t.string "sub_bodypart"
     t.string "bodypart"
-    t.integer "traning_weight"
-    t.integer "traning_reps"
+    t.float "traning_weight"
+    t.float "traning_reps"
     t.string "traning_note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
