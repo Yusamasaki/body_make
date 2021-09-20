@@ -18,9 +18,5 @@
 //= require cocoon
 //= require turbolinks
 
-//= require chartkick
-//= require Chart.bundle
-
-//= require Chart.min
 
 //= require_tree .

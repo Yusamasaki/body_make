@@ -1,7 +1,13 @@
-<% provide(:title, "基礎代謝設定") %>
+<% provide(:title, "基本設定") %>
 <% provide(:btn_text, "登録") %>
 
-<div class= "bmr-new">
-  <h1>基礎代謝設定</h1>
-  <%= render 'bmrs/form' %>
+<div class="box">
+  <div class="box-inner">
+    <h1>基本設定</h1>
+    <%= form_with(model: [@user, @bmr], url: user_bmrs_path(start_time: params[:start_time], start_date: params[:start_date]), local: true) do |f| %>
+    
+      <%= render partial: "form", locals: { f: f }%>
+        
+    <% end %>
+  </div>
 </div>

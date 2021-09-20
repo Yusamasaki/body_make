@@ -1,0 +1,65 @@
+
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="doughnut_graph">
+          <canvas id="bodyfat-chart-area" class="doughnut_graph" width="1500" height="1000"></canvas>
+          <script>bodyfat_doughnut_graph();</script>
+          <p><%= bodyfat_percentage_achievement_rate(@progress_bodyfat_percentage, @target_weight) %>％達成</p>
+          <a>残り<%= @now_bodyfat_percentage_pull_goal_bodyfat_percentage.floor(1) %>％</a>
+        </div>
+      </div>
+
+      <div class="col-md-4 align-self-center">
+        <%= 
+          link_to "体脂肪率記録", edit_user_bodyweight_path(
+          user_id: current_user, id: @body_weight, start_date: params[:start_date], start_time: params[:start_time], bodyweight: "bodyfat_percentage"), class: "btn btn-lg btn-original" if @body_weight.present?
+        %>
+      </div> 
+      
+      <div class="col-md-4 offset-md-1 align-self-center">
+        <div class="box2">
+          <div class="box-title">現在の体脂肪率</div>
+          <p>
+            <% if @newwest_bodyweight == [nil] %>
+              <%= @target_weight.now_bodyfat_percentage %>％
+            <% else %>
+              <%= @newwest_bodyfat_percentage.sum %>％
+            <% end %>
+          </p>
+          <p><%= @newwest_bodyfat_percentage_starttime.to_date %>現在</p>
+        </div>
+      </div>
+      
+      <div class="col-md-2 align-self-center"><a class="arrow sample5-1"></a></div>
+      
+      <div class="col-md-4 align-self-center">
+        <div class="box2">
+          <div class="box-title">目標の体脂肪率</div>
+          <p><%= @target_weight.goal_bodyfat_percentage %>％</p>
+          <p><%= @target_weight.target_date.to_date %>まで</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4 offset-md-1">
+        <div class="box2">
+          あと何日：<%= how_many_days_later(@target_weight, params[:start_time]) %>日
+        </div>
+      </div>
+      <div class="col-md-4 offset-md-2">
+        <div class="box2">
+          <%= params[:start_time] %>の予測体脂肪率：<%= predict_bodyfat_percentage(@target_weight, params[:start_time]) %>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  <div class="col-md-6 align-self-center">
+    <div class="bodyweight-chart">
+      <canvas id="bodyfat-myChart" width="400" height="300"></canvas>
+      <script>bodyfat_draw_graph();</script>
+    </div>
+  </div>
+</div>

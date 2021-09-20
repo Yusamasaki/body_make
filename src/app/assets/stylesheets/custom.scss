@@ -17,10 +17,10 @@ html {
   margin-left: 20%;
 }
 
-.alert,.notice {
-  // position: absolute;
-  // margin-left: 25%;
-}
+// .alert,.notice {
+//   // position: absolute;
+//   // margin-left: 25%;
+// }
 
 .alert-fleam {
   margin-left: 20%;
@@ -46,10 +46,7 @@ html {
 // debug(params)
 .debug_dump {
   clear: both;
-  float: left;
-  width: 70%;
   margin-top: 45px;
-  margin-left: 25%;
   padding: 5px 0 5px 2%;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -136,22 +133,6 @@ html {
       line-height: 2em;
       width: 60%;
     }
-  }
-  
-  //box1
-  
-  .box1{
-    padding: 0.5em 1em;
-    margin: 2em 0;
-    color: #274277;
-    background: white;
-    border-top: solid 5px #274277;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
-    height: 100%;
-  }
-  .box11 p {
-    margin: 0; 
-    padding: 0;
   }
 
 }

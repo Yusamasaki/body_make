@@ -1,7 +1,13 @@
-<% provide(:title, "基礎代謝編集") %>
+<% provide(:title, "基本設定編集") %>
 <% provide(:btn_text, "編集") %>
 
-<div class= "bmr-edit">
-  <h1>基礎代謝変更</h1>
-  <%= render 'bmrs/form' %>
+<div class="box">
+  <div class="box-inner">
+    <h1>基本設定変更</h1>
+    <%= form_with(model: [@user, @bmr], url: user_bmr_path(start_time: params[:start_time], start_date: params[:start_date]), local: true) do |f| %>
+    
+      <%= render partial: "form", locals: { f: f }%>
+        
+    <% end %>
+  </div>
 </div>

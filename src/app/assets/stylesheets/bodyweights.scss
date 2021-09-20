@@ -1,56 +1,167 @@
 
-@media screen and (min-width: 1024px) {
+// ドーナツグラフ
+
+.doughnut_graph{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.doughnut_graph p {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: auto;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  top: 45%;
+  font-weight: bold;
+  font-size: 20px;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%); 
+}
   
-  .bodyweights_flame{
-    padding-left: 20%;
+.doughnut_graph a{
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: auto;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  top: 65%;
+  font-weight: bold;
+  font-size: 20px;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+//box1項目を囲うため
+  
+.box1{
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  color: #274277;
+  background: white;
+  border-top: solid 5px #274277;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+  height: 100%;
+}
+.box1 p {
+  margin: 0; 
+  padding: 0;
+}
+
+// 体重グラフ
+
+.bodyweight-chart{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.chartjs-size-monitor{
+  height: 100%;
+  width: 100%;
+}
+
+.circle {
+  position: relative;/* ←文字の親要素に指定 */
+  width: 250px;
+  height: 250px; 
+  border: 15px solid #274277;/* ←上下20pxのボーダー */
+  background-color: #fff;
+  border-radius: 50%; 
+  margin: 0 auto;
+  text-align: center;
+  line-height: 80px;/* ←円の高さ100px - 上下のボーダー20px */
+  margin-top: 20px;
+}
+.circle-inner a {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.circle-inner b {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.tab-area {
+  display: flex;
+  justify-content: space-around;
+  background-color: #ccc;
+  cursor: pointer;
+  .tab {
+    flex-grow: 1;
+    width: 300px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: ccc;
+    border-right: 1px solid #50637b;
+    border-left: 1px solid #222e3e;
+  }
+  .tab.active {
+    background-color: #274277;
+    color: #fff;
+    border: none;
+  }
+}
+.content-area {
+  text-align: center;
+  .content {
+    display: none;
+  }
+  .content.show {
+    margin-top: 50px;
+    display: block;
+  }
+}
+
+
+
+@media screen and (min-width: 1024px) {
+
+  // box2
+
+  .box2 {
+    margin: 2em 0;
+    border: solid 3px #274277;
+  }
+  .box2 .box-title {
+    font-size: 100%;
+    background: #274277;
+    padding: 4px;
+    text-align: center;
+    color: #FFF;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+  }
+  .box2 p {
+    padding: 10px 15px;
+    margin: 0;
     text-align: center;
   }
-  
+
+  // 体重記録
+
+  .bodyweights_flame{
+    text-align: center;
+  }
+
   .bodyweights_box input[type="number"]{
     width: 300px;
     height: 40px;
   }
   
-  .bodyweight-chart{
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  
-  .chartjs-size-monitor{
-    height: 100%;
-    width: 100%;
-  }
-  
-  .circle {
-    position: relative;/* ←文字の親要素に指定 */
-    width: 250px;
-    height: 250px; 
-    border: 15px solid #274277;/* ←上下20pxのボーダー */
-    background-color: #fff;
-    border-radius: 50%; 
-    margin: 0 auto;
-    text-align: center;
-    line-height: 80px;/* ←円の高さ100px - 上下のボーダー20px */
-    margin-top: 20px;
-  }
-  .circle-inner a {
-      position: absolute;
-      top: 45%;
-      left: 50%;
-      -webkit-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
-  }
-  .circle-inner b {
-      position: absolute;
-      top: 55%;
-      left: 50%;
-      -webkit-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
-  }
-  
 }
 
 @media screen and (max-width: 428px) {
-  
   
 }

@@ -12,7 +12,7 @@ class TargetweightsController < ApplicationController
   def create
     @tw = Targetweight.new(targetweight_params)
     if @tw.save
-      redirect_to new_user_bmr_path
+      redirect_to user_path(@user, start_date: Date.current.beginning_of_month, start_time: Date.current)
     else
       render :new
     end
@@ -26,7 +26,7 @@ class TargetweightsController < ApplicationController
     @tw = Targetweight.find_by(user_id: @user.id)
     if @tw.update_attributes(targetweight_params)
       flash[:success] = "更新完了しました"
-      redirect_to @user
+      redirect_to user_path(@user, start_date: params[:start_date], start_time: params[:start_time])
     else
       render :edit
     end
@@ -34,6 +34,6 @@ class TargetweightsController < ApplicationController
 
   private
   def targetweight_params
-    params.require(:targetweight).permit(:body_weight, :bodyfat_parcentage, :target_days, :user_id)
+    params.require(:targetweight).permit(:now_body_weight, :goal_body_weight, :now_bodyfat_percentage, :goal_bodyfat_percentage, :beginning_date, :target_date, :user_id)
   end
 end

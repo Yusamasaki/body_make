@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   
   resources :admins, only: [:show]
   resources :users, only: [:show] do
+
+    get 'setting'
     
     get 'bodyweights/calender'
     

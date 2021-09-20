@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
   
+  # 小数点の誤差をなくす
+  require 'bigdecimal'
+  
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
   
@@ -30,5 +33,9 @@ class ApplicationController < ActionController::Base
       end
       @bodyweights = current_user.bodyweights.where(start_time: @first_day..@last_day).order(:start_time)
     end
+  end
+
+  def body_weight_Calculation
+    
   end
 end
