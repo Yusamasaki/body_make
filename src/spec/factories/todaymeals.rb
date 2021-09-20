@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :my_meal do
+  factory :todaymeal do
     
   end
 end
