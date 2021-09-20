@@ -12,7 +12,7 @@ module BodyweightsHelper
 
   # 後何日か
   def how_many_days_later(target_weight, starttime)
-    target_weight.target_date.yday - starttime.to_date.yday
+    (target_weight.target_date.yday - starttime.to_date.yday).abs
   end
 
   # 予想体重減量 1day/kg ((現在の体重-目標の体重)/(目標日-最新の体重記録日))
@@ -29,6 +29,7 @@ module BodyweightsHelper
     end
   end
 
+  # 予想体脂肪減量 1day/％ ((現在の体脂肪率-目標の体脂肪率)/(目標日-最新の体脂肪率記録日))
   def predict_bodyfat_percentage(target_weight, start_time)
     if target_weight.updated_at.to_date == start_time.to_date
       target_weight.now_bodyfat_percentage

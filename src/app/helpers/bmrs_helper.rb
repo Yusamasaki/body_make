@@ -31,9 +31,10 @@ module BmrsHelper
 
   # 1日の可能摂取カロリー
   def one_day_decrease(bmr_format, target_weight)
-    bmr_format - ( 7000 * ( target_weight.now_body_weight - target_weight.goal_body_weight ) ) / ( target_weight.beginning_date.to_date.yday - target_weight.target_date.to_date.yday ).abs
+    (bmr_format - ( 7000 * ( target_weight.now_body_weight - target_weight.goal_body_weight ) ) / ( target_weight.beginning_date.to_date.yday - target_weight.target_date.to_date.yday )).abs.floor(1)
   end
 
+   # 1日のPFCバランス
   def pfc_format(one_day_decrease, ratio, per_1g)
     ( ( ( one_day_decrease * ratio ) / 100 ) / per_1g ).floor(1)
   end
