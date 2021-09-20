@@ -1,0 +1,2 @@
+class PfcRatio < ApplicationRecord
+end

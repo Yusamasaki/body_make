@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_18_155740) do
+ActiveRecord::Schema.define(version: 2021_09_20_140736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,16 @@ ActiveRecord::Schema.define(version: 2021_09_18_155740) do
     t.index ["user_id"], name: "index_myfoods_on_user_id"
   end
 
+  create_table "pfc_ratios", force: :cascade do |t|
+    t.float "protein"
+    t.float "fat"
+    t.float "carbo"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_pfc_ratios_on_user_id"
+  end
+
   create_table "recipefoods", force: :cascade do |t|
     t.string "food_name"
     t.float "amount"
@@ -136,8 +146,8 @@ ActiveRecord::Schema.define(version: 2021_09_18_155740) do
     t.integer "goal_body_weight"
     t.integer "now_bodyfat_percentage"
     t.integer "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-09-20 12:29:43"
-    t.datetime "target_date", default: "2021-09-21 12:29:43"
+    t.datetime "beginning_date", default: "2021-09-20 14:10:33"
+    t.datetime "target_date", default: "2021-09-21 14:10:33"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -233,6 +243,7 @@ ActiveRecord::Schema.define(version: 2021_09_18_155740) do
   add_foreign_key "bodyweights", "users"
   add_foreign_key "exercise_contents", "exercise_categories"
   add_foreign_key "myfoods", "users"
+  add_foreign_key "pfc_ratios", "users"
   add_foreign_key "recipefoods", "users"
   add_foreign_key "recipes", "users"
   add_foreign_key "sns_credentials", "users"
