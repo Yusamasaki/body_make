@@ -1,11 +1,15 @@
 class UsersController < ApplicationController
   
   before_action :bodyweight_set_one_month, only: [:show]
+  before_action :today_exercise_set_one_month, only: [:show]
   before_action :set_user, only: [:show]
   
   def show
     @body_weight = current_user.bodyweights.find_by(start_time: params[:start_time])
     @body_weights = current_user.bodyweights.all
+
+    @today_exercise = current_user.today_exercise.find_by(start_time: params[:start_time])
+    @today_exercises = current_user.today_exercise.all
     
     @bmr = @user.bmr
     

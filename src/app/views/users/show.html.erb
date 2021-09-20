@@ -16,6 +16,10 @@
       link_to "体重記録", edit_user_bodyweight_path(
       user_id: current_user, id: @body_weight, start_date: params[:start_date], start_time: params[:start_time]) if @body_weight.present?
     %>
+    <%= 
+      link_to "運動記録", edit_user_today_exercise_path(
+      user_id: current_user, id: @today_exercise, start_date: params[:start_date], start_time: params[:start_time]) if @today_exercise.present?
+    %>
     <div>
       <% if @bmr.present? %>
         <%= @bmr.gender %>, <%= @bmr.age %>, <%= @bmr.height %>

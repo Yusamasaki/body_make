@@ -37,6 +37,7 @@ class ExerciseCategoriesController < ApplicationController
   end
 
   private
+  
     def set_category
       @category = ExerciseCategory.find(params[:id])
     end

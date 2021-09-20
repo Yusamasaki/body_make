@@ -1,0 +1,10 @@
+<%= form_with(model: @exercise, url: user_today_exercises_path(@user), id: "today_exercise-btn", method: :post, local: true) do |f| %>
+  <%= render 'shared/error_messages', object: @exercise %>
+
+  <div>
+    <div class="today_exercise-form">
+      <%= f.label :note %>
+      <%= f.text_field :note, class: "form-control" %>
+    </div>
+  <div>
+<% end %>

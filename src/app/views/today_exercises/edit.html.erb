@@ -1,0 +1,35 @@
+<div class="box1 center">
+  運動編集
+</div>
+
+<div class="box1">
+  <%= form_with(model: @today_exercise, url: user_today_exercise_path(start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
+  
+    <%= f.label 'カテゴリー', class: "label-form" %>
+    <%# <= f.select :exercise_category_id, options_from_collection_for_select(ExerciseCategory.all, :id, :name) > %>
+    <%# <= f.select :exercise_content_id, options_from_collection_for_select(ExerciseContent.all, :id, :content) > %>
+    <%= f.select :exercise_category_id, options_from_collection_for_select(ExerciseCategory.all, :id, :name) %>
+    <%= f.select :exercise_content_id, options_from_collection_for_select(ExerciseContent.all, :id, :content) %>
+    
+    
+    <%= f.submit "更新", class: "btn btn-lg btn-original btn-form" %>
+  
+  <% end %>
+</div>
+
+<div class="box1">
+<%= link_to 'aa', edit_user_today_exercise_path(current_user, start_date: params[:start_date], start_time: params[:start_time]) %>
+</div>
+
+
+
+<script> aa =
+$(function() {
+    $('#today_exercise_exercise_category_id').change(function() {
+      $.get({
+        url: "<%= user_today_exercise_contents_path(current_user, params[:id], start_date: params[:start_date], start_time: params[:start_time]) %>",
+        data: { exercise_category_id: $('#today_exercise_exercise_category_id').has('option:selected').val() }
+      });
+    });
+  });
+</script>
