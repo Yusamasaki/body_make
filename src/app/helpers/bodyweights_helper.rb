@@ -23,8 +23,8 @@ module BodyweightsHelper
       target_weight.now_body_weight
     else
       BigDecimal(target_weight.now_body_weight -
-      ((BigDecimal(target_weight.now_body_weight - target_weight.goal_body_weight) / 
-        BigDecimal(target_weight.target_date.yday - target_weight.beginning_date.yday)) *
+      (((target_weight.now_body_weight - target_weight.goal_body_weight) / 
+        (target_weight.target_date.yday - target_weight.beginning_date.yday)) *
         BigDecimal(target_weight.beginning_date.yday - start_time.to_date.yday).abs)).abs.floor(1)
     end
   end
@@ -37,8 +37,8 @@ module BodyweightsHelper
       target_weight.now_bodyfat_percentage
     else
       BigDecimal(target_weight.now_bodyfat_percentage -
-      ((BigDecimal(target_weight.now_bodyfat_percentage - target_weight.goal_bodyfat_percentage) / 
-        BigDecimal(target_weight.target_date.yday - target_weight.beginning_date.yday)) *
+      (((target_weight.now_bodyfat_percentage - target_weight.goal_bodyfat_percentage) / 
+        (target_weight.target_date.yday - target_weight.beginning_date.yday)) *
         BigDecimal(target_weight.beginning_date.yday - start_time.to_date.yday).abs)).abs.floor(1)
     end
   end
