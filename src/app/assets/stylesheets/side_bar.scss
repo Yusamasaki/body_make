@@ -85,7 +85,7 @@ body {
 
 @media screen and (min-width: 768px) {
   .page-wrapper.toggled .page-content {
-    padding-left: 100%;
+    padding-left: 260px;
   }
   .page-wrapper.toggled .page-content-logout {
     padding-left: 0%;
@@ -357,7 +357,6 @@ body {
   display: inline-block;
   width: 100%;
   padding-left: 0px;
-  padding-top: 20px;
 }
 
 .page-wrapper .page-content > div {
