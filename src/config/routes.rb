@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     resources :targetweights, only: [:new, :create, :edit, :update]
     resources :bmrs, only: [:new, :create, :edit, :update]
     resources :pfc_ratios, only: [:new, :create, :edit, :update]
+    
+    resources :traningevents
 
   end
 
