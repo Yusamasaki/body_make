@@ -21,9 +21,13 @@ $(".sidebar-dropdown > a").click(function() {
   }
 });
 
-$("#close-sidebar").click(function() {
-  $(".page-wrapper").removeClass("toggled");
+document.addEventListener("turbolinks:load", function () {
+  $("#close-sidebar").click(function() {
+    $(".page-wrapper").removeClass("toggled");
+  });
 });
-$("#show-sidebar").click(function() {
-  $(".page-wrapper").addClass("toggled");
+document.addEventListener("turbolinks:load", function () {
+  $("#show-sidebar").click(function() {
+    $(".page-wrapper").addClass("toggled");
+  });
 });

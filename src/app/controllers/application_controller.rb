@@ -17,6 +17,27 @@ class ApplicationController < ActionController::Base
     @user = User.find(current_user.id)
   end
   
+  # ログイン済みのユーザーか確認します。
+  def logged_in_user
+    unless user_signed_in?
+      store_location
+      flash[:danger] = "ログインしてください。"
+      redirect_to login_url
+    end
+  end
+  
+  # ログアウト済みのユーザーか確認。
+  def log_out_user
+    redirect_to user_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current) if user_signed_in?
+  end
+    
+  # アクセスしたユーザーが現在ログインしているユーザーか確認します。
+  def correct_user
+    redirect_to(users_url) unless current_user?(@user)
+  end
+  
+  
+  
   # BodyWeightクラスの1ヶ月分start_time(日にち)を作成
   def bodyweight_set_one_month
     @first_day = params[:start_date].nil? ?
@@ -33,9 +54,5 @@ class ApplicationController < ActionController::Base
       end
       @bodyweights = current_user.bodyweights.where(start_time: @first_day..@last_day).order(:start_time)
     end
-  end
-
-  def body_weight_Calculation
-    
   end
 end
