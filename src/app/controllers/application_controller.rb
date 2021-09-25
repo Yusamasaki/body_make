@@ -55,4 +55,12 @@ class ApplicationController < ActionController::Base
       @bodyweights = current_user.bodyweights.where(start_time: @first_day..@last_day).order(:start_time)
     end
   end
+  
+  def traning_set
+    @bodypart = Bodypart.all
+    @bodypart.each do |bodypart|
+      @sub_bodypart = bodypart.sub_bodyparts.all
+    end
+    @traningtypes = Traningtype.all
+  end
 end

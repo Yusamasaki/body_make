@@ -1,7 +1,9 @@
 
 //header-bg-color
 .header {
-  background-color: #274277;
+  background-color: #CCFFFF;
+  border-bottom: solid 2px #274277;
+  border-top: solid 2px #274277;
 }
 
 //header-bg-color admin
@@ -12,17 +14,18 @@
 // ドロップダウンの文字色
   
 .dropdown b {
-  color: #fff;
+  color: #274277;
 }
 
 #logo {
     float: left;
     margin-right: 10px;
-    color: #fff;
+    color: #274277;
     text-transform: uppercase;
     letter-spacing: -1px;
     padding-top: 9px;
     font-weight: bold;
+    text-shadow: 2px 3px 3px #8fa8da;
   }
 
 // 画面サイズ1024ピクセル以上用
@@ -35,7 +38,7 @@
   }
   
   #logo:hover {
-    color: #fff;
+    color: #8fa8da;
     text-decoration: none;
   }
   

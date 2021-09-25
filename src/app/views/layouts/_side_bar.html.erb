@@ -15,11 +15,8 @@
     <!-- sidebar-menu  -->
     <div class="sidebar-menu">
       <ul>
-        <li class="header-menu">
-          <span>Extra</span>
-        </li>
         <li>
-          <%= link_to(user_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date].to_date.prev_month)) do %>
+          <%= link_to(user_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
             <div>
               <i class="fas fa-home"></i>
               <span>HOME</span>
@@ -27,22 +24,6 @@
             </div>
           <% end %>
         </li>
-        <div>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="#">Dashboard 1
-                <span class="badge badge-pill badge-success">Pro</span>
-                
-              </a>
-            </li>
-            <li>
-              <a href="#">Dashboard 2</a>
-            </li>
-            <li>
-              <a href="#">Dashboard 3</a>
-            </li>
-          </ul>
-        </div>
         <li>
           <a href="#">
             <i class="fas fa-utensils"></i>
@@ -56,13 +37,20 @@
           </a>
         </li>
         <li>
-          <%= link_to(user_traningevents_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date].to_date.prev_month)) do %>
-            <div>
-              <i class="fas fa-dumbbell"></i>
-              <span>Traning</span>
-            </div>
-          <% end %>
+          <a>
+            <i class="fas fa-dumbbell"></i>
+            <span>Traning</span>
+          </a>
         </li>
+        <div>
+          <ul>
+            <li>
+              <%= link_to(user_traningevents_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
+                <div>Events Index</div>
+              <% end %>
+            </li>
+          </ul>
+        </div>
         <li>
           <a href="#">
             <i class="fas fa-cog"></i>

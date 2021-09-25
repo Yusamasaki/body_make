@@ -146,8 +146,8 @@ ActiveRecord::Schema.define(version: 2021_09_20_140736) do
     t.float "goal_body_weight"
     t.float "now_bodyfat_percentage"
     t.float "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-09-21 20:55:19"
-    t.datetime "target_date", default: "2021-09-22 20:55:19"
+    t.datetime "beginning_date", default: "2021-09-24 16:15:07"
+    t.datetime "target_date", default: "2021-09-25 16:15:07"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -161,8 +161,8 @@ ActiveRecord::Schema.define(version: 2021_09_20_140736) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-09-22", null: false
-    t.datetime "exercise_time", default: "2021-09-21 15:00:00", null: false
+    t.date "start_time", default: "2021-09-25", null: false
+    t.datetime "exercise_time", default: "2021-09-24 15:00:00", null: false
     t.string "note"
     t.bigint "exercise_category_id"
     t.bigint "user_id"
@@ -202,8 +202,12 @@ ActiveRecord::Schema.define(version: 2021_09_20_140736) do
     t.string "traning_type"
     t.string "traning_name"
     t.string "sub_bodypart"
+    t.bigint "user_id"
+    t.bigint "traningtype_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["traningtype_id"], name: "index_traningevents_on_traningtype_id"
+    t.index ["user_id"], name: "index_traningevents_on_user_id"
   end
 
   create_table "tranings", force: :cascade do |t|
@@ -251,4 +255,6 @@ ActiveRecord::Schema.define(version: 2021_09_20_140736) do
   add_foreign_key "today_exercises", "exercise_categories"
   add_foreign_key "today_exercises", "users"
   add_foreign_key "todaymeals", "users"
+  add_foreign_key "traningevents", "traningtypes"
+  add_foreign_key "traningevents", "users"
 end

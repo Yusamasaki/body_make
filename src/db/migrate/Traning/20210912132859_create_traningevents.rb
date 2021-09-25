@@ -5,6 +5,9 @@ class CreateTraningevents < ActiveRecord::Migration[5.2]
       t.string :traning_type
       t.string :traning_name
       t.string :sub_bodypart
+      
+      t.references :user, foreign_key: true
+      t.references :traningtype, foreign_key: true
 
       t.timestamps
     end
