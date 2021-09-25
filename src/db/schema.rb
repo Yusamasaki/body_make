@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_20_140736) do
+ActiveRecord::Schema.define(version: 2021_09_25_040548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,13 +141,19 @@ ActiveRecord::Schema.define(version: 2021_09_20_140736) do
     t.index ["user_id"], name: "index_sns_credentials_on_user_id"
   end
 
+  create_table "sub_bodyparts", force: :cascade do |t|
+    t.string "sub_body_part"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "targetweights", force: :cascade do |t|
     t.float "now_body_weight"
     t.float "goal_body_weight"
     t.float "now_bodyfat_percentage"
     t.float "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-09-25 02:51:47"
-    t.datetime "target_date", default: "2021-09-26 02:51:47"
+    t.datetime "beginning_date", default: "2021-09-25 04:41:05"
+    t.datetime "target_date", default: "2021-09-26 04:41:05"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -189,12 +195,6 @@ ActiveRecord::Schema.define(version: 2021_09_20_140736) do
     t.datetime "updated_at", null: false
     t.index ["timezone_id"], name: "index_todaymeals_on_timezone_id"
     t.index ["user_id"], name: "index_todaymeals_on_user_id"
-  end
-
-  create_table "traning_bodyparts", force: :cascade do |t|
-    t.string "sub_body_part"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "traningevents", force: :cascade do |t|
