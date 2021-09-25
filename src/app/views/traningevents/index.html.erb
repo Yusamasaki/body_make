@@ -1,24 +1,35 @@
 
-
-<% @traningtypes.each do |traningtype| %>
-  <%= link_to "New", new_user_traningevent_path(current_user,traningtype_id: traningtype, start_time: params[:start_time], start_date: params[:start_date]), class: "btn btn-md btn-primary" %>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th><%= Traningevent.human_attribute_name("traning_name") %></th>
-        <th><%= Traningevent.human_attribute_name("bodypart") %></th>
-        <th><%= Traningevent.human_attribute_name("sub_bodypart") %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @traningevents = @user.traningevents.where(traningtype_id: traningtype) %>
-      <% @traningevents.each do |traningevent| %>
-        <tr>
-          <td><%= traningevent.traning_name %></td>
-          <td><%= traningevent.bodypart %></td>
-          <td><%= traningevent.sub_bodypart %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="tab-area">
+      <div class="tab active">
+        全選択
+      </div>
+      <div class="tab">
+        体脂肪率
+      </div>
+    </div> 
+    <% @traningtypes.each do |traningtype| %>
+      <%= link_to "New", new_user_traningevent_path(current_user,traningtype_id: traningtype, start_time: params[:start_time], start_date: params[:start_date]), class: "btn btn-md btn-primary" %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><%= Traningevent.human_attribute_name("traning_name") %></th>
+            <th><%= Traningevent.human_attribute_name("bodypart") %></th>
+            <th><%= Traningevent.human_attribute_name("sub_bodypart") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @traningevents = @user.traningevents.where(traningtype_id: traningtype) %>
+          <% @traningevents.each do |traningevent| %>
+            <tr>
+              <td><%= traningevent.traning_name %></td>
+              <td><%= traningevent.bodypart %></td>
+              <td><%= traningevent.sub_bodypart %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>

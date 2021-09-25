@@ -37,18 +37,13 @@ end
 puts 'sample exercise_cotent created!'
 
 Traningtype.create!(
-	[
-		{
-			traning_type: "バーベル種目"
-		},
-		{
-			traning_type: "ダンベル種目"
-		},
-		{
-			traning_type: "マシン種目"
-		},
-		{
-			traning_type: "自重種目"
-		}
-	]
+	[{traning_type: "バーベル種目"}, {traning_type: "ダンベル種目"}, {traning_type: "マシン種目"}, {traning_type: "自重種目"}]
+)
+
+Bodypart.create!(
+	[{body_part: "胸"}, {body_part: "背中"}, {body_part: "脚"}, {body_part: "肩"}, {body_part: "腕"}, {body_part: "腹筋"}]
+)
+
+Bodypart.create!(
+	[{body_part: "胸"}, {body_part: "背中"}, {body_part: "脚"}, {body_part: "肩"}, {body_part: "腕"}, {body_part: "腹筋"}]
 )

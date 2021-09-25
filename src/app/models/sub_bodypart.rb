@@ -1,0 +1,2 @@
+class SubBodypart < ApplicationRecord
+end
