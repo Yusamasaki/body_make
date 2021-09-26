@@ -179,14 +179,16 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-09-15", null: false
-    t.datetime "exercise_time", default: "2021-09-14 15:00:00", null: false
+    t.date "start_time", default: "2021-09-26", null: false
+    t.datetime "exercise_time", default: "2021-09-25 15:00:00", null: false
     t.string "note"
     t.bigint "exercise_category_id"
+    t.bigint "exercise_content_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["exercise_category_id"], name: "index_today_exercises_on_exercise_category_id"
+    t.index ["exercise_content_id"], name: "index_today_exercises_on_exercise_content_id"
     t.index ["user_id"], name: "index_today_exercises_on_user_id"
   end
 
@@ -248,5 +250,6 @@ ActiveRecord::Schema.define(version: 2021_09_12_133104) do
   add_foreign_key "sns_credentials", "users"
   add_foreign_key "targetweights", "users"
   add_foreign_key "today_exercises", "exercise_categories"
+  add_foreign_key "today_exercises", "exercise_contents"
   add_foreign_key "today_exercises", "users"
 end

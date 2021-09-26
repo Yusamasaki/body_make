@@ -1,0 +1,55 @@
+<div class="box1 center">
+  <%= params[:start_time].to_time.strftime("%Y年%-m月%-d日") %>
+  <%= link_to '編集', new_user_today_exercise_path(current_user, start_date: params[:start_date], start_time: params[:start_time]) %>
+</div>
+
+<div class="box1">
+  カテゴリー選択
+</div>
+
+<div class="box1">
+  グラフ(仮)
+</div>
+
+<div class="box1">
+  日別総消費カロリー
+</div>
+
+<div class="box1">
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>運動内容</th>
+          <th>時間</th>
+          <th>消費カロリー</th>
+          <th>備考</th>
+          <th>備考</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <% @today_exercises.each do |exercise| %>
+          <tr>
+            <td><%= category(exercise) %>/<%= content(exercise) %></td>
+            <td><%= exercise.exercise_time.strftime('%-H時間 %M分') %></td>
+            <td></td>
+            <td><%= exercise.note %><%= exercise.start_time %></td>
+            <td>
+              <%= link_to '編集', edit_user_today_exercise_path(
+                user_id: current_user, id: exercise, start_date: params[:start_date], start_time: params[:start_time])
+              %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="right">
+    <%= link_to '追加', new_user_today_exercise_path(
+      current_user, start_date: params[:start_date], start_time: params[:start_time]),
+      class: "btn btn-original"
+    %>
+  </div>
+</div>

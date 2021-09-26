@@ -24,7 +24,10 @@ Rails.application.routes.draw do
     resources :bmrs, only: [:new, :create, :edit, :update]
     
     resources :today_exercises do
-      get 'contents'
+      collection do
+        get 'new_contents'
+      end
+      get 'edit_contents'
     end
     
   end
