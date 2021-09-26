@@ -3,33 +3,53 @@
   <div class="col-md-12">
     <div class="tab-area">
       <div class="tab active">
-        全選択
+        胸
       </div>
-      <div class="tab">
-        体脂肪率
-      </div>
-    </div> 
-    <% @traningtypes.each do |traningtype| %>
-      <%= link_to "New", new_user_traningevent_path(current_user,traningtype_id: traningtype, start_time: params[:start_time], start_date: params[:start_date]), class: "btn btn-md btn-primary" %>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th><%= Traningevent.human_attribute_name("traning_name") %></th>
-            <th><%= Traningevent.human_attribute_name("bodypart") %></th>
-            <th><%= Traningevent.human_attribute_name("sub_bodypart") %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @traningevents = @user.traningevents.where(traningtype_id: traningtype) %>
-          <% @traningevents.each do |traningevent| %>
-            <tr>
-              <td><%= traningevent.traning_name %></td>
-              <td><%= traningevent.bodypart %></td>
-              <td><%= traningevent.sub_bodypart %></td>
-            </tr>
+      <% @bodyparts.each do |bodypart| %>
+        <div class="tab">
+          <%= bodypart.body_part %>
+        </div>
+      <% end %>
+    </div>
+    <div class="content-area">
+      <div class="content show">
+        <% @traningtypes.each do |traningtype| %>
+          <h2><%= traningtype.traning_type %></h2>
+          <%= link_to(new_user_traningevent_path(current_user, traningtype_id: traningtype, bodypart_id: 1, start_time: params[:start_time], start_date: params[:start_date])) do %>
+            <i class="far fa-plus-square fa-2x"></i>
           <% end %>
-        </tbody>
-      </table>
-    <% end %>
+          <table class="table table-striped">
+            <tbody>
+              <% @traningevents = @user.traningevents.where(body_part: "胸", traning_type: traningtype.traning_type) %>
+              <% @traningevents.each do |traningevent| %>
+                <tr>
+                  <td><%= link_to traningevent.traning_name, user_traningevent_path(@user, traningevent) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+      <% @bodyparts.each do |bodypart| %>
+        <div class="content">
+          <% @traningtypes.each do |traningtype| %>
+            <h2><%= traningtype.traning_type %></h2>
+            <%= link_to(new_user_traningevent_path(current_user, traningtype_id: traningtype, bodypart_id: bodypart, start_time: params[:start_time], start_date: params[:start_date])) do %>
+              <i class="far fa-plus-square fa-2x"></i>
+            <% end %>
+            <table class="table table-striped">
+              <tbody>
+                <% @traningevents = @user.traningevents.where(body_part: bodypart.body_part, traning_type: traningtype.traning_type) %>
+                <% @traningevents.each do |traningevent| %>
+                  <tr>
+                    <td><%= link_to traningevent.traning_name, user_traningevent_path(@user, traningevent) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

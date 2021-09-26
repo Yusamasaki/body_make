@@ -8,17 +8,15 @@
     <h1>トレーニング種目追加</h1><br>
     
     <%= form_with(model: @traningevent, url: user_traningevents_path(current_user, start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
-
-      <%= f.label :bodypart, class: "label-form" %><br>
-      <%= f.text_field :bodypart, class: "form-control" %><br>
       
-      <%= f.label :sub_bodypart, class: "label-form" %><br>
-      <%= f.text_field :sub_bodypart, class: "form-control" %><br>
+      <%= f.label :sub_body_part, class: "label-form" %><br>
+      <%= f.select :sub_body_part, options_for_select(@sub_bodyparts), {include_blank: '選択してください'}, {class: 'form-control'} %><br>
       
       <%= f.label :traning_name, class: "label-form" %><br>
       <%= f.text_field :traning_name, class: "form-control" %><br>
       
-      <%= f.hidden_field :traningtype_id, value: @traningtype.id %><br>
+      <%= f.hidden_field :body_part, value: @bodypart.body_part %>
+      <%= f.hidden_field :traning_type, value: @traningtype.traning_type %>
       
       <%= f.submit yield(:btn_text), class: "btn btn-lg btn-original btn-form  btn-block btn-setup" %>
 
