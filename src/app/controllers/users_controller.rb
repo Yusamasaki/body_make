@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     
     @bmr = @user.bmr
     @target_weight = @user.targetweight
+    @pfc = @user.pfc_ratio
 
 # --------- graphのDataなど ---------
 

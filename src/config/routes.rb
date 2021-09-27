@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   root to: 'staticpages#top'
 
   devise_for :users,
@@ -22,8 +23,13 @@ Rails.application.routes.draw do
     get 'bodyweights/calender'
     
     resources :bodyweights, only: [:create, :edit, :update]
+
     resources :targetweights, only: [:new, :create, :edit, :update]
     resources :bmrs, only: [:new, :create, :edit, :update]
+    resources :pfc_ratios, only: [:new, :create, :edit, :update]
+    
+    resources :traningevents
+
   end
 
   resources :today_exercises

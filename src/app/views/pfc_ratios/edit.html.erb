@@ -1,0 +1,31 @@
+
+<% provide(:title, "PFCバランス設定") %>
+<% provide(:btn_text, "設定") %>
+
+<div class="box">
+  <div class="box-inner">
+    <h1>PFC設定</h1>
+    <%= form_with(model: @pfc, url: user_pfc_ratio_path(@user, start_time: params[:start_time], start_date: params[:start_date]), local: true) do |f| %>
+      
+      <%= render 'shared/error_messages', object: @pfc %>
+
+      <%= f.label :protein, class: "label" %><br>
+      <%= f.number_field :protein, step: '0.1', class: "form-control" %><br>
+
+      <%= f.label :fat, class: "label" %><br>
+      <%= f.number_field :fat, step: '0.1', class: "form-control" %><br>
+      
+      <%= f.label :carbo, class: "label" %><br>
+      <%= f.number_field :carbo, step: '0.1', class: "form-control" %><br>
+      
+      <%= f.hidden_field :user_id, value: @user.id %>
+
+      <%= f.submit yield(:btn_text), class: "btn btn-primary btn-block btn-setup" %><br>
+      <% if "#{yield(:btn_text)}" == "編集" %>
+        <%= link_to "戻る", user_path(@user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-danger btn-block btn-setup" %>
+      <% end %><br>
+        
+    <% end %>
+  </div>
+</div>
+

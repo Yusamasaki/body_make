@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
   <div class="header">
     <header class="navbar navbar-fixed-top navbar-default">
-      <%= link_to "BODY MAKE APP", user_path(current_user), id: "logo" %>
+      <%= link_to "BODY MAKE APP", user_path(current_user, start_date: params[:start_date], start_time: params[:start_time]), id: "logo" %>
       <nav>
         <ul class="nav navbar-nav navbar-right navbar-default navbar-white">
           <li class="dropdown">

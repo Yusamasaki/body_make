@@ -22,6 +22,10 @@ ja:
         age: 年齢
         height: 身長
         activity: 活動レベル
+      pfc_ratio:
+        protein: たんぱく質(割合)
+        fat: 脂質(割合)
+        carbo: 炭水化物(割合)
       exercise_category:
         name: カテゴリー
       exercise_content:

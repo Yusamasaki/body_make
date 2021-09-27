@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_18_155740) do
+ActiveRecord::Schema.define(version: 2021_09_20_140736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,16 @@ ActiveRecord::Schema.define(version: 2021_09_18_155740) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_myfoods_on_user_id"
+  end
+
+  create_table "pfc_ratios", force: :cascade do |t|
+    t.float "protein", default: 20.0
+    t.float "fat", default: 20.0
+    t.float "carbo", default: 60.0
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_pfc_ratios_on_user_id"
   end
 
   create_table "recipefoods", force: :cascade do |t|
@@ -233,6 +243,7 @@ ActiveRecord::Schema.define(version: 2021_09_18_155740) do
   add_foreign_key "bodyweights", "users"
   add_foreign_key "exercise_contents", "exercise_categories"
   add_foreign_key "myfoods", "users"
+  add_foreign_key "pfc_ratios", "users"
   add_foreign_key "recipefoods", "users"
   add_foreign_key "recipes", "users"
   add_foreign_key "sns_credentials", "users"
