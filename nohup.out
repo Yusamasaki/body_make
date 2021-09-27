@@ -1,0 +1,12 @@
+[2021-09-27T12:00:40.802Z] info  code-server 3.11.1 c680aae973d83583e4a73dc0c422f44021f0140e
+[2021-09-27T12:00:40.803Z] info  Using user-data-dir ~/.local/share/code-server
+[2021-09-27T12:00:40.820Z] info  Using config file ~/.config/code-server/config.yaml
+[2021-09-27T12:00:40.820Z] info  HTTP server listening on http://127.0.0.1:8080 
+[2021-09-27T12:00:40.820Z] info    - Authentication is disabled 
+[2021-09-27T12:00:40.820Z] info    - Not serving HTTPS 
+ INFO Installing extension: ms-azuretools.vscode-docker
+ INFO Downloaded extension: ms-azuretools.vscode-docker /home/kibwwen/.local/share/code-server/CachedExtensionVSIXs/ms-azuretools.vscode-docker-1.17.0
+ INFO Extracted extension to /home/kibwwen/.local/share/code-server/extensions/.208f1b09-5099-47b0-8614-a4eaf1f3b4fd: ms-azuretools.vscode-docker
+ INFO Renamed to /home/kibwwen/.local/share/code-server/extensions/ms-azuretools.vscode-docker-1.17.0
+ INFO Installation completed. ms-azuretools.vscode-docker
+ INFO Extensions installed successfully: ms-azuretools.vscode-docker
