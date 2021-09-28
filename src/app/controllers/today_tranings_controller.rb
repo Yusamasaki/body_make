@@ -1,0 +1,2 @@
+class TodayTraningsController < ApplicationController
+end
