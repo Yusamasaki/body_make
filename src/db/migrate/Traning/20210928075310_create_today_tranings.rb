@@ -9,6 +9,8 @@ class CreateTodayTranings < ActiveRecord::Migration[5.2]
       t.float :traning_weight
       t.float :traning_reps
       t.string :traning_note
+      
+      t.references :user, foreign_key: true
 
       t.timestamps
     end

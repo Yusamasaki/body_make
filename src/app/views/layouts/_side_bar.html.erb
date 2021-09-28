@@ -45,6 +45,11 @@
         <div>
           <ul>
             <li>
+              <%= link_to(user_today_tranings_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
+                <div>Today</div>
+              <% end %>
+            </li>
+            <li>
               <%= link_to(user_traningevents_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
                 <div>Events Index</div>
               <% end %>
