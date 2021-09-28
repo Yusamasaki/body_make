@@ -15,7 +15,7 @@
       <div class="content show">
         <% @traningtypes.each do |traningtype| %>
           <h2><%= traningtype.traning_type %></h2>
-          <%= link_to(new_user_traningevent_path(current_user, traningtype_id: traningtype, bodypart_id: 1, start_time: params[:start_time], start_date: params[:start_date])) do %>
+          <%= link_to(new_user_traningevent_path(current_user, traningtype_id: traningtype, bodypart_id: 1, today_traning_id: @today_traning, start_time: params[:start_time], start_date: params[:start_date])) do %>
             <i class="far fa-plus-square fa-2x"></i>
           <% end %>
           <table class="table table-striped">
@@ -23,7 +23,12 @@
               <% @traningevents = @user.traningevents.where(body_part: "胸", traning_type: traningtype.traning_type) %>
               <% @traningevents.each do |traningevent| %>
                 <tr>
-                  <td><%= link_to traningevent.traning_name, user_traningevent_path(@user, traningevent) %></td>
+                  <td><%= link_to traningevent.traning_name, user_today_traning_path(@user, @today_traning, start_time: params[:start_time], start_date: params[:start_date]) %></td>
+                  <td>
+                    <%= link_to(user_traningevent_path(@user, traningevent, today_traning_id: @today_traning, start_time: params[:start_time], start_date: params[:start_date])) do %>
+                      <i class="fas fa-edit"></i>
+                    <% end %>
+                  </td>
                 </tr>
               <% end %>
             </tbody>
@@ -34,7 +39,7 @@
         <div class="content">
           <% @traningtypes.each do |traningtype| %>
             <h2><%= traningtype.traning_type %></h2>
-            <%= link_to(new_user_traningevent_path(current_user, traningtype_id: traningtype, bodypart_id: bodypart, start_time: params[:start_time], start_date: params[:start_date])) do %>
+            <%= link_to(new_user_traningevent_path(current_user, traningtype_id: traningtype, bodypart_id: bodypart, today_traning_id: @today_traning, start_time: params[:start_time], start_date: params[:start_date])) do %>
               <i class="far fa-plus-square fa-2x"></i>
             <% end %>
             <table class="table table-striped">
@@ -42,7 +47,7 @@
                 <% @traningevents = @user.traningevents.where(body_part: bodypart.body_part, traning_type: traningtype.traning_type) %>
                 <% @traningevents.each do |traningevent| %>
                   <tr>
-                    <td><%= link_to traningevent.traning_name, user_traningevent_path(@user, traningevent) %></td>
+                    <td><%= link_to traningevent.traning_name, user_traningevent_path(@user, traningevent, today_traning_id: @today_traning) %></td>
                   </tr>
                 <% end %>
               </tbody>

@@ -7,7 +7,7 @@
     
     <h1>トレーニング種目追加</h1><br>
     
-    <%= form_with(model: @traningevent, url: user_traningevents_path(current_user, start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
+    <%= form_with(model: @traningevent, url: user_traningevents_path(current_user, today_traning_id: @today_traning, start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
       
       <%= f.label :sub_body_part, class: "label-form" %><br>
       <%= f.select :sub_body_part, options_for_select(@sub_bodyparts), {include_blank: '選択してください'}, {class: 'form-control'} %><br>
