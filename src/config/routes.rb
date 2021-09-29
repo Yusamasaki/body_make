@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     
     get 'bodyweights/calender'
     
+    get 'today_tranings/traning_new'
+    
     resources :bodyweights, only: [:create, :edit, :update]
 
     resources :targetweights, only: [:new, :create, :edit, :update]

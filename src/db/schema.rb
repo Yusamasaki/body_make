@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_28_075310) do
+ActiveRecord::Schema.define(version: 2021_09_28_222856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -154,8 +154,8 @@ ActiveRecord::Schema.define(version: 2021_09_28_075310) do
     t.float "goal_body_weight"
     t.float "now_bodyfat_percentage"
     t.float "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-09-28 21:13:16"
-    t.datetime "target_date", default: "2021-09-29 21:13:16"
+    t.datetime "beginning_date", default: "2021-09-29 00:30:43"
+    t.datetime "target_date", default: "2021-09-30 00:30:43"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -178,6 +178,14 @@ ActiveRecord::Schema.define(version: 2021_09_28_075310) do
     t.datetime "updated_at", null: false
     t.index ["exercise_category_id"], name: "index_today_exercises_on_exercise_category_id"
     t.index ["user_id"], name: "index_today_exercises_on_user_id"
+  end
+
+  create_table "today_traning_days", force: :cascade do |t|
+    t.date "start_time"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_today_traning_days_on_user_id"
   end
 
   create_table "today_tranings", force: :cascade do |t|
@@ -261,6 +269,7 @@ ActiveRecord::Schema.define(version: 2021_09_28_075310) do
   add_foreign_key "targetweights", "users"
   add_foreign_key "today_exercises", "exercise_categories"
   add_foreign_key "today_exercises", "users"
+  add_foreign_key "today_traning_days", "users"
   add_foreign_key "today_tranings", "users"
   add_foreign_key "todaymeals", "users"
   add_foreign_key "traningevents", "bodyparts"

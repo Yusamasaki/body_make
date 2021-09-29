@@ -2,14 +2,9 @@
 <div class="box1">
   <div class="row">
     <div class="col">
-      <%= month_calendar events: @today_tranings do |date, events| %>
+      <%= month_calendar events: @today_traning_days do |date, events| %>
         <%= link_to date.day, user_today_tranings_path(current_user, start_time: date, start_date: @first_day) %>
         <% events.each do |event| %>
-          <div>
-            <% if event.body_part.present? %>
-              <%= event.body_part %>
-            <% end %>
-          </div>
         <% end %>
       <% end %>
     </div>
@@ -38,7 +33,7 @@
 <div class="box1">
   <div class="row">
     <div class="col">
-      <%= link_to "トレーニング記録", user_traningevents_path(current_user, today_traning_id: @today_traning, start_time: params[:start_time], start_date: params[:start_date]), class: "btn btn-lg btn-block btn-setup btn-original" %>
+      <%= link_to "トレーニング記録", user_traningevents_path(current_user, today_traning_day_id: @today_traning_day, start_time: params[:start_time], start_date: params[:start_date]), class: "btn btn-lg btn-block btn-setup btn-original" %>
     </div>
   </div>
 </div>
