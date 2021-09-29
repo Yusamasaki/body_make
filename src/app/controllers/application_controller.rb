@@ -36,31 +36,18 @@ class ApplicationController < ActionController::Base
     redirect_to(users_url) unless current_user?(@user)
   end
   
+  # ---------トレーニング関連---------
   
-  
-  # BodyWeightクラスの1ヶ月分start_time(日にち)を作成
-  def bodyweight_set_one_month
-    @first_day = params[:start_date].nil? ?
-    Date.current.beginning_of_month : params[:start_date].to_date
-    @last_day = @first_day.end_of_month
-    
-    one_month = [*@first_day..@last_day]
-    
-    @bodyweights = current_user.bodyweights.where( start_time: @first_day..@last_day).order(:start_time)
-    
-    unless one_month.count == @bodyweights.count
-      ActiveRecord::Base.transaction do
-        one_month.each { |day| current_user.bodyweights.create!(start_time: day) }
-      end
-      @bodyweights = current_user.bodyweights.where(start_time: @first_day..@last_day).order(:start_time)
-    end
+  def set_today_traning_day
+    @today_traning_day = @user.today_traning_days.find(params[:today_traning_day_id])
   end
   
-  def traning_set
-    @bodypart = Bodypart.all
-    @bodypart.each do |bodypart|
-      @sub_bodypart = bodypart.sub_bodyparts.all
-    end
-    @traningtypes = Traningtype.all
+  def set_traningevent
+    @traningevent = @user.traningevents.find(params[:id])
   end
+  
+  def set_today_traning
+    @today_traning = @user.today_tranings.find(params[:today_traning_id])
+  end
+    
 end
