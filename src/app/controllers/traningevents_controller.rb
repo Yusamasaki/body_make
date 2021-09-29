@@ -1,9 +1,8 @@
 class TraningeventsController < ApplicationController
   
   before_action :set_user, only: [:index, :new, :create, :edit, :update, :show, :destroy]
-  before_action :set_today_traning_day, only: [:edit, :update, :create]
-  before_action :set_traningevent, only: [:edit, :update, :destroy, :index, :new]
-  before_action :set_traningevent, only: [:show, :destroy]
+  before_action :set_today_traning_day, only: [:index, :edit, :update, :create, :new, :show, :destroy]
+  before_action :set_traningevent, only: [:edit, :update, :destroy, :show]
   
   def index
     @traningevents_all = @user.traningevents.all
@@ -21,6 +20,7 @@ class TraningeventsController < ApplicationController
   def create
     @traningevent = @user.traningevents.new(traningevent_params)
     if @traningevent.save
+      flash[:success] = "#{@traningevent.traning_name}の登録に成功しました。"
       redirect_to user_traningevents_path(@user, today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time])
     else
       flash[:danger] = "登録に失敗しました。"
@@ -36,10 +36,10 @@ class TraningeventsController < ApplicationController
   def update
     if @traningevent.update_attributes!(traningevent_params)
       flash[:success] = "更新に成功しました"
-      redirect_to user_traningevent_path(@user, @traningevent, start_date: params[:start_date], start_time: params[:start_time])
+      redirect_to user_traningevent_path(@user, @traningevent, today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time])
     else
       flash[:danger] = "更新に失敗しました"
-      redirect_to user_traningevent_path(@user, @traningevent, start_date: params[:start_date], start_time: params[:start_time])
+      redirect_to user_traningevent_path(@user, @traningevent, today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time])
     end
   end
 
@@ -49,7 +49,7 @@ class TraningeventsController < ApplicationController
   def destroy
     @traningevent.destroy
     flash[:success] = "削除しました。"
-    redirect_to user_traningevents_path(@user, start_date: params[:start_date], start_time: params[:start_time]) 
+    redirect_to user_traningevents_path(@user, today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time]) 
   end
 
   private
