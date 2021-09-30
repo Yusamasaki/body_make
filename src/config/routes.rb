@@ -19,10 +19,9 @@ Rails.application.routes.draw do
   resources :users, only: [:show] do
 
     get 'setting'
-    
     get 'bodyweights/calender'
-    
     get 'today_tranings/traning_new'
+    get 'today_tranings/traning_analysis'
     
     resources :bodyweights, only: [:create, :edit, :update]
 

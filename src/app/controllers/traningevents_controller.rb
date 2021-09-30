@@ -1,6 +1,7 @@
 class TraningeventsController < ApplicationController
   
   before_action :set_user, only: [:index, :new, :create, :edit, :update, :show, :destroy]
+  before_action :set_basic, only: [:index]
   before_action :set_today_traning_day, only: [:index, :edit, :update, :create, :new, :show, :destroy]
   before_action :set_traningevent, only: [:edit, :update, :destroy, :show]
   
@@ -52,7 +53,7 @@ class TraningeventsController < ApplicationController
   def destroy
     @traningevent.destroy
     flash[:success] = "削除しました。"
-    redirect_to user_traningevents_path(@user, today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time]) 
+    redirect_to user_traningevents_url(@user, today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time]) 
   end
 
   private

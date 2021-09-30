@@ -1,6 +1,7 @@
 class TodayTraningsController < ApplicationController
     
-    before_action :set_user, only: [:index, :create, :update, :show, :destroy, :traning_new]
+    before_action :set_user, only: [:index, :create, :update, :show, :destroy, :traning_new, :traning_analysis]
+    before_action :set_basic, only: [:index, :traning_analysis]
     
     
     def index
@@ -65,6 +66,10 @@ class TodayTraningsController < ApplicationController
     def traning_new
       @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: params[:traningevent_id]).pluck(:id)
       @traningevent = @user.traningevents.find(params[:traningevent_id])
+    end
+    
+    def traning_analysis
+      @traningevents = @user.traningevents.all
     end
     
     private

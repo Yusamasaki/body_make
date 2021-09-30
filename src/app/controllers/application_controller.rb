@@ -36,6 +36,11 @@ class ApplicationController < ActionController::Base
     redirect_to(users_url) unless current_user?(@user)
   end
   
+  def set_basic
+    @bmr = @user.bmr
+    @target_weight = @user.targetweight
+  end
+  
   # ---------トレーニング関連---------
   
   def set_today_traning_day

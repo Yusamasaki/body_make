@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   
   before_action :set_user, only: [:show]
+  before_action :set_basic, only: [:show]
   
   def show
     
@@ -22,8 +23,6 @@ class UsersController < ApplicationController
     @body_weight = @user.bodyweights.find_by(start_time: params[:start_time])
     @body_weights = @user.bodyweights.all
     
-    @bmr = @user.bmr
-    @target_weight = @user.targetweight
     @pfc = @user.pfc_ratio
 
 # --------- graphのDataなど ---------

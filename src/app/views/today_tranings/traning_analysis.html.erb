@@ -1,0 +1,20 @@
+
+<div class="box1">
+  <div class="row">
+    <div class="col-12">
+      <div class="traning-tab-area">
+        <% @traningevents.each do |traningevent| %>
+          <% if traningevent.id == params[:traningevent_id].to_i %>
+            <div class="traning-tab active">
+              <%= link_to traningevent.traning_name, user_today_tranings_traning_analysis_path(@user, traningevent_id: traningevent, start_time: params[:start_time], start_date: params[:start_date]), :style => "color: white;" %>
+            </div>
+          <% else %>
+            <div class="traning-tab">
+              <%= link_to traningevent.traning_name, user_today_tranings_traning_analysis_path(@user, traningevent_id: traningevent, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original" %>
+            </div>
+          <% end %>
+        <% end %>  
+      </div>
+    </div>
+  </div>
+</div>
