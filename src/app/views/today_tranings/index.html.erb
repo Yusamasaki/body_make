@@ -38,6 +38,46 @@
   </div>
 </div>
 
-<div>
-  
+<% if @user.traningevents.present? %>
+<div class="box1">
+  <div class="row">
+    <div class="col">
+      
+      <% @traningevents.each do |traningevent| %>
+        <% @today_traning = @user.today_tranings.find_by(traningevent_id: traningevent) %>
+        <% if @today_traning.present? && @today_traning.traning_weight.present? %>
+          <div class="box2">
+            <h3><span><%= @today_traning.traning_name if @today_traning.present? %></span></h3>
+            <div class="inner">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">セット数</th>
+                    <th scope="col">重量</th>
+                    <th scope="col">回数</th>
+                    <th scope="col">ノート</th>
+                  </tr>
+                </thead>
+                
+                <tbody>
+                  <% @today_tranings = @user.today_tranings.where(traningevent_id: traningevent).pluck(:id) %>
+                  <% @today_tranings.each_with_index do |item, i| %>
+                    <% @today_traning = @user.today_tranings.find(item) %>
+                    <tr>
+                      <th scope="row"><%= i + 1 %></th>
+                      <td><%= @today_traning.traning_weight %></td>
+                      <td><%= @today_traning.traning_reps %></td>
+                      <td><%= @today_traning.traning_note %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+      
+    </div>
+  </div>
 </div>
+<% end %>

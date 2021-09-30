@@ -3,7 +3,7 @@
   <div class="row">
     
     <div class="col-1 offset-11 align-self-center">
-      <%= link_to(user_today_tranings_path(@user, today_traning_day_id: @today_traning_day, traningevent_id: @traningevent, start_time: params[:start_time], start_date: params[:start_date]), method: :post, class: "text-original") do %>
+      <%= link_to(user_today_tranings_path(@user, today_traning_day_id: params[:today_traning_day_id], traningevent_id: @traningevent, start_time: params[:start_time], start_date: params[:start_date]), method: :post, class: "text-original") do %>
         <i class="far fa-plus-square fa-lg"></i>
       <% end %>
     </div>
@@ -16,25 +16,22 @@
     
       <div class="col-10 align-self-center">
         
-        <%= form_with(model:@today_traning, url: user_today_traning_path(@user, @today_traning, today_traning_day_id: @today_traning_day, traningevent_id: @traningevent, start_time: params[:start_time], start_date: params[:start_date]), method: :patch, local: true) do |f| %>
+        <%= form_with(model:@today_traning, url: user_today_traning_path(@user, @today_traning, today_traning_day_id: params[:today_traning_day_id], traningevent_id: @traningevent, start_time: params[:start_time], start_date: params[:start_date]), method: :patch, local: true) do |f| %>
       
           <%= f.number_field :traning_weight, step: '0.1', class: "form-control" %><br>
           
           <%= f.number_field :traning_reps, step: '0.1', class: "form-control" %><br>
           
           <%= f.text_field :traning_note, step: '0.1', class: "form-control" %><br>
-          
-          <%= f.hidden_field :body_part, value: @traningevent.body_part %>
-          <%= f.hidden_field :sub_body_part, value: @traningevent.sub_body_part %>
-          <%= f.hidden_field :traning_name, value: @traningevent.body_part %>
       
           <%= f.submit "記録", class: "btn btn-original btn-block btn-setup" %><br>
           
         <% end %>
       </div>
       
+      
       <div class="col-1 align-self-center">
-        <%= link_to(user_today_traning_path(@user, @today_traning, today_traning_day_id: @today_traning_day, traningevent_id: @traningevent, start_time: params[:start_time], start_date: params[:start_date]), method: :delete, class: "text-original") do %>
+        <%= link_to(user_today_traning_path(@user, @today_traning, today_traning_day_id: params[:today_traning_day_id], traningevent_id: @traningevent, start_time: params[:start_time], start_date: params[:start_date]), method: :delete, class: "text-original") do %>
           <i class="fas fa-trash-alt fa-lg"></i>
         <% end %>
       </div>

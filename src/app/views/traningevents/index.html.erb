@@ -15,7 +15,7 @@
       <div class="content show">
         <% @traningtypes.each do |traningtype| %>
           <h2><%= traningtype.traning_type %></h2>
-          <%= link_to(new_user_traningevent_path(current_user, traningtype_id: traningtype, bodypart_id: 1, today_traning_day_id: @today_traning_day, start_time: params[:start_time], start_date: params[:start_date])) do %>
+          <%= link_to(new_user_traningevent_path(current_user, traningevent_id: params[:traningevent_id], traningtype_id: traningtype, bodypart_id: 1, today_traning_day_id: @today_traning_day, start_time: params[:start_time], start_date: params[:start_date])) do %>
             <i class="far fa-plus-square fa-2x"></i>
           <% end %>
           <table class="table table-striped">

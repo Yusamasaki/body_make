@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   end
   
   def set_today_traning
-    @today_traning = @user.today_tranings.find(params[:today_traning_id])
+    @today_traning = @user.today_tranings.find(params[:id])
   end
     
 end
