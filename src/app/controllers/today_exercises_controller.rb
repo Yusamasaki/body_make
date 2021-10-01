@@ -3,9 +3,9 @@ class TodayExercisesController < ApplicationController
   before_action :set_user
   before_action :set_categories, only: [:new, :create, :edit]
   before_action :set_contents, only: [:new, :create, :edit, :new_contents, :edit_contents]
+  before_action :set_today_exercise, only: [:edit, :update, :destroy]
 
   def index
-    # @today_exercise = TodayExercise.find(params[:id])
     @today_exercises = TodayExercise.where(start_time: params[:start_time])
   end
 
@@ -17,31 +17,56 @@ class TodayExercisesController < ApplicationController
     @today_exercise = current_user.today_exercise.build(exercise_params)
     if @today_exercise.save
       flash[:success] = "新規作成しました。"
-      redirect_to user_today_exercises_url(user_id: current_user, start_date: params[:start_date], start_time: params[:start_time])
+      redirect_to user_today_exercises_url(
+        user_id: current_user, start_date: params[:start_date], start_time: params[:start_time]
+      )
     else
       render :new
     end
   end
 
   def edit
-    @today_exercise = current_user.today_exercise.find(params[:id])
   end
 
   def update
     ActiveRecord::Base.transaction do
-      @today_exercise = current_user.today_exercise.find(params[:id])
       if @today_exercise.update_attributes!(exercise_params)
         flash[:success] = "#{@today_exercise.start_time}の運動を記録しました"
-        redirect_to user_today_exercises_path(user_id: current_user, id: @today_exercise, start_date: params[:start_date], start_time: params[:start_time])
+        redirect_to user_today_exercises_path(
+          user_id: current_user,
+          id: @today_exercise,
+          start_date: params[:start_date],
+          start_time: params[:start_time]
+        )
       else
         flash[:danger] = "記録に失敗しました。"
-        redirect_to edit_user_today_exercise_path(user_id: current_user, id: @today_exercise, start_date: params[:start_date], start_time: params[:start_time])
+        redirect_to edit_user_today_exercise_path(
+          user_id: current_user,
+          id: @today_exercise,
+          start_date: params[:start_date],
+          start_time: params[:start_time]
+        )
       end
     end
   rescue ActiveRecord::RecordInvalid
       flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
-      redirect_to edit_user_today_exercise_path(user_id: current_user, id: @today_exercise, start_date: params[:start_date], start_time: params[:start_time])
-    # redirect_to edit_user_today_exercise_path(user_id: current_user, id: @today_exercise, start_date: params[:start_date], start_time: params[:start_time])
+      redirect_to edit_user_today_exercise_path(
+        user_id: current_user,
+        id: @today_exercise,
+        start_date: params[:start_date],
+        start_time: params[:start_time]
+      )
+  end
+
+  def destroy
+    @today_exercise.destroy
+    redirect_to user_today_exercises_path(
+      user_id: current_user,
+      id: @today_exercise,
+      start_date: params[:start_date],
+      start_time: params[:start_time]
+      ),
+      flash: { danger: "運動内容を1件削除しました。"}
   end
 
   def new_contents
@@ -57,8 +82,8 @@ class TodayExercisesController < ApplicationController
 
   private
 
-    def set_exercise
-      @exercise = TodayExercise.find(params[:id])
+    def set_today_exercise
+      @today_exercise = current_user.today_exercise.find(params[:id])
     end
 
     def set_categories

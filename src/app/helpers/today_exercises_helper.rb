@@ -6,4 +6,16 @@ module TodayExercisesHelper
   def content(exercise)
     ExerciseContent.find(exercise.exercise_content_id).content if exercise.exercise_content_id.present?
   end
+
+  def calorie(exercise)
+    ExerciseContent.find(exercise.exercise_content_id).calorie if exercise.exercise_content_id.present?
+  end
+
+  def sum_calorie
+    calorie =
+      @today_exercises.map { |exercise|
+        ExerciseContent.find(exercise.exercise_content_id).calorie if exercise.exercise_content_id.present?
+      }.compact
+    calorie.sum
+  end
 end

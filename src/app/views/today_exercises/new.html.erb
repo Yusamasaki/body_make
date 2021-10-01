@@ -36,7 +36,7 @@
       <div>
         <%= f.label :exercise_time, class: "label-form" %>
       </div>
-      <%= f.time_select :exercise_time, { start_hour: 0, end_hour: 12, minute_step: 15 },
+      <%= f.time_select :exercise_time, { start_hour: 0, end_hour: 23, minute_step: 5 },
                                         { class: "form-control", style: 'display: inline-block; width: auto;' }
       %>
     </div>
