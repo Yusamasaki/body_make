@@ -1,25 +1,6 @@
 
 
 <div class="box1">
-<<<<<<< HEAD
-  <!--<canvas id="chart-area" width="500" height="240"></canvas>-->
-  <!--<script>doughnut_graph();</script>-->
-  <p>
-    <%= link_to "目標編集", edit_user_targetweight_path(current_user), class: "btn btn-md btn-primary btn-edit" %>
-    <%= link_to "基礎代謝編集", edit_user_bmr_path(current_user), class: "btn btn-md btn-primary btn-edit" %>
-    <div>本日の体重は<%= @body_weight.body_weight if @body_weight.present? %>kgです</div>
-    <%= 
-      link_to "体重記録", edit_user_bodyweight_path(
-      user_id: current_user, id: @body_weight, start_date: params[:start_date], start_time: params[:start_time]) if @body_weight.present?
-    %>
-    <%= 
-      link_to "運動記録", user_today_exercises_path(
-      user_id: current_user, id: @today_exercise, start_date: params[:start_date], start_time: params[:start_time]) if @today_exercise.present?
-    %>
-    <div>
-      <% if @bmr.present? %>
-        <%= @bmr.gender %>, <%= @bmr.age %>, <%= @bmr.height %>
-=======
   <div class="row">
     
     <div class="col-md-3 offset-md-5 align-self-center">
@@ -29,8 +10,11 @@
       <a style="color: #274277;"><%= params[:start_time] %></a>
       <%= link_to(user_path(current_user, start_time: params[:start_time].to_date.tomorrow, start_date: params[:start_date].to_date.next_month)) do %>
         <div class="arrow round-arrow-right"></div>
->>>>>>> develop
       <% end %>
+      <%= 
+        link_to "運動記録", user_today_exercises_path(
+        user_id: current_user, id: @today_exercise, start_date: params[:start_date], start_time: params[:start_time]) if @today_exercise.present?
+      %>
     </div>
     <div class="col-md-3 align-self-center">
       <%= link_to(user_bodyweights_calender_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), remote: true) do %>

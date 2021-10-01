@@ -27,18 +27,18 @@ class UsersController < ApplicationController
     @newwest_bodyweight = @user.bodyweights.order(:body_weight).limit(1).pluck(:body_weight)
 
     # 最新の体重の記録日
-    @newwest_bodyweight_starttime = if @newwest_bodyweight == [nil]
-                                      @target_weight.updated_at
-                                    else
-                                      @user.bodyweights.order(:body_weight).limit(1).pluck(:start_time).sum
-                                    end
+    # @newwest_bodyweight_starttime = if @newwest_bodyweight == [nil]
+    #                                   @target_weight.updated_at
+    #                                 else
+    #                                   @user.bodyweights.order(:body_weight).limit(1).pluck(:start_time).sum
+    #                                 end
 
     # 落とす体重
-    @now_body_weight_pull_goal_body_weight =  if @newwest_bodyweight == [nil]
-                                                @target_weight.now_body_weight - @target_weight.goal_body_weight
-                                              else
-                                                (@target_weight.now_body_weight - @newwest_bodyweight.sum) - (@target_weight.now_body_weight - @target_weight.goal_body_weight)
-                                              end
+    # @now_body_weight_pull_goal_body_weight =  if @newwest_bodyweight == [nil]
+    #                                             @target_weight.now_body_weight - @target_weight.goal_body_weight
+    #                                           else
+    #                                             (@target_weight.now_body_weight - @newwest_bodyweight.sum) - (@target_weight.now_body_weight - @target_weight.goal_body_weight)
+    #                                           end
                                               
     # 体重の進捗
     @progress_bodyweight =  if @newwest_bodyweight == [nil]
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
                             
     
                             
-    gon.goal_body_weight = @target_weight.goal_body_weight
+    # gon.goal_body_weight = @target_weight.goal_body_weight
     
     # @week_before　〜　@after_week　までの日付を配列表示してLine-chart化
     gon.start_times = current_user.bodyweights.where( start_time: @week_before..@after_week).order(:start_time).pluck(:start_time)
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
     gon.newwest_bodyweight_low_with = (@newwest_bodyweight.sum - 20).floor  
     
     # gonで体重グラフデータ化
-    gon.body_weight_area = [@progress_bodyweight.floor(1).abs] + [@now_body_weight_pull_goal_body_weight.floor(1).abs]
+    # gon.body_weight_area = [@progress_bodyweight.floor(1).abs] + [@now_body_weight_pull_goal_body_weight.floor(1).abs]
 
 
   # --------- 体脂肪率計算 ---------
@@ -73,11 +73,11 @@ class UsersController < ApplicationController
     @newwest_bodyfat_percentage = @user.bodyweights.order(:bodyfat_percentage).limit(1).pluck(:bodyfat_percentage)
 
     # 最新の体脂肪率の記録日
-    @newwest_bodyfat_percentage_starttime = if @newwest_bodyfat_percentage == [nil]
-                                      @target_weight.updated_at
-                                    else
-                                      @user.bodyweights.order(:bodyfat_percentage).limit(1).pluck(:start_time).sum
-                                    end
+    # @newwest_bodyfat_percentage_starttime = if @newwest_bodyfat_percentage == [nil]
+    #                                   @target_weight.updated_at
+    #                                 else
+    #                                   @user.bodyweights.order(:bodyfat_percentage).limit(1).pluck(:start_time).sum
+    #                                 end
 
     # 落とす体脂肪率
     @now_bodyfat_percentage_pull_goal_bodyfat_percentage =  if @newwest_bodyfat_percentage == [nil]
