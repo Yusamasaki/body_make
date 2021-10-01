@@ -3,5 +3,6 @@ class Bmr < ApplicationRecord
 
   validates :gender, presence: true
   validates :age, presence: true, length: { maximum: 3 }
-  validates :height, presence: true, length: { maximum: 3 } 
+  validates :height, presence: true, length: { maximum: 5 } 
+  validates :activity, presence: true
 end

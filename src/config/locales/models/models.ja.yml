@@ -7,14 +7,25 @@ ja:
       exercise_content: 運動コンテンツ
       today_exercise: 今日の運動
     attributes:
+      bodyweight:
+        body_weight: 体重
+        bodyfat_percentage: 体脂肪率
       targetweight:
-        body_weight: 現在の体重
-        bodyfat_parcentage: 目標体重
-        target_days: 目標日数
+        now_body_weight: 現在の体重
+        goal_body_weight: 目標体重  
+        now_bodyfat_percentage: 現在の体脂肪率
+        goal_bodyfat_percentage: 目標体脂肪率
+        beginning_date: スタート日
+        target_date: 目標日
       bmr:
         gender: 性別
         age: 年齢
         height: 身長
+        activity: 活動レベル
+      pfc_ratio:
+        protein: たんぱく質(割合)
+        fat: 脂質(割合)
+        carbo: 炭水化物(割合)
       exercise_category:
         name: カテゴリー
       exercise_content:

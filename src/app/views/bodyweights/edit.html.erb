@@ -1,14 +1,18 @@
 <div class="bodyweights_flame">
-  <h1>Bodyweights#edit</h1>
-  <p>Find me in app/views/bodyweights/edit.html.erb</p>
+
+  <h1>体重記録</h1>
   
   <%= form_with(model: @body_weight, url: user_bodyweight_path(start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
+    
+    <% if params[:bodyweight] == "body_weight" %>
+      <%= f.label :body_weight, class: "label-form" %><br>
+      <%= f.number_field :body_weight, step: '0.1', class: "form-control" %><br>
+    <% end %>
   
-    <%= f.label :body_weight, class: "label-form" %>
-    <%= f.number_field :body_weight, class: "form-control" %>
-  
-    <%= f.label :bodyfat_percentage, class: "label-form" %>
-    <%= f.number_field :bodyfat_percentage, class: "form-control" %>
+    <% if params[:bodyweight] == "bodyfat_percentage" %>
+      <%= f.label :bodyfat_percentage, class: "label-form" %><br>
+      <%= f.number_field :bodyfat_percentage, step: '0.1', class: "form-control" %><br>
+    <% end %>
     
     <%= f.submit "更新", class: "btn btn-lg btn-original btn-form" %>
   

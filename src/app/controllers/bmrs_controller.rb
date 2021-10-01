@@ -14,7 +14,7 @@ class BmrsController < ApplicationController
   def create
     @bmr = Bmr.new(bmr_params)
     if @bmr.save
-      redirect_to user_path(@user, start_date: Date.current.beginning_of_month, start_time: Date.current)
+      redirect_to new_user_targetweight_path(@user, start_date: Date.current.beginning_of_month, start_time: Date.current)
     else
       render :new
     end
@@ -28,7 +28,7 @@ class BmrsController < ApplicationController
     @bmr = Bmr.find_by(user_id: @user.id)
     if @bmr.update_attributes(bmr_params)
       flash[:success] = "更新しました"
-      redirect_to @user
+      redirect_to user_path(@user, start_date: params[:start_date], start_time: params[:start_time])
     else
       render :edit
     end
@@ -39,6 +39,6 @@ class BmrsController < ApplicationController
   private
 
   def bmr_params
-    params.require(:bmr).permit(:gender, :age, :height, :user_id)
+    params.require(:bmr).permit(:gender, :age, :height, :user_id, :activity)
   end
 end
