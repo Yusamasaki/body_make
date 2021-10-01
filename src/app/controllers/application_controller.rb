@@ -43,10 +43,6 @@ class ApplicationController < ActionController::Base
   
   # ---------トレーニング関連---------
   
-  def set_today_traning_day
-    @today_traning_day = @user.today_traning_days.find(params[:today_traning_day_id])
-  end
-  
   def set_traningevent
     @traningevent = @user.traningevents.find(params[:id])
   end

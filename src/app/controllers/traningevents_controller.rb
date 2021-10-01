@@ -2,7 +2,6 @@ class TraningeventsController < ApplicationController
   
   before_action :set_user, only: [:index, :new, :create, :edit, :update, :show, :destroy]
   before_action :set_basic, only: [:index]
-  before_action :set_today_traning_day, only: [:index, :edit, :update, :create, :new, :show, :destroy]
   before_action :set_traningevent, only: [:edit, :update, :destroy, :show]
   
   def index
@@ -24,10 +23,10 @@ class TraningeventsController < ApplicationController
     @traningevent = @user.traningevents.new(traningevent_params)
     if @traningevent.save
       flash[:success] = "#{@traningevent.traning_name}の登録に成功しました。"
-      redirect_to user_traningevents_path(@user, bodypart_id: @bodypart, today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time])
+      redirect_to user_traningevents_path(@user, bodypart_id: @bodypart, start_date: params[:start_date], start_time: params[:start_time])
     else
       flash[:danger] = "登録に失敗しました。"
-      redirect_to new_user_traningevent_path(@user, bodypart_id: @bodypart, traningtype_id: @traningtype, today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time])
+      redirect_to new_user_traningevent_path(@user, bodypart_id: @bodypart, traningtype_id: @traningtype, start_date: params[:start_date], start_time: params[:start_time])
     end
   end
 
@@ -40,10 +39,10 @@ class TraningeventsController < ApplicationController
     ActiveRecord::Base.transaction do
       @traningevent.update_attributes!(traningevent_params)
         flash[:success] = "更新に成功しました"
-        redirect_to user_traningevent_path(@user, @traningevent, today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time])
+        redirect_to user_traningevent_path(@user, @traningevent, start_date: params[:start_date], start_time: params[:start_time])
     rescue ActiveRecord::RecordInvalid
         flash[:danger] = "更新に失敗しました"
-        redirect_to edit_user_traningevent_path(@user, @traningevent, today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time])
+        redirect_to edit_user_traningevent_path(@user, @traningevent, start_date: params[:start_date], start_time: params[:start_time])
     end
   end
 
@@ -53,7 +52,7 @@ class TraningeventsController < ApplicationController
   def destroy
     @traningevent.destroy
     flash[:success] = "削除しました。"
-    redirect_to user_traningevents_url(@user, today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time]) 
+    redirect_to user_traningevents_url(@user, start_date: params[:start_date], start_time: params[:start_time]) 
   end
 
   private
