@@ -23,6 +23,11 @@
           <%= f.number_field :traning_reps, step: '0.1', class: "form-control" %><br>
           
           <%= f.text_field :traning_note, step: '0.1', class: "form-control" %><br>
+          
+          <%= f.hidden_field :traning_name, :value => @traningevent.traning_name %>
+          <%= f.hidden_field :body_part, :value => @traningevent.body_part %>
+          <%= f.hidden_field :sub_body_part, :value => @traningevent.sub_body_part %>
+          <%= f.hidden_field :traning_type, :value => @traningevent.traning_type %>
       
           <%= f.submit "記録", class: "btn btn-original btn-block btn-setup" %><br>
           

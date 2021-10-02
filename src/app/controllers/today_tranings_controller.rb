@@ -31,7 +31,7 @@ class TodayTraningsController < ApplicationController
     
     def create
       @traningevent = @user.traningevents.find(params[:traningevent_id])
-      @today_traning = @user.today_tranings.new(start_time: params[:start_time], traningevent_id: params[:traningevent_id], traning_name: @traningevent.traning_name)
+      @today_traning = @user.today_tranings.new(start_time: params[:start_time], traningevent_id: params[:traningevent_id])
       if @today_traning.save!
         redirect_to user_today_tranings_traning_new_path(@user, traningevent_id: params[:traningevent_id], start_date: params[:start_date], start_time: params[:start_time])
       else
@@ -65,13 +65,16 @@ class TodayTraningsController < ApplicationController
     end
     
     def traning_analysis
-      @traningevents = @user.traningevents.all
+      @bodyparts = Bodypart.all
+      @bodypart = Bodypart.find(params[:bodypart_id])
+      @traningevents = @user.traningevents.where(body_part: @bodypart.body_part)
+      
     end
     
     private
     
       def today_traning_params
-        params.require(:today_traning).permit(:traning_weight, :traning_reps, :traning_note)
+        params.require(:today_traning).permit(:traning_weight, :traning_reps, :traning_note, :traning_name, :traning_event, :body_part, :sub_body_part)
       end
     
 end

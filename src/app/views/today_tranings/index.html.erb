@@ -4,7 +4,9 @@
     <div class="col">
       <%= month_calendar events: @today_tranings do |date, events| %>
         <%= link_to date.day, user_today_tranings_path(current_user, start_time: date, start_date: @first_day) %>
-        <% events.each do |event| %>
+        <% @todaytranings = @user.today_tranings.where(start_time: date).distinct.pluck(:body_part) %>
+        <% @todaytranings.each do |todaytraning| %>
+          <%= todaytraning %>
         <% end %>
       <% end %>
     </div>

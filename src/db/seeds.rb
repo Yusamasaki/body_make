@@ -44,10 +44,6 @@ Bodypart.create!(
 	[{body_part: "胸"}, {body_part: "背中"}, {body_part: "脚"}, {body_part: "肩"}, {body_part: "腕"}, {body_part: "腹筋"}]
 )
 
-Bodypart.create!(
-	[{body_part: "胸"}, {body_part: "背中"}, {body_part: "脚"}, {body_part: "肩"}, {body_part: "腕"}, {body_part: "腹筋"}]
-)
-
 SubBodypart.create(
 	[
 		{sub_body_part: "大胸筋上部", bodypart_id: 1}, {sub_body_part: "大胸筋中部", bodypart_id: 1}, {sub_body_part: "大胸筋下部", bodypart_id: 1},

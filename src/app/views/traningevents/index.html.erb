@@ -47,7 +47,7 @@
                 <% @traningevents = @user.traningevents.where(body_part: bodypart.body_part, traning_type: traningtype.traning_type) %>
                 <% @traningevents.each do |traningevent| %>
                   <tr>
-                    <td><%= link_to traningevent.traning_name, user_traningevent_path(@user, traningevent, start_time: params[:start_time], start_date: params[:start_date]) %></td>
+                    <td><%= link_to traningevent.traning_name, user_today_tranings_traning_new_path(@user, traningevent_id: traningevent, start_time: params[:start_time], start_date: params[:start_date]) %></td>
                   </tr>
                 <% end %>
               </tbody>
