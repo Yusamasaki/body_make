@@ -69,12 +69,13 @@ class TodayTraningsController < ApplicationController
       @bodypart = Bodypart.find(params[:bodypart_id])
       @traningevents = @user.traningevents.where(body_part: @bodypart.body_part)
       
+      @today_traning = @user.today_tranings.where(start_body_part: @bodypart.body_part, traningevent_id: params[:traningevent_id])
     end
     
     private
     
       def today_traning_params
-        params.require(:today_traning).permit(:traning_weight, :traning_reps, :traning_note, :traning_name, :traning_event, :body_part, :sub_body_part)
+        params.require(:today_traning).permit(:traning_weight, :traning_reps, :traning_note, :traning_name, :traning_event, :body_part, :sub_body_part, :traningevent_id)
       end
     
 end

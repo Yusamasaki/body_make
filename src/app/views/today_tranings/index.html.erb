@@ -16,11 +16,11 @@
 <div class="box1">
   <div class="row">
     <div class="col-md-3 offset-md-5 align-self-center">
-      <%= link_to(user_today_tranings_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date].to_date.prev_month)) do %>
+      <%= link_to(user_today_tranings_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date])) do %>
         <div class="arrow round-arrow-left"></div>
       <% end %>
       <a style="color: #274277;"><%= params[:start_time] %></a>
-      <%= link_to(user_today_tranings_path(current_user, start_time: params[:start_time].to_date.tomorrow, start_date: params[:start_date].to_date.next_month)) do %>
+      <%= link_to(user_today_tranings_path(current_user, start_time: params[:start_time].to_date.tomorrow, start_date: params[:start_date])) do %>
         <div class="arrow round-arrow-right"></div>
       <% end %>
     </div>
@@ -40,13 +40,13 @@
   </div>
 </div>
 
-<% if @user.traningevents.present? %>
+<% if @user.today_tranings.present? %>
 <div class="box1">
   <div class="row">
     <div class="col">
       
       <% @traningevents.each do |traningevent| %>
-        <% @today_traning = @user.today_tranings.find_by(traningevent_id: traningevent) %>
+        <% @today_traning = @user.today_tranings.find_by(start_time: params[:start_time], traningevent_id: traningevent) %>
         <% if @today_traning.present? && @today_traning.traning_weight.present? %>
           <div class="box2">
             <h3><span><%= @today_traning.traning_name if @today_traning.present? %></span></h3>
@@ -62,7 +62,7 @@
                 </thead>
                 
                 <tbody>
-                  <% @today_tranings = @user.today_tranings.where(traningevent_id: traningevent).pluck(:id) %>
+                  <% @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: traningevent).pluck(:id) %>
                   <% @today_tranings.each_with_index do |item, i| %>
                     <% @today_traning = @user.today_tranings.find(item) %>
                     <tr>
