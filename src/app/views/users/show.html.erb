@@ -11,10 +11,6 @@
       <%= link_to(user_path(current_user, start_time: params[:start_time].to_date.tomorrow, start_date: params[:start_date].to_date.next_month)) do %>
         <div class="arrow round-arrow-right"></div>
       <% end %>
-      <%= 
-        link_to "運動記録", user_today_exercises_path(
-        user_id: current_user, id: @today_exercise, start_date: params[:start_date], start_time: params[:start_time]) if @today_exercise.present?
-      %>
     </div>
     <div class="col-md-3 align-self-center">
       <%= link_to(user_bodyweights_calender_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), remote: true) do %>
@@ -51,14 +47,3 @@
 <%= render 'bmr' %>
 
 <div id="calender" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
-
-
-  
-  
-
-
-
-
-
-
-
