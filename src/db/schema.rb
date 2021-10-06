@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_28_222856) do
+ActiveRecord::Schema.define(version: 2021_09_28_075310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -154,8 +154,8 @@ ActiveRecord::Schema.define(version: 2021_09_28_222856) do
     t.float "goal_body_weight"
     t.float "now_bodyfat_percentage"
     t.float "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-10-03 20:30:41"
-    t.datetime "target_date", default: "2021-10-04 20:30:41"
+    t.datetime "beginning_date", default: "2021-10-06 06:17:54"
+    t.datetime "target_date", default: "2021-10-07 06:17:54"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -169,8 +169,8 @@ ActiveRecord::Schema.define(version: 2021_09_28_222856) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-10-04", null: false
-    t.datetime "exercise_time", default: "2021-10-03 15:00:00", null: false
+    t.date "start_time", default: "2021-10-06", null: false
+    t.datetime "exercise_time", default: "2021-10-05 15:00:00", null: false
     t.string "note"
     t.bigint "exercise_category_id"
     t.bigint "user_id"
@@ -178,14 +178,6 @@ ActiveRecord::Schema.define(version: 2021_09_28_222856) do
     t.datetime "updated_at", null: false
     t.index ["exercise_category_id"], name: "index_today_exercises_on_exercise_category_id"
     t.index ["user_id"], name: "index_today_exercises_on_user_id"
-  end
-
-  create_table "today_traning_days", force: :cascade do |t|
-    t.date "start_time"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_today_traning_days_on_user_id"
   end
 
   create_table "today_tranings", force: :cascade do |t|
@@ -197,6 +189,8 @@ ActiveRecord::Schema.define(version: 2021_09_28_222856) do
     t.float "traning_weight"
     t.float "traning_reps"
     t.string "traning_note"
+    t.string "total_load"
+    t.boolean "first_day", default: false, null: false
     t.bigint "traningevent_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
@@ -271,7 +265,6 @@ ActiveRecord::Schema.define(version: 2021_09_28_222856) do
   add_foreign_key "targetweights", "users"
   add_foreign_key "today_exercises", "exercise_categories"
   add_foreign_key "today_exercises", "users"
-  add_foreign_key "today_traning_days", "users"
   add_foreign_key "today_tranings", "users"
   add_foreign_key "todaymeals", "users"
   add_foreign_key "traningevents", "bodyparts"

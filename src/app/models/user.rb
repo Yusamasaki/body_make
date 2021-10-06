@@ -9,7 +9,7 @@ class User < ApplicationRecord
   
   has_many :traningevents, dependent: :destroy
   has_many :today_tranings, dependent: :destroy
-  has_many :today_traning_days, dependent: :destroy
+  has_many :traning_analysis, dependent: :destroy
 
   has_one :targetweight, dependent: :destroy
   has_one :bmr, dependent: :destroy

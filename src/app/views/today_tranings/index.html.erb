@@ -24,11 +24,6 @@
         <div class="arrow round-arrow-right"></div>
       <% end %>
     </div>
-    <div class="col-md-3 align-self-center">
-      <%= link_to(user_bodyweights_calender_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), remote: true) do %>
-        <div class="calendar"></div>
-      <% end %>
-    </div>
   </div>
 </div>
 
@@ -62,7 +57,7 @@
                 </thead>
                 
                 <tbody>
-                  <% @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: traningevent).pluck(:id) %>
+                  <% @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: traningevent).order(:id).pluck(:id) %>
                   <% @today_tranings.each_with_index do |item, i| %>
                     <% @today_traning = @user.today_tranings.find(item) %>
                     <tr>
