@@ -50,10 +50,10 @@
           </a>
         </li>
         <li>
-          <a href="#">
+          <%= link_to user_today_exercises_path(current_user, start_time: params[:start_time], start_date: params[:start_date]) do %>
             <i class="fas fa-running"></i>
             <span>Exercise</span>
-          </a>
+          <% end %>
         </li>
         <li>
           <%= link_to(user_traningevents_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date].to_date.prev_month)) do %>

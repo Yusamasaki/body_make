@@ -1,0 +1,71 @@
+<div class="box1 center">
+  <%= params[:start_time].to_time.strftime("%Y年%-m月%-d日") %>
+</div>
+
+<div class="box1">
+  カテゴリー選択
+</div>
+
+<div class="box1">
+  グラフ(仮)
+</div>
+
+<div class="box1">
+  日別総消費カロリー: <%= sum_calorie %> cal
+</div>
+
+<div class="box1">
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>運動内容</th>
+          <th><%= TodayExercise.human_attribute_name :exercise_time %></th>
+          <th><%= ExerciseContent.human_attribute_name :calorie %></th>
+          <th><%= TodayExercise.human_attribute_name :note %></th>
+          <th></th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <% @today_exercises.each do |exercise| %>
+          <tr>
+            <td><%= category(exercise) %> / <%= content(exercise) %></td>
+            <td><%= exercise.exercise_time.strftime('%-H時間 %M分') %></td>
+            <td><%= calorie(exercise) %></td>
+            <td><%= exercise.note %></td>
+            <td>
+              <%= link_to '編集', edit_user_today_exercise_path(
+                user_id: current_user,
+                id: exercise,
+                start_date: params[:start_date], start_time: params[:start_time]
+                ),
+                class: "btn btn-sm btn-success"
+              %>
+            </td>
+            <td>
+              <%= link_to '削除', user_today_exercise_path(
+                user_id: current_user,
+                id: exercise,
+                start_date: params[:start_date],
+                start_time: params[:start_time],
+                ),
+                method: :delete,
+                class: "btn btn-sm btn-danger",
+                data: { confirm: "本当に削除しますか？" }
+              %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="right">
+    <%= link_to '追加', new_user_today_exercise_path(
+      current_user, start_date: params[:start_date], start_time: params[:start_time]),
+      class: "btn btn-original"\
+      # if @today_exercises.first.exercise_category_id.present?
+    %>
+  </div>
+</div>

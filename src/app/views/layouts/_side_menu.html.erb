@@ -1,12 +1,22 @@
 <div class="side-menu">
   <h2 class="body-name">MENU</h2>
   <div>
-    <div class="menu-link">
-      <span><%= link_to "体重", "#", class: "btn btn-outline-primary btn-lg menu" %></span>
-      <span><%= link_to "食事", "#", class: "btn btn-outline-primary btn-lg menu" %></span>
-      <span><%= link_to "運動", "#", class: "btn btn-outline-primary btn-lg menu" %></span>
-      <span><%= link_to "筋トレ","#", class: "btn btn-outline-primary btn-lg menu" %></span>
-      <span><%= link_to "設定", "#", class: "btn btn-outline-primary btn-lg menu" %></span>
-    </div>
+    <% if user_signed_in? %>
+      <div class="menu-link">
+        <span><%= link_to "体重", "#", class: "btn btn-outline-primary btn-lg menu" %></span>
+        <span><%= link_to "食事", "#", class: "btn btn-outline-primary btn-lg menu" %></span>
+        <span><%= link_to "運動", new_user_today_exercise_path(current_user), class: "btn btn-outline-primary btn-lg menu" %></span>
+        <span><%= link_to "筋トレ", "#", class: "btn btn-outline-primary btn-lg menu" %></span>
+        <span><%= link_to "設定", "#", class: "btn btn-outline-primary btn-lg menu" %></span>
+      </div>
+    <% else %>
+      <div class="menu-link">
+        <span><%= link_to "体重", "#", class: "btn btn-outline-primary btn-lg menu" %></span>
+        <span><%= link_to "食事", "#", class: "btn btn-outline-primary btn-lg menu" %></span>
+        <span><%= link_to "運動", "#", class: "btn btn-outline-primary btn-lg menu" %></span>
+        <span><%= link_to "筋トレ", "#", class: "btn btn-outline-primary btn-lg menu" %></span>
+        <span><%= link_to "設定", "#", class: "btn btn-outline-primary btn-lg menu" %></span>
+      </div>
+    <% end %>
   </div>
 </div>

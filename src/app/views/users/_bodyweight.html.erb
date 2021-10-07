@@ -6,7 +6,7 @@
           <canvas id="chart-area" class="doughnut_graph" width="1500" height="1000"></canvas>
           <script>doughnut_graph();</script>
           <p><%= bodyweight_achievement_rate(@progress_bodyweight, @target_weight) %>％達成</p>
-          <a>残り<%= @now_body_weight_pull_goal_body_weight.floor(1) %>kg</a>
+          <a>残り<%= @now_body_weight_pull_goal_body_weight.floor(1) if @now_body_weight_pull_goal_body_weight.present? %>kg</a>
         </div>
       </div>
 
@@ -27,7 +27,7 @@
               <%= @newwest_bodyweight.sum %>kg
             <% end %>
           </p>
-          <p><%= @newwest_bodyweight_starttime.to_date %>現在</p>
+          <p><%= @newwest_bodyweight_starttime.to_date if @newwest_bodyweight_starttime.present? %>現在</p>
         </div>
       </div>
       
