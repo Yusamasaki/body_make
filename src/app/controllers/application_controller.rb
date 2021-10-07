@@ -44,21 +44,21 @@ class ApplicationController < ActionController::Base
   # ---------トレーニング関連---------
   
   def set_traningevent
-    @traningevent = @user.traningevents.find(params[:id])
-  end
-  
-  def set_today_traning
-    @today_traning = @user.today_tranings.find(params[:id])
+    if params[:traningevent_id].present?
+      @traningevent = @user.traningevents.find(params[:traningevent_id])
+    else
+      @traningevent = @user.traningevents.find(params[:id])
+    end
   end
   
   def set_analysis_day
+    @first_day = params[:start_date].nil? ?
+    Date.current.beginning_of_month : params[:start_date].to_date
+    @last_day = @first_day.end_of_month
+    
+    one_month = [*@first_day..@last_day]
+      
     if params[:traningevent_id].present?
-      @first_day = params[:start_date].nil? ?
-      Date.current.beginning_of_month : params[:start_date].to_date
-      @last_day = @first_day.end_of_month
-      
-      one_month = [*@first_day..@last_day]
-      
       @traning_analysis = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time)
       
       unless one_month.count <= @traning_analysis.count

@@ -20,7 +20,7 @@
           <% end %>
           <table class="table table-striped">
             <tbody>
-              <% @traningevents = @user.traningevents.where(body_part: "胸", traning_type: traningtype.traning_type) %>
+              <% @traningevents = @user.traningevents.where(bodypart_id: 1, traningtype_id: traningtype) %>
               <% @traningevents.each do |traningevent| %>
                 <tr>
                   <td><%= link_to traningevent.traning_name, user_today_tranings_traning_new_path(@user, traningevent_id: traningevent, start_time: params[:start_time], start_date: params[:start_date]), class: "traning-title text-original" %></td>
@@ -44,7 +44,7 @@
             <% end %>
             <table class="table table-striped">
               <tbody>
-                <% @traningevents = @user.traningevents.where(body_part: bodypart.body_part, traning_type: traningtype.traning_type) %>
+                <% @traningevents = @user.traningevents.where(bodypart_id: bodypart, traningtype_id: traningtype) %>
                 <% @traningevents.each do |traningevent| %>
                   <tr>
                     <td><%= link_to traningevent.traning_name, user_today_tranings_traning_new_path(@user, traningevent_id: traningevent, start_time: params[:start_time], start_date: params[:start_date]), class: "traning-title text-original" %></td>

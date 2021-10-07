@@ -5,10 +5,10 @@
         <tbody>
           <tr>
             <th><%= @traningevent.traning_name %></th>
-            <th><%= @traningevent.body_part %></th>
+            <th><%= @bodypart.body_part %></th>
             <th><%= @traningevent.sub_body_part %></th>
-            <th><%= link_to "編集", edit_user_traningevent_path(@user, @traningevent, today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-success" %></th>
-            <th><%= link_to "削除", user_traningevent_path(@user, @traningevent, today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time]), method: :delete,
+            <th><%= link_to "編集", edit_user_traningevent_path(@user, @traningevent, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-success" %></th>
+            <th><%= link_to "削除", user_traningevent_path(@user, @traningevent, start_date: params[:start_date], start_time: params[:start_time]), method: :delete,
                     data: { confirm: "「#{@traningevent.traning_name}」を削除します。同時に今まで記録したトレーニング内容も消えてしまいます。本当によろしいですか？" }, class: "btn btn-danger" %>
             <th>
           </tr>

@@ -4,9 +4,11 @@
     <div class="col">
       <%= month_calendar events: @today_tranings do |date, events| %>
         <%= link_to date.day, user_today_tranings_path(current_user, start_time: date, start_date: @first_day) %>
-        <% @todaytranings = @user.today_tranings.where(start_time: date).distinct.pluck(:body_part) %>
+        <% @todaytranings = @user.today_tranings.where(start_time: date).distinct.pluck(:traningevent_id) %>
         <% @todaytranings.each do |todaytraning| %>
-          <%= todaytraning %>
+          <% @traningevent = @user.traningevents.find(todaytraning) %>
+          <% @bodypart = Bodypart.find(@traningevent.bodypart_id) %>
+          <%= @bodypart.body_part %>
         <% end %>
       <% end %>
     </div>
@@ -44,7 +46,8 @@
         <% @today_traning = @user.today_tranings.find_by(start_time: params[:start_time], traningevent_id: traningevent) %>
         <% if @today_traning.present? && @today_traning.traning_weight.present? %>
           <div class="box2">
-            <h3><span><%= @today_traning.traning_name if @today_traning.present? %></span></h3>
+            <% @traningevent = @user.traningevents.find(@today_traning.traningevent_id) %>
+            <h3><span><%= @traningevent.traning_name if @today_traning.present? %></span></h3>
             <div class="inner">
               <table class="table table-striped">
                 <thead>

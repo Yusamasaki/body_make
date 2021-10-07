@@ -16,7 +16,9 @@
       <%= f.text_field :traning_name, class: "form-control" %><br>
       
       <%= f.hidden_field :body_part, value: @bodypart.body_part %>
+      <%= f.hidden_field :bodypart_id, value: @bodypart.id %>
       <%= f.hidden_field :traning_type, value: @traningtype.traning_type %>
+      <%= f.hidden_field :traningtype_id, value: @traningtype.id %>
       
       <%= f.submit yield(:btn_text), class: "btn btn-lg btn-original btn-form  btn-block btn-setup" %>
 

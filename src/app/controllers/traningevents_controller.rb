@@ -47,6 +47,7 @@ class TraningeventsController < ApplicationController
   end
 
   def show
+    @bodypart = Bodypart.find(@traningevent.bodypart_id)
   end
 
   def destroy
@@ -58,7 +59,7 @@ class TraningeventsController < ApplicationController
   private
   
     def traningevent_params
-      params.require(:traningevent).permit(:body_part, :sub_body_part, :traning_name, :traning_type)
+      params.require(:traningevent).permit(:sub_body_part, :traning_name, :bodypart_id, :traningtype_id)
     end
   
 end
