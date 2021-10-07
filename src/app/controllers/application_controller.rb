@@ -69,7 +69,7 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-<<<<<<< HEAD
+    
 
   # TodayExeciseクラスの1ヶ月分start_time(日にち)を作成
   def today_exercise_set_one_month
@@ -88,7 +88,4 @@ class ApplicationController < ActionController::Base
       @today_exercises = current_user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
     end
   end
-=======
-    
->>>>>>> feature/traning
 end
