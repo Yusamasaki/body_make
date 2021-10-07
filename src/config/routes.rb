@@ -29,10 +29,14 @@ Rails.application.routes.draw do
     resources :pfc_ratios, only: [:new, :create, :edit, :update]
     
     resources :traningevents
+    resources :today_exercises do
+      collection do
+        get :new_contents
+        get :edit_contents
+      end
+    end
 
   end
-
-  resources :today_exercises
 
   resources :exercise_categories do
     resources :exercise_contents

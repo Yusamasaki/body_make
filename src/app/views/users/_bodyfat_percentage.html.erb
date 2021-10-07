@@ -29,7 +29,7 @@
               <%= @newwest_bodyfat_percentage.sum %>％
             <% end %>
           </p>
-          <p><%= @newwest_bodyfat_percentage_starttime.to_date %>現在</p>
+          <p><%= @newwest_bodyfat_percentage_starttime.to_date if @newwest_bodyfat_percentage_starttime.present? %>現在</p>
         </div>
       </div>
       
