@@ -1,2 +1,0 @@
-class TraninqBodyparg < ApplicationRecord
-end

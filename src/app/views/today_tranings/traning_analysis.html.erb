@@ -1,0 +1,53 @@
+
+<div class="box1">
+  <div class="row">
+    <div class="col-12">
+      <div class="traning-tab-area">
+        <% @bodyparts.each do |bodypart| %>
+          <% if bodypart.id == params[:bodypart_id].to_i %>
+            <div class="traning-tab active">
+              <%= link_to bodypart.body_part, user_today_tranings_traning_analysis_path(@user, bodypart_id: bodypart, start_time: params[:start_time], start_date: params[:start_date]), :style => "color: white;" %>
+            </div>
+          <% else %>
+            <div class="traning-tab">
+              <%= link_to bodypart.body_part, user_today_tranings_traning_analysis_path(@user, bodypart_id: bodypart, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original" %>
+            </div>
+          <% end %>
+        <% end %>  
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="traning-tab-area">
+        <% @traningevents.each do |traningevent| %>
+          <% if traningevent.id == params[:traningevent_id].to_i %>
+            <div class="traning-tab active">
+              <%= link_to traningevent.traning_name, user_today_tranings_traning_analysis_path(@user, traningevent_id: traningevent, bodypart_id: params[:bodypart_id], start_time: params[:start_time], start_date: params[:start_date]), :style => "color: white;" %>
+            </div>
+          <% else %>
+            <div class="traning-tab">
+              <%= link_to traningevent.traning_name, user_today_tranings_traning_analysis_path(@user, traningevent_id: traningevent, bodypart_id: params[:bodypart_id], start_time: params[:start_time], start_date: params[:start_date]), class: "text-original" %>
+            </div>
+          <% end %>
+        <% end %>  
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="box1">
+  <div class="row">
+    <div class="col-12">
+      <canvas id="total_load" width="1000" height="500"></canvas>
+      <script>total_load_graph();</script>
+    </div>
+  </div>
+</div>
+
+<div class="box1">
+  <div class="row">
+    <div class="col-12">
+      <canvas id="max_load" width="1000" height="500"></canvas>
+      <script>max_load_graph();</script>
+    </div>
+  </div>
+</div>

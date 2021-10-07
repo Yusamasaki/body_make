@@ -1,2 +1,27 @@
-<h1>Traningevents#new</h1>
-<p>Find me in app/views/traningevents/new.html.erb</p>
+<% provide(:title, "新規作成") %>
+<% provide(:btn_text, "登録") %>
+
+
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    
+    <h1>トレーニング種目追加</h1><br>
+    
+    <%= form_with(model: @traningevent, url: user_traningevents_path(current_user, traningtype_id: @traningtype, bodypart_id: @bodypart, today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
+      
+      <%= f.label :sub_body_part, class: "label-form" %><br>
+      <%= f.select :sub_body_part, options_for_select(@sub_bodyparts), {include_blank: '選択してください'}, {class: 'form-control'} %><br>
+      
+      <%= f.label :traning_name, class: "label-form" %><br>
+      <%= f.text_field :traning_name, class: "form-control" %><br>
+      
+      <%= f.hidden_field :body_part, value: @bodypart.body_part %>
+      <%= f.hidden_field :bodypart_id, value: @bodypart.id %>
+      <%= f.hidden_field :traning_type, value: @traningtype.traning_type %>
+      <%= f.hidden_field :traningtype_id, value: @traningtype.id %>
+      
+      <%= f.submit yield(:btn_text), class: "btn btn-lg btn-original btn-form  btn-block btn-setup" %>
+
+    <% end %>
+  </div>
+</div>

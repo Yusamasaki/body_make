@@ -1,6 +1,4 @@
 class BodyweightsController < ApplicationController
-  
-  before_action :bodyweight_set_one_month, only: [:calender]
 
   def create
     @body_weight = current_user.bodyweights.new(body_weight_params)
@@ -34,6 +32,10 @@ class BodyweightsController < ApplicationController
   end
   
   def calender
+    @first_day = params[:start_date].nil? ?
+    Date.current.beginning_of_month : params[:start_date].to_date
+    @last_day = @first_day.end_of_month
+    
     @body_weight = current_user.bodyweights.find_by(start_time: params[:start_time])
     @body_weights = current_user.bodyweights.all
   end

@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :traning do
+  factory :today_traning do
     
   end
 end
