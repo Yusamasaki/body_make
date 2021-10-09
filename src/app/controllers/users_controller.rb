@@ -123,11 +123,6 @@ class UsersController < ApplicationController
         gon.bodyfat_percentage_area = [@progress_bodyfat_percentage.floor(1).abs] + [@now_bodyfat_percentage_pull_goal_bodyfat_percentage.floor(1).abs]
         
         
-      # traning_recovery
-        
-        # 
-        @newwest_today_traning = @user.today_tranings.order(:bodypart_id).limit(1).distinct.pluck(:bodypart_id)
-        debugger
   end
 
   def setting
