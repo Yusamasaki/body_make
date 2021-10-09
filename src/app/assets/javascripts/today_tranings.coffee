@@ -1,6 +1,5 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+
+# ------総負荷グラフ------
 
 window.total_load_graph = ->
     document.addEventListener 'turbolinks:load', ->
@@ -28,7 +27,9 @@ window.total_load_graph = ->
             }
         }
     })
-        
+
+# ------MAX重量グラフ------
+       
 window.max_load_graph = ->
     document.addEventListener 'turbolinks:load',
     ctx = document.getElementById("max_load").getContext('2d')
@@ -55,4 +56,4 @@ window.max_load_graph = ->
             }
         }
     })
-    
+
