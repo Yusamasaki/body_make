@@ -36,9 +36,19 @@ class ApplicationController < ActionController::Base
     redirect_to(users_url) unless current_user?(@user)
   end
   
+  # 基礎代謝　＆　目標設定
   def set_basic
     @bmr = @user.bmr
     @target_weight = @user.targetweight
+  end
+  
+  # アクセスした先のが明日以上の場合返す
+  def start_time_next_valid
+    if params[:start_time].to_s > Time.current.to_s
+      flash[:danger] = "明日以上の記録はできません"
+      redirect_to user_path(current_user, start_time: Date.current, start_date: Date.current.beginning_of_month)
+      
+    end
   end
   
   # ---------トレーニング関連---------

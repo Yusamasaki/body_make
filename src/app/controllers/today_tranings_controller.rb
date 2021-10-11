@@ -4,6 +4,7 @@ class TodayTraningsController < ApplicationController
     before_action :set_basic, only: [:index, :traning_analysis]
     before_action :set_analysis_day, only: [:traning_new, :traning_analysis, :index]
     before_action :set_traningevent, only: [:create, :update, :destroy]
+    before_action :start_time_next_valid, only: [:index, :traning_new, :traning_analysis]
     
     
     def index
@@ -12,7 +13,7 @@ class TodayTraningsController < ApplicationController
     end
     
     def create
-      @today_traning = @user.today_tranings.new(start_time: params[:start_time], traningevent_id: params[:traningevent_id])
+      @today_traning = @user.today_tranings.new(start_time: params[:start_time], traningevent_id: params[:traningevent_id], bodypart_id: @traningevent.bodypart_id)
       if @today_traning.save!
         redirect_to user_today_tranings_traning_new_path(@user, traningevent_id: params[:traningevent_id], start_date: params[:start_date], start_time: params[:start_time])
       else
@@ -54,8 +55,17 @@ class TodayTraningsController < ApplicationController
     end
     
     def traning_new
-      @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: params[:traningevent_id]).order(:id).pluck(:id)
       @traningevent = @user.traningevents.find(params[:traningevent_id])
+      @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: @traningevent).order(:id).pluck(:id)
+      
+      unless @today_tranings.count >= 3
+        ActiveRecord::Base.transaction do
+          3.times { |traning| current_user.today_tranings.create!(start_time: params[:start_time], traningevent_id: params[:traningevent_id], bodypart_id: @traningevent.bodypart_id) }
+        end
+        @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: params[:traningevent_id]).order(:id).pluck(:id)
+      end
+      
+      
     end
     
     def traning_analysis

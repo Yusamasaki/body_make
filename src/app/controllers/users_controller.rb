@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :today_exercise_set_one_month, only: [:show]
   before_action :set_user, only: [:show]
   before_action :set_basic, only: [:show]
+  before_action :start_time_next_valid, only: [:show]
   
   def show
     
@@ -25,7 +26,37 @@ class UsersController < ApplicationController
     @body_weights = @user.bodyweights.all
     
     @pfc = @user.pfc_ratio
-
+    
+    @bodyparts = Bodypart.all
+    
+    # 最新のレコード(start_time)
+    today_tranings_1 = @user.today_tranings.where(bodypart_id: 1).order(start_time: :desc).limit(1).pluck(:start_time).sum
+      # 最新のレコード(start_time) - 本日の日にち
+      gon.today_tranings_1_recovery = (today_tranings_1.to_date.yday - Time.current.to_date.yday).abs unless today_tranings_1 == 0
+      # (最新のレコード(start_time) - 本日の日にち) - 各部位回復日数
+      gon.today_tranings_1_recovery_1 = (gon.today_tranings_1_recovery - 3).abs unless today_tranings_1 == 0
+      
+    today_tranings_2 = @user.today_tranings.where(bodypart_id: 2).order(start_time: :desc).limit(1).pluck(:start_time).sum
+      gon.today_tranings_2_recovery = (today_tranings_2.to_date.yday - Time.current.to_date.yday).abs unless today_tranings_2 == 0
+      gon.today_tranings_2_recovery_2 = (gon.today_tranings_2_recovery - 3).abs unless today_tranings_2 == 0
+      
+    today_tranings_3 = @user.today_tranings.where(bodypart_id: 3).order(start_time: :desc).limit(1).pluck(:start_time).sum
+      gon.today_tranings_3_recovery = (today_tranings_3.to_date.yday - Time.current.to_date.yday).abs unless today_tranings_3 == 0
+      gon.today_tranings_3_recovery_3 = (gon.today_tranings_3_recovery - 3).abs unless today_tranings_3 == 0
+      
+    today_tranings_4 = @user.today_tranings.where(bodypart_id: 4).order(start_time: :desc).limit(1).pluck(:start_time).sum
+      gon.today_tranings_4_recovery = (today_tranings_4.to_date.yday - Time.current.to_date.yday).abs unless today_tranings_4 == 0
+      gon.today_tranings_4_recovery_4 = (gon.today_tranings_4_recovery - 2).abs unless today_tranings_4 == 0
+      
+    today_tranings_5 = @user.today_tranings.where(bodypart_id: 5).order(start_time: :desc).limit(1).pluck(:start_time).sum
+      gon.today_tranings_5_recovery = (today_tranings_5.to_date.yday - Time.current.to_date.yday).abs unless today_tranings_5 == 0
+      gon.today_tranings_5_recovery_5 = (gon.today_tranings_5_recovery - 2).abs unless today_tranings_5 == 0
+      
+    today_tranings_6 = @user.today_tranings.where(bodypart_id: 6).order(start_time: :desc).limit(1).pluck(:start_time).sum 
+      gon.today_tranings_6_recovery = (today_tranings_6.to_date.yday - Time.current.to_date.yday).abs unless today_tranings_6 == 0
+      gon.today_tranings_6_recovery_6 = (gon.today_tranings_6_recovery - 1).abs unless today_tranings_6 == 0
+      
+    
     # --------- graphのDataなど ---------
     
       # --------- 体重計算 ---------
@@ -121,8 +152,7 @@ class UsersController < ApplicationController
         
         # gonで体重グラフデータ化
         gon.bodyfat_percentage_area = [@progress_bodyfat_percentage.floor(1).abs] + [@now_bodyfat_percentage_pull_goal_bodyfat_percentage.floor(1).abs]
-        
-        
+      
   end
 
   def setting
