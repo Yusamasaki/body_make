@@ -1,2 +1,65 @@
-<h1>Traningevents#index</h1>
-<p>Find me in app/views/traningevents/index.html.erb</p>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="tab-area">
+      <div class="tab active">
+        胸
+      </div>
+      <% @bodyparts.each do |bodypart| %>
+        <div class="tab">
+          <%= bodypart.body_part %>
+        </div>
+      <% end %>
+    </div>
+    <div class="content-area">
+      <div class="content show">
+        <% @traningtypes.each do |traningtype| %>
+          <h2><%= traningtype.traning_type %></h2>
+          <%= link_to(new_user_traningevent_path(current_user, traningevent_id: params[:traningevent_id], traningtype_id: traningtype, bodypart_id: 1, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
+            <i class="far fa-plus-square fa-2x"></i>
+          <% end %>
+          <table class="table table-striped">
+            <tbody>
+              <% @traningevents = @user.traningevents.where(bodypart_id: 1, traningtype_id: traningtype) %>
+              <% @traningevents.each do |traningevent| %>
+                <tr>
+                  <td><%= link_to traningevent.traning_name, user_today_tranings_traning_new_path(@user, traningevent_id: traningevent, start_time: params[:start_time], start_date: params[:start_date]), class: "traning-title text-original" %></td>
+                  <td>
+                    <%= link_to(user_traningevent_path(@user, traningevent, start_time: params[:start_time], start_date: params[:start_date]), class: "traning-title text-original") do %>
+                      <i class="fas fa-edit"></i>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+      <% @bodyparts.each do |bodypart| %>
+        <div class="content">
+          <% @traningtypes.each do |traningtype| %>
+            <h2><%= traningtype.traning_type %></h2>
+            <%= link_to(new_user_traningevent_path(current_user, traningtype_id: traningtype, bodypart_id: bodypart, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
+              <i class="far fa-plus-square fa-2x"></i>
+            <% end %>
+            <table class="table table-striped">
+              <tbody>
+                <% @traningevents = @user.traningevents.where(bodypart_id: bodypart, traningtype_id: traningtype) %>
+                <% @traningevents.each do |traningevent| %>
+                  <tr>
+                    <td><%= link_to traningevent.traning_name, user_today_tranings_traning_new_path(@user, traningevent_id: traningevent, start_time: params[:start_time], start_date: params[:start_date]), class: "traning-title text-original" %></td>
+                    <td>
+                      <%= link_to(user_traningevent_path(@user, traningevent, start_time: params[:start_time], start_date: params[:start_date]), class: "traning-title text-original") do %>
+                        <i class="fas fa-edit"></i>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 
 # ユーザー
 User.create!( 
@@ -43,3 +36,22 @@ puts 'sample exercise_category created!'
 end
 
 puts 'sample exercise_cotent created!'
+
+Traningtype.create!(
+	[{traning_type: "バーベル種目"}, {traning_type: "ダンベル種目"}, {traning_type: "マシン種目"}, {traning_type: "自重種目"}]
+)
+
+Bodypart.create!(
+	[{body_part: "胸"}, {body_part: "背中"}, {body_part: "脚"}, {body_part: "肩"}, {body_part: "腕"}, {body_part: "腹筋"}]
+)
+
+SubBodypart.create(
+	[
+		{sub_body_part: "大胸筋上部", bodypart_id: 1}, {sub_body_part: "大胸筋中部", bodypart_id: 1}, {sub_body_part: "大胸筋下部", bodypart_id: 1},
+	  {sub_body_part: "僧帽筋上部", bodypart_id: 2}, {sub_body_part: "僧帽筋中部", bodypart_id: 2}, {sub_body_part: "僧帽筋下部", bodypart_id: 2}, {sub_body_part: "広背筋上部", bodypart_id: 2}, {sub_body_part: "広背筋下部", bodypart_id: 2},
+		{sub_body_part: "大腿四頭筋", bodypart_id: 3}, {sub_body_part: "大腿二頭筋(ハムストリング)", bodypart_id: 3}, {sub_body_part: "下腿三頭筋(ふくらはぎ)", bodypart_id: 3},
+		{sub_body_part: "三角筋前部", bodypart_id: 4}, {sub_body_part: "三角筋側部", bodypart_id: 4}, {sub_body_part: "三角筋後部", bodypart_id: 4},
+		{sub_body_part: "上腕三頭筋", bodypart_id: 5}, {sub_body_part: "上腕二頭筋", bodypart_id: 5},
+		{sub_body_part: "腹横筋", bodypart_id: 6}, {sub_body_part: "内腹斜筋", bodypart_id: 6}, {sub_body_part: "外腹斜筋", bodypart_id: 6}, {sub_body_part: "腹直筋", bodypart_id: 6}
+	]
+)

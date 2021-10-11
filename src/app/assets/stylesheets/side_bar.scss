@@ -407,13 +407,13 @@ body {
 /*-----------------------------chiller-theme-------------------------------------------------*/
 
 .chiller-theme .sidebar-wrapper {
-    background: #31353D;
+    background: #274277;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-header,
 .chiller-theme .sidebar-wrapper .sidebar-search,
 .chiller-theme .sidebar-wrapper .sidebar-menu {
-    border-top: 1px solid #3a3f48;
+    border-top: 2px solid #fff;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
@@ -429,7 +429,8 @@ body {
 .chiller-theme .sidebar-wrapper .sidebar-brand>a,
 .chiller-theme .sidebar-wrapper .sidebar-menu ul li a,
 .chiller-theme .sidebar-footer>a {
-    color: #818896;
+    color: #fff;
+    font-size: 20px;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-menu ul li:hover>a,
