@@ -25,6 +25,7 @@ window.recovery_2_graph = ->
             legend: { display: false }
             title: { display: true, text: '背中', fontSize: 20, position: 'top', fontColor: '#274277' }
             scales: { yAxes: [{ stacked: true }], xAxes: [{ stacked: true, ticks: { stepSize: 1 }}]}
+            
         }
     })
     
