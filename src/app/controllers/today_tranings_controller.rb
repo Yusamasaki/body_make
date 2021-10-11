@@ -13,12 +13,12 @@ class TodayTraningsController < ApplicationController
     end
     
     def create
-      @today_traning = @user.today_tranings.new(start_time: params[:start_time], traningevent_id: params[:traningevent_id], bodypart_id: @traningevent.bodypart_id)
+      @today_traning = @user.today_tranings.new(start_time: params[:start_time], traningevent_id: params[:traningevent_id])
       if @today_traning.save!
         redirect_to user_today_tranings_traning_new_path(@user, traningevent_id: params[:traningevent_id], start_date: params[:start_date], start_time: params[:start_time])
       else
         flash[:danger] = "登録に失敗しました。"
-        redirect_to user_today_tranings_traning_new_path(@user, traningevent_id:params[:traningevent_id], start_date: params[:start_date], start_time: params[:start_time])
+        redirect_to user_today_tranings_traning_new_path(@user, traningevent_id: params[:traningevent_id], start_date: params[:start_date], start_time: params[:start_time])
       end
     end
     
@@ -26,7 +26,8 @@ class TodayTraningsController < ApplicationController
       @today_traning = @user.today_tranings.find(params[:id])
       @today_analys = @user.traning_analysis.find_by(start_time: params[:start_time], traningevent_id: params[:traningevent_id])
       
-      if @today_traning.update_attributes!(today_traning_params)
+      ActiveRecord::Base.transaction do 
+        @today_traning.update_attributes!(today_traning_params)
         
         # Update後、ID別で総負荷を計算して再Update
         @today_traning.update_attributes!(total_load: (@today_traning.traning_weight.to_i * @today_traning.traning_reps.to_i * 1))
@@ -42,8 +43,9 @@ class TodayTraningsController < ApplicationController
         
         flash[:success] = "更新に成功しました"
         redirect_to user_today_tranings_traning_new_path(current_user, traningevent_id: @traningevent, start_date: params[:start_date], start_time: params[:start_time])
-      else
+      rescue ActiveRecord::RecordInvalid
         flash[:danger] = "更新に失敗しました"
+        redirect_to user_today_tranings_traning_new_path(@user, traningevent_id: params[:traningevent_id], start_date: params[:start_date], start_time: params[:start_time])
       end
     end
     
@@ -60,7 +62,7 @@ class TodayTraningsController < ApplicationController
       
       unless @today_tranings.count >= 3
         ActiveRecord::Base.transaction do
-          3.times { |traning| current_user.today_tranings.create!(start_time: params[:start_time], traningevent_id: params[:traningevent_id], bodypart_id: @traningevent.bodypart_id) }
+          3.times { |traning| current_user.today_tranings.create!(start_time: params[:start_time], traningevent_id: params[:traningevent_id]) }
         end
         @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: params[:traningevent_id]).order(:id).pluck(:id)
       end
@@ -85,7 +87,7 @@ class TodayTraningsController < ApplicationController
     private
     
       def today_traning_params
-        params.require(:today_traning).permit(:traning_weight, :traning_reps, :traning_note)
+        params.require(:today_traning).permit(:traning_weight, :traning_reps, :traning_note, :bodypart_id)
       end
     
 end
