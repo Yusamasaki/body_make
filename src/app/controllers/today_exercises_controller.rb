@@ -76,8 +76,8 @@ class TodayExercisesController < ApplicationController
   end
 
   def calender
-    @today_exercise = current_user.today_exercises.find_by(start_time: params[:start_time])
-    @today_exercises = current_user.today_exercises.all
+    @today_exercise = current_user.today_exercise.find_by(start_time: params[:start_time])
+    @today_exercises = current_user.today_exercise.all
   end
 
   private

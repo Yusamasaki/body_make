@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     
     resources :traningevents
     resources :today_exercises do
+      get 'calender'
       collection do
         get :new_contents
         get :edit_contents

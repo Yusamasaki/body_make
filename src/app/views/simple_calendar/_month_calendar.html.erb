@@ -1,9 +1,9 @@
 <div class="simple-calendar">
   <div class="calendar-heading">
     <!--パスをデフォルトから変更してる。calendar.url_for_previous_view → user_path-->
-    <%= link_to t('simple_calendar.previous', default: 'Previous'), user_bodyweights_calender_path(current_user, start_date: @first_day.prev_month), remote: true %>
+    <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view, remote: true %>
     <span class="calendar-title"> <%= start_date.year %>年 <%= t('date.month_names')[start_date.month] %></span>
-    <%= link_to t('simple_calendar.next', default: 'Next'), user_bodyweights_calender_path(current_user, start_date: @first_day.next_month), remote: true %>
+    <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_previous_view, remote: true %>
   </div>
 
   <table class="table table-striped">

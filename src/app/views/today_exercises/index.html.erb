@@ -1,5 +1,19 @@
-<div class="box1 center">
-  <%= params[:start_time].to_time.strftime("%Y年%-m月%-d日") %>
+<div class="box1">
+  <div class="row">
+    
+    <div class="col-md-3 offset-md-5 align-self-center">
+      <%= link_to user_today_exercises_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date].to_date.prev_month) do %>
+        <div class="arrow round-arrow-left"></div>
+      <% end %>
+      <a style="color: #274277;"><%= params[:start_time].to_time.strftime("%Y年%-m月%-d日") %></a>
+      <%= link_to user_today_exercises_path(current_user, start_time: params[:start_time].to_date.tomorrow, start_date: params[:start_date].to_date.next_month) do %>
+        <div class="arrow round-arrow-right"></div>
+      <% end %>
+    </div>
+    <div class="col-md-3 align-self-center">
+    
+    </div>
+  </div>
 </div>
 
 <div class="box1">
@@ -69,3 +83,5 @@
     %>
   </div>
 </div>
+
+<div id="calender" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

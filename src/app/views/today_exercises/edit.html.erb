@@ -53,7 +53,7 @@
 $(function() {
     $('#today_exercise_exercise_category_id').change(function() {
       $.get({
-        url: "<%= user_today_exercise_edit_contents_path(current_user, params[:id], start_date: params[:start_date], start_time: params[:start_time]) %>",
+        url: "<%= edit_contents_user_today_exercises_path(current_user, params[:id], start_date: params[:start_date], start_time: params[:start_time]) %>",
         data: { exercise_category_id: $('#today_exercise_exercise_category_id').has('option:selected').val() }
       });
     });
