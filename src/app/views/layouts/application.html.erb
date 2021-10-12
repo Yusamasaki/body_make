@@ -20,7 +20,7 @@
 
   <body>
     <div class="page-wrapper chiller-theme toggled">
-    <% if user_signed_in? %>
+    <% if user_signed_in? && @bmr.present? && @target_weight.present? %>
       <%= render 'layouts/side_bar' %> 
       <main class="page-content">
     <% else %>

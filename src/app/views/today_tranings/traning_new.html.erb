@@ -1,0 +1,45 @@
+
+<div class="box1">
+  <div class="row">
+    
+    <div class="col-1 offset-11 align-self-center">
+      <%= link_to(user_today_tranings_path(@user, today_traning_day_id: params[:today_traning_day_id], traningevent_id: @traningevent, start_time: params[:start_time], start_date: params[:start_date]), method: :post, class: "text-original") do %>
+        <i class="far fa-plus-square fa-lg"></i>
+      <% end %>
+    </div>
+    
+    <% @today_tranings.each_with_index do |item, i| %>
+    <% @today_traning = @user.today_tranings.find(item) %>
+      <div class="col-1 align-self-center text-original">
+        <%= i + 1 %>セット
+      </div>
+    
+      <div class="col-10 align-self-center">
+        
+        <%= form_with(model:@today_traning, url: user_today_traning_path(@user, @today_traning, traningevent_id: @traningevent, start_time: params[:start_time], start_date: params[:start_date]), method: :patch, local: true) do |f| %>
+      
+          <%= f.number_field :traning_weight, step: '0.1', :placeholder => "挙上重量", class: "form-control" %><br>
+          
+          <%= f.number_field :traning_reps, step: '0.1', autofocus: true, :placeholder => "挙上回数", step: '0.1', class: "form-control" %><br>
+          
+          <%= f.text_area :traning_note, autofocus: true, :placeholder => "MEMO", class: "form-control" %><br>
+      
+          <%= f.submit "記録", class: "btn btn-original btn-block btn-setup" %><br>
+          
+        <% end %>
+      </div>
+      
+      <div class="col-1 align-self-center">
+        <%= link_to(user_today_traning_path(@user, @today_traning, today_traning_day_id: params[:today_traning_day_id], traningevent_id: @traningevent, start_time: params[:start_time], start_date: params[:start_date]), method: :delete, class: "text-original") do %>
+          <i class="fas fa-trash-alt fa-lg"></i>
+        <% end %>
+      </div>
+      
+    <% end %>
+    
+    <div class="col-2 offset-5">
+      <%= link_to "戻る", user_traningevents_path(@user, today_traning_day_id: params[:today_traning_day_id], start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-default btn-block  btn-setup " %>
+    </div>
+    
+  </div>
+</div>

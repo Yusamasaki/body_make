@@ -36,25 +36,40 @@ class ApplicationController < ActionController::Base
     redirect_to(users_url) unless current_user?(@user)
   end
   
+  def set_basic
+    @bmr = @user.bmr
+    @target_weight = @user.targetweight
+  end
   
+  # ---------トレーニング関連---------
   
-  # BodyWeightクラスの1ヶ月分start_time(日にち)を作成
-  def bodyweight_set_one_month
+  def set_traningevent
+    if params[:traningevent_id].present?
+      @traningevent = @user.traningevents.find(params[:traningevent_id])
+    else
+      @traningevent = @user.traningevents.find(params[:id])
+    end
+  end
+  
+  def set_analysis_day
     @first_day = params[:start_date].nil? ?
     Date.current.beginning_of_month : params[:start_date].to_date
     @last_day = @first_day.end_of_month
     
     one_month = [*@first_day..@last_day]
-    
-    @bodyweights = current_user.bodyweights.where( start_time: @first_day..@last_day).order(:start_time)
-    
-    unless one_month.count == @bodyweights.count
-      ActiveRecord::Base.transaction do
-        one_month.each { |day| current_user.bodyweights.create!(start_time: day) }
+      
+    if params[:traningevent_id].present?
+      @traning_analysis = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time)
+      
+      unless one_month.count <= @traning_analysis.count
+        ActiveRecord::Base.transaction do
+          one_month.each { |day| @user.traning_analysis.create!(start_time: day, traningevent_id: params[:traningevent_id]) }
+        end
+        @traning_analysis = @user.traning_analysis.where(start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time)
       end
-      @bodyweights = current_user.bodyweights.where(start_time: @first_day..@last_day).order(:start_time)
     end
   end
+    
 
   # TodayExeciseクラスの1ヶ月分start_time(日にち)を作成
   def today_exercise_set_one_month

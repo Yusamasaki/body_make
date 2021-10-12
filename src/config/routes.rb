@@ -19,8 +19,9 @@ Rails.application.routes.draw do
   resources :users, only: [:show] do
 
     get 'setting'
-    
     get 'bodyweights/calender'
+    get 'today_tranings/traning_new'
+    get 'today_tranings/traning_analysis'
     
     resources :bodyweights, only: [:create, :edit, :update]
 
@@ -29,6 +30,7 @@ Rails.application.routes.draw do
     resources :pfc_ratios, only: [:new, :create, :edit, :update]
     
     resources :traningevents
+    resources :today_tranings, only: [:index, :show, :create, :update, :destroy]
     resources :today_exercises do
       collection do
         get :new_contents

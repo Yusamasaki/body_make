@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe Traning, type: :model do
+RSpec.describe TodayTraning, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end

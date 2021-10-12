@@ -35,3 +35,8 @@ ja:
         start_time: 日付
         exercise_time: 運動時間
         note: 備考
+      traningevent:
+        bodypart: 部位
+        sub_body_part: 対象部位
+        traning_type: トレーニングタイプ
+        traning_name: トレーニング名
