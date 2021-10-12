@@ -20,14 +20,16 @@
             <div>
               <i class="fas fa-home"></i>
               <span>HOME</span>
-              
             </div>
           <% end %>
         </li>
         <li>
-          <a href="#">
-            <i class="fas fa-utensils"></i>
-            <span>Meal</span>
+          <%= link_to(user_todaymeals_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
+            <div>
+              <i class="fas fa-utensils"></i>
+              <span>Meal</span>
+            </div>
+          <% end %>  
           </a>
         </li>
         <li>

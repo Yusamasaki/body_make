@@ -1,0 +1,41 @@
+
+
+<div class="row">
+  <div class="col-md-4 align-self-center">
+    <%= link_to(user_recipes_path(current_user, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date])) do %>
+      <div class="box1">
+        
+      </div>
+    <% end %>
+  </div>
+  <div class="col-md-4 align-self-center">
+    <%= link_to(user_myfoods_path(current_user, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date])) do %>
+      <div class="box1">
+        
+      </div>
+    <% end %>
+  </div>
+  <div class="col-md-4 align-self-center">
+    <%= link_to(user_recipes_path(current_user, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date])) do %>
+      <div class="box1">
+        
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-1 offset-md-11 align-self-center">
+    <%= link_to(new_user_traningevent_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
+      <i class="far fa-plus-square fa-2x"></i>
+    <% end %>
+  </div>
+</div>
+
+<div class="box1">
+  <div class="row">
+    <div class="">
+      
+    </div>
+  </div>
+</div>

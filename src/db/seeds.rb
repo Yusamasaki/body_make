@@ -86,3 +86,6 @@ Traningevent.create!(
 		{traning_name: "バーベルカール", sub_body_part: "上腕二頭筋", bodypart_id: 5, traningtype_id: 1, user_id: 1}
 	]
 )
+
+
+Timezone.create!([ {time_zone: "朝食"}, {time_zone: "昼食"}, {time_zone: "夕食"}, {time_zone: "間食"},])
