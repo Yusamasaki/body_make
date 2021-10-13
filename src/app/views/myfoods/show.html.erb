@@ -1,0 +1,26 @@
+
+<div class="box1">
+  <div class="row">
+    <div class="col">
+      <table class="table table-striped">
+        <tbody>
+          <tr>
+            <th><%= @myfood.food_name %></th>
+            <th><%= @myfood.amount %></th>
+            <th><%= @myfood.calorie %></th>
+            <th><%= @myfood.protein %></th>
+            <th><%= @myfood.fat %></th>
+            <th><%= @myfood.carbo %></th>
+            <th><%= @myfood.suger %></th>
+            <th><%= @myfood.dietary_fiber %></th>
+            <th><%= @myfood.salt %></th>
+            <th><%= link_to "編集", edit_user_myfood_path(@user, @myfood, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-success" %></th>
+            <th><%= link_to "削除", user_myfood_path(@user, @myfood, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :delete,
+                    data: { confirm: "「#{@myfood.food_name}」を削除します。本当によろしいですか？" }, class: "btn btn-danger" %>
+            <th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

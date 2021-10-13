@@ -51,7 +51,6 @@ gem 'simple_calendar', '~> 2.0'
 gem 'cocoon'
 
 # グラフ
-
 gem 'gon'
 
 # Use ActiveStorage variant

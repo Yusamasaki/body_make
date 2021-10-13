@@ -3,7 +3,7 @@ class CreateMyfoods < ActiveRecord::Migration[5.2]
     create_table :myfoods do |t|
       t.string :food_name
       t.float :amount
-      t.float :caloriie
+      t.float :calorie
       t.float :protein
       t.float :fat
       t.float :carbo

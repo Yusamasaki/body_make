@@ -2,10 +2,10 @@ class User < ApplicationRecord
 
   has_many :bodyweights, dependent: :destroy
 
-  has_many :myfood, dependent: :destroy
-  has_many :recipe, dependent: :destroy
-  has_many :recipefood, dependent: :destroy
-  has_many :my_meal, dependent: :destroy
+  has_many :myfoods, dependent: :destroy
+  has_many :recipes, dependent: :destroy
+  has_many :recipefoods, dependent: :destroy
+  has_many :today_meals, dependent: :destroy
   
   has_many :traningevents, dependent: :destroy
   has_many :today_tranings, dependent: :destroy

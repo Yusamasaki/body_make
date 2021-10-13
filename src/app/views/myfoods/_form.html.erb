@@ -1,0 +1,30 @@
+
+<%= f.label :food_name, class: "label-form" %><br>
+<%= f.text_field :food_name, class: "form-control" %><br>
+
+<%= f.label :amount, class: "label-form" %><br>
+<%= f.number_field :amount, step: '0.1', class: "form-control" %><br>
+
+<%= f.label :calorie, class: "label-form" %><br>
+<%= f.number_field :calorie, step: '0.1', class: "form-control" %><br>
+
+<%= f.label :protein, class: "label-form" %><br>
+<%= f.number_field :protein, step: '0.1', class: "form-control" %><br>
+
+<%= f.label :fat, class: "label-form" %><br>
+<%= f.number_field :fat, step: '0.1', class: "form-control" %><br>
+
+<%= f.label :carbo, class: "label-form" %><br>
+<%= f.number_field :carbo, step: '0.1', class: "form-control" %><br>
+
+<%= f.label :suger, class: "label-form" %><br>
+<%= f.number_field :suger, step: '0.1', class: "form-control" %><br>
+
+<%= f.label :dietary_fiber, class: "label-form" %><br>
+<%= f.number_field :dietary_fiber, step: '0.1', class: "form-control" %><br>
+
+<%= f.label :salt, class: "label-form" %><br>
+<%= f.number_field :salt, step: '0.1', class: "form-control" %><br>
+  
+
+<%= f.submit yield(:btn_text), class: "btn btn-lg btn-original btn-form" %>
