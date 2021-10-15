@@ -12,7 +12,6 @@ class CreateMyfoods < ActiveRecord::Migration[5.2]
       t.float :salt
       
       t.references :user, foreign_key: true
-      t.references :recipe, foreign_key: true
 
       t.timestamps
     end

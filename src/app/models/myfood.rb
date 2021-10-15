@@ -1,6 +1,7 @@
 class Myfood < ApplicationRecord
    belongs_to :user
    has_many :todaymeals
+   has_many :recipefoods
 
    validates :food_name, length: { maximum: 100 }
    # validates :amount, numericality: { less_than_or_equal_to: 10000 }
