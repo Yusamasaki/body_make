@@ -1,21 +1,37 @@
 
 
 <div class="row">
-  <div class="col-md-4 align-self-center">
-    <%= link_to(user_recipes_path(current_user, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date])) do %>
-      <% if controller.controller_name == "recipes" %>
-        <div class="box1_action">Recipe</div>
+  <% unless params[:recipe_id].present? %>
+    <div class="col-md-4 align-self-center">
+      <%= link_to(user_recipes_path(current_user, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date])) do %>
+        <% if controller.controller_name == "recipes" %>
+          <div class="box1_action">Recipe</div>
+        <% else %>
+          <div class="box1">Recipe</div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  
+  <% unless params[:recipe_id].present? %>
+    <div class="col-md-4 align-self-center">
+  <% else %>
+    <div class="col-md-6 align-self-center">
+  <% end %>
+    <%= link_to(user_myfoods_path(@user, recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date])) do %>
+      <% if controller.controller_name == "myfoods" %>
+        <div class="box1_action">MyFood</div>
       <% else %>
-        <div class="box1">Recipe</div>
+        <div class="box1">MyFood</div>
       <% end %>
     <% end %>
-  </div>
-  <div class="col-md-4 align-self-center">
-    <%= link_to(user_myfoods_path(current_user, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date])) do %>
-      <div class="box1">MyFood</div>
-    <% end %>
-  </div>
-  <div class="col-md-4 align-self-center">
+    </div>
+    
+  <% unless params[:recipe_id].present? %>
+    <div class="col-md-4 align-self-center">
+  <% else %>
+    <div class="col-md-6 align-self-center">
+  <% end %>
     <%= link_to("#") do %>
       <div class="box1">
         
@@ -26,7 +42,7 @@
 
 <div class="row">
   <div class="col-md-1 offset-md-11 align-self-center">
-    <%= link_to(new_user_recipe_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
+    <%= link_to(new_user_recipe_path(@user, start_time: params[:start_time], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
       <i class="far fa-plus-square fa-2x"></i>
     <% end %>
   </div>

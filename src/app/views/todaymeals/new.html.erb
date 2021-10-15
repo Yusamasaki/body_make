@@ -1,0 +1,59 @@
+<% provide(:title, "食事記録") %>
+<% provide(:btn_text, "記録") %>
+
+<div class="box1">
+  <div class="row">
+    <div class="col-5">
+      <div class="col-12">グラフ</div>
+    </div>
+    <div class="col-7">
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-striped" border="2">
+            <thead>
+              <tr>
+                <th><%= Myfood.human_attribute_name(:food_name) %></th>
+                <th><%= Myfood.human_attribute_name(:amount) %></th>
+                <th><%= Myfood.human_attribute_name(:calorie) %></th>
+                <th><%= Myfood.human_attribute_name(:protein) %></th>
+                <th><%= Myfood.human_attribute_name(:fat) %></th>
+                <th><%= Myfood.human_attribute_name(:carbo) %></th>
+                <th><%= Myfood.human_attribute_name(:sugar) %></th>
+                <th><%= Myfood.human_attribute_name(:dietary_fiber) %></th>
+                <th><%= Myfood.human_attribute_name(:salt) %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th><%= @myfood.food_name %></th>
+                <td><%= @myfood.amount %></td>
+                <td><%= @myfood.calorie %></td>
+                <td><%= @myfood.protein %></td>
+                <td><%= @myfood.fat %></td>
+                <td><%= @myfood.carbo %></td>
+                <td><%= @myfood.sugar %></td>
+                <td><%= @myfood.dietary_fiber %></td>
+                <td><%= @myfood.salt %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="box1">
+  <div class="row">
+    <div class="col-2 offset-4">
+      <%= form_with(model: @todaymeal, url: user_todaymeals_path(@user, myfood_id: params[:myfood_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
+      
+        <%= f.submit yield(:btn_text), class: "btn btn-lg btn-original btn-form" %>
+        
+      <% end %>
+    </div>
+    <div class="col-2 offset-1">
+      <%= link_to "戻る", user_myfoods_path(@user, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-lg btn-default btn-form" %>
+    </div>
+  </div>
+</div>

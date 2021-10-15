@@ -7,10 +7,12 @@ class CreateMyfoods < ActiveRecord::Migration[5.2]
       t.float :protein
       t.float :fat
       t.float :carbo
-      t.float :suger
+      t.float :sugar
       t.float :dietary_fiber
       t.float :salt
+      
       t.references :user, foreign_key: true
+      t.references :recipe, foreign_key: true
 
       t.timestamps
     end

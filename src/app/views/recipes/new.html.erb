@@ -1,12 +1,14 @@
 
 <div class="box1">
-  <%= form_with(url: user_recipes_path(start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
+  <%= form_with(model: @recipe, url: user_recipes_path(@user, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
     
       <%= f.label :recipe_name, class: "label-form" %><br>
-      <%= f.text_field :food_name, class: "form-control" %><br>
+      <%= f.text_field :recipe_name, class: "form-control" %><br>
   
       <%= f.label :amount, class: "label-form" %><br>
       <%= f.number_field :amount, step: '0.1', class: "form-control" %><br>
+      
+      <%= f.hidden_field :timezone_id, value: params[:timezone_id] %>
       
     
     <%= f.submit "更新", class: "btn btn-lg btn-original btn-form" %>

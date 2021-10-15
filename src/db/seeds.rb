@@ -99,7 +99,7 @@ Timezone.create!([ {time_zone: "朝食"}, {time_zone: "昼食"}, {time_zone: "�
 		protein: rand(100),
 		fat: rand(100),
 		carbo: rand(100),
-		suger: rand(100),
+		sugar: rand(100),
 		dietary_fiber: rand(100),
 		salt: rand(100)
 	)

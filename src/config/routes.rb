@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     
     resources :todaymeals
     resources :recipes
+    resources :recipefoods
     resources :myfoods
     
 

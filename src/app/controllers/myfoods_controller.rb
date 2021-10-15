@@ -1,6 +1,7 @@
 class MyfoodsController < ApplicationController
   
   before_action :set_user, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  before_action :set_basic, only: []
   
   def index
     @myfoods = @user.myfoods.all
@@ -53,7 +54,7 @@ class MyfoodsController < ApplicationController
   private
   
     def myfood_params
-      params.require(:myfood).permit(:food_name, :amount, :calorie, :protein, :fat, :carbo, :suger, :dietary_fiber, :salt)
+      params.require(:myfood).permit(:food_name, :amount, :calorie, :protein, :fat, :carbo, :sugar, :dietary_fiber, :salt)
     end
   
 end
