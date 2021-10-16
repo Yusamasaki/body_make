@@ -3,7 +3,7 @@
 <div class="row">
   <% unless params[:recipe_id].present? %>
     <div class="col-md-4 align-self-center">
-      <%= link_to(user_recipes_path(current_user, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date])) do %>
+      <%= link_to(user_recipes_path(@user, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date])) do %>
         <% if controller.controller_name == "recipes" %>
           <div class="box1_action">Recipe</div>
         <% else %>
@@ -50,8 +50,29 @@
 
 <div class="box1">
   <div class="row">
-    <div class="">
-      
+    <div class="col-12">
+      <table class="table table-striped sample">
+        <thead>
+          <tr>
+            <th><%= Recipe.human_attribute_name(:recipe_name) %></th>
+            <th><%= Myfood.human_attribute_name(:protein) %></th>
+            <th><%= Myfood.human_attribute_name(:fat) %></th>
+            <th><%= Myfood.human_attribute_name(:carbo) %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recipes.each do |recipe| %>
+          <tr data-href= <%= user_recipefoods_path(@user, recipe_id: recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]) %>>
+            <td><%= recipe.recipe_name %></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

@@ -3,7 +3,9 @@ class RecipefoodsController < ApplicationController
   before_action :set_user, only: [:index, :new, :create, :show, :edit, :update, :destroy]
   
   def index
-    @recipefoods = @user.recipefoods.all
+    @recipe = @user.recipes.find(params[:recipe_id])
+    @recipefoods = @user.recipefoods.where(recipe_id: params[:recipe_id])
+    @todaymeal = @user.todaymeals.new
   end
   
   def new
