@@ -1,6 +1,7 @@
 <% provide(:title, "食事記録") %>
 <% provide(:btn_text, "記録") %>
 
+<%= link_to(user_myfood_path(@user, @myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date])) do %>
 <div class="box1">
   <div class="row">
     <div class="col-5">
@@ -42,6 +43,7 @@
     </div>
   </div>
 </div>
+<% end %>
 
 <div class="box1">
   <div class="row">

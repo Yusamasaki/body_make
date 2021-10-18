@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :recipes, dependent: :destroy
   has_many :recipefoods, dependent: :destroy
   has_many :todaymeals, dependent: :destroy
+  has_many :todaymeal_recipes, dependent: :destroy
   
   has_many :traningevents, dependent: :destroy
   has_many :today_tranings, dependent: :destroy

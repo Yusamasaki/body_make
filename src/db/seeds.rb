@@ -104,3 +104,11 @@ Timezone.create!([ {time_zone: "朝食"}, {time_zone: "昼食"}, {time_zone: "�
 		salt: rand(100)
 	)
 end
+
+30.times do |n|
+	Recipe.create!(
+		user_id: 1,
+		recipe_name: "レシピ#{n + 1}",
+		amount: rand(100)
+	)
+end

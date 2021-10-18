@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     end
     
     resources :todaymeals
+    resources :todaymeal_recipes
     resources :recipes
     resources :recipefoods
     resources :myfoods

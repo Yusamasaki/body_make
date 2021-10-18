@@ -14,32 +14,43 @@
 <div class="box1">
   <div class="row">
     <div class="col-md-12">
-      <table class="table table-striped sample">
-        <thead>
-          <tr>
-            <th><%= Myfood.human_attribute_name(:food_name) %></th>
-            <th><%= Myfood.human_attribute_name(:calorie) %></th>
-            <th><%= Myfood.human_attribute_name(:protein) %></th>
-            <th><%= Myfood.human_attribute_name(:fat) %></th>
-            <th><%= Myfood.human_attribute_name(:carbo) %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @recipefoods.each do |recipefood| %>
-          <% @myfood = @user.myfoods.find(recipefood.id) %>
-            <tr data-href=<%= user_myfood_path(@user, @myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>>
-              <td><%= @myfood.food_name %></td>
-              <td><%= @myfood.calorie %></td>
-              <td><%= @myfood.protein %></td>
-              <td><%= @myfood.fat %></td>
-              <td><%= @myfood.carbo %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <div class="box2">
+        <h3><span><%= @recipe.recipe_name if @recipe.present? %></span></h3>
+        <div class="inner">
+          <table class="table table-striped sample">
+            <thead>
+              <tr>
+                <th><%= Myfood.human_attribute_name(:food_name) %></th>
+                <th><%= Myfood.human_attribute_name(:calorie) %></th>
+                <th><%= Myfood.human_attribute_name(:protein) %></th>
+                <th><%= Myfood.human_attribute_name(:fat) %></th>
+                <th><%= Myfood.human_attribute_name(:carbo) %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @recipefoods.each do |recipefood| %>
+              <% @myfood = @user.myfoods.find(recipefood.myfood_id) %>
+                <tr>
+                  <td><%= @myfood.food_name %></td>
+                  <td><%= recipefood_format(@myfood.calorie, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.protein, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.fat, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.carbo, recipefood.amount) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
+    
+  </div>
+</div>
+
+<div class="box1">
+  <div class="row">
     <div class="col-12">
-      <%= form_with(model: @todaymeal, url: user_todaymeals_path(@user, recipe_id: params[:recipe_id], myfood_id: params[:myfood_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
+      <%= form_with(model: @todaymeal_recipe, url: user_todaymeal_recipes_path(@user, recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
         <%= f.text_area :note, class: "form-control" %><br>
         
         <%= f.hidden_field :start_time, value: params[:start_time] %>

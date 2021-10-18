@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_06_215704) do
+ActiveRecord::Schema.define(version: 2021_10_16_135348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 2021_10_06_215704) do
   end
 
   create_table "recipefoods", force: :cascade do |t|
+    t.float "amount"
     t.bigint "user_id"
     t.bigint "recipe_id"
     t.bigint "myfood_id"
@@ -112,6 +113,13 @@ ActiveRecord::Schema.define(version: 2021_10_06_215704) do
   create_table "recipes", force: :cascade do |t|
     t.string "recipe_name"
     t.float "amount"
+    t.float "calorie"
+    t.float "protein"
+    t.float "fat"
+    t.float "carbo"
+    t.float "sugar"
+    t.float "dietary_fiber"
+    t.float "salt"
     t.string "note"
     t.bigint "user_id"
     t.bigint "timezone_id"
@@ -143,8 +151,8 @@ ActiveRecord::Schema.define(version: 2021_10_06_215704) do
     t.float "goal_body_weight"
     t.float "now_bodyfat_percentage"
     t.float "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-10-15 00:13:45"
-    t.datetime "target_date", default: "2021-10-16 00:13:45"
+    t.datetime "beginning_date", default: "2021-10-18 11:29:47"
+    t.datetime "target_date", default: "2021-10-19 11:29:47"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -158,8 +166,8 @@ ActiveRecord::Schema.define(version: 2021_10_06_215704) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-10-15", null: false
-    t.datetime "exercise_time", default: "2021-10-14 15:00:00", null: false
+    t.date "start_time", default: "2021-10-18", null: false
+    t.datetime "exercise_time", default: "2021-10-17 15:00:00", null: false
     t.string "note"
     t.bigint "exercise_category_id"
     t.bigint "exercise_content_id"
@@ -184,6 +192,19 @@ ActiveRecord::Schema.define(version: 2021_10_06_215704) do
     t.datetime "updated_at", null: false
     t.index ["traningevent_id"], name: "index_today_tranings_on_traningevent_id"
     t.index ["user_id"], name: "index_today_tranings_on_user_id"
+  end
+
+  create_table "todaymeal_recipes", force: :cascade do |t|
+    t.datetime "start_time"
+    t.string "note"
+    t.bigint "user_id"
+    t.bigint "timezone_id"
+    t.bigint "recipe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_todaymeal_recipes_on_recipe_id"
+    t.index ["timezone_id"], name: "index_todaymeal_recipes_on_timezone_id"
+    t.index ["user_id"], name: "index_todaymeal_recipes_on_user_id"
   end
 
   create_table "todaymeals", force: :cascade do |t|
@@ -263,6 +284,9 @@ ActiveRecord::Schema.define(version: 2021_10_06_215704) do
   add_foreign_key "today_exercises", "users"
   add_foreign_key "today_tranings", "traningevents"
   add_foreign_key "today_tranings", "users"
+  add_foreign_key "todaymeal_recipes", "recipes"
+  add_foreign_key "todaymeal_recipes", "timezones"
+  add_foreign_key "todaymeal_recipes", "users"
   add_foreign_key "todaymeals", "myfoods"
   add_foreign_key "todaymeals", "timezones"
   add_foreign_key "todaymeals", "users"
