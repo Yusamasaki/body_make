@@ -53,4 +53,6 @@ ja:
       recipe:
         recipe_name: レシピ名
         amount: 分量(何人分か)
+      recipefood:
+        amount: 分量(何個分か)
         

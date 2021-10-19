@@ -98,4 +98,5 @@ class ApplicationController < ActionController::Base
       @today_exercises = current_user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
     end
   end
+  
 end

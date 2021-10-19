@@ -38,6 +38,52 @@
           <i class="far fa-plus-square fa-2x"></i>
         <% end %>
       </div>
+      <div class="col-md-12">
+        <a>食品</a>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th><%= Myfood.human_attribute_name(:food_name) %></th>
+              <th><%= Myfood.human_attribute_name(:calorie) %></th>
+              <th><%= Myfood.human_attribute_name(:protein) %></th>
+              <th><%= Myfood.human_attribute_name(:fat) %></th>
+              <th><%= Myfood.human_attribute_name(:carbo) %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-12">
+        <a>レシピ</a>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th><%= Recipe.human_attribute_name(:recipe_name) %></th>
+              <th><%= Myfood.human_attribute_name(:calorie) %></th>
+              <th><%= Myfood.human_attribute_name(:protein) %></th>
+              <th><%= Myfood.human_attribute_name(:fat) %></th>
+              <th><%= Myfood.human_attribute_name(:carbo) %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 <% end %>

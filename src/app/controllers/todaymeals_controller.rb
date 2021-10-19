@@ -5,6 +5,8 @@ class TodaymealsController < ApplicationController
   
   def index
     @timezones = Timezone.all
+    @todaymeal = @timezones.map {|timezone| @user.todaymeals.where(timezone_id: timezone)}
+    
   end
   
   def new

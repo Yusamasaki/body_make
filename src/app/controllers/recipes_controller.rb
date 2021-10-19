@@ -5,8 +5,7 @@ class RecipesController < ApplicationController
   
   
   def index
-    @recipes = @user.recipes.all
-    @recipefoods = @recipes.map {|recipe| @user.recipefoods.where(recipe_id: recipe)}
+    @recipes = @user.recipes.all.order(:id)
   end
   
   def new

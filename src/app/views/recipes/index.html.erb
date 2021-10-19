@@ -65,10 +65,10 @@
           <% @recipes.each do |recipe| %>
           <tr data-href= <%= user_recipefoods_path(@user, recipe_id: recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]) %>>
             <td><%= recipe.recipe_name %></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><%= recipe.calorie %></td>
+            <td><%= recipe.protein %></td>
+            <td><%= recipe.fat %></td>
+            <td><%= recipe.carbo %></td>
           </tr>
           <% end %>
         </tbody>
