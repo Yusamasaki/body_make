@@ -1,11 +1,13 @@
 class MyfoodsController < ApplicationController
   
   before_action :set_user, only: [:index, :new, :create, :show, :edit, :update, :destroy]
-  before_action :set_basic, only: []
+  before_action :set_basic, only: [:index]
+  before_action :set_myfood, only: [:show, :edit, :update, :destroy]
+  before_action :set_recipe, only: [:index]
+  before_action :ser_recipefoods_total, only: [:index]
   
   def index
     @myfoods = @user.myfoods.all
-    
   end
   
   def new
@@ -14,25 +16,22 @@ class MyfoodsController < ApplicationController
   
   def create
     @myfood = @user.myfoods.new(myfood_params)
-    if @myfood.save!
+    ActiveRecord::Base.transaction do @myfood.save!
       flash[:success] = "#{@myfood.food_name}の登録に成功しました。"
       redirect_to user_myfoods_path(@user, timezone: params[:timezone], start_date: params[:start_date], start_time: params[:start_time])
-    else
+    rescue ActiveRecord::RecordInvalid
       flash[:danger] = "登録に失敗しました。"
       redirect_to user_myfoods_path(@user, timezone: params[:timezone], start_date: params[:start_date], start_time: params[:start_time])
     end
   end
   
   def show
-    @myfood = @user.myfoods.find(params[:id])
   end
   
   def edit
-    @myfood = @user.myfoods.find(params[:id])
   end
   
   def update
-    @myfood = @user.myfoods.find(params[:id])
     ActiveRecord::Base.transaction do
       @myfood.update_attributes!(myfood_params)
         flash[:success] = "更新に成功しました"
@@ -44,7 +43,6 @@ class MyfoodsController < ApplicationController
   end
   
   def destroy
-    @myfood = @user.myfoods.find(params[:id])
     @myfood.destroy
     flash[:success] = "削除しました。"
     redirect_to user_myfoods_url(@user, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]) 

@@ -4,4 +4,5 @@ class TodaymealRecipe < ApplicationRecord
   belongs_to :timezone
   belongs_to :recipe
   
+  
 end

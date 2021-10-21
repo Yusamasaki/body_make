@@ -38,8 +38,8 @@ class ApplicationController < ActionController::Base
   
   # 基礎代謝　＆　目標設定
   def set_basic
-    @bmr = @user.bmr
-    @target_weight = @user.targetweight
+    @bmr = @user.bmr unless params[:recipe_id].present?
+    @target_weight = @user.targetweight unless params[:recipe_id].present?
   end
   
   # アクセスした先のが明日以上の場合返す
@@ -99,4 +99,40 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  # 食事関連
+  
+  def set_myfood
+    @myfood = @user.myfoods.find(params[:myfood_id]) if params[:myfood_id].present?
+    @myfood = @user.myfoods.find(params[:id]) if params[:id].present?
+  end
+  
+  def set_recipe
+    @recipe = @user.recipes.find(params[:recipe_id]) if params[:recipe_id].present?
+    @recipe = @user.recipes.find(params[:id]) if params[:id].present?
+  end
+  
+  def ser_recipefoods_total
+    if params[:recipe_id].present?
+      @recipefoods = @user.recipefoods.where(recipe_id: params[:recipe_id])
+      
+      @recipe_calorie = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:calorie), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
+      @recipe_protein = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:protein), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
+      @recipe_fat = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:fat), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
+      @recipe_carbo = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:carbo), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
+      @recipe_sugar = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:sugar), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
+      @recipe_dietary_fiber = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:dietary_fiber), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
+      @recipe_salt = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:salt), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
+    end
+  end
+  
+  def set_meals
+    @timezones = Timezone.all
+    
+    @todaymeals = @timezones.map{|timezone| @user.todaymeals.where(timezone_id: timezone).pluck(:myfood_id)}
+    @myfoods = @todaymeals.map{|todaymeal| @user.myfoods.where(id: todaymeal)}
+    
+    @todaymeal_recipes = @timezones.map{|timezone| @user.todaymeal_recipes.where(timezone_id: timezone).pluck(:recipe_id)}
+    @recipes = @todaymeal_recipes.map{|todaymeal_recipe| @user.recipes.where(id: todaymeal_recipe).pluck(:calorie)}
+    
+  end
 end

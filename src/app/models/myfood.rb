@@ -3,13 +3,13 @@ class Myfood < ApplicationRecord
    has_many :todaymeals
    has_many :recipefoods
 
-   validates :food_name, length: { maximum: 100 }
-   # validates :amount, numericality: { less_than_or_equal_to: 10000 }
-   # validates :calorie, numericality: { less_than_or_equal_to: 10000 }
-   # validates :protein, numericality: { less_than_or_equal_to: 1000 }
-   # validates :fat, numericality: { less_than_or_equal_to: 1000 }
-   # validates :carbo, numericality: { less_than_or_equal_to: 1000 }
-   # validates :sugar, numericality: { less_than_or_equal_to: 1000 }
-   # validates :dietary_fiber, numericality: { less_than_or_equal_to: 1000 }
-   # validates :salt, numericality: { less_than_or_equal_to: 1000 }
+   validates :food_name, presence: true, length: { maximum: 100 }, uniqueness: true
+   validates :amount, presence: true, numericality: { less_than_or_equal_to: 10000 }
+   validates :calorie, presence: true, numericality: { less_than_or_equal_to: 10000 }
+   validates :protein, presence: true, numericality: { less_than_or_equal_to: 1000 }
+   validates :fat, presence: true, numericality: { less_than_or_equal_to: 1000 }
+   validates :carbo, presence: true, numericality: { less_than_or_equal_to: 1000 }
+   validates :sugar, presence: false, numericality: { less_than_or_equal_to: 1000 }
+   validates :dietary_fiber, presence: false, numericality: { less_than_or_equal_to: 1000 }
+   validates :salt, presence: false, numericality: { less_than_or_equal_to: 1000 }
 end

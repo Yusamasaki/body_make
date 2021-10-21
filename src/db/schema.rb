@@ -74,14 +74,14 @@ ActiveRecord::Schema.define(version: 2021_10_16_135348) do
 
   create_table "myfoods", force: :cascade do |t|
     t.string "food_name"
-    t.float "amount"
-    t.float "calorie"
-    t.float "protein"
-    t.float "fat"
-    t.float "carbo"
-    t.float "sugar"
-    t.float "dietary_fiber"
-    t.float "salt"
+    t.float "amount", default: 0.0
+    t.float "calorie", default: 0.0
+    t.float "protein", default: 0.0
+    t.float "fat", default: 0.0
+    t.float "carbo", default: 0.0
+    t.float "sugar", default: 0.0
+    t.float "dietary_fiber", default: 0.0
+    t.float "salt", default: 0.0
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -112,14 +112,13 @@ ActiveRecord::Schema.define(version: 2021_10_16_135348) do
 
   create_table "recipes", force: :cascade do |t|
     t.string "recipe_name"
-    t.float "amount"
-    t.float "calorie"
-    t.float "protein"
-    t.float "fat"
-    t.float "carbo"
-    t.float "sugar"
-    t.float "dietary_fiber"
-    t.float "salt"
+    t.float "calorie", default: 0.0
+    t.float "protein", default: 0.0
+    t.float "fat", default: 0.0
+    t.float "carbo", default: 0.0
+    t.float "sugar", default: 0.0
+    t.float "dietary_fiber", default: 0.0
+    t.float "salt", default: 0.0
     t.string "note"
     t.bigint "user_id"
     t.bigint "timezone_id"
@@ -151,8 +150,8 @@ ActiveRecord::Schema.define(version: 2021_10_16_135348) do
     t.float "goal_body_weight"
     t.float "now_bodyfat_percentage"
     t.float "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-10-19 06:05:31"
-    t.datetime "target_date", default: "2021-10-20 06:05:31"
+    t.datetime "beginning_date", default: "2021-10-20 14:23:38"
+    t.datetime "target_date", default: "2021-10-21 14:23:38"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -166,8 +165,8 @@ ActiveRecord::Schema.define(version: 2021_10_16_135348) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-10-19", null: false
-    t.datetime "exercise_time", default: "2021-10-18 15:00:00", null: false
+    t.date "start_time", default: "2021-10-20", null: false
+    t.datetime "exercise_time", default: "2021-10-19 15:00:00", null: false
     t.string "note"
     t.bigint "exercise_category_id"
     t.bigint "exercise_content_id"

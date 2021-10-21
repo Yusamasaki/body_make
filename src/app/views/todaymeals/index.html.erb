@@ -31,7 +31,7 @@
   <div class="box1">
     <div class="row">
       <div class="col-md-2 align-self-center">
-        <%= timezone.time_zone %>
+        <h4><%= timezone.time_zone %></h4>
       </div>
       <div class="col-md-2 offset-md-8 align-self-center">
         <%= link_to(user_recipes_path(current_user, timezone_id: timezone, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
@@ -48,17 +48,48 @@
               <th><%= Myfood.human_attribute_name(:protein) %></th>
               <th><%= Myfood.human_attribute_name(:fat) %></th>
               <th><%= Myfood.human_attribute_name(:carbo) %></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
+            <% @todaymeals = @user.todaymeals.where(timezone_id: timezone) %>
+            
+            <% @todaymeals.each do |todaymeal| %>
+            <% @myfood = @user.myfoods.find(todaymeal.myfood_id) %>
+              <tr>
+                <td><%= @myfood.food_name %></td>
+                <td><%= @myfood.calorie %></td>
+                <td><%= @myfood.protein %></td>
+                <td><%= @myfood.fat %></td>
+                <td><%= @myfood.carbo %></td>
+                <td>
+                  <%= link_to(user_todaymeal_path(@user, todaymeal, start_time: params[:start_time], start_date: params[:start_date]), method: :delete, class: "text-original") do %>
+                      <i class="fas fa-trash-alt fa-lg"></i>
+                    <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+          <tfoot>
             <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              
+              
+              <th>合計</th>
+              <td>
+                <% @myfoods_calorie = @todaymeals.pluck(:myfood_id).map {|todaymeal|@user.myfoods.where(id: todaymeal).pluck(:calorie).sum}.sum %><%= @myfoods_calorie %>
+              </td>
+              <td>
+                <% @myfoods_protein = @todaymeals.pluck(:myfood_id).map {|todaymeal|@user.myfoods.where(id: todaymeal).pluck(:protein).sum}.sum %><%= @myfoods_protein %>
+              </td>
+              <td>
+                <% @myfoods_fat = @todaymeals.pluck(:myfood_id).map {|todaymeal|@user.myfoods.where(id: todaymeal).pluck(:fat).sum}.sum %><%= @myfoods_fat %>
+              </td>
+              <td>
+                <% @myfoods_carbo = @todaymeals.pluck(:myfood_id).map {|todaymeal|@user.myfoods.where(id: todaymeal).pluck(:carbo).sum}.sum %><%= @myfoods_carbo %>
+              </td>
               <td></td>
             </tr>
-          </tbody>
+          </tfoot>
         </table>
       </div>
       <div class="col-md-12">
@@ -71,17 +102,46 @@
               <th><%= Myfood.human_attribute_name(:protein) %></th>
               <th><%= Myfood.human_attribute_name(:fat) %></th>
               <th><%= Myfood.human_attribute_name(:carbo) %></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
+            <% @todaymeal_recipes = @user.todaymeal_recipes.where(timezone_id: timezone) %>
+            <% @todaymeal_recipes.each do |todaymeal_recipe| %>
+            <% @recipe = @user.recipes.find(todaymeal_recipe.recipe_id) %>
+            
+              <tr>
+                <td><%= @recipe.recipe_name %></td>
+                <td><%= @recipe.calorie %></td>
+                <td><%= @recipe.protein %></td>
+                <td><%= @recipe.fat %></td>
+                <td><%= @recipe.carbo %></td>
+                <td>
+                  <%= link_to(user_todaymeal_recipe_path(@user, todaymeal_recipe, start_time: params[:start_time], start_date: params[:start_date]), method: :delete, class: "text-original") do %>
+                      <i class="fas fa-trash-alt fa-lg"></i>
+                    <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+          <tfoot>
             <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <th>合計</th>
+              <td>
+                <% @recipes_calorie = @todaymeal_recipes.pluck(:recipe_id).map {|todaymeal_recipe| @user.recipes.where(id: todaymeal_recipe).pluck(:calorie).sum}.sum %><%= @recipes_calorie %>
+              </td>
+              <td>
+                <% @recipes_protein = @todaymeal_recipes.pluck(:recipe_id).map {|todaymeal_recipe| @user.recipes.where(id: todaymeal_recipe).pluck(:protein).sum}.sum %><%= @recipes_protein %>
+              </td>
+              <td>
+                <% @recipes_fat = @todaymeal_recipes.pluck(:recipe_id).map {|todaymeal_recipe| @user.recipes.where(id: todaymeal_recipe).pluck(:fat).sum}.sum %><%= @recipes_fat %>
+              </td>
+              <td>
+                <% @recipes_carbo = @todaymeal_recipes.pluck(:recipe_id).map {|todaymeal_recipe| @user.recipes.where(id: todaymeal_recipe).pluck(:carbo).sum}.sum %><%= @recipes_carbo %>
+              </td>
               <td></td>
             </tr>
-          </tbody>
+          </tfoot>
         </table>
       </div>
     </div>

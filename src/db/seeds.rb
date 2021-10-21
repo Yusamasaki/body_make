@@ -108,7 +108,6 @@ end
 30.times do |n|
 	Recipe.create!(
 		user_id: 1,
-		recipe_name: "レシピ#{n + 1}",
-		amount: rand(100)
+		recipe_name: "レシピ#{n + 1}"
 	)
 end
