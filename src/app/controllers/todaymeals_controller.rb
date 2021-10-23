@@ -8,6 +8,25 @@ class TodaymealsController < ApplicationController
   def index
     @timezones = Timezone.all
     
+    @timezone_todaymeals = @timezones.map {|timezone| [ timezone, @user.todaymeal_recipes.where(start_time: params[:start_time], timezone_id: timezone).pluck(:recipe_id), @user.todaymeals.where(start_time: params[:start_time], timezone_id: timezone).pluck(:myfood_id) ] }
+    
+    @timezone_meal_total = @timezone_todaymeals.map {|timezone, recipe, myfood| [timezone, @user.recipes.where(id: recipe), @user.myfoods.where(id: myfood)]}
+    
+    @todaymeals_start_time = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id)
+    @todaymeal_recipes_start_time = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id)
+    
+    @total_calorie = @todaymeals_start_time.map {|myfood| @user.myfoods.where(id: myfood).pluck(:calorie).sum}.sum +
+                     @todaymeal_recipes_start_time.map {|recipe| @user.recipes.where(id: recipe).pluck(:calorie).sum}.sum
+    
+    @total_protein = @todaymeals_start_time.map {|myfood| @user.myfoods.where(id: myfood).pluck(:protein).sum}.sum +
+                     @todaymeal_recipes_start_time.map {|recipe| @user.recipes.where(id: recipe).pluck(:protein).sum}.sum
+                     
+    @total_fat = @todaymeals_start_time.map {|myfood| @user.myfoods.where(id: myfood).pluck(:fat).sum}.sum +
+                     @todaymeal_recipes_start_time.map {|recipe| @user.recipes.where(id: recipe).pluck(:fat).sum}.sum
+                     
+    @total_carbo = @todaymeals_start_time.map {|myfood| @user.myfoods.where(id: myfood).pluck(:carbo).sum}.sum +
+                     @todaymeal_recipes_start_time.map {|recipe| @user.recipes.where(id: recipe).pluck(:carbo ).sum}.sum
+                     
   end
   
   def new

@@ -94,7 +94,6 @@ Timezone.create!([ {time_zone: "朝食"}, {time_zone: "昼食"}, {time_zone: "�
 	Myfood.create!(
 		user_id: 1,
 		food_name: "食品#{n + 1}",
-		amount: rand(100),
 		calorie: rand(100),
 		protein: rand(100),
 		fat: rand(100),

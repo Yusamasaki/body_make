@@ -4,7 +4,6 @@ class Myfood < ApplicationRecord
    has_many :recipefoods
 
    validates :food_name, presence: true, length: { maximum: 100 }, uniqueness: true
-   validates :amount, presence: true, numericality: { less_than_or_equal_to: 10000 }
    validates :calorie, presence: true, numericality: { less_than_or_equal_to: 10000 }
    validates :protein, presence: true, numericality: { less_than_or_equal_to: 1000 }
    validates :fat, presence: true, numericality: { less_than_or_equal_to: 1000 }

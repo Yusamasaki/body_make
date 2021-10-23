@@ -27,7 +27,7 @@ class TodaymealRecipesController < ApplicationController
   private
   
     def todaymeal_recipe_params
-      params.require(:todaymeal_recipe).permit(:start_time, :recipe_id, :timezone_id, :note)
+      params.require(:todaymeal_recipe).permit(:start_time, :recipe_id, :timezone_id, :note, :amount)
     end
   
 end

@@ -8,6 +8,7 @@ class RecipefoodsController < ApplicationController
   def index
     @todaymeal_recipe = @user.todaymeal_recipes.new
     @recipefoods = @user.recipefoods.where(recipe_id: params[:recipe_id])
+    @timezone = Timezone.find(params[:timezone_id])
   end
   
   def new

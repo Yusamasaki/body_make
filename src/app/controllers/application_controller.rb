@@ -128,7 +128,7 @@ class ApplicationController < ActionController::Base
   def set_meals
     @timezones = Timezone.all
     
-    @todaymeals = @timezones.map{|timezone| @user.todaymeals.where(timezone_id: timezone).pluck(:myfood_id)}
+    @todaymeals = @timezones.map{|timezone| @user.todaymeals.where(start_time: params[:start_time], timezone_id: timezone).pluck(:myfood_id)}
     @myfoods = @todaymeals.map{|todaymeal| @user.myfoods.where(id: todaymeal)}
     
     @todaymeal_recipes = @timezones.map{|timezone| @user.todaymeal_recipes.where(timezone_id: timezone).pluck(:recipe_id)}

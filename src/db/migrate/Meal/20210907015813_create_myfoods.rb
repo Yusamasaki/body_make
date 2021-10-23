@@ -1,8 +1,7 @@
 class CreateMyfoods < ActiveRecord::Migration[5.2]
   def change
     create_table :myfoods do |t|
-      t.string :food_name
-      t.float :amount, default: 0
+      t.string :food_name   
       t.float :calorie, default: 0
       t.float :protein, default: 0
       t.float :fat, default: 0

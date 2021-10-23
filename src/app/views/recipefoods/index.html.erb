@@ -70,8 +70,16 @@
 
 <div class="box1">
   <div class="row">
+    <div class="mx-auto">
+      <h4>【<%= params[:start_time] %>】の【<%= @timezone.time_zone %>】に【<%= @recipe.recipe_name %>】を記録</h4>
+    </div>
     <div class="col-12">
       <%= form_with(model: @todaymeal_recipe, url: user_todaymeal_recipes_path(@user, recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
+        
+        <%= f.label :amount, class: "label-form" %><br>
+        <%= f.number_field :amount, :placeholder => "分量(何人分か)", class: "form-control" %><br>
+        
+        <%= f.label :note, class: "label-form" %><br>
         <%= f.text_area :note, :placeholder => "備考", class: "form-control" %><br>
         
         <%= f.hidden_field :start_time, value: params[:start_time] %>

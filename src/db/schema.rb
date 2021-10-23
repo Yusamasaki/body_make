@@ -74,7 +74,6 @@ ActiveRecord::Schema.define(version: 2021_10_16_135348) do
 
   create_table "myfoods", force: :cascade do |t|
     t.string "food_name"
-    t.float "amount", default: 0.0
     t.float "calorie", default: 0.0
     t.float "protein", default: 0.0
     t.float "fat", default: 0.0
@@ -150,8 +149,8 @@ ActiveRecord::Schema.define(version: 2021_10_16_135348) do
     t.float "goal_body_weight"
     t.float "now_bodyfat_percentage"
     t.float "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-10-20 14:23:38"
-    t.datetime "target_date", default: "2021-10-21 14:23:38"
+    t.datetime "beginning_date", default: "2021-10-23 12:29:57"
+    t.datetime "target_date", default: "2021-10-24 12:29:57"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -165,8 +164,8 @@ ActiveRecord::Schema.define(version: 2021_10_16_135348) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-10-20", null: false
-    t.datetime "exercise_time", default: "2021-10-19 15:00:00", null: false
+    t.date "start_time", default: "2021-10-23", null: false
+    t.datetime "exercise_time", default: "2021-10-22 15:00:00", null: false
     t.string "note"
     t.bigint "exercise_category_id"
     t.bigint "exercise_content_id"
@@ -194,7 +193,8 @@ ActiveRecord::Schema.define(version: 2021_10_16_135348) do
   end
 
   create_table "todaymeal_recipes", force: :cascade do |t|
-    t.datetime "start_time"
+    t.date "start_time"
+    t.float "amount", default: 1.0
     t.string "note"
     t.bigint "user_id"
     t.bigint "timezone_id"
@@ -207,7 +207,8 @@ ActiveRecord::Schema.define(version: 2021_10_16_135348) do
   end
 
   create_table "todaymeals", force: :cascade do |t|
-    t.datetime "start_time"
+    t.date "start_time"
+    t.float "amount", default: 1.0
     t.string "note"
     t.bigint "user_id"
     t.bigint "timezone_id"

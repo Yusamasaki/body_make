@@ -52,7 +52,12 @@ ja:
         salt: 塩分
       recipe:
         recipe_name: レシピ名
-        amount: 分量(何人分か)
       recipefood:
         amount: 分量(何個分か)
+      todaymeal:
+        note: 備考
+        amount: 分量(何人分か)
+      todaymeal_recipe:
+        note: 備考
+        amount: 分量(何人分か)
         
