@@ -26,6 +26,7 @@ class MyfoodsController < ApplicationController
   end
   
   def show
+    gon.nutrition = [@myfood.protein, @myfood.fat, @myfood.carbo, @myfood.sugar, @myfood.dietary_fiber, @myfood.salt]
   end
   
   def edit

@@ -40,6 +40,7 @@ class ApplicationController < ActionController::Base
   def set_basic
     @bmr = @user.bmr unless params[:recipe_id].present?
     @target_weight = @user.targetweight unless params[:recipe_id].present?
+    @pfc = @user.pfc_ratio
   end
   
   # アクセスした先のが明日以上の場合返す
@@ -115,13 +116,8 @@ class ApplicationController < ActionController::Base
     if params[:recipe_id].present?
       @recipefoods = @user.recipefoods.where(recipe_id: params[:recipe_id])
       
-      @recipe_calorie = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:calorie), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
-      @recipe_protein = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:protein), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
-      @recipe_fat = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:fat), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
-      @recipe_carbo = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:carbo), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
-      @recipe_sugar = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:sugar), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
-      @recipe_dietary_fiber = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:dietary_fiber), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
-      @recipe_salt = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:salt), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
+      nutritions = [:calorie, :protein, :fat, :carbo, :sugar, :dietary_fiber, :salt]
+      @recipe_myfoods =  nutritions.map {|nutrition|@recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(nutrition), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum}
     end
   end
   

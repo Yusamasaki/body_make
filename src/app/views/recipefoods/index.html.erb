@@ -30,6 +30,9 @@
                 <th><%= Myfood.human_attribute_name(:protein) %></th>
                 <th><%= Myfood.human_attribute_name(:fat) %></th>
                 <th><%= Myfood.human_attribute_name(:carbo) %></th>
+                <th><%= Myfood.human_attribute_name(:sugar) %></th>
+                <th><%= Myfood.human_attribute_name(:dietary_fiber) %></th>
+                <th><%= Myfood.human_attribute_name(:salt) %></th>
                 <th></th>
               </tr>
             </thead>
@@ -42,6 +45,9 @@
                   <td><%= recipefood_format(@myfood.protein, recipefood.amount) %></td>
                   <td><%= recipefood_format(@myfood.fat, recipefood.amount) %></td>
                   <td><%= recipefood_format(@myfood.carbo, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.sugar, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.dietary_fiber, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.salt, recipefood.amount) %></td>
                   <td>
                     <%= link_to(user_recipefood_path(@user, recipefood, recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), method: :delete, class: "text-original") do %>
                       <i class="fas fa-trash-alt fa-lg"></i>
@@ -53,10 +59,9 @@
             <tfoot>
               <tr>
                 <th>合計</th>
-                <td><%= @recipe_calorie %></td>
-                <td><%= @recipe_protein %></td>
-                <td><%= @recipe_fat %></td>
-                <td><%= @recipe_carbo %></td>
+                <% @recipe_myfoods.each do |recipe_myfood| %>
+                  <td><%= recipe_myfood %></td>
+                <% end %>
                 <td></td>
               </tr>
             </tfoot>

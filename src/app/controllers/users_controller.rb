@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   
   before_action :today_exercise_set_one_month, only: [:show]
-  before_action :set_user, only: [:show]
-  before_action :set_basic, only: [:show]
+  before_action :set_user, only: [:show, :setting]
+  before_action :set_basic, only: [:show, :setting]
   before_action :start_time_next_valid, only: [:show]
   
   def show
@@ -24,8 +24,6 @@ class UsersController < ApplicationController
     
     @body_weight = @user.bodyweights.find_by(start_time: params[:start_time])
     @body_weights = @user.bodyweights.all
-    
-    @pfc = @user.pfc_ratio
     
     @bodyparts = Bodypart.all
     
@@ -134,6 +132,8 @@ class UsersController < ApplicationController
   end
 
   def setting
+    # 最新の体重
+    @newwest_bodyweight = Bodyweight.newwest_bodyweight_get(@user)
   end
 
 end

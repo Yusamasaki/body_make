@@ -59,10 +59,10 @@
           </ul>
         </div>
         <li>
-          <a href="#">
+          <%= link_to(user_setting_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
             <i class="fas fa-cog"></i>
             <span>Setting</span>
-          </a>
+          <% end %>
         </li>
       </ul>
     </div>
