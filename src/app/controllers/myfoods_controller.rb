@@ -7,7 +7,8 @@ class MyfoodsController < ApplicationController
   before_action :ser_recipefoods_total, only: [:index]
   
   def index
-    @myfoods = @user.myfoods.all
+    @q = @user.myfoods.ransack(params[:q])
+    @myfoods = @q.result(distinct: true).order(:id).page(params[:page])
   end
   
   def new

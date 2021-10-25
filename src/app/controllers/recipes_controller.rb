@@ -5,7 +5,7 @@ class RecipesController < ApplicationController
   before_action :set_recipe, only: [:edit, :update, :destroy]
   
   def index
-    @recipes = @user.recipes.all.order(:id)
+    @recipes = @user.recipes.all.order(:id).page(params[:page])
     
   end
   
