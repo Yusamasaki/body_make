@@ -46,7 +46,7 @@ class MyfoodsController < ApplicationController
   def destroy
     @myfood.destroy
     flash[:success] = "削除しました。"
-    redirect_to user_myfoods_url(@user, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]) 
+    redirect_to user_myfoods_url(@user, recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]) 
       
   end
   

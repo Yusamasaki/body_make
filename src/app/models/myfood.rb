@@ -1,7 +1,7 @@
 class Myfood < ApplicationRecord
    belongs_to :user
-   has_many :todaymeals
-   has_many :recipefoods
+   has_many :todaymeals, dependent: :destroy
+   has_many :recipefoods, dependent: :destroy
 
    validates :food_name, presence: true, length: { maximum: 100 }, uniqueness: true
    validates :calorie, presence: true, numericality: { less_than_or_equal_to: 10000 }

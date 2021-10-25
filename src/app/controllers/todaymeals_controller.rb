@@ -19,7 +19,6 @@ class TodaymealsController < ApplicationController
         timezone, @user.todaymeals.where(timezone_id: timezone).pluck(:myfood_id), timezone, @user.todaymeal_recipes.where(timezone_id: timezone).pluck(:recipe_id)
       ]
     }
-      
     
     @todaymeals_start_time = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id)
     @todaymeal_recipes_start_time = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id)
@@ -32,15 +31,11 @@ class TodaymealsController < ApplicationController
     @total_myfoods = nutritions.map {|nutrition|
       @todaymeals.map {|todaymeal|@user.myfoods.where(id: todaymeal).pluck(nutrition).sum}.sum
     }
-    
-    
-    
-    # グラフ
-    
   end
   
   def new
     @todaymeal = @user.todaymeals.new
+    @timezone = Timezone.find(params[:timezone_id])
   end
   
   def create

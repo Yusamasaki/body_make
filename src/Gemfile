@@ -53,6 +53,9 @@ gem 'cocoon'
 # グラフ
 gem 'gon'
 
+gem 'kaminari'
+gem 'ransack'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
