@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="mx-auto">
+    <h5>
+      <%= link_to(user_meals_analysis_index_path(@user, start_time: params[:start_time], start_date: params[:start_date].to_date.prev_month), data: {"turbolinks" => false}) do %>
+        <div class="arrow round-arrow-left"></div>
+      <% end %>
+      <%= params[:start_date].to_date.year %>年<%= params[:start_date].to_date.mon %>月
+      <%= link_to(user_meals_analysis_index_path(@user, start_time: params[:start_time], start_date: params[:start_date].to_date.next_month), data: {"turbolinks" => false}) do %>
+        <div class="arrow round-arrow-right"></div>
+      <% end %>
+    </h5>
+  </div>
+</div>
+<div>
+  <canvas id="myMealChart" width="1500" height="1000"></canvas>
+  <script>meals_graph();</script>
+</div>

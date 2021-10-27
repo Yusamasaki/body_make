@@ -29,8 +29,16 @@
               <i class="fas fa-utensils"></i>
               <span>Meal</span>
             </div>
-          <% end %>  
-          </a>
+          <% end %>
+          <div>
+          <ul>
+            <li>
+              <%= link_to(user_meals_analysis_index_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
+                <div>Analysis</div>
+              <% end %>
+            </li>
+          </ul>
+        </div>
         </li>
         <li>
           <%= link_to user_today_exercises_path(current_user, start_time: params[:start_time], start_date: params[:start_date]) do %>

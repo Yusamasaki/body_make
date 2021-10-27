@@ -43,6 +43,17 @@ class ApplicationController < ActionController::Base
     @pfc = @user.pfc_ratio
   end
   
+  def set_bmr
+    # 最新の体重
+    @newwest_bodyweight = Bodyweight.newwest_bodyweight_get(@user)
+    # 基礎代謝
+    @bmr_format = Bmr.bmr_format(@bmr.gender, @target_weight.now_body_weight, @newwest_bodyweight.sum, @bmr.height, @bmr.age).floor(1)
+    # 1日の消費カロリー
+    @day_calorie = Bmr.day_calorie(@bmr_format, @bmr.activity).floor(1)
+    # 目標の摂取カロリー
+    @day_target_calorie = Bmr.day_target_calorie(@day_calorie.floor(1), @target_weight)
+  end
+  
   # アクセスした先のが明日以上の場合返す
   def start_time_next_valid
     if params[:start_time].to_s > Time.current.to_s

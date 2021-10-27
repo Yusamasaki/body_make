@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_16_135348) do
+ActiveRecord::Schema.define(version: 2021_10_26_000142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,15 +72,24 @@ ActiveRecord::Schema.define(version: 2021_10_16_135348) do
     t.index ["exercise_category_id"], name: "index_exercise_contents_on_exercise_category_id"
   end
 
+  create_table "meals_analyses", force: :cascade do |t|
+    t.date "start_time"
+    t.float "calorie"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_meals_analyses_on_user_id"
+  end
+
   create_table "myfoods", force: :cascade do |t|
     t.string "food_name"
-    t.float "calorie", default: 0.0
-    t.float "protein", default: 0.0
-    t.float "fat", default: 0.0
-    t.float "carbo", default: 0.0
-    t.float "sugar", default: 0.0
-    t.float "dietary_fiber", default: 0.0
-    t.float "salt", default: 0.0
+    t.float "calorie"
+    t.float "protein"
+    t.float "fat"
+    t.float "carbo"
+    t.float "sugar"
+    t.float "dietary_fiber"
+    t.float "salt"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -111,13 +120,13 @@ ActiveRecord::Schema.define(version: 2021_10_16_135348) do
 
   create_table "recipes", force: :cascade do |t|
     t.string "recipe_name"
-    t.float "calorie", default: 0.0
-    t.float "protein", default: 0.0
-    t.float "fat", default: 0.0
-    t.float "carbo", default: 0.0
-    t.float "sugar", default: 0.0
-    t.float "dietary_fiber", default: 0.0
-    t.float "salt", default: 0.0
+    t.float "calorie"
+    t.float "protein"
+    t.float "fat"
+    t.float "carbo"
+    t.float "sugar"
+    t.float "dietary_fiber"
+    t.float "salt"
     t.string "note"
     t.bigint "user_id"
     t.bigint "timezone_id"
@@ -149,8 +158,8 @@ ActiveRecord::Schema.define(version: 2021_10_16_135348) do
     t.float "goal_body_weight"
     t.float "now_bodyfat_percentage"
     t.float "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-10-23 17:40:49"
-    t.datetime "target_date", default: "2021-10-24 17:40:49"
+    t.datetime "beginning_date", default: "2021-10-27 12:25:34"
+    t.datetime "target_date", default: "2021-10-28 12:25:34"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -164,8 +173,8 @@ ActiveRecord::Schema.define(version: 2021_10_16_135348) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-10-24", null: false
-    t.datetime "exercise_time", default: "2021-10-23 15:00:00", null: false
+    t.date "start_time", default: "2021-10-27", null: false
+    t.datetime "exercise_time", default: "2021-10-26 15:00:00", null: false
     t.string "note"
     t.bigint "exercise_category_id"
     t.bigint "exercise_content_id"
@@ -269,6 +278,7 @@ ActiveRecord::Schema.define(version: 2021_10_16_135348) do
   add_foreign_key "bmrs", "users"
   add_foreign_key "bodyweights", "users"
   add_foreign_key "exercise_contents", "exercise_categories"
+  add_foreign_key "meals_analyses", "users"
   add_foreign_key "myfoods", "users"
   add_foreign_key "pfc_ratios", "users"
   add_foreign_key "recipefoods", "myfoods"

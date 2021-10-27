@@ -23,24 +23,17 @@
         </thead>
         <tbody>
           <tr>
+            <!--基礎代謝-->
             <td>
-              <%= bmr_format(@bmr.gender, @target_weight.now_body_weight, @newwest_bodyweight.sum, @bmr.height, @bmr.age).floor(1) %>kcal
+              <%= @bmr_format %>kcal
             </td>
+            <!--1日摂取カロリー-->
             <td>
-              <%= bmr_format_activty(bmr_format(@bmr.gender, @target_weight.now_body_weight, @newwest_bodyweight.sum, @bmr.height, @bmr.age), @bmr.activity).floor(1) %>kcal
+              <%= @day_calorie %>kcal
             </td>
+            <!--1日の可能摂取カロリー-->
             <td>
-              <%= 
-                one_day_decrease(
-                                  bmr_format_activty(
-                                                      bmr_format(
-                                                                  @bmr.gender, @target_weight.now_body_weight, @newwest_bodyweight.sum, @bmr.height, @bmr.age
-                                                                ), 
-                                                                @bmr.activity
-                                                    ).floor(1),
-                                  @target_weight
-                                )  
-              %>kcal
+              <%= @day_target_calorie %>kcal
             </td>
             
             <% if @pfc.present? %>
@@ -48,48 +41,24 @@
               <!--たんぱく質-->
               <td>
                 <!--g-->
-                <%= pfc_format( one_day_decrease( bmr_format_activty( bmr_format( @bmr.gender, @target_weight.now_body_weight, @newwest_bodyweight.sum, @bmr.height, @bmr.age ), @bmr.activity ).floor(1), @target_weight ), 
-                                pfc_ratios_protein(@pfc.protein), 
-                                4
-                              ) 
-                %>g
+                <%= pfc_format(@day_target_calorie, pfc_ratios_protein(@pfc.protein), 4) %>g
                 <!--kcal-->
-                ( <%= (pfc_format( one_day_decrease( bmr_format_activty( bmr_format( @bmr.gender, @target_weight.now_body_weight, @newwest_bodyweight.sum, @bmr.height, @bmr.age ), @bmr.activity ).floor(1), @target_weight ), 
-                                  pfc_ratios_protein(@pfc.protein), 
-                                  4
-                                 ) * 4).floor(1)
-                  %>kcal )
+                ( <%= (pfc_format(@day_target_calorie, pfc_ratios_protein(@pfc.protein), 4) * 4).floor(1) %>kcal )
               </td>
               
               <!--脂質-->
               <td>
                 <!--g-->
-                <%= pfc_format( one_day_decrease( bmr_format_activty( bmr_format( @bmr.gender, @target_weight.now_body_weight, @newwest_bodyweight.sum, @bmr.height, @bmr.age ), @bmr.activity ).floor(1), @target_weight ), 
-                                pfc_ratios_fat(@pfc.fat), 
-                                9
-                              ) 
-                %>g
+                <%= pfc_format(@day_target_calorie, pfc_ratios_fat(@pfc.fat), 9) %>g
                 <!--kcal-->
-                ( <%= (pfc_format( one_day_decrease( bmr_format_activty( bmr_format( @bmr.gender, @target_weight.now_body_weight, @newwest_bodyweight.sum, @bmr.height, @bmr.age ), @bmr.activity ).floor(1), @target_weight ), 
-                                   pfc_ratios_fat(@pfc.fat), 
-                                   9
-                                 ) * 9).floor(1)
-                  %>kcal )
+                ( <%= (pfc_format(@day_target_calorie, pfc_ratios_fat(@pfc.fat), 9) * 9).floor(1) %>kcal )
               </td>
               <!--炭水化物-->
               <td>
                 <!--g-->
-                <%= pfc_format( one_day_decrease( bmr_format_activty( bmr_format( @bmr.gender, @target_weight.now_body_weight, @newwest_bodyweight.sum, @bmr.height, @bmr.age ), @bmr.activity ).floor(1), @target_weight ), 
-                                pfc_ratios_carbo(@pfc.carbo), 
-                                4
-                              ) 
-                %>g
+                <%= pfc_format(@day_target_calorie, pfc_ratios_carbo(@pfc.carbo), 4) %>g
                 <!--kcal-->
-                ( <%= (pfc_format( one_day_decrease( bmr_format_activty( bmr_format( @bmr.gender, @target_weight.now_body_weight, @newwest_bodyweight.sum, @bmr.height, @bmr.age ), @bmr.activity ).floor(1), @target_weight ), 
-                                   pfc_ratios_carbo(@pfc.carbo), 
-                                   4
-                                 ) * 4 ).floor(1)
-                  %>kcal )
+                ( <%= (pfc_format(@day_target_calorie, pfc_ratios_carbo(@pfc.carbo), 4) * 4).floor(1) %>kcal )
               </td>
               
             <% else %>
@@ -97,48 +66,24 @@
               <!--たんぱく質-->
               <td>
                 <!--g-->
-                <%= pfc_format( one_day_decrease( bmr_format_activty( bmr_format( @bmr.gender, @target_weight.now_body_weight, @newwest_bodyweight.sum, @bmr.height, @bmr.age ), @bmr.activity ).floor(1), @target_weight ), 
-                                20, 
-                                4
-                              ) 
-                %>g
+                <%= pfc_format(@day_target_calorie, 20, 4) %>g
                 <!--kcal-->
-                ( <%= (pfc_format( one_day_decrease( bmr_format_activty( bmr_format( @bmr.gender, @target_weight.now_body_weight, @newwest_bodyweight.sum, @bmr.height, @bmr.age ), @bmr.activity ).floor(1), @target_weight ), 
-                                  20, 
-                                  4
-                                 ) * 4).floor(1)
-                  %>kcal )
+                ( <%= (pfc_format(@day_target_calorie, 20, 4) * 4).floor(1) %>kcal )
               </td>
               
               <!--脂質-->
               <td>
                 <!--g-->
-                <%= pfc_format( one_day_decrease( bmr_format_activty( bmr_format( @bmr.gender, @target_weight.now_body_weight, @newwest_bodyweight.sum, @bmr.height, @bmr.age ), @bmr.activity ).floor(1), @target_weight ), 
-                                20, 
-                                9
-                              ) 
-                %>g
+                <%= pfc_format(@day_target_calorie, 20, 9) %>g
                 <!--kcal-->
-                ( <%= (pfc_format( one_day_decrease( bmr_format_activty( bmr_format( @bmr.gender, @target_weight.now_body_weight, @newwest_bodyweight.sum, @bmr.height, @bmr.age ), @bmr.activity ).floor(1), @target_weight ), 
-                                   20, 
-                                   9
-                                 ) * 9).floor(1)
-                  %>kcal )
+                ( <%= (pfc_format(@day_target_calorie, 20, 9) * 9).floor(1) %>kcal )
               </td>
               <!--炭水化物-->
               <td>
                 <!--g-->
-                <%= pfc_format( one_day_decrease( bmr_format_activty( bmr_format( @bmr.gender, @target_weight.now_body_weight, @newwest_bodyweight.sum, @bmr.height, @bmr.age ), @bmr.activity ).floor(1), @target_weight ), 
-                                60, 
-                                4
-                              ) 
-                %>g
+                <%= pfc_format(@day_target_calorie, 60, 4) %>g
                 <!--kcal-->
-                ( <%= (pfc_format( one_day_decrease( bmr_format_activty( bmr_format( @bmr.gender, @target_weight.now_body_weight, @newwest_bodyweight.sum, @bmr.height, @bmr.age ), @bmr.activity ).floor(1), @target_weight ), 
-                                   60, 
-                                   4
-                                 ) * 4 ).floor(1)
-                  %>kcal )
+                ( <%= (pfc_format(@day_target_calorie, 60, 4) * 4).floor(1) %>kcal )
               </td>
             <% end %>
           </tr>

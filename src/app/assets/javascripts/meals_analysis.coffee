@@ -1,19 +1,13 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
-# 体重グラフ用
-
-window.draw_graph = -> 
+window.meals_graph = -> 
     document.addEventListener 'turbolinks:load', ->
-    ctx = document.getElementById("myChart").getContext('2d')
-    myChart = new Chart(ctx, {
+    ctx = document.getElementById("myMealChart").getContext('2d')
+    myMealChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: gon.start_times,
             datasets: [{
-                label: '体重',
-                data: gon.body_weights,
+                label: '摂取カロリー',
+                data: gon.calories,
                 fill: false,
                 backgroundColor: 'rgba(0, 0, 255, 0.3)',
                 borderColor: '#0000FF',
@@ -34,8 +28,7 @@ window.draw_graph = ->
                     id: 'y左軸',
                     ticks: {
                         min: gon.newwest_bodyweight_low_with,
-                        max: gon.newwest_bodyweight_high_with,
-                        stepSize: 20
+                        max: gon.newwest_bodyweight_high_with
                     }
                 }]
             },
@@ -46,8 +39,8 @@ window.draw_graph = ->
                     id: 'a-line-1',
                     mode: 'horizontal',
                     scaleID: 'y左軸',
-                    value: gon.goal_body_weight,
-                    endValue: gon.goal_body_weight,
+                    value: gon.day_target_calorie,
+                    endValue: gon.day_target_calorie,
                     borderColor: '#274277',
                     borderWidth: 3,
                     borderDash: [2, 2],
@@ -66,36 +59,8 @@ window.draw_graph = ->
                         xAdjust: 0,
                         yAdjust: 0,
                         enabled: true,
-                        content: '目標体重'
+                        content: '目標摂取カロリー'
                     }
-                }]
-            }
-        }
-    })
-    
-    ctx = document.getElementById("chart-area").getContext('2d')
-    myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['増減体重', '残り体重'],
-            datasets: [{
-                data: gon.body_weight_area,
-                backgroundColor: ['#274277', '#8fa8da'],
-                borderColor: ['#274277', '#8fa8da'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            cutoutPercentage: 80, 
-            legend: {                
-                position: 'top'
-            }
-            scales: {
-                xAxes: [{
-                    display: false,
-                }],
-                yAxes: [{
-                    display: false
                 }]
             }
         }
