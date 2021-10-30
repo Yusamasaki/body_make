@@ -51,13 +51,9 @@
             <thead>
               <tr>
                 <th><%= Myfood.human_attribute_name(:food_name) %></th>
-                <th><%= Myfood.human_attribute_name(:calorie) %></th>
-                <th><%= Myfood.human_attribute_name(:protein) %></th>
-                <th><%= Myfood.human_attribute_name(:fat) %></th>
-                <th><%= Myfood.human_attribute_name(:carbo) %></th>
-                <th><%= Myfood.human_attribute_name(:sugar) %></th>
-                <th><%= Myfood.human_attribute_name(:dietary_fiber) %></th>
-                <th><%= Myfood.human_attribute_name(:salt) %></th>
+                <% @attribute_names.each do |attribute_name| %>
+                    <th><%= attribute_name %></th>
+                  <% end %>
                 <th></th>
               </tr>
             </thead>
@@ -74,7 +70,7 @@
                   <td><%= recipefood_format(@myfood.dietary_fiber, recipefood.amount) %></td>
                   <td><%= recipefood_format(@myfood.salt, recipefood.amount) %></td>
                   <td>
-                    <%= link_to(user_recipefood_path(@user, recipefood, recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), method: :delete, class: "text-original") do %>
+                    <%= link_to(user_recipefood_path(@user, recipefood, todaymeal_recipe_id: params[:id], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), method: :delete, class: "text-original") do %>
                       <i class="fas fa-trash-alt fa-lg"></i>
                     <% end %>
                   </td>
@@ -107,11 +103,11 @@
   <%= f.submit '検索' %>
 <% end %>
 
-<%= sort_link(@q , :name, "名前",params: {:param => "test"}) %>
+<%= sort_link(@q , :name, "名前",params: {:params => "test"}) %>
 
 <div class="row">
   <div class="col-md-1 offset-md-11 align-self-center">
-    <%= link_to(new_user_myfood_path(@user, recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
+    <%= link_to(new_user_myfood_path(@user, id: params[:id], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
       <i class="far fa-plus-square fa-2x"></i>
     <% end %>
   </div>
@@ -141,7 +137,7 @@
             <% unless params[:recipe_id].present? %>
               <tr data-href=<%= new_user_todaymeal_path(@user, myfood_id: myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>>
             <% else %>  
-              <tr data-href=<%= new_user_recipefood_path(@user, recipe_id: params[:recipe_id], myfood_id: myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>>
+              <tr data-href=<%= new_user_recipefood_path(@user, id: params[:id], before: params[:before], recipe_id: params[:recipe_id], myfood_id: myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>>
             <% end %>
               <td>
                 <%= myfood.food_name %>

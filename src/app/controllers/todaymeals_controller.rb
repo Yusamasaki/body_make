@@ -1,56 +1,50 @@
 class TodaymealsController < ApplicationController
   
-  before_action :set_user, only: [:index, :new, :create, :destroy, :analysis]
+  before_action :set_user, only: [:index, :new, :create, :edit, :update, :destroy, :analysis]
   before_action :set_basic, only: [:index, :analysis]
-  before_action :set_myfood, only: [:new]
-  before_action :set_meals, only: [:index]
+  before_action :set_myfood, only: [:new, :edit, :update]
+  before_action :set_meals, only: [:index, :edit, :update]
+  before_action :set_nutritions, only: [:index, :new, :edit, :update]
+  before_action :ser_meals_analysis, only: [:index, :analysis]
   
   def index
-    nutritions = [:calorie, :protein, :fat, :carbo, :sugar, :dietary_fiber, :salt]
+    
     @timezones = Timezone.all
     
-    start_time_todaymeals = @timezones.map {|timezone| 
+    # 時間帯別の総摂取栄養素・摂取栄養素
+    @timezone_meals = @timezones.map {|timezone| 
       [
         timezone, @user.todaymeal_recipes.where(start_time: params[:start_time], timezone_id: timezone).pluck(:recipe_id, :amount), 
         @user.todaymeals.where(start_time: params[:start_time], timezone_id: timezone).pluck(:myfood_id, :amount)
       ]
-    }
-    
-    @timezone_meal_total = start_time_todaymeals.map {|timezone, recipe, myfood| 
+    }.map {|timezone, recipe, myfood| 
       [
         timezone, recipe.map{|id, amount| [@user.recipes.where(id: id), amount]}, myfood.map{|id, amount| [@user.myfoods.where(id: id), amount]}
       ]
     }.map{|timezone, recipe, myfood|
       [
-        timezone, nutritions.map{|nutrition| 
+        timezone, @nutritions.map{|nutrition| 
           [recipe.map{|recipe, amount| recipe.pluck(nutrition).sum * amount}.sum, myfood.map{|myfood, amount| myfood.pluck(nutrition).sum * amount}.sum].sum
-        }
+        }, myfood, recipe
       ]
     }
     
-    @timezone_todaymeals = @timezones.map {|timezone| 
-      [
-        timezone, @user.todaymeals.where(timezone_id: timezone).pluck(:myfood_id), timezone, @user.todaymeal_recipes.where(timezone_id: timezone).pluck(:recipe_id)
-      ]
-    }
+    @timezone_meal_total = @timezone_meals
     
-    @todaymeals_start_time = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id, :amount)
-    @todaymeal_recipes_start_time = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id, :amount)
+    # 一日の総摂取栄養素
+    todaymeals_start_time = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id, :amount)
+    todaymeal_recipes_start_time = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id, :amount)
     
+    @day_totalmeals = @nutritions.map {|nutrition|
     
-    @day_totalmeals = nutritions.map {|nutrition|
-    
-      @todaymeals_start_time.map {|myfood, amount|
+      todaymeals_start_time.map {|myfood, amount|
         [@user.myfoods.where(id: myfood).pluck(nutrition).sum * amount].sum
       }.sum +
-      @todaymeal_recipes_start_time.map {|recipe, amount| 
+      todaymeal_recipes_start_time.map {|recipe, amount| 
         [@user.recipes.where(id: recipe).pluck(nutrition).sum * amount].sum
       }.sum
     }
     
-    @total_myfoods = nutritions.map {|nutrition|
-      @todaymeals.map {|todaymeal|@user.myfoods.where(id: todaymeal).pluck(nutrition).sum}.sum
-    }
   end
   
   def new
@@ -78,7 +72,23 @@ class TodaymealsController < ApplicationController
       flash[:danger] = "登録に失敗しました。"
       redirect_to user_myfoods_path(@user, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
     end
+  end
+  
+  def edit
+    @todaymeal = @user.todaymeals.find(params[:id])
+  end
+  
+  def update
+    @todaymeal = @user.todaymeals.find(params[:id])
     
+    ActiveRecord::Base.transaction do 
+      @todaymeal.update_attributes!(todaymeal_params)
+      flash[:success] = "更新に成功しました"
+      redirect_to user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time])
+    rescue ActiveRecord::RecordInvalid
+      flash[:danger] = "更新に失敗しました"
+      redirect_to user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time])
+    end
   end
   
   def destroy
@@ -107,7 +117,7 @@ class TodaymealsController < ApplicationController
   private
   
     def todaymeal_params
-      params.require(:todaymeal).permit(:start_time, :myfood_id, :timezone_id, :amount)
+      params.require(:todaymeal).permit(:start_time, :myfood_id, :timezone_id, :amount, :note)
     end
   
 end

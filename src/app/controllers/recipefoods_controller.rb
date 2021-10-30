@@ -36,11 +36,16 @@ class RecipefoodsController < ApplicationController
                                 sugar: @recipe_sugar, dietary_fiber: @recipe_dietary_fiber, salt: @recipe_salt)
      
       flash[:success] = "#{@myfood.food_name}の登録に成功しました。"
-      redirect_to user_recipefoods_path(@user, recipe_id: @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
       
+      if params[:before] == "new"
+        redirect_to new_user_todaymeal_recipe_path(@user, before: params[:before], recipe_id: @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+      elsif params[:before] == "edit"
+        @todaymeal_recipe = @user.todaymeal_recipes.find(params[:todaymeal_recipe_id])
+        redirect_to edit_user_todaymeal_recipe_path(@user, @todaymeal_recipe, before: params[:before], recipe_id: @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+      end
     rescue ActiveRecord::RecordInvalid
       flash[:danger] = "登録に失敗しました。"
-      redirect_to new_user_recipefood_path(@user, myfood_id: @myfood, recipe_id: @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+      redirect_to new_user_recipefood_path(@user, before_action: params[:before_action], myfood_id: @myfood, recipe_id: @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
     end
   end
   
@@ -62,7 +67,11 @@ class RecipefoodsController < ApplicationController
                                  sugar: @recipe_sugar, dietary_fiber: @recipe_dietary_fiber, salt: @recipe_salt)
     
     flash[:success] = "#{@myfood.food_name}を削除しました。"
-    redirect_to user_recipefoods_path(@user, recipe_id: @recipefood.recipe_id, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+    if params[:before] == "new"
+      redirect_to new_user_todaymeal_recipe_path(@user, before: params[:action], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+    elsif params[:before] == "edit"
+      redirect_to edit_user_todaymeal_recipe_path(@user, params[:todaymeal_recipe_id], before: params[:action], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+    end
   end
   
   private
