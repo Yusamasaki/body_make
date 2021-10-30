@@ -69,7 +69,7 @@
         </thead>
         <tbody>
           <% @recipes.each do |recipe| %>
-          <tr data-href= <%= user_recipefoods_path(@user, recipe_id: recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]) %>>
+          <tr data-href= <%= new_user_todaymeal_recipe_path(@user, recipe_id: recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]) %>>
             <td><%= recipe.recipe_name %></td>
             <td><%= recipe.calorie %></td>
             <td><%= recipe.protein %></td>

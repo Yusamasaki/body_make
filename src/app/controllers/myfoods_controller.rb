@@ -5,6 +5,7 @@ class MyfoodsController < ApplicationController
   before_action :set_myfood, only: [:show, :edit, :update, :destroy]
   before_action :set_recipe, only: [:index]
   before_action :ser_recipefoods_total, only: [:index]
+  before_action :set_nutritions, only: [:index]
   
   def index
     @q = @user.myfoods.ransack(params[:q])
@@ -19,10 +20,10 @@ class MyfoodsController < ApplicationController
     @myfood = @user.myfoods.new(myfood_params)
     ActiveRecord::Base.transaction do @myfood.save!
       flash[:success] = "#{@myfood.food_name}の登録に成功しました。"
-      redirect_to user_myfoods_path(@user, timezone: params[:timezone], start_date: params[:start_date], start_time: params[:start_time])
+      redirect_to user_myfoods_path(@user, id: params[:id], recipe_id: params[:recipe_id], timezone: params[:timezone], start_date: params[:start_date], start_time: params[:start_time])
     rescue ActiveRecord::RecordInvalid
       flash[:danger] = "登録に失敗しました。"
-      redirect_to user_myfoods_path(@user, timezone: params[:timezone], start_date: params[:start_date], start_time: params[:start_time])
+      redirect_to user_myfoods_path(@user, id: params[:id], recipe_id: params[:recipe_id], timezone: params[:timezone], start_date: params[:start_date], start_time: params[:start_time])
     end
   end
   
