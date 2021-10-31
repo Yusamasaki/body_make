@@ -120,7 +120,6 @@ class ApplicationController < ActionController::Base
   
   def set_myfood
     @myfood = @user.myfoods.find(params[:myfood_id]) if params[:myfood_id].present?
-    @myfood = @user.myfoods.find(params[:id]) if params[:before] == "edit"
   end
   
   def set_recipe

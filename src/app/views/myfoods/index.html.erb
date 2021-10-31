@@ -95,19 +95,9 @@
 </div>
 <% end %>
 
-<%= search_form_for @q, url: user_myfoods_path(@user, recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) do |f| %>
-  
-  <%= f.label :food_name_cont, '食品名' %>
-  <%= f.search_field :food_name_cont %>
-  <br>
-  <%= f.submit '検索' %>
-<% end %>
-
-<%= sort_link(@q , :name, "名前",params: {:params => "test"}) %>
-
 <div class="row">
   <div class="col-md-1 offset-md-11 align-self-center">
-    <%= link_to(new_user_myfood_path(@user, id: params[:id], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
+    <%= link_to(new_user_myfood_path(@user, before: params[:before], id: params[:id], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
       <i class="far fa-plus-square fa-2x"></i>
     <% end %>
   </div>

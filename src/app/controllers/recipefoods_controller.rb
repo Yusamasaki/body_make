@@ -1,8 +1,8 @@
 class RecipefoodsController < ApplicationController
   
   before_action :set_user, only: [:index, :new, :create, :destroy]
-  before_action :set_recipe, only: [:index, :new, :create, :destroy]
-  before_action :set_myfood, only: [:new, :create]
+  before_action :set_recipe, only: [:index, :new]
+  before_action :set_myfood, only: [:new]
   before_action :ser_recipefoods_total, only: [:index]
   
   def index
@@ -13,10 +13,13 @@ class RecipefoodsController < ApplicationController
   
   def new
     @recipefood = @user.recipefoods.new
+    @myfood = @user.myfoods.find(params[:myfood_id])
   end
   
   def create
     @recipefood = @user.recipefoods.new(recipefood_params)
+    @myfood = @user.myfoods.find(params[:myfood_id])
+    @recipe = @user.recipes.find(params[:recipe_id])
     
     ActiveRecord::Base.transaction do
       
@@ -40,8 +43,7 @@ class RecipefoodsController < ApplicationController
       if params[:before] == "new"
         redirect_to new_user_todaymeal_recipe_path(@user, before: params[:before], recipe_id: @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
       elsif params[:before] == "edit"
-        @todaymeal_recipe = @user.todaymeal_recipes.find(params[:todaymeal_recipe_id])
-        redirect_to edit_user_todaymeal_recipe_path(@user, @todaymeal_recipe, before: params[:before], recipe_id: @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+        redirect_to edit_user_todaymeal_recipe_path(@user, params[:todaymeal_recipe_id], before: params[:before], recipe_id: @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
       end
     rescue ActiveRecord::RecordInvalid
       flash[:danger] = "登録に失敗しました。"
@@ -52,6 +54,8 @@ class RecipefoodsController < ApplicationController
   def destroy
     @recipefood = @user.recipefoods.find(params[:id])
     @myfood = @user.myfoods.find(@recipefood.myfood_id)
+    @recipe = @user.recipes.find(params[:recipe_id])
+    
     @recipefood.destroy
     
     @recipefoods = @user.recipefoods.where(recipe_id: params[:recipe_id])
