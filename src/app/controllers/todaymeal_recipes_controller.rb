@@ -15,11 +15,27 @@ class TodaymealRecipesController < ApplicationController
     @todaymeal_recipe = @user.todaymeal_recipes.new(todaymeal_recipe_params)
     @recipefoods = @user.recipefoods.where(recipe_id: params[:recipe_id])
     @recipe_myfoods = @recipefoods.map {|recipefood| @user.myfoods.where(id: recipefood.myfood_id)}
+    @meals_analys = @user.meals_analysis.find_by(start_time: params[:start_time])
     @timezone = Timezone.find(params[:timezone_id])
     
     todaymeal_recipe_valid = @user.todaymeal_recipes.find_by(start_time: params[:start_time], timezone_id: params[:timezone_id], recipe_id: @recipe)
     if todaymeal_recipe_valid.nil?
       if @todaymeal_recipe.save!
+
+        # セーブ後のmyfoodsとrecipesのcalorieを全検索してsumで全て足す
+        myfoods = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id, :amount).map{ |myfood, amount| 
+          [ @user.myfoods.where(id: myfood).pluck(:calorie), amount ]
+        }.sum
+        recipes = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id, :amount).map{|recipe, amount| 
+          [ @user.recipes.where(id: recipe).pluck(:calorie).sum * amount ]
+          debugger
+        }.sum
+        
+        # 上記で算出したmyfoodsとrecipeのcalorieを足し算
+        total = myfoods + recipes
+        # 上記で算出したtotalを@meals_analysのcalorieにupdate
+        @meals_analys.update_attributes!(calorie: total)
+
         flash[:success] = "#{@recipe.recipe_name}の登録に成功しました。"
         redirect_to user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time])
       else

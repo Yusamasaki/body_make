@@ -62,8 +62,12 @@ class TodaymealsController < ApplicationController
     if todaymeal_valid.nil?
       if @todaymeal.save!
         # セーブ後のmyfoodsとrecipesのcalorieを全検索してsumで全て足す
-        myfoods = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id).map{|today| @user.myfoods.where(id: today).pluck(:calorie).sum}.sum
-        recipes = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id).map{|today_recipe| @user.recipes.where(id: today_recipe).pluck(:calorie).sum}.sum
+        myfoods = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id, :amount).map{|today|
+          @user.myfoods.where(id: today).pluck(:calorie).sum
+        }.sum
+        recipes = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id).map{|today_recipe| 
+          @user.recipes.where(id: today_recipe).pluck(:calorie).sum
+        }.sum
         # 上記で算出したmyfoodsとrecipeのcalorieを足し算
         total = myfoods + recipes
         # 上記で算出したtotalを@meals_analysのcalorieにupdate
