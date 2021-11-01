@@ -56,21 +56,28 @@ class TodaymealsController < ApplicationController
     @todaymeal = @user.todaymeals.new(todaymeal_params)
     @myfood = @user.myfoods.find(params[:timezone_id]) if params[:timezone_id].present?
     @meals_analys = @user.meals_analysis.find_by(start_time: params[:start_time])
+    @timezone = Timezone.find(params[:timezone_id])
     
-    if @todaymeal.save!
-      # セーブ後のmyfoodsとrecipesのcalorieを全検索してsumで全て足す
-      myfoods = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id).map{|today| @user.myfoods.where(id: today).pluck(:calorie).sum}.sum
-      recipes = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id).map{|today_recipe| @user.recipes.where(id: today_recipe).pluck(:calorie).sum}.sum
-      # 上記で算出したmyfoodsとrecipeのcalorieを足し算
-      total = myfoods + recipes
-      # 上記で算出したtotalを@meals_analysのcalorieにupdate
-      @meals_analys.update_attributes!(calorie: total)
-      
-      flash[:success] = "#{@myfood.food_name}の登録に成功しました。"
-      redirect_to user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time])
+    todaymeal_valid = @user.todaymeals.find_by(start_time: params[:start_time], timezone_id: params[:timezone_id], myfood_id: @myfood)
+    if todaymeal_valid.nil?
+      if @todaymeal.save!
+        # セーブ後のmyfoodsとrecipesのcalorieを全検索してsumで全て足す
+        myfoods = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id).map{|today| @user.myfoods.where(id: today).pluck(:calorie).sum}.sum
+        recipes = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id).map{|today_recipe| @user.recipes.where(id: today_recipe).pluck(:calorie).sum}.sum
+        # 上記で算出したmyfoodsとrecipeのcalorieを足し算
+        total = myfoods + recipes
+        # 上記で算出したtotalを@meals_analysのcalorieにupdate
+        @meals_analys.update_attributes!(calorie: total)
+        
+        flash[:success] = "#{@myfood.food_name}の登録に成功しました。"
+        redirect_to user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time])
+      else
+        flash[:danger] = "登録に失敗しました。"
+        redirect_to new_user_todaymeal_path(@user, myfood_id: params[:myfood_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+      end
     else
-      flash[:danger] = "登録に失敗しました。"
-      redirect_to user_myfoods_path(@user, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+      flash[:danger] = "登録に失敗しました。#{params[:start_time]}の#{@timezone.time_zone}には#{@myfood.food_name}は登録してあります。分量などで調整下さい。"
+      redirect_to new_user_todaymeal_path(@user, myfood_id: params[:myfood_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
     end
   end
   

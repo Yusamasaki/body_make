@@ -124,7 +124,6 @@ class ApplicationController < ActionController::Base
   
   def set_recipe
     @recipe = @user.recipes.find(params[:recipe_id]) if params[:recipe_id].present?
-    @recipe = @user.recipes.find(params[:id]) if params[:id].present?
   end
   
   def ser_recipefoods_total

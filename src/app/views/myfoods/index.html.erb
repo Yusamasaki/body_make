@@ -54,7 +54,6 @@
                 <% @attribute_names.each do |attribute_name| %>
                     <th><%= attribute_name %></th>
                   <% end %>
-                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -69,11 +68,6 @@
                   <td><%= recipefood_format(@myfood.sugar, recipefood.amount) %></td>
                   <td><%= recipefood_format(@myfood.dietary_fiber, recipefood.amount) %></td>
                   <td><%= recipefood_format(@myfood.salt, recipefood.amount) %></td>
-                  <td>
-                    <%= link_to(user_recipefood_path(@user, recipefood, todaymeal_recipe_id: params[:id], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), method: :delete, class: "text-original") do %>
-                      <i class="fas fa-trash-alt fa-lg"></i>
-                    <% end %>
-                  </td>
                 </tr>
               <% end %>
             </tbody>
@@ -83,7 +77,6 @@
                 <% @recipe_myfoods.each do |recipe_myfood| %>
                   <td><%= recipe_myfood %></td>
                 <% end %>
-                <td></td>
               </tr>
             </tfoot>
           </table>

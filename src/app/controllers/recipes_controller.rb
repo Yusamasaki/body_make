@@ -2,7 +2,6 @@ class RecipesController < ApplicationController
   
   before_action :set_user, only: [:index, :new, :create, :show, :edit, :update, :destroy]
   before_action :set_basic, only: [:index]
-  before_action :set_recipe, only: [:edit, :update, :destroy]
   
   def index
     @recipes = @user.recipes.all.order(:id).page(params[:page])
@@ -25,9 +24,11 @@ class RecipesController < ApplicationController
   end
   
   def edit
+    @recipe = @user.recipes.find(params[:id])
   end
   
   def update
+    @recipe = @user.recipes.find(params[:id])
     ActiveRecord::Base.transaction do
       @recipe.update_attributes!(recipe_params)
       flash[:success] = "#{@recipe.recipe_name}の更新に成功しました。"
@@ -46,9 +47,10 @@ class RecipesController < ApplicationController
   end
   
   def destroy
+    @recipe = @user.recipes.find(params[:id])
     @recipe.destroy
     flash[:success] = "#{@recipe.recipe_name}を削除しました。"
-    redirect_to user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time])
+    redirect_to user_recipes_path(@user, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
   end
   
   private

@@ -51,6 +51,7 @@ gem 'simple_calendar', '~> 2.0'
 gem 'cocoon'
 
 # グラフ
+gem 'chart-js-rails', '~> 0.1.4'
 gem 'gon'
 
 gem 'kaminari'
