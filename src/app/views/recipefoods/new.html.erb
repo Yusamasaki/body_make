@@ -38,6 +38,15 @@
 
 <div class="box1">
   <div class="row">
+    <div class="col-md-12">
+      <canvas id="myPieChart" width="500" height="100"></canvas>
+      <script>myfood_graph();</script>
+    </div>
+  </div>
+</div>
+
+<div class="box1">
+  <div class="row">
     <div class="col-12">
       <%= form_with(model: @recipefood, url: user_recipefoods_path(@user, todaymeal_recipe_id: params[:id], before: params[:before], recipe_id: params[:recipe_id], myfood_id: params[:myfood_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
         

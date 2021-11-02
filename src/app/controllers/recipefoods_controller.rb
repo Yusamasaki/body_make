@@ -4,6 +4,7 @@ class RecipefoodsController < ApplicationController
   before_action :set_recipe, only: [:index, :new]
   before_action :set_myfood, only: [:new]
   before_action :ser_recipefoods_total, only: [:index]
+  before_action :set_nutritions, only: [:new]
   
   def index
     @todaymeal_recipe = @user.todaymeal_recipes.new
@@ -15,6 +16,9 @@ class RecipefoodsController < ApplicationController
     @recipefood = @user.recipefoods.new
     @recipe = @user.recipes.find(params[:recipe_id])
     @myfood = @user.myfoods.find(params[:myfood_id])
+    
+    gon.food_name = @nutritions.map{|nutrition| Myfood.human_attribute_name(nutrition)}
+    gon.myfoods = @nutritions.map{|nutrition| @user.myfoods.where(id: params[:myfood_id]).pluck(nutrition)}.sum
   end
   
   def create

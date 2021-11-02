@@ -38,18 +38,24 @@ class TodaymealsController < ApplicationController
     @day_totalmeals = @nutritions.map {|nutrition|
     
       todaymeals_start_time.map {|myfood, amount|
-        [@user.myfoods.where(id: myfood).pluck(nutrition).sum * amount].sum
+        [@user.myfoods.where(id: myfood).pluck(nutrition).sum * amount]
       }.sum +
       todaymeal_recipes_start_time.map {|recipe, amount| 
         [@user.recipes.where(id: recipe).pluck(nutrition).sum * amount].sum
       }.sum
     }
     
+    gon.food_name = @nutritions.map{|nutrition| Myfood.human_attribute_name(nutrition)}
+    gon.myfoods = @day_totalmeals
+    
   end
   
   def new
     @todaymeal = @user.todaymeals.new
     @timezone = Timezone.find(params[:timezone_id])
+    
+    gon.food_name = @nutritions.map{|nutrition| Myfood.human_attribute_name(nutrition)}
+    gon.myfoods = @nutritions.map{|nutrition| @user.myfoods.where(id: params[:myfood_id]).pluck(nutrition)}.sum
   end
   
   def create
@@ -61,17 +67,36 @@ class TodaymealsController < ApplicationController
     todaymeal_valid = @user.todaymeals.find_by(start_time: params[:start_time], timezone_id: params[:timezone_id], myfood_id: @myfood)
     if todaymeal_valid.nil?
       if @todaymeal.save!
-        # セーブ後のmyfoodsとrecipesのcalorieを全検索してsumで全て足す
-        myfoods = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id, :amount).map{|today|
-          @user.myfoods.where(id: today).pluck(:calorie).sum
-        }.sum
-        recipes = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id).map{|today_recipe| 
-          @user.recipes.where(id: today_recipe).pluck(:calorie).sum
-        }.sum
-        # 上記で算出したmyfoodsとrecipeのcalorieを足し算
-        total = myfoods + recipes
-        # 上記で算出したtotalを@meals_analysのcalorieにupdate
+        
+        # -------- @meals_analyのUpdate機能 --------
+        
+          @todaymeals = @user.todaymeals.where(start_time: params[:start_time])
+          @todaymeal_recipes = @user.todaymeal_recipes.where(start_time: params[:start_time])
+          
+            if @todaymeals.present?
+              myfoods = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id, :amount).map{ |myfood, amount| 
+                          [ @user.myfoods.where(id: myfood).pluck(:calorie).sum * amount ]
+                        }.sum.sum
+            end
+            if @todaymeal_recipes.present?
+              recipes = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id, :amount).map{|recipe, amount| 
+                          [ @user.recipes.where(id: recipe).pluck(:calorie).sum * amount ]
+                        }.sum.sum
+            end
+            
+            if @todaymeals.present? && @todaymeal_recipes.present?
+              total = myfoods + recipes
+            elsif @todaymeals.present? && @todaymeal_recipes.blank?
+              total = myfoods
+            elsif @todaymeal_recipes.present? && @todaymeals.blank?
+              total = recipes
+            else
+              total = nil
+            end
+          
         @meals_analys.update_attributes!(calorie: total)
+        
+        # -------- @meals_analyのUpdate機能 --------
         
         flash[:success] = "#{@myfood.food_name}の登録に成功しました。"
         redirect_to user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time])
@@ -91,9 +116,41 @@ class TodaymealsController < ApplicationController
   
   def update
     @todaymeal = @user.todaymeals.find(params[:id])
+    @meals_analys = @user.meals_analysis.find_by(start_time: params[:start_time])
     
     ActiveRecord::Base.transaction do 
       @todaymeal.update_attributes!(todaymeal_params)
+      
+        # -------- @meals_analyのUpdate機能 --------
+        
+          @todaymeals = @user.todaymeals.where(start_time: params[:start_time])
+          @todaymeal_recipes = @user.todaymeal_recipes.where(start_time: params[:start_time])
+          
+            if @todaymeals.present?
+              myfoods = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id, :amount).map{ |myfood, amount| 
+                          [ @user.myfoods.where(id: myfood).pluck(:calorie).sum * amount ]
+                        }.sum.sum
+            end
+            if @todaymeal_recipes.present?
+              recipes = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id, :amount).map{|recipe, amount| 
+                          [ @user.recipes.where(id: recipe).pluck(:calorie).sum * amount ]
+                        }.sum.sum
+            end
+            
+            if @todaymeals.present? && @todaymeal_recipes.present?
+              total = myfoods + recipes
+            elsif @todaymeals.present? && @todaymeal_recipes.blank?
+              total = myfoods
+            elsif @todaymeal_recipes.present? && @todaymeals.blank?
+              total = recipes
+            else
+              total = nil
+            end
+          
+        @meals_analys.update_attributes!(calorie: total)
+        
+        # -------- @meals_analyのUpdate機能 --------
+      
       flash[:success] = "更新に成功しました"
       redirect_to user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time])
     rescue ActiveRecord::RecordInvalid
@@ -105,7 +162,40 @@ class TodaymealsController < ApplicationController
   def destroy
     @todaymeal = @user.todaymeals.find(params[:id])
     @myfood = @user.myfoods.find(@todaymeal.myfood_id)
+    @meals_analys = @user.meals_analysis.find_by(start_time: params[:start_time])
+    
     @todaymeal.destroy
+    
+      # -------- @meals_analyのUpdate機能 --------
+        
+        @todaymeals = @user.todaymeals.where(start_time: params[:start_time])
+        @todaymeal_recipes = @user.todaymeal_recipes.where(start_time: params[:start_time])
+        
+          if @todaymeals.present?
+            myfoods = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id, :amount).map{ |myfood, amount| 
+                        [ @user.myfoods.where(id: myfood).pluck(:calorie).sum * amount ]
+                      }.sum.sum
+          end
+          if @todaymeal_recipes.present?
+            recipes = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id, :amount).map{|recipe, amount| 
+                        [ @user.recipes.where(id: recipe).pluck(:calorie).sum * amount ]
+                      }.sum.sum
+          end
+          
+          if @todaymeals.present? && @todaymeal_recipes.present?
+            total = myfoods + recipes
+          elsif @todaymeals.present? && @todaymeal_recipes.blank?
+            total = myfoods
+          elsif @todaymeal_recipes.present? && @todaymeals.blank?
+            total = recipes
+          else
+            total = nil
+          end
+          
+        @meals_analys.update_attributes!(calorie: total)
+        
+        # -------- @meals_analyのUpdate機能 --------
+    
     flash[:success] = "#{@myfood.food_name}を削除しました。"
     redirect_to user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time])
   end
