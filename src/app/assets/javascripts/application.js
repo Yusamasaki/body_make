@@ -16,7 +16,6 @@
 //= require bootstrap-sprockets
 //= require activestorage
 //= require cocoon
-//= require Chart.min
 //= require turbolinks
 
 

@@ -340,7 +340,7 @@ DEPENDENCIES
   bootstrap (~> 4.6.0)
   byebug
   capybara (>= 2.15)
-  chart-js-rails (~> 0.1.4)
+  chart-js-rails (~> 0.1.7)
   chromedriver-helper
   cocoon
   coffee-rails (~> 4.2)
