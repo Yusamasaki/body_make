@@ -10,8 +10,15 @@ class TodaymealRecipesController < ApplicationController
     @recipefoods = @user.recipefoods.where(recipe_id: params[:recipe_id])
     @timezone = Timezone.find(params[:timezone_id])
     
-    gon.food_name = @nutritions.map{|nutrition| Myfood.human_attribute_name(nutrition)}
-    gon.myfoods = @recipe_myfoods
+    if @recipe.calorie.present?
+      gon.food_name = [:protein, :fat, :carbo].map{|nutrition| Myfood.human_attribute_name(nutrition)}
+        calories = [[:protein, 4], [:fat, 9], [:carbo, 4]].map {|nutrition, ratio|
+          @user.recipes.where(id: params[:recipe_id]).pluck(nutrition).sum * ratio
+        }
+      gon.myfoods = calories.map{|calorie|
+        ((calorie / calories.sum) * 100).floor(1)
+      }
+    end
   end
   
   def create
@@ -72,8 +79,15 @@ class TodaymealRecipesController < ApplicationController
     @recipefoods = @user.recipefoods.where(recipe_id: params[:recipe_id])
     @timezone = Timezone.find(params[:timezone_id])
     
-    gon.food_name = @nutritions.map{|nutrition| Myfood.human_attribute_name(nutrition)}
-    gon.myfoods = @recipe_myfoods
+    if @recipe.calorie.present?
+      gon.food_name = [:protein, :fat, :carbo].map{|nutrition| Myfood.human_attribute_name(nutrition)}
+        calories = [[:protein, 4], [:fat, 9], [:carbo, 4]].map {|nutrition, ratio|
+          @user.recipes.where(id: params[:recipe_id]).pluck(nutrition).sum * ratio
+        }
+      gon.myfoods = calories.map{|calorie|
+        ((calorie / calories.sum) * 100).floor(1)
+      }
+    end
   end
   
   def update

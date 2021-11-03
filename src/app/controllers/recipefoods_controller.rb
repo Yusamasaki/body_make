@@ -17,8 +17,13 @@ class RecipefoodsController < ApplicationController
     @recipe = @user.recipes.find(params[:recipe_id])
     @myfood = @user.myfoods.find(params[:myfood_id])
     
-    gon.food_name = @nutritions.map{|nutrition| Myfood.human_attribute_name(nutrition)}
-    gon.myfoods = @nutritions.map{|nutrition| @user.myfoods.where(id: params[:myfood_id]).pluck(nutrition)}.sum
+    gon.food_name = [:protein, :fat, :carbo].map{|nutrition| Myfood.human_attribute_name(nutrition)}
+      calories = [[:protein, 4], [:fat, 9], [:carbo, 4]].map {|nutrition, ratio| 
+        @user.myfoods.where(id: params[:myfood_id]).pluck(nutrition).sum * ratio
+      }
+    gon.myfoods = calories.map{|calorie|
+      ((calorie / calories.sum) * 100).floor(1)
+    }
   end
   
   def create

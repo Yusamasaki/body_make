@@ -1,38 +1,25 @@
 
 
-window.myfood_graph = -> 
-    Chart.register(ChartDataLabels);
-    ctx = document.getElementById('myPieChart')
-    myPieChart = new Chart(ctx,
-      type: 'pie'
+window.myfood_graph = ->
+    ctx = document.getElementById('myRadarChart')
+    myRadarChart = new Chart(ctx,
+      type: 'radar'
       data:
         labels: gon.food_name,
         datasets: [ {
-          backgroundColor: [
-            '#BB5179'
-            '#FAFF67'
-            '#58A27C'
-            '#3C00FF'
-            '#58A27C'
-            '#3C00FF'
-            '#58A27C'
-          ]
+          label: "栄養素チャート"
+          backgroundColor: "rgba(200,112,126,0.5)"
+          borderColor: "rgba(200,112,126,1)"
+          pointBackgroundColor: "rgba(200,112,126,1)"
+          pointBorderColor: "#fff"
+          pointHoverBackgroundColor: "#fff"
+          pointHoverBorderColor: "rgba(200,112,126,1)"
+          hitRadius: 5
           data: gon.myfoods
         } ]
       options:
         display: true
-        plugins: {
-          datalabels: {
-            align: "end",
-            anchor: "end",
-            offset: -100,
-            color: "#000",
-            font: {
-                weight: "bold",
-                size: 20,
-            }
-          }
-        }
+        responsive: true
     )
         
         
