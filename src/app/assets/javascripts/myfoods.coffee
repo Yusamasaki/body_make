@@ -1,6 +1,7 @@
 
 
 window.myfood_graph = -> 
+    Chart.register(ChartDataLabels);
     ctx = document.getElementById('myPieChart')
     myPieChart = new Chart(ctx,
       type: 'pie'
