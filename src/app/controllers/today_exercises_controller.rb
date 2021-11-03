@@ -1,16 +1,18 @@
 class TodayExercisesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
-  before_action :set_categories, only: [:new, :create, :edit]
-  before_action :set_contents, only: [:new, :create, :edit, :new_contents, :edit_contents]
+  before_action :set_categories, only: [:index, :new, :create, :edit]
+  before_action :set_contents, only: [:index, :new, :create, :edit, :new_contents, :edit_contents]
   before_action :set_today_exercise, only: [:edit, :update, :destroy]
 
   def index
-    @today_exercises = TodayExercise.where(start_time: params[:start_time])
+    @today_exercises = TodayExercise.where(start_time: params[:start_time]).order(:id)
   end
 
   def new
     @today_exercise = TodayExercise.new
+    @category_params = params[:exercise_category_id]
+    @content_params = params[:exercise_content_id]
   end
 
   def create
@@ -26,6 +28,8 @@ class TodayExercisesController < ApplicationController
   end
 
   def edit
+    @category_params = params[:exercise_category_id]
+    @content_params = params[:exercise_content_id]
   end
 
   def update
@@ -76,6 +80,10 @@ class TodayExercisesController < ApplicationController
   end
 
   def calender
+    @first_day = params[:start_date].nil? ?
+    Date.current.beginning_of_month : params[:start_date].to_date
+    @last_day = @first_day.end_of_month
+    
     @today_exercise = current_user.today_exercise.find_by(start_time: params[:start_time])
     @today_exercises = current_user.today_exercise.all
   end

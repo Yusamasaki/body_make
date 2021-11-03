@@ -33,10 +33,10 @@ Rails.application.routes.draw do
     resources :today_tranings, only: [:index, :show, :create, :update, :destroy]
     resources :today_exercises do
       get 'calender'
-      collection do
-        get :new_contents
-        get :edit_contents
-      end
+      # collection do
+      #   get :new_contents
+      #   get :edit_contents
+      # end
     end
 
   end

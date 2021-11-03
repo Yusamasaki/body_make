@@ -6,7 +6,10 @@
       </button>
       <h1 class="modal-title"></h1><br>
         <%= month_calendar events: @today_exercises do |date, events| %>
-          <%= date.day %>
+          <%= link_to date.day, user_today_exercises_path(current_user, params[:id], start_time: date, start_date: @first_day) %>
+          <% events.each do |event| %>
+         
+          <% end %>
         <% end %>
     </div>
   </div>

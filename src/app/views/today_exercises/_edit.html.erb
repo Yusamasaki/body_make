@@ -1,0 +1,49 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content" style="width: 430px;">
+    <div class="modal-header">
+      <h5>運動登録</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <%= form_with(model: @today_exercise, url: user_today_exercise_path(
+        start_date: params[:start_date], start_time: params[:start_time]), method: :patch, remote: true) do |f| %>
+      <div class="modal-body">
+        <h5><%= ExerciseCategory.find(@today_exercise.exercise_category_id).name %>(<%= ExerciseContent.find(@today_exercise.exercise_content_id).content %>)</h5><br>
+        <div>
+          <div>
+            <%= f.label :exercise_time, class: "label-form" %>
+          </div>
+          <%= f.time_select :exercise_time, { start_hour: 0, end_hour: 23, minute_step: 5 },
+                                            { class: "form-control form-control-sm", style: 'display: inline-block; width: auto;' }
+          %>
+        </div><br>
+
+        <div>
+          <%= f.label :note, class: "label-form" %>
+          <%= f.text_field :note, class: "form-control form-control-sm" %>
+        </div><br>
+
+        
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary w-25" data-dismiss="modal">閉じる</button>
+        <%= f.submit "登録", class: "btn btn-sm btn-primary w-25" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<script>
+// $(function() {
+//     $('#today_exercise_exercise_category_id').change(function() {
+//       $.get({
+//         url: "<= edit_contents_user_today_exercises_path(current_user, params[:id], start_date: params[:start_date], start_time: params[:start_time]) %>",
+//         data: { exercise_category_id: $('#today_exercise_exercise_category_id').has('option:selected').val() }
+//       });
+//     });
+//   });
+</script>
