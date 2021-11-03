@@ -111,6 +111,9 @@ class TodaymealsController < ApplicationController
   
   def edit
     @todaymeal = @user.todaymeals.find(params[:id])
+    
+    gon.food_name = @nutritions.map{|nutrition| Myfood.human_attribute_name(nutrition)}
+    gon.myfoods = @nutritions.map{|nutrition| @user.myfoods.where(id: params[:myfood_id]).pluck(nutrition)}.sum
   end
   
   def update

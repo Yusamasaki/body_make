@@ -21,6 +21,18 @@ window.myfood_graph = ->
         } ]
       options:
         display: true
+        plugins: {
+          datalabels: {
+            align: "end",
+            anchor: "end",
+            offset: -100,
+            color: "#000",
+            font: {
+                weight: "bold",
+                size: 20,
+            }
+          }
+        }
     )
         
         

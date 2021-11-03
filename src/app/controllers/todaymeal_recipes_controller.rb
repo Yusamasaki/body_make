@@ -71,6 +71,9 @@ class TodaymealRecipesController < ApplicationController
     @todaymeal_recipe = @user.todaymeal_recipes.find(params[:id])
     @recipefoods = @user.recipefoods.where(recipe_id: params[:recipe_id])
     @timezone = Timezone.find(params[:timezone_id])
+    
+    gon.food_name = @nutritions.map{|nutrition| Myfood.human_attribute_name(nutrition)}
+    gon.myfoods = @recipe_myfoods
   end
   
   def update

@@ -1,6 +1,9 @@
 <% provide(:title, "#{@recipe.recipe_name}の食事登録") %>
 <% provide(:btn_text, "記録") %>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
 <div class="box1">
   <div class="row">
     <div class="col-md-1 offset-md-11 align-self-center">
@@ -66,7 +69,15 @@
         </div>
       </div>
     </div>
-    
+  </div>
+</div>
+
+<div class="box1">
+  <div class="row">
+    <div class="col-md-12">
+      <canvas id="myPieChart" width="500" height="100"></canvas>
+      <script>myfood_graph();</script>
+    </div>
   </div>
 </div>
 
