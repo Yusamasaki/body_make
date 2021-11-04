@@ -13,4 +13,8 @@ class PfcRatio < ApplicationRecord
       errors.add(:protein, "合計を100％にする必要があります。") unless (protein + fat + carbo) == 100
     end
   end
+  
+  def self.pfc_format(one_day_decrease, ratio, per_1g)
+    ( ( ( one_day_decrease * ratio ) / 100 ) / per_1g ).floor(1)
+  end
 end

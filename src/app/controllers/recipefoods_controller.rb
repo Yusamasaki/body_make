@@ -24,6 +24,7 @@ class RecipefoodsController < ApplicationController
     gon.myfoods = calories.map{|calorie|
       ((calorie / calories.sum) * 100).floor(1)
     }
+    gon.total_calorie = calories.sum
   end
   
   def create

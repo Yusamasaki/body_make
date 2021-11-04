@@ -3,7 +3,7 @@ class TodaymealsController < ApplicationController
   before_action :set_user, only: [:index, :new, :create, :edit, :update, :destroy, :analysis]
   before_action :set_basic, only: [:index, :analysis]
   before_action :set_myfood, only: [:new, :edit, :update]
-  before_action :set_meals, only: [:index, :edit, :update]
+  before_action :set_meals, only: [:edit, :update]
   before_action :set_nutritions, only: [:index, :new, :edit, :update]
   before_action :ser_meals_analysis, only: [:index, :analysis]
   
@@ -44,21 +44,27 @@ class TodaymealsController < ApplicationController
       }.sum
     }
     
-    # gon.food_name = [:protein, :fat, :carbo].map{|nutrition| Myfood.human_attribute_name(nutrition)}
-    # calories = [[:protein, 4], [:fat, 9], [:carbo, 4]].map {|nutrition, ratio|
-    #   (
-    #     todaymeals_start_time.map {|myfood, amount|
-    #       [@user.myfoods.where(id: myfood).pluck(nutrition).sum * amount].sum 
-    #     }.sum +
-    #     todaymeal_recipes_start_time.map {|recipe, amount| 
-    #       [@user.recipes.where(id: recipe).pluck(nutrition).sum * amount].sum
-    #     }.sum
-    #   ) * ratio
-    # }
-    # gon.myfoods = calories.map{|calorie|
-    #   ((calorie / calories.sum) * 100).floor(1)
-    # }
-    # debugger
+    @todaymeals = @user.todaymeals.where(start_time: params[:start_time])
+    @todaymeal_recipes = @user.todaymeal_recipes.where(start_time: params[:start_time])
+    if @todaymeals.present? || @todaymeal_recipes.present?
+      gon.food_name = [:protein, :fat, :carbo].map{|nutrition| Myfood.human_attribute_name(nutrition)}
+      calories = [[:protein, 4], [:fat, 9], [:carbo, 4]].map {|nutrition, ratio|
+        (
+          todaymeals_start_time.map {|myfood, amount|
+            [@user.myfoods.where(id: myfood).pluck(nutrition).sum * amount].sum 
+          }.sum +
+          todaymeal_recipes_start_time.map {|recipe, amount| 
+            [@user.recipes.where(id: recipe).pluck(nutrition).sum * amount].sum
+          }.sum
+        ) * ratio
+      }
+      gon.myfoods = calories.map{|calorie|
+        ((calorie / calories.sum) * 100).floor(1)
+      }
+      gon.total_calorie = calories.sum
+      
+      
+    end
   end
   
   def new
@@ -72,6 +78,7 @@ class TodaymealsController < ApplicationController
     gon.myfoods = calories.map{|calorie|
       ((calorie / calories.sum) * 100).floor(1)
     }
+    gon.total_calorie = calories.sum
   end
   
   def create
@@ -136,6 +143,7 @@ class TodaymealsController < ApplicationController
     gon.myfoods = calories.map{|calorie|
       ((calorie / calories.sum) * 100).floor(1)
     }
+    gon.total_calorie = calories.sum
   end
   
   def update

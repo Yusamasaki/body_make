@@ -58,8 +58,9 @@
   </div>
 </div>
 
-
-<%= render template: "graph/_nutrition_radar_graph" %>
+<% if @todaymeals.present? || @todaymeal_recipes.present? %>
+  <%= render template: "graph/_nutrition_radar_graph" %>
+<% end %>
 
 <% @timezone_meals.each do |timezone, recipe_myfood, recipe, myfood| %>
   <div class="box1">

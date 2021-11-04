@@ -3,9 +3,6 @@
 <%= f.label :food_name, class: "label-form" %><br>
 <%= f.text_field :food_name, :placeholder => "食品名", class: "form-control" %><br>
 
-<%= f.label :calorie, class: "label-form" %><br>
-<%= f.number_field :calorie, step: '0.1', autofocus: true, :placeholder => "カロリー", class: "form-control" %><br>
-
 <%= f.label :protein, class: "label-form" %><br>
 <%= f.number_field :protein, step: '0.1', :placeholder => "たんぱく質", class: "form-control" %><br>
 
@@ -14,6 +11,9 @@
 
 <%= f.label :carbo, class: "label-form" %><br>
 <%= f.number_field :carbo, step: '0.1', :placeholder => "炭水化物", class: "form-control" %><br>
+
+<%= f.label :calorie, class: "label-form" %><br>
+<%= f.number_field :calorie, step: '0.1', autofocus: true, :placeholder => "カロリー", class: "form-control" %><br>
 
 <%= f.label :sugar, class: "label-form" %><br>
 <%= f.number_field :sugar, step: '0.1', :placeholder => "糖質", class: "form-control" %><br>
