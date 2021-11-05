@@ -32,6 +32,11 @@
         <% end %>
       <% end %>
     </div>
+    <div class="col-sm-1 align-self-center">
+      <%= link_to(user_today_tranings_traning_analysis_path(@user, bodypart_id: 1, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original", data: {"turbolinks" => false}) do %>
+        <i class="fas fa-chart-line fa-2x"></i>
+      <% end %>
+    </div>
   </div>
 </div>
 

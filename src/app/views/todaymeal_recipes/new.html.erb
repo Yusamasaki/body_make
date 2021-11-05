@@ -4,16 +4,11 @@
 
 <div class="box1">
   <div class="row">
-    <div class="col-md-1 offset-md-11 align-self-center">
+    <div class="col-sm-1 offset-sm-11 align-self-center">
       <%= link_to(user_myfoods_path(@user, before: params[:action], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
         <i class="far fa-plus-square fa-2x"></i>
       <% end %>
     </div>
-  </div>
-</div>
-
-<div class="box1">
-  <div class="row">
     <div class="col-md-12">
       <div class="box2">
         <h3><span>

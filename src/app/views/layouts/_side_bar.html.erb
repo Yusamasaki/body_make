@@ -30,15 +30,6 @@
               <span>Meal</span>
             </div>
           <% end %>
-          <div>
-          <ul>
-            <li>
-              <%= link_to(user_meals_analysis_index_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current), data: {"turbolinks" => false}) do %>
-                <div>Analysis</div>
-              <% end %>
-            </li>
-          </ul>
-        </div>
         </li>
         <li>
           <%= link_to user_today_exercises_path(current_user, start_time: params[:start_time], start_date: params[:start_date]) do %>
@@ -47,25 +38,11 @@
           <% end %>
         </li>
         <li>
-          <a>
+          <%= link_to(user_today_tranings_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
             <i class="fas fa-dumbbell"></i>
             <span>Traning</span>
-          </a>
+          <% end %>
         </li>
-        <div>
-          <ul>
-            <li>
-              <%= link_to(user_today_tranings_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
-                <div>Today Traning</div>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to(user_today_tranings_traning_analysis_path(current_user, bodypart_id: 1, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
-                <div>Traning Analysis</div>
-              <% end %>
-            </li>
-          </ul>
-        </div>
         <li>
           <%= link_to(user_setting_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
             <i class="fas fa-cog"></i>
