@@ -1,7 +1,7 @@
 class Traningevent < ApplicationRecord
   belongs_to :user
   belongs_to :traningtype
-  belongs_to :bodypar
+  belongs_to :bodypart
   
   has_many :today_tranings, dependent: :destroy
   has_many :traning_analysis, dependent: :destroy
