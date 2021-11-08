@@ -35,56 +35,8 @@
             <td>
               <%= @day_target_calorie %>kcal
             </td>
-            
-            <% if @pfc.present? %>
-            
-              <!--たんぱく質-->
-              <td>
-                <!--g-->
-                <%= pfc_format(@day_target_calorie, pfc_ratios_protein(@pfc.protein), 4) %>g
-                <!--kcal-->
-                ( <%= (pfc_format(@day_target_calorie, pfc_ratios_protein(@pfc.protein), 4) * 4).floor(1) %>kcal )
-              </td>
-              
-              <!--脂質-->
-              <td>
-                <!--g-->
-                <%= pfc_format(@day_target_calorie, pfc_ratios_fat(@pfc.fat), 9) %>g
-                <!--kcal-->
-                ( <%= (pfc_format(@day_target_calorie, pfc_ratios_fat(@pfc.fat), 9) * 9).floor(1) %>kcal )
-              </td>
-              <!--炭水化物-->
-              <td>
-                <!--g-->
-                <%= pfc_format(@day_target_calorie, pfc_ratios_carbo(@pfc.carbo), 4) %>g
-                <!--kcal-->
-                ( <%= (pfc_format(@day_target_calorie, pfc_ratios_carbo(@pfc.carbo), 4) * 4).floor(1) %>kcal )
-              </td>
-              
-            <% else %>
-            
-              <!--たんぱく質-->
-              <td>
-                <!--g-->
-                <%= pfc_format(@day_target_calorie, 20, 4) %>g
-                <!--kcal-->
-                ( <%= (pfc_format(@day_target_calorie, 20, 4) * 4).floor(1) %>kcal )
-              </td>
-              
-              <!--脂質-->
-              <td>
-                <!--g-->
-                <%= pfc_format(@day_target_calorie, 20, 9) %>g
-                <!--kcal-->
-                ( <%= (pfc_format(@day_target_calorie, 20, 9) * 9).floor(1) %>kcal )
-              </td>
-              <!--炭水化物-->
-              <td>
-                <!--g-->
-                <%= pfc_format(@day_target_calorie, 60, 4) %>g
-                <!--kcal-->
-                ( <%= (pfc_format(@day_target_calorie, 60, 4) * 4).floor(1) %>kcal )
-              </td>
+            <% @target_pfcs.each do |calorie, gram| %>
+              <td><%= gram %>g(<%= calorie %>kcal)</td>
             <% end %>
           </tr>
         </tbody>

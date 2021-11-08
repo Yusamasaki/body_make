@@ -2,6 +2,7 @@ class TodaymealsController < ApplicationController
   
   before_action :set_user, only: [:index, :new, :create, :edit, :update, :destroy, :analysis]
   before_action :set_basic, only: [:index, :analysis]
+  before_action :set_bmr, only: [:index]
   before_action :set_myfood, only: [:new, :edit, :update]
   before_action :set_meals, only: [:edit, :update]
   before_action :set_nutritions, only: [:index, :new, :edit, :update]
@@ -62,8 +63,6 @@ class TodaymealsController < ApplicationController
         ((calorie / calories.sum) * 100).floor(1)
       }
       gon.total_calorie = calories.sum
-      
-      
     end
   end
   

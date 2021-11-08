@@ -135,15 +135,6 @@ class UsersController < ApplicationController
   def setting
     # 最新の体重
     @newwest_bodyweight = Bodyweight.newwest_bodyweight_get(@user)
-    
-    @pfc_formats = [[4, 20], [9, 20], [4, 60]].map{|per_1g, ratio|
-      if @pfc.present?
-        PfcRatio.pfc_format(@day_target_calorie, pfc_ratios_protein(@pfc.protein), per_1g)
-      else
-        PfcRatio.pfc_format(@day_target_calorie, ratio, per_1g)
-      end
-    }
-    debugger
   end
 
 end

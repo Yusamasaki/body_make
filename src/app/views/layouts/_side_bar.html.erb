@@ -38,7 +38,7 @@
           <% end %>
         </li>
         <li>
-          <%= link_to(user_today_tranings_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
+          <%= link_to(user_today_tranings_path(current_user, bodypart_id: 1, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
             <i class="fas fa-dumbbell"></i>
             <span>Traning</span>
           <% end %>

@@ -1,94 +1,112 @@
-
-<div class="box1">
-  <div class="row">
-    <div class="col">
-      <%= month_calendar events: @today_tranings do |date, events| %>
-        <% unless date.to_date  > Time.current %>
-          <%= link_to date.day, user_today_tranings_path(current_user, start_time: date, start_date: @first_day) %>
-        <% else %>
-          <%= date.day %>
-        <% end %>
-        <% @todaytranings = @user.today_tranings.where(start_time: date).distinct.pluck(:traningevent_id) %>
-        <% @todaytranings.each do |todaytraning| %>
-          <% @traningevent = @user.traningevents.find(todaytraning) %>
-          <% @bodypart = Bodypart.find(@traningevent.bodypart_id) %>
-          <%= @bodypart.body_part %>
-        <% end %>
-      <% end %>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="record-tab" data-toggle="tab" href="#record" role="tab" aria-controls="record" aria-selected="true">Record</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="line-chart-tab" data-toggle="tab" href="#line-chart" role="tab" aria-controls="line-chart" aria-selected="false">Line Chart</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="radar-chart-tab" data-toggle="tab" href="#radar-chart" role="tab" aria-controls="radar-chart" aria-selected="false">Radar Chart</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="record" role="tabpanel" aria-labelledby="record-tab">
+    <div class="box1">
+      <div class="row">
+        <div class="col">
+          <%= month_calendar events: @today_tranings do |date, events| %>
+            <% unless date.to_date  > Time.current %>
+              <%= link_to date.day, user_today_tranings_path(current_user, start_time: date, start_date: @first_day) %>
+            <% else %>
+              <%= date.day %>
+            <% end %>
+            <% @todaytranings = @user.today_tranings.where(start_time: date).distinct.pluck(:traningevent_id) %>
+            <% @todaytranings.each do |todaytraning| %>
+              <% @traningevent = @user.traningevents.find(todaytraning) %>
+              <% @bodypart = Bodypart.find(@traningevent.bodypart_id) %>
+              <%= @bodypart.body_part %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
-<div class="box1">
-  <div class="row">
-    <div class="col-md-3 offset-md-5 align-self-center">
-      <%= link_to(user_today_tranings_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date])) do %>
-        <div class="arrow round-arrow-left"></div>
-      <% end %>
-      <a style="color: #274277;"><%= params[:start_time] %></a>
-      <% unless params[:start_time].to_date.tomorrow == Time.current.to_date.tomorrow %>
-        <%= link_to(user_today_tranings_path(current_user, start_time: params[:start_time].to_date.tomorrow, start_date: params[:start_date])) do %>
-          <div class="arrow round-arrow-right"></div>
-        <% end %>
-      <% end %>
+    
+    <div class="box1">
+      <div class="row">
+        <div class="col-md-3 offset-md-5 align-self-center">
+          <%= link_to(user_today_tranings_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date])) do %>
+            <div class="arrow round-arrow-left"></div>
+          <% end %>
+          <a style="color: #274277;"><%= params[:start_time] %></a>
+          <% unless params[:start_time].to_date.tomorrow == Time.current.to_date.tomorrow %>
+            <%= link_to(user_today_tranings_path(current_user, start_time: params[:start_time].to_date.tomorrow, start_date: params[:start_date])) do %>
+              <div class="arrow round-arrow-right"></div>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="col-sm-1 align-self-center">
+          <%= link_to(user_today_tranings_traning_analysis_path(@user, bodypart_id: 1, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original", data: {"turbolinks" => false}) do %>
+            <i class="fas fa-chart-line fa-2x"></i>
+          <% end %>
+        </div>
+      </div>
     </div>
-    <div class="col-sm-1 align-self-center">
-      <%= link_to(user_today_tranings_traning_analysis_path(@user, bodypart_id: 1, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original", data: {"turbolinks" => false}) do %>
-        <i class="fas fa-chart-line fa-2x"></i>
-      <% end %>
+    
+    <div class="box1">
+      <div class="row">
+        <div class="col">
+          <%= link_to "トレーニング記録", user_traningevents_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), class: "btn btn-lg btn-block btn-setup btn-original" %>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
-<div class="box1">
-  <div class="row">
-    <div class="col">
-      <%= link_to "トレーニング記録", user_traningevents_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), class: "btn btn-lg btn-block btn-setup btn-original" %>
-    </div>
-  </div>
-</div>
-
-<% if @user.today_tranings.present? %>
-<div class="box1">
-  <div class="row">
-    <div class="col">
-      
-      <% @traningevents.each do |traningevent| %>
-        <% @today_traning = @user.today_tranings.find_by(start_time: params[:start_time], traningevent_id: traningevent) %>
-        <% if @today_traning.present? && @today_traning.traning_weight.present? %>
-          <div class="box2">
-            <% @traningevent = @user.traningevents.find(@today_traning.traningevent_id) %>
-            <h3><span><%= @traningevent.traning_name if @today_traning.present? %></span></h3>
-            <div class="inner">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">セット数</th>
-                    <th scope="col">重量</th>
-                    <th scope="col">回数</th>
-                    <th scope="col">ノート</th>
-                  </tr>
-                </thead>
-                
-                <tbody>
-                  <% @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: traningevent).order(:id).pluck(:id) %>
-                  <% @today_tranings.each_with_index do |item, i| %>
-                    <% @today_traning = @user.today_tranings.find(item) %>
-                    <tr>
-                      <th scope="row"><%= i + 1 %></th>
-                      <td><%= @today_traning.traning_weight %></td>
-                      <td><%= @today_traning.traning_reps %></td>
-                      <td><%= @today_traning.traning_note %></td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
+    
+    <% if @user.today_tranings.present? %>
+      <div class="box1">
+        <div class="row">
+          <div class="col">
+            
+            <% @traningevents.each do |traningevent| %>
+              <% @today_traning = @user.today_tranings.find_by(start_time: params[:start_time], traningevent_id: traningevent) %>
+              <% if @today_traning.present? && @today_traning.traning_weight.present? %>
+                <div class="box2">
+                  <% @traningevent = @user.traningevents.find(@today_traning.traningevent_id) %>
+                  <h3><span><%= @traningevent.traning_name if @today_traning.present? %></span></h3>
+                  <div class="inner">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">セット数</th>
+                          <th scope="col">重量</th>
+                          <th scope="col">回数</th>
+                          <th scope="col">ノート</th>
+                        </tr>
+                      </thead>
+                      
+                      <tbody>
+                        <% @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: traningevent).order(:id).pluck(:id) %>
+                        <% @today_tranings.each_with_index do |item, i| %>
+                          <% @today_traning = @user.today_tranings.find(item) %>
+                          <tr>
+                            <th scope="row"><%= i + 1 %></th>
+                            <td><%= @today_traning.traning_weight %></td>
+                            <td><%= @today_traning.traning_reps %></td>
+                            <td><%= @today_traning.traning_note %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
           </div>
-        <% end %>
-      <% end %>
-      
+        </div>
+      </div>
+    <% end %>
     </div>
+  <div class="tab-pane fade" id="line-chart" role="tabpanel" aria-labelledby="line-chart-tab">
+      <%= render "today_tranings/traning_analysis" %>
+  </div>
+  <div class="tab-pane fade" id="radar-chart" role="tabpanel" aria-labelledby="radar-chart-tab">
   </div>
 </div>
-<% end %>

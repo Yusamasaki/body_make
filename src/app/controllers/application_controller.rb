@@ -52,8 +52,26 @@ class ApplicationController < ActionController::Base
     @day_calorie = Bmr.day_calorie(@bmr_format, @bmr.activity).floor(1)
     # 目標の摂取カロリー
     @day_target_calorie = Bmr.day_target_calorie(@day_calorie.floor(1), @target_weight)
+    # 目標のPFCカロリー
+    target_pfc_calorie = [[20, 4], [20, 9], [60, 4]].map{|ratio, per_1g|
+      if @pfc.present?
+        [PfcRatio.pfc_calorie_format(@day_target_calorie, pfc_ratios_protein(@pfc.protein)), per_1g, @day_target_calorie]
+      else
+        [PfcRatio.pfc_calorie_format(@day_target_calorie, ratio), per_1g, @day_target_calorie]
+      end
+    }
     
-    
+    # グラフ値
+    gon.pfc_calorie_ratios = target_pfc_calorie.map{|pfc_calorie, per_1g, day_target_calorie| ((pfc_calorie / day_target_calorie) * 100).floor(1)}
+
+    # 目標のPFCバランス（グラム・カロリー）
+    @target_pfcs = [[20, 4], [20, 9], [60, 4]].map{|ratio, per_1g| 
+      if @pfc.present?
+        [PfcRatio.pfc_calorie_format(@day_target_calorie, pfc_ratios_protein(@pfc.protein)), (PfcRatio.pfc_calorie_format(@day_target_calorie, pfc_ratios_protein(@pfc.protein)) * per_1g).floor(1)] 
+      else
+        [PfcRatio.pfc_calorie_format(@day_target_calorie, ratio), (PfcRatio.pfc_calorie_format(@day_target_calorie, ratio) / per_1g).floor(1)]
+      end
+    }
   end
   
   # アクセスした先のが明日以上の場合返す

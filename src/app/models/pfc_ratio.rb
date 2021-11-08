@@ -14,7 +14,7 @@ class PfcRatio < ApplicationRecord
     end
   end
   
-  def self.pfc_format(one_day_decrease, ratio, per_1g)
-    ( ( ( one_day_decrease * ratio ) / 100 ) / per_1g ).floor(1)
+  def self.pfc_calorie_format(one_day_decrease, ratio)
+    ( ( one_day_decrease * ratio ) / 100 ).floor(1)
   end
 end
