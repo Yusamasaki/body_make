@@ -9,21 +9,21 @@ class TodayTraningsController < ApplicationController
     
     def index
       @today_tranings = @user.today_tranings.all
-      @traningevents = @user.traningevents.all
       
       @bodyparts = Bodypart.all
       @bodypart = Bodypart.find(params[:bodypart_id])
       
-      @traningevents = @bodyparts.map{|bodypart| @user.traningevents.where(bodypart_id: bodypart)}
+      @traningevents = @bodyparts.pluck(:id).map{|bodypart|
+        [bodypart, @user.traningevents.where(bodypart_id: bodypart).pluck(:id, :traning_name)]
+      }
       
-      
-      # グラフ横軸(日にち)
-      gon.analysis_day = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time).pluck(:start_time)
-      # グラフ縦軸(総負荷)
-      gon.analysis_total_load = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time).pluck(:total_load)
-      # グラフ縦軸(MAX重量)
-      gon.analysis_max_load = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time).pluck(:max_load)
-      
+      @traning_analysis = @traningevents.map{|bodypart, traningevents|
+        traningevents.map{|id, name|
+          [
+            id, @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:start_time), @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:total_load), @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:max_load)
+          ]
+        }
+      }
     end
     
     def create
