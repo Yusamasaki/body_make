@@ -1,33 +1,32 @@
 
 # ------総負荷グラフ------
 
-window.total_load_graph = ->
+# window.total_load_graph = ->
     
-    document.addEventListener 'turbolinks:load', ->
-    ctx = document.getElementById("total_load").getContext('2d')
-    total_load = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: graphdays,
-            datasets: [{
-                label: [],
-                data: total_load,
-                backgroundColor: 'rgba(0, 0, 255, 0.3)',
-                borderColor: '#0000FF',
-                borderWidth: 1,
-                hoverBackgroundColor: undefined,
-                spanGaps: true
-            }]
-        },
-        options: {
-            title: {
-                display: true,
-                text: '総負荷',
-                fontSize: 20,
-                fontColor: '#274277'
-            }
-        }
-    })
+    # ctx = document.getElementById("total_load").getContext('2d')
+    # total_load = new Chart(ctx, {
+    #     type: 'line',
+    #     data: {
+    #         labels: gon.analysis_day,
+    #         datasets: [{
+    #             label: [],
+    #             data: gon.analysis_total_load,
+    #             backgroundColor: 'rgba(0, 0, 255, 0.3)',
+    #             borderColor: '#0000FF',
+    #             borderWidth: 1,
+    #             hoverBackgroundColor: undefined,
+    #             spanGaps: true
+    #         }]
+    #     },
+    #     options: {
+    #         title: {
+    #             display: true,
+    #             text: '総負荷',
+    #             fontSize: 20,
+    #             fontColor: '#274277'
+    #         }
+    #     }
+    # })
 
 # ------MAX重量グラフ------
        

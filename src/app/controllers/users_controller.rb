@@ -84,7 +84,7 @@ class UsersController < ApplicationController
         gon.goal_body_weight = @target_weight.goal_body_weight
         
         # @week_before　〜　@after_week　までの日付を配列表示してLine-chart化
-        gon.start_times = Bodyweight.start_times(@user, @week_before, @after_week)
+        gon.start_times = Bodyweight.start_times(@user, @week_before, @after_week).map{|day| day.day }
     
         # @week_before　〜　@after_week　までの体重を配列表示してLine-chart化
         gon.body_weights = Bodyweight.body_weights(@user, @week_before, @after_week)

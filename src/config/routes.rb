@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     get 'bodyweights/calender'
     get 'today_tranings/traning_new'
     get 'today_tranings/traning_analysis'
+    get 'today_tranings/chart'
     
     get 'todaymeals/analysis'
     
