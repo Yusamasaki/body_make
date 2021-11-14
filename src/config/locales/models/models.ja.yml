@@ -30,7 +30,7 @@ ja:
         name: カテゴリー
       exercise_content:
         content: コンテンツ
-        calorie: 消費カロリー
+        mets: メッツ
       today_exercise:
         start_time: 日付
         exercise_time: 運動時間

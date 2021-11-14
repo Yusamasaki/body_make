@@ -1,27 +1,68 @@
-<div class="box1 center">
-  <%= params[:start_time].to_time.strftime("%Y年%-m月%-d日") %>
+<div class="box1">
+  <div class="row">
+    
+    <div class="col-md-3 offset-md-5 align-self-center">
+      <%= link_to user_today_exercises_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date].to_date.prev_month) do %>
+        <div class="arrow round-arrow-left"></div>
+      <% end %>
+      <a style="color: #274277;"><%= params[:start_time].to_time.strftime("%Y年%-m月%-d日") %></a>
+      <%= link_to user_today_exercises_path(current_user, start_time: params[:start_time].to_date.tomorrow, start_date: params[:start_date].to_date.next_month) do %>
+        <div class="arrow round-arrow-right"></div>
+      <% end %>
+    </div>
+    <div class="col-md-3 align-self-center">
+      <%= link_to(user_today_exercise_calender_path(current_user, @today_exercises.first, start_time: params[:start_time], start_date: params[:start_date]), remote: true) do %>
+        <div class="calendar"></div>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 <div class="box1">
   カテゴリー選択
+  <div class="f-container">
+    <% @categories.each do |category| %>
+      <details>
+        <summary class="f-item btn btn-sm btn-original">
+          <%= category.name %>
+        </summary>
+        <% category.exercise_contents.each do |content| %>
+          <div class="box2-exercise">
+            <%= link_to content.content, new_user_today_exercise_path(
+                current_user, start_date: params[:start_date], start_time: params[:start_time], exercise_category_id: category.id, exercise_content_id: content.id),
+                class: "content-item",
+                remote: true
+            %>
+          </div>
+        <% end %>
+      </details>
+    <% end %>
+  </div>
 </div>
 
 <div class="box1">
   グラフ(仮)
+  <div class="col-md-6 align-self-center">
+    <div class="exercise-chart">
+      <canvas id="exercise_myChart" width="400" height="300"></canvas>
+      <script>exercise_draw_graph();</script>
+    </div>
+  </div>
+  
 </div>
 
 <div class="box1">
-  日別総消費カロリー: <%= sum_calorie %> cal
+  日別総消費カロリー: <%= sum_mets %> cal
 </div>
 
 <div class="box1">
   <div>
-    <table class="table">
+    <table class="table table-sm table-striped table-bordered">
       <thead>
         <tr>
           <th>運動内容</th>
           <th><%= TodayExercise.human_attribute_name :exercise_time %></th>
-          <th><%= ExerciseContent.human_attribute_name :calorie %></th>
+          <th>カロリー</th>
           <th><%= TodayExercise.human_attribute_name :note %></th>
           <th></th>
         </tr>
@@ -32,19 +73,22 @@
           <tr>
             <td><%= category(exercise) %> / <%= content(exercise) %></td>
             <td><%= exercise.exercise_time.strftime('%-H時間 %M分') %></td>
-            <td><%= calorie(exercise) %></td>
+            <td><%= mets(exercise) %> cal</td>
             <td><%= exercise.note %></td>
-            <td>
-              <%= link_to '編集', edit_user_today_exercise_path(
+            <td class="center">
+              <%= link_to edit_user_today_exercise_path(
                 user_id: current_user,
                 id: exercise,
                 start_date: params[:start_date], start_time: params[:start_time]
                 ),
-                class: "btn btn-sm btn-success"
+                class: "btn btn-sm btn-success",
+                remote: true do
               %>
+                <i class="fas fa-pencil-alt"></i>
+              <% end %>
             </td>
-            <td>
-              <%= link_to '削除', user_today_exercise_path(
+            <td class="center">
+              <%= link_to user_today_exercise_path(
                 user_id: current_user,
                 id: exercise,
                 start_date: params[:start_date],
@@ -52,20 +96,28 @@
                 ),
                 method: :delete,
                 class: "btn btn-sm btn-danger",
-                data: { confirm: "本当に削除しますか？" }
+                data: { confirm: "本当に削除しますか？" } do
               %>
+                <i class="fas fa-trash-alt"></i>
+              <% end %>
             </td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
-
+<%= params[:start_date] %>
+  <!--
   <div class="right">
-    <%= link_to '追加', new_user_today_exercise_path(
+    <= link_to '追加', new_user_today_exercise_path(
       current_user, start_date: params[:start_date], start_time: params[:start_time]),
       class: "btn btn-original"\
       # if @today_exercises.first.exercise_category_id.present?
     %>
   </div>
+  -->
 </div>
+
+<div id="calender" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id="new-exercise-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id="edit-exercise-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

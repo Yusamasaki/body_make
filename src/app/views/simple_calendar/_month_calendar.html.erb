@@ -14,9 +14,11 @@
         <i class="fas fa-chevron-left"></i>
       <% end %>
       <span class="calendar-title"> <%= start_date.year %>年 <%= t('date.month_names')[start_date.month] %></span>
-      <%= link_to (user_today_tranings_path(current_user, start_date: @first_day.next_month, start_time: params[:start_time])) do %>
-        <i class="fas fa-chevron-right"></i>
-      <% end %>  
+      <%= link_to t('simple_calendar.next', default: 'Next'), user_today_tranings_path(current_user, start_date: @first_day.next_month, start_time: params[:start_time]) %>
+    <% elsif controller.controller_name == "today_exercises" %>
+      <%= link_to t('simple_calendar.previous', default: 'Previous'), user_today_exercise_calender_path(current_user, start_date: @first_day.prev_month), remote: true %>
+      <span class="calendar-title"> <%= start_date.year %>年 <%= t('date.month_names')[start_date.month] %></span>
+      <%= link_to t('simple_calendar.next', default: 'Next'), user_today_exercise_calender_path(current_user, start_date: @first_day.next_month), remote: true %>
     <% end %>
   </div>
 

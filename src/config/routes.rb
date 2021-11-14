@@ -35,10 +35,11 @@ Rails.application.routes.draw do
     resources :traningevents
     resources :today_tranings, only: [:index, :create, :update, :destroy]
     resources :today_exercises do
-      collection do
-        get :new_contents
-        get :edit_contents
-      end
+      get 'calender'
+      # collection do
+      #   get :new_contents
+      #   get :edit_contents
+      # end
     end
     
     resources :todaymeals
