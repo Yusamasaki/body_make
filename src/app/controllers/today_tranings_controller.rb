@@ -11,7 +11,6 @@ class TodayTraningsController < ApplicationController
       @today_tranings = @user.today_tranings.all
       
       @bodyparts = Bodypart.all
-      @bodypart = Bodypart.find(params[:bodypart_id])
       
       @traningevents = @bodyparts.pluck(:id).map{|bodypart|
         [bodypart, @user.traningevents.where(bodypart_id: bodypart).pluck(:id, :traning_name)]

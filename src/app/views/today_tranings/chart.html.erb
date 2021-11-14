@@ -1,10 +1,12 @@
 <div class="modal-dialog modal-lg modal-dialog-center">
   <div class="modal-content">
     <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <h1 class="modal-title"></h1><%= @traningevent.traning_name %><br>
+      <%= link_to(user_today_tranings_path(@user,traningevent_id: params[:traningevent_id], start_time: params[:start_time], start_date: params[:start_date])) do %>
         <span aria-hidden="true">&times;</span>
+      <% end %>
       </button>
-      <h1 class="modal-title"></h1><br>
+      
     </div>
     <div class="modal-body">
       <div class="row">
