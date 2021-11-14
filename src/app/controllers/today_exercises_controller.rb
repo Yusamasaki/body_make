@@ -1,6 +1,7 @@
 class TodayExercisesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
+  before_action :today_exercise_set_one_month, only: [:index]
   before_action :set_categories, only: [:index, :new, :create, :edit]
   before_action :set_contents, only: [:index, :new, :create, :edit, :new_contents, :edit_contents]
   before_action :set_today_exercise, only: [:edit, :update, :destroy]

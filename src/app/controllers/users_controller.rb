@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   
-  before_action :today_exercise_set_one_month, only: [:show]
   before_action :set_user, only: [:show]
   before_action :set_basic, only: [:show]
   

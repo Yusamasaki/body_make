@@ -79,9 +79,9 @@ class ApplicationController < ActionController::Base
     
     one_month = [*@first_day..@last_day]
     
-    @today_exercises = current_user.today_exercise.where( start_time: @first_day..@last_day).order(:start_time)
+    @exercises = current_user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
     
-    unless one_month.count == @today_exercises.count
+    unless one_month.count <= @exercises.count
       ActiveRecord::Base.transaction do
         one_month.each { |day| current_user.today_exercise.create!(start_time: day) }
       end
