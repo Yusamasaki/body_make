@@ -3,7 +3,7 @@ class CreateTraningAnalyses < ActiveRecord::Migration[5.2]
     create_table :traning_analyses do |t|
       
       t.date :start_time
-      t.float :total_load
+      t.string :total_load
       t.float :max_load
       
       t.references :user, foreign_key: true

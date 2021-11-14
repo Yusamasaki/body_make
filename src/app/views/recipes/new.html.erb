@@ -1,0 +1,11 @@
+
+<div class="box1">
+  <%= form_with(model: @recipe, url: user_recipes_path(@user, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
+    
+      <%= f.label :recipe_name, class: "label-form" %><br>
+      <%= f.text_field :recipe_name, class: "form-control" %><br>
+    
+    <%= f.submit "新規作成", class: "btn btn-lg btn-original btn-form" %>
+    
+  <% end %>
+</div>

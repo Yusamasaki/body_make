@@ -10,6 +10,8 @@ class CreateTodayTranings < ActiveRecord::Migration[5.2]
       
       t.float :total_load
       
+      t.bigint :bodypart_id
+      
       t.references :user, foreign_key: true
       t.references :traningevent, foreign_key: true
 

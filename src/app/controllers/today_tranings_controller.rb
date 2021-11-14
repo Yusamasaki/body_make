@@ -1,14 +1,38 @@
 class TodayTraningsController < ApplicationController
     
-    before_action :set_user, only: [:index, :create, :update, :destroy, :traning_new, :traning_analysis]
+    before_action :set_user, only: [:index, :create, :update, :destroy, :traning_new, :traning_analysis, :chart]
     before_action :set_basic, only: [:index, :traning_analysis]
-    before_action :set_analysis_day, only: [:traning_new, :traning_analysis, :index]
+    before_action :set_analysis_day, only: [:traning_new, :traning_analysis, :index, :charts]
     before_action :set_traningevent, only: [:create, :update, :destroy]
+    before_action :start_time_next_valid, only: [:index, :traning_new, :traning_analysis, :chart]
     
     
     def index
       @today_tranings = @user.today_tranings.all
-      @traningevents = @user.traningevents.all
+      
+      @bodyparts = Bodypart.all
+      @bodypart = Bodypart.find(params[:bodypart_id])
+      
+      @traningevents = @bodyparts.pluck(:id).map{|bodypart|
+        [bodypart, @user.traningevents.where(bodypart_id: bodypart).pluck(:id, :traning_name)]
+      }
+      
+      @traning_analysis = @traningevents.map{|bodypart, traningevents|
+        traningevents.map{|id, name|
+          [
+            id, gon.day = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:start_time).map{|day| day.day}, gon.total = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:total_load), gon.max = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:max_load)
+          ]
+        }
+      }
+      
+      
+       # グラフ横軸(日にち)
+      gon.analysis_day = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time).pluck(:start_time).map{|day| day.day}
+      # グラフ縦軸(総負荷)
+      gon.analysis_total_load = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time).pluck(:total_load)
+      # グラフ縦軸(MAX重量)
+      gon.analysis_max_load = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time).pluck(:max_load)
+              
     end
     
     def create
@@ -17,15 +41,17 @@ class TodayTraningsController < ApplicationController
         redirect_to user_today_tranings_traning_new_path(@user, traningevent_id: params[:traningevent_id], start_date: params[:start_date], start_time: params[:start_time])
       else
         flash[:danger] = "登録に失敗しました。"
-        redirect_to user_today_tranings_traning_new_path(@user, traningevent_id:params[:traningevent_id], start_date: params[:start_date], start_time: params[:start_time])
+        redirect_to user_today_tranings_traning_new_path(@user, traningevent_id: params[:traningevent_id], start_date: params[:start_date], start_time: params[:start_time])
       end
+      
     end
     
     def update
       @today_traning = @user.today_tranings.find(params[:id])
       @today_analys = @user.traning_analysis.find_by(start_time: params[:start_time], traningevent_id: params[:traningevent_id])
       
-      if @today_traning.update_attributes!(today_traning_params)
+      ActiveRecord::Base.transaction do 
+        @today_traning.update_attributes!(today_traning_params)
         
         # Update後、ID別で総負荷を計算して再Update
         @today_traning.update_attributes!(total_load: (@today_traning.traning_weight.to_i * @today_traning.traning_reps.to_i * 1))
@@ -41,8 +67,9 @@ class TodayTraningsController < ApplicationController
         
         flash[:success] = "更新に成功しました"
         redirect_to user_today_tranings_traning_new_path(current_user, traningevent_id: @traningevent, start_date: params[:start_date], start_time: params[:start_time])
-      else
+      rescue ActiveRecord::RecordInvalid
         flash[:danger] = "更新に失敗しました"
+        redirect_to user_today_tranings_traning_new_path(@user, traningevent_id: params[:traningevent_id], start_date: params[:start_date], start_time: params[:start_time])
       end
     end
     
@@ -54,19 +81,37 @@ class TodayTraningsController < ApplicationController
     end
     
     def traning_new
-      @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: params[:traningevent_id]).order(:id).pluck(:id)
       @traningevent = @user.traningevents.find(params[:traningevent_id])
+      @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: @traningevent).order(:id).pluck(:id)
+      
+      unless @today_tranings.count >= 3
+        ActiveRecord::Base.transaction do
+          3.times { |traning| current_user.today_tranings.create!(start_time: params[:start_time], traningevent_id: params[:traningevent_id]) }
+        end
+        @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: params[:traningevent_id]).order(:id).pluck(:id)
+      end
+      
+      
     end
     
     def traning_analysis
       @bodyparts = Bodypart.all
       @bodypart = Bodypart.find(params[:bodypart_id])
       @traningevents = @user.traningevents.where(bodypart_id: @bodypart)
+    end
+    
+    def chart
+      @traningevent = @user.traningevents.find(params[:traningevent_id])
+      @first_day = params[:start_date].nil? ?
+      Date.current.beginning_of_month : params[:start_date].to_date
+      @last_day = @first_day.end_of_month
       
       # グラフ横軸(日にち)
-      gon.analysis_day = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time).pluck(:start_time)
+      @analysis_day = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time).pluck(:start_time).map{|day| day.day}
+      
       # グラフ縦軸(総負荷)
-      gon.analysis_total_load = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time).pluck(:total_load)
+      @analysis_total_load = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time).pluck(:total_load).map{|total| total.to_i}
+      
       # グラフ縦軸(MAX重量)
       gon.analysis_max_load = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time).pluck(:max_load)
       
@@ -75,7 +120,7 @@ class TodayTraningsController < ApplicationController
     private
     
       def today_traning_params
-        params.require(:today_traning).permit(:traning_weight, :traning_reps, :traning_note)
+        params.require(:today_traning).permit(:traning_weight, :traning_reps, :traning_note, :bodypart_id)
       end
     
 end

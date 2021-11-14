@@ -1,0 +1,144 @@
+
+<div class="row">
+  <% unless params[:recipe_id].present? %>
+    <div class="col-md-4 align-self-center">
+      <%= link_to(user_recipes_path(current_user, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date])) do %>
+        <% if controller.controller_name == "recipes" %>
+          <div class="box1_action">Recipe</div>
+        <% else %>
+          <div class="box1">Recipe</div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  
+  <% unless params[:recipe_id].present? %>
+    <div class="col-md-4 align-self-center">
+  <% else %>
+    <div class="col-md-6 align-self-center">
+  <% end %>
+    <%= link_to(user_myfoods_path(@user, recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date])) do %>
+      <% if controller.controller_name == "myfoods" %>
+        <div class="box1_action">MyFood</div>
+      <% else %>
+        <div class="box1">MyFood</div>
+      <% end %>
+    <% end %>
+    </div>
+  <% unless params[:recipe_id].present? %>
+    <div class="col-md-4 align-self-center">
+  <% else %>
+    <div class="col-md-6 align-self-center">
+  <% end %>
+    <%= link_to("#") do %>
+      <div class="box1">
+        
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% if params[:recipe_id].present? %>
+<div class="box1">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box2">
+        <h3><span>
+          <%= @recipe.recipe_name if @recipe.present? %>
+        </span></h3>
+        <div class="inner">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th><%= Myfood.human_attribute_name(:food_name) %></th>
+                <% @attribute_names.each do |attribute_name| %>
+                    <th><%= attribute_name %></th>
+                  <% end %>
+              </tr>
+            </thead>
+            <tbody>
+              <% @recipefoods.each do |recipefood| %>
+              <% @myfood = @user.myfoods.find(recipefood.myfood_id) %>
+                <tr>
+                  <td><%= @myfood.food_name %>(<%= recipefood.amount %>個分)</td>
+                  <td><%= recipefood_format(@myfood.calorie, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.protein, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.fat, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.carbo, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.sugar, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.dietary_fiber, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.salt, recipefood.amount) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>合計</th>
+                <% @recipe_myfoods.each do |recipe_myfood| %>
+                  <td><%= recipe_myfood %></td>
+                <% end %>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-1 offset-md-11 align-self-center">
+    <%= link_to(new_user_myfood_path(@user, before: params[:before], id: params[:id], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
+      <i class="far fa-plus-square fa-2x"></i>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="mx-auto">
+    <%= paginate @myfoods %>
+  </div>
+</div>
+
+<div class="box1">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><%= Myfood.human_attribute_name(:food_name) %></th>
+            <th><%= Myfood.human_attribute_name(:calorie) %></th>
+            <th><%= Myfood.human_attribute_name(:protein) %></th>
+            <th><%= Myfood.human_attribute_name(:fat) %></th>
+            <th><%= Myfood.human_attribute_name(:carbo) %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @myfoods.each do |myfood| %>
+            <% unless params[:recipe_id].present? %>
+              <tr data-href=<%= new_user_todaymeal_path(@user, myfood_id: myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>>
+            <% else %>  
+              <tr data-href=<%= new_user_recipefood_path(@user, id: params[:id], before: params[:before], recipe_id: params[:recipe_id], myfood_id: myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>>
+            <% end %>
+              <td>
+                <%= myfood.food_name %>
+              </td>
+              <td><%= myfood.calorie %></td>
+              <td><%= myfood.protein %></td>
+              <td><%= myfood.fat %></td>
+              <td><%= myfood.carbo %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="mx-auto">
+    <%= paginate @myfoods %>
+  </div>
+</div>
+

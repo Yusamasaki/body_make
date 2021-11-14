@@ -22,6 +22,9 @@ Rails.application.routes.draw do
     get 'bodyweights/calender'
     get 'today_tranings/traning_new'
     get 'today_tranings/traning_analysis'
+    get 'today_tranings/chart'
+    
+    get 'todaymeals/analysis'
     
     resources :bodyweights, only: [:create, :edit, :update]
 
@@ -30,7 +33,7 @@ Rails.application.routes.draw do
     resources :pfc_ratios, only: [:new, :create, :edit, :update]
     
     resources :traningevents
-    resources :today_tranings, only: [:index, :show, :create, :update, :destroy]
+    resources :today_tranings, only: [:index, :create, :update, :destroy]
     resources :today_exercises do
       get 'calender'
       # collection do
@@ -38,6 +41,14 @@ Rails.application.routes.draw do
       #   get :edit_contents
       # end
     end
+    
+    resources :todaymeals
+    resources :todaymeal_recipes
+    resources :recipes
+    resources :recipefoods
+    resources :myfoods
+    resources :meals_analysis
+    
 
   end
 

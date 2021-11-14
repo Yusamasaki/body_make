@@ -5,7 +5,7 @@
 # 体重グラフ用
 
 window.draw_graph = -> 
-    document.addEventListener 'turbolinks:load',
+    document.addEventListener 'turbolinks:load', ->
     ctx = document.getElementById("myChart").getContext('2d')
     myChart = new Chart(ctx, {
         type: 'line',
@@ -72,12 +72,7 @@ window.draw_graph = ->
             }
         }
     })
-    ->
     
-   
-    
-window.doughnut_graph = -> 
-    document.addEventListener 'turbolinks:load',
     ctx = document.getElementById("chart-area").getContext('2d')
     myChart = new Chart(ctx, {
         type: 'doughnut',
@@ -105,4 +100,3 @@ window.doughnut_graph = ->
             }
         }
     })
-    ->

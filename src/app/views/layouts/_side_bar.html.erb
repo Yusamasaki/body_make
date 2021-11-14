@@ -20,15 +20,16 @@
             <div>
               <i class="fas fa-home"></i>
               <span>HOME</span>
-              
             </div>
           <% end %>
         </li>
         <li>
-          <a href="#">
-            <i class="fas fa-utensils"></i>
-            <span>Meal</span>
-          </a>
+          <%= link_to(user_todaymeals_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
+            <div>
+              <i class="fas fa-utensils"></i>
+              <span>Meal</span>
+            </div>
+          <% end %>
         </li>
         <li>
           <%= link_to user_today_exercises_path(current_user, start_time: Date.current, start_date: Date.current.beginning_of_month) do %>
@@ -37,30 +38,16 @@
           <% end %>
         </li>
         <li>
-          <a>
+          <%= link_to(user_today_tranings_path(current_user, bodypart_id: 1, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
             <i class="fas fa-dumbbell"></i>
             <span>Traning</span>
-          </a>
+          <% end %>
         </li>
-        <div>
-          <ul>
-            <li>
-              <%= link_to(user_today_tranings_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
-                <div>Today Traning</div>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to(user_today_tranings_traning_analysis_path(current_user, bodypart_id: 1, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
-                <div>Traning Analysis</div>
-              <% end %>
-            </li>
-          </ul>
-        </div>
         <li>
-          <a href="#">
+          <%= link_to(user_setting_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
             <i class="fas fa-cog"></i>
             <span>Setting</span>
-          </a>
+          <% end %>
         </li>
       </ul>
     </div>

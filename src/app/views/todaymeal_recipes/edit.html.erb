@@ -1,0 +1,96 @@
+<% provide(:title, "#{@recipe.recipe_name}の食事登録") %>
+<% provide(:btn_text, "記録") %>
+
+
+<div class="box1">
+  <div class="row">
+    <div class="col-md-1 offset-md-11 align-self-center">
+      <%= link_to(user_myfoods_path(@user, id: params[:id], before: params[:action], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
+        <i class="far fa-plus-square fa-2x"></i>
+      <% end %>
+    </div>
+    <div class="col-md-12">
+      <div class="box2">
+        <h3><span>
+          <%= @recipe.recipe_name if @recipe.present? %>
+        </span></h3>
+        <div class="inner">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th><%= Myfood.human_attribute_name(:food_name) %></th>
+                <th><%= Myfood.human_attribute_name(:calorie) %></th>
+                <th><%= Myfood.human_attribute_name(:protein) %></th>
+                <th><%= Myfood.human_attribute_name(:fat) %></th>
+                <th><%= Myfood.human_attribute_name(:carbo) %></th>
+                <th><%= Myfood.human_attribute_name(:sugar) %></th>
+                <th><%= Myfood.human_attribute_name(:dietary_fiber) %></th>
+                <th><%= Myfood.human_attribute_name(:salt) %></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @recipefoods.each do |recipefood| %>
+              <% @myfood = @user.myfoods.find(recipefood.myfood_id) %>
+                <tr>
+                  <td><%= @myfood.food_name %>(<%= recipefood.amount %>個分)</td>
+                  <td><%= recipefood_format(@myfood.calorie, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.protein, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.fat, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.carbo, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.sugar, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.dietary_fiber, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.salt, recipefood.amount) %></td>
+                  <td>
+                    <%= link_to(user_recipefood_path(@user, recipefood, todaymeal_recipe_id: params[:id], before: params[:action], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), method: :delete, class: "text-original") do %>
+                      <i class="fas fa-trash-alt fa-lg"></i>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>合計</th>
+                <% @recipe_myfoods.each do |recipe_myfood| %>
+                  <td><%= recipe_myfood %></td>
+                <% end %>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render template: "graph/_nutrition_radar_graph" %>
+
+<div class="box1">
+  <div class="row">
+    <div class="mx-auto">
+      <h4>【<%= params[:start_time] %>】の【<%= @timezone.time_zone %>】に【<%= @recipe.recipe_name %>】を編集</h4>
+    </div>
+    <div class="col-12">
+      <%= form_with(model: @todaymeal_recipe, url: user_todaymeal_recipe_path(@user, @todaymeal_recipe, recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
+        
+        <%= f.label :amount, class: "label-form" %><br>
+        <%= f.number_field :amount, :placeholder => "分量(何人分か)", class: "form-control" %><br>
+        
+        <%= f.label :note, class: "label-form" %><br>
+        <%= f.text_area :note, :placeholder => "備考", class: "form-control" %><br>
+        
+        <%= f.hidden_field :start_time, value: params[:start_time] %>
+        <%= f.hidden_field :recipe_id, value: params[:recipe_id] %>
+        <%= f.hidden_field :timezone_id, value: params[:timezone_id] %>
+    </div>
+    <div class="mx-auto">
+        <%= f.submit yield(:btn_text), class: "btn btn-lg btn-original btn-form btn-setup" %>
+        <%= link_to "削除", user_todaymeal_recipe_path(@user, @todaymeal_recipe, start_time: params[:start_time], start_date: params[:start_date]), method: :delete, class: "btn btn-lg btn-danger" %>
+        <%= link_to "戻る", user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-lg btn-default btn-form" %>
+    </div>
+      <% end %>
+  </div>
+</div>
+

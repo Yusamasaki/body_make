@@ -1,0 +1,60 @@
+<div class="modal-dialog modal-lg modal-dialog-center">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h1 class="modal-title"></h1><br>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+          <canvas id="total_load<%= params[:traningevent_id] %>" width="1000" height="1000"></canvas>
+          <script>
+            
+            var ctx, total_load<%= params[:traningevent_id] %>;
+            
+            let arr = <%= @analysis_total_load %>;
+
+              for (let i = 0; i < arr.length; i++){
+              	if (arr[i] === 0){
+              		arr.splice(i, 1, null); 
+              		if (i > 0) i--;
+              	}                                                       
+              }
+          
+            ctx = document.getElementById("total_load<%= params[:traningevent_id] %>").getContext('2d');
+            
+            total_load<%= params[:traningevent_id] %> = new Chart(ctx, {
+              
+              type: 'line',
+              data: {
+                labels: <%= @analysis_day %>,
+                datasets: [
+                  {
+                    label: [],
+                    data: arr,
+                    backgroundColor: 'rgba(0, 0, 255, 0.3)',
+                    borderColor: '#0000FF',
+                    borderWidth: 1,
+                    hoverBackgroundColor: void 0,
+                    spanGaps: true
+                  }
+                ]
+              },
+              options: {
+                title: {
+                  display: true,
+                  text: '総負荷',
+                  fontSize: 20,
+                  fontColor: '#274277'
+                }
+              }
+            });
+
+          </script>
+        </div>
+      </div>
+    </div>
+  </di>
+<div></div>

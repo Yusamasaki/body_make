@@ -6,7 +6,11 @@
       </button>
       <h1 class="modal-title"></h1><br>
         <%= month_calendar events: @body_weights do |date, events| %>
-          <%= link_to date.day, user_path(current_user, bodyweight_id: @bodyweight, start_time: date, start_date: @first_day) %>
+          <% unless date.to_date > Time.current %>
+            <%= link_to date.day, user_path(current_user, bodyweight_id: @bodyweight, start_time: date, start_date: @first_day) %>
+          <% else %>
+            <%= date.day %>
+          <% end %>
           <% events.each do |event| %>
             <div>
               <% if event.body_weight.present? %>

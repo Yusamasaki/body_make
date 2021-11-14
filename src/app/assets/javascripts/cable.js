@@ -5,6 +5,8 @@
 //= require_self
 //= require_tree ./channels
 
+import {Chart} from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 (function() {
   this.App || (this.App = {});

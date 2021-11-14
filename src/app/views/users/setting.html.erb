@@ -1,1 +1,46 @@
-
+<div class="box1">
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <%= link_to "目標編集", edit_user_targetweight_path(@user, @target_weight, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary btn-edit" %>
+      <%= link_to "基本設定編集", edit_user_bmr_path(@user, @bmr, startw_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary btn-edit" %>
+      <% if @pfc.present? %>
+        <%= link_to "PFC", edit_user_pfc_ratio_path(@user, @pfc, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary" %>
+      <% else %>
+        <%= link_to "PFC", new_user_pfc_ratio_path(@user, @pfc, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary" %>
+      <% end %>
+      </div>
+    <div class="col-md-12 offset-md-1">
+      <table class="table table-striped table-responsive">
+        <thead>
+          <tr>
+            <th scope="col">基礎代謝</th>
+            <th scope="col">1日摂取カロリー</th>
+            <th scope="col">1日の可能摂取カロリー</th>
+            <th scope="col">たんぱく質</th>
+            <th scope="col">脂質</th>
+            <th scope="col">炭水化物</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <!--基礎代謝-->
+            <td>
+              <%= @bmr_format %>kcal
+            </td>
+            <!--1日摂取カロリー-->
+            <td>
+              <%= @day_calorie %>kcal
+            </td>
+            <!--1日の可能摂取カロリー-->
+            <td>
+              <%= @day_target_calorie %>kcal
+            </td>
+            <% @target_pfcs.each do |calorie, gram| %>
+              <td><%= gram %>g(<%= calorie %>kcal)</td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

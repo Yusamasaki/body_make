@@ -1,0 +1,2 @@
+module TodaymealRecipesHelper
+end

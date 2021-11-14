@@ -1,0 +1,47 @@
+<% provide(:title, "食事記録") %>
+<% provide(:btn_text, "記録") %>
+
+<%= link_to(edit_user_myfood_path(@user, @myfood, recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date])) do %>
+<div class="box1">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th><%= Myfood.human_attribute_name(:food_name) %></th>
+            <% @attribute_names.each do |attribute_name| %>
+              <th><%= attribute_name %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th><%= @myfood.food_name %></th>
+            <td><%= @myfood.calorie %></td>
+            <td><%= @myfood.protein %></td>
+            <td><%= @myfood.fat %></td>
+            <td><%= @myfood.carbo %></td>
+            <td><%= @myfood.sugar %></td>
+            <td><%= @myfood.dietary_fiber %></td>
+            <td><%= @myfood.salt %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<%= render template: "graph/_nutrition_radar_graph" %>
+
+<div class="box1">
+  <div class="row">
+    <div class="mx-auto">
+      <h4>【<%= params[:start_time] %>】の【<%= @timezone.time_zone %>】に【<%= @myfood.food_name %>】を記録</h4>
+    </div>
+    <div class="col-12">
+      <%= form_with(model: @todaymeal, url: user_todaymeals_path(@user, myfood_id: params[:myfood_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
+        <%= render partial: "form", locals: { f: f } %>
+      <% end %>
+  </div>
+</div>

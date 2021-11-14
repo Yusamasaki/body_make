@@ -11,8 +11,7 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     
@@ -35,7 +34,7 @@
         <% flash.each do |message_type, msg| %>
           <div class= "alert-original alert-<%= message_type %>"><%= msg.html_safe %></div>
         <% end %>
-        <div class="container">
+        <div class="container-xxl">
           <%= yield %>
           <%= debug(params) if Rails.env.development? %>
         </div>
@@ -47,8 +46,5 @@
   <footer>
     
   </footer>
-  
-    
-  
   
 </html>

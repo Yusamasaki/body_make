@@ -40,3 +40,24 @@ ja:
         sub_body_part: 対象部位
         traning_type: トレーニングタイプ
         traning_name: トレーニング名
+      myfood:
+        food_name: 食品名
+        amount: 分量
+        calorie: カロリー
+        protein: たんぱく質
+        fat: 脂質
+        carbo: 炭水化物
+        sugar: 糖質
+        dietary_fiber: 食物繊維
+        salt: 塩分
+      recipe:
+        recipe_name: レシピ名
+      recipefood:
+        amount: 分量(何個分か)
+      todaymeal:
+        note: 備考
+        amount: 分量(何人分か)
+      todaymeal_recipe:
+        note: 備考
+        amount: 分量(何人分か)
+        

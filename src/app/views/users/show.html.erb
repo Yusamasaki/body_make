@@ -1,4 +1,4 @@
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>
 
 <div class="box1">
   <div class="row">
@@ -8,8 +8,10 @@
         <div class="arrow round-arrow-left"></div>
       <% end %>
       <a style="color: #274277;"><%= params[:start_time] %></a>
-      <%= link_to(user_path(current_user, start_time: params[:start_time].to_date.tomorrow, start_date: params[:start_date].to_date.next_month)) do %>
-        <div class="arrow round-arrow-right"></div>
+      <% unless params[:start_time].to_date.tomorrow == Time.current.to_date.tomorrow %>
+        <%= link_to(user_path(current_user, start_time: params[:start_time].to_date.tomorrow, start_date: params[:start_date].to_date.next_month)) do %>
+          <div class="arrow round-arrow-right"></div>
+        <% end %>
       <% end %>
     </div>
     <div class="col-md-3 align-self-center">
@@ -17,6 +19,7 @@
         <div class="calendar"></div>
       <% end %>
     </div>
+    
   </div>
 </div>
 
@@ -44,6 +47,17 @@
   </div>
 </div>
 
-<%= render 'bmr' %>
+
+<div class="box1">
+  <div class="row">
+    <% @bodyparts.each do |bodypart| %>
+      <div class="col-md-6">
+        <canvas id="recovery_<%= bodypart.id %>" width="100" height="30"></canvas>
+        <script>recovery_<%= bodypart.id %>_graph();</script>
+      </div>
+    <% end %>
+  </div>
+</div>
+
 
 <div id="calender" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

@@ -1,0 +1,11 @@
+<% provide(:title, "食品編集") %>
+<% provide(:btn_text, "更新") %>
+
+<div class="box1">
+  <%= form_with(model: @myfood, url: user_myfood_path(@user, @myfood, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
+    
+    <%= render partial: "form", locals: { f: f }%>
+    <%= link_to "削除", user_myfood_path(@user, @myfood, recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :delete,
+        data: { confirm: "「#{@myfood.food_name}」を削除します。本当によろしいですか？" }, class: "btn btn-lg btn-danger" %>
+  <% end %>
+</div>

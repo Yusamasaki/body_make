@@ -1,0 +1,2 @@
+module MealsAnalysisHelper
+end
