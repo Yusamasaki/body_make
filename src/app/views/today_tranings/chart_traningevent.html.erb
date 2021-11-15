@@ -1,0 +1,86 @@
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link" href="<%= user_today_tranings_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" id="line-chart-tab"href="#line-chart">Line Chart</a>
+  </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="line-chart" role="tabpanel" aria-labelledby="line-chart-tab">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <% @bodyparts.each do |bodypart| %>
+      <li class="nav-item">
+        <% if bodypart.id == params[:bodypart_id].to_i %>
+          <a class="nav-link active" id="tab-bodypart-<%= params[:bodypart_id].to_i %>" data-toggle="tab" href="#bodypart-<%= params[:bodypart_id].to_i %>" role="tab" aria-controls="bodypart-<%= params[:bodypart_id].to_i %>" aria-selected="true"><%= bodypart.body_part %></a>
+        <% else %>
+          <a class="nav-link" id="tab-bodypart-<%= bodypart.id %>" data-toggle="tab" href="#bodypart-<%= bodypart.id %>" role="tab" aria-controls="bodypart-<%= bodypart.id %>" aria-selected="true"><%= bodypart.body_part %></a>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+  
+<div class="tab-content" id="myTabContent">
+  <% @traningevents.each do |bodypart, traningevents| %>
+  <% if bodypart == params[:bodypart_id].to_i %>
+    <div class="tab-pane fade show active" id="bodypart-<%= params[:bodypart_id] %>" role="tabpanel" aria-labelledby="tab-bodypart-<%= params[:bodypart_id] %>">
+  <% else %>
+    <div class="tab-pane fade" id="bodypart-<%= bodypart %>" role="tabpanel" aria-labelledby="tab-bodypart-<%= bodypart %>">
+  <% end %>
+    <% traningevents.each do |id, name| %>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <% if id == params[:traningevent_id].to_i %>
+          <%= link_to(user_today_tranings_chart_traningevent_path(@user, bodypart_id: params[:bodypart_id], traningevent_id: params[:traningevent_id], start_time: params[:start_time], start_date: params[:start_date]), class: "nav-link active", data: {"turbolinks"=>false}) do %>
+            <div><%= name %></div>
+          <% end %>
+        <% else %>
+          <%= link_to(user_today_tranings_chart_traningevent_path(@user, bodypart_id: bodypart, traningevent_id: id, start_time: params[:start_time], start_date: params[:start_date]), class: "nav-link", data: {"turbolinks"=>false}) do %>
+            <div><%= name %></div>
+          <% end %>
+        <% end %>
+      </li>
+    </ul>
+    <% end %>
+  </div>
+  <% end %>
+</div>
+
+<div>
+  <canvas id="total_load"></canvas>
+  <script>
+  
+    let day = <%= @analysis_day %>;
+    let total = <%= @analysis_total_load %>;
+    
+    for (let i = 0; i < total.length; i++){
+    	if (total[i] === 0){
+    		total.splice(i, 1, null); 
+    		if (i > 0) i--;
+    	}                                                       
+    }
+    
+    total_load_graph();
+
+  </script>
+</div>
+<div>
+  <canvas id="max_load"></canvas>
+  <script>
+  
+    let max = <%= @analysis_max_load %>;
+    
+    for (let i = 0; i < max.length; i++){
+    	if (max[i] === 0){
+    		max.splice(i, 1, null); 
+    		if (i > 0) i--;
+    	}                                                       
+    }
+    
+    max_load_graph();
+
+  </script>
+</div>

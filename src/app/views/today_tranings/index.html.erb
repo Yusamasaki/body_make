@@ -3,10 +3,7 @@
     <a class="nav-link active" id="record-tab" data-toggle="tab" href="#record" role="tab" aria-controls="record" aria-selected="true">Record</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="line-chart-tab" data-toggle="tab" href="#line-chart" role="tab" aria-controls="line-chart" aria-selected="false">Line Chart</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="radar-chart-tab" data-toggle="tab" href="#radar-chart" role="tab" aria-controls="radar-chart" aria-selected="false">Radar Chart</a>
+    <a class="nav-link" id="line-chart-tab" href="<%= user_today_tranings_chart_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>#line-chart">Line Chart</a>
   </li>
 </ul>
 
@@ -104,31 +101,6 @@
         </div>
       </div>
     <% end %>
-    </div>
-  <div class="tab-pane fade" id="line-chart" role="tabpanel" aria-labelledby="line-chart-tab">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <% @bodyparts.each do |bodypart| %>
-      <li class="nav-item">
-        
-        <a class="nav-link" id="tab-bodypart-<%= bodypart.id %>" data-toggle="tab" href="#bodypart-<%= bodypart.id %>" role="tab" aria-controls="bodypart-<%= bodypart.id %>" aria-selected="true"><%= bodypart.body_part %></a>
-      </li>
-      <% end %>
-    </ul>
-    
-    <div class="tab-content" id="myTabContent">
-      <% @traningevents.each do |bodypart, traningevents| %>
-      <div class="tab-pane fade" id="bodypart-<%= bodypart %>" role="tabpanel" aria-labelledby="tab-bodypart-<%= bodypart %>">
-        <% traningevents.each do |id, name| %>
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item">
-            <%= link_to(user_today_tranings_chart_path(@user, traningevent_id: id, start_time: params[:start_time], start_date: params[:start_date]), class: "nav-link", id: "", data: {"turbolinks"=>false}) do %>
-            <div><%= name %></div>
-            <% end %>
-          </li>
-        </ul>
-        <% end %>
-      </div>
-      <% end %>
     </div>
   </div>
 </div>
