@@ -7,7 +7,19 @@ class TraningeventsController < ApplicationController
   def index
     @traningevents_all = @user.traningevents.all
     @traningtypes = Traningtype.all
-    @bodyparts = Bodypart.where(id: 2..6)
+    @bodyparts = Bodypart.all
+    
+    @traningevents = @bodyparts.pluck(:id).map{|bodypart|
+        [bodypart, @user.traningevents.where(bodypart_id: bodypart).pluck(:id, :traning_name)]
+      }
+      
+    @traning_analysis = @traningevents.map{|bodypart, traningevents|
+      traningevents.map{|id, name|
+        [
+          id, gon.day = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:start_time).map{|day| day.day}, gon.total = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:total_load), gon.max = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:max_load)
+        ]
+      }
+    }
   end
   
   def new

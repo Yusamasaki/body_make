@@ -24,7 +24,6 @@ Rails.application.routes.draw do
     get 'today_tranings/traning_analysis'
     get 'today_tranings/chart'
     get 'today_tranings/chart_traningevent'
-    get 'today_tranings/event'
     
     get 'todaymeals/analysis'
     
