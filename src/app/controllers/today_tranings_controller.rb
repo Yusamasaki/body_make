@@ -1,21 +1,14 @@
 class TodayTraningsController < ApplicationController
     
     before_action :set_user, only: [:index, :create, :update, :destroy, :traning_new, :traning_analysis, :chart, :chart_traningevent, :event]
-    before_action :set_basic, only: [:index, :traning_analysis, :chart, :chart_traningevent]
+    before_action :set_basic, only: [:index, :traning_analysis, :chart, :chart_traningevent, :traning_new]
     before_action :set_analysis_day, only: [:traning_new, :traning_analysis, :index, :chart, :chart_traningevent]
     before_action :set_traningevent, only: [:create, :update, :destroy]
     before_action :start_time_next_valid, only: [:index, :traning_new, :traning_analysis, :chart, :chart_traningevent]
-    
+    before_action :set_traning_tab, only: [:index, :traning_new, ]
     
     def index
       @today_tranings = @user.today_tranings.all
-      
-      @bodyparts = Bodypart.all
-      
-      @traningevents = @bodyparts.pluck(:id).map{|bodypart|
-        [bodypart, @user.traningevents.where(bodypart_id: bodypart).pluck(:id, :traning_name)]
-      }
-      
     end
     
     def create
@@ -64,17 +57,17 @@ class TodayTraningsController < ApplicationController
     end
     
     def traning_new
-      @traningevent = @user.traningevents.find(params[:traningevent_id])
+      @traningevent = @user.traningevents.find(params[:traningevent_id]) if params[:traningevent_id]
       @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: @traningevent).order(:id).pluck(:id)
       
-      unless @today_tranings.count >= 3
-        ActiveRecord::Base.transaction do
-          3.times { |traning| current_user.today_tranings.create!(start_time: params[:start_time], traningevent_id: params[:traningevent_id]) }
+      if params[:traningevent_id]
+        unless @today_tranings.count >= 3
+          ActiveRecord::Base.transaction do
+            3.times { |traning| current_user.today_tranings.create!(start_time: params[:start_time], traningevent_id: params[:traningevent_id]) }
+          end
+          @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: params[:traningevent_id]).order(:id).pluck(:id)
         end
-        @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: params[:traningevent_id]).order(:id).pluck(:id)
       end
-      
-      
     end
     
     def traning_analysis

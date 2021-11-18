@@ -79,11 +79,11 @@ SubBodypart.create(
 
 Traningevent.create!(
 	[
-		{traning_name: "ベンチプレス", sub_body_part: "大胸筋中部", bodypart_id: 1, traningtype_id: 1, user_id: 1},
-		{traning_name: "デッドリフト", sub_body_part: "僧帽筋中部", bodypart_id: 2, traningtype_id: 1, user_id: 1},
-		{traning_name: "スクワット", sub_body_part: "大腿二頭筋(ハムストリング)", bodypart_id: 3, traningtype_id: 1, user_id: 1},
-		{traning_name: "バーベルショルダープレス", sub_body_part: "三角筋前部", bodypart_id: 4, traningtype_id: 1, user_id: 1},
-		{traning_name: "バーベルカール", sub_body_part: "上腕二頭筋", bodypart_id: 5, traningtype_id: 1, user_id: 1}
+		{traning_name: "ベンチプレス", subbodypart_id: 1, bodypart_id: 1, traningtype_id: 1, user_id: 1},
+		{traning_name: "デッドリフト", sub_body_part: 5, bodypart_id: 2, traningtype_id: 1, user_id: 1},
+		{traning_name: "スクワット", sub_body_part: 10, bodypart_id: 3, traningtype_id: 1, user_id: 1},
+		{traning_name: "バーベルショルダープレス", sub_body_part: 12, bodypart_id: 4, traningtype_id: 1, user_id: 1},
+		{traning_name: "バーベルカール", sub_body_part: 16, bodypart_id: 5, traningtype_id: 1, user_id: 1}
 	]
 )
 

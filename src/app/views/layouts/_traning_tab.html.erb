@@ -1,0 +1,142 @@
+<!--大項目選択タブ-->
+<ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
+  <!--HOMEタブ-->
+  <li class="nav-item">
+    <a class="nav-link" href="<%= user_today_tranings_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">
+      HOME
+    </a>
+  </li>
+  <!--Recordタブ-->
+  <li class="nav-item">
+    <a class="nav-link active" href="<%= user_today_tranings_traning_new_path(@user, traningtype_id: 1, traningevent_id: 1, bodypart_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>">
+      Record
+    </a>
+  </li>
+  <!--Analysisタブ-->
+  <li class="nav-item">
+    <a class="nav-link" href="<%= user_today_tranings_chart_path(@user, traningtype_id: 1, traningevent_id: 1, bodypart_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>">
+      Line Chart
+    </a>
+  </li>
+</ul>
+
+<!--Bodypartタブ-->
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="Record" role="tabpanel" aria-labelledby="Record-tab">
+    <ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
+      <% @bodyparts.each do |bodypart| %>
+      <li class="nav-item">
+        <% if controller_name == "today_tranings" && action_name == "traning_new" %>
+          <% if bodypart.id == params[:bodypart_id].to_i %>
+            <a class="nav-link active" id="tab-bodypart-<%= params[:bodypart_id].to_i %>" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= bodypart.body_part %></a>
+          <% else %>
+            <a class="nav-link" id="tab-bodypart-<%= bodypart.id %>" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: bodypart.id, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= bodypart.body_part %></a>
+          <% end %>
+        <% elsif controller_name == "traningevents" && action_name == "new" %>
+          <% if bodypart.id == params[:bodypart_id].to_i %>
+            <a class="nav-link active" id="tab-bodypart-<%= params[:bodypart_id].to_i %>" href="<%= new_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= bodypart.body_part %></a>
+          <% else %>
+            <a class="nav-link" id="tab-bodypart-<%= bodypart.id %>" href="<%= new_user_traningevent_path(@user, bodypart_id: bodypart.id, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= bodypart.body_part %></a>
+          <% end %>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+
+<div class="tab-content" id="myTabContent">
+  <% @traningevents.each do |bodypart, traningevents| %>
+    <% if bodypart == params[:bodypart_id].to_i %>
+      <div class="tab-pane fade show active" id="bodypart-<%= params[:bodypart_id].to_i %>" role="tabpanel" aria-labelledby="tab-bodypart-<%= params[:bodypart_id].to_i %>">
+    <% else %>
+      <div class="tab-pane fade" id="bodypart-<%= bodypart %>" role="tabpanel" aria-labelledby="tab-bodypart-<%= bodypart %>">
+    <% end %>
+        <ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
+          <% @subbodyparts.each do |subbodypart| %>
+            <li class="nav-item">
+              <% if controller_name == "today_tranings" && action_name == "traning_new" %>
+                <% if subbodypart.id == params[:subbodypart_id].to_i %>
+                  <a class="nav-link active" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: bodypart, subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= subbodypart.sub_body_part %></a>
+                <% else %>
+                  <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: bodypart, subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= subbodypart.sub_body_part %></a>
+                <% end %>
+              <% elsif controller_name == "traningevents" && action_name == "new" %>
+                <% if subbodypart.id == params[:subbodypart_id].to_i %>
+                  <a class="nav-link active" href="<%= new_user_traningevent_path(@user, bodypart_id: bodypart, subbodypart_id: subbodypart, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= traningtype.sub_body_part %></a>
+                <% else %>
+                  <a class="nav-link" href="<%= new_user_traningevent_path(@user, bodypart_id: bodypart, subbodypart_id: subbodypart, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= traningtype.sub_body_part %></a>
+                <% end %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+    
+        <!--Traningtypeタブ-->
+        <ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
+          <% @traningtypes.each do |traningtype| %>
+            <li class="nav-item">
+              <% if controller_name == "today_tranings" && action_name == "traning_new" %>
+                <% if traningtype.id == params[:traningtype_id].to_i %>
+                  <a class="nav-link active" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: bodypart, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= traningtype.traning_type %></a>
+                <% else %>
+                  <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: bodypart, traningtype_id: traningtype, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= traningtype.traning_type %></a>
+                <% end %>
+              <% elsif controller_name == "traningevents" && action_name == "new" %>
+                <% if traningtype.id == params[:traningtype_id].to_i %>
+                  <a class="nav-link active" href="<%= new_user_traningevent_path(@user, bodypart_id: bodypart, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= traningtype.traning_type %></a>
+                <% else %>
+                  <a class="nav-link" href="<%= new_user_traningevent_path(@user, bodypart_id: bodypart, traningtype_id: traningtype, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= traningtype.traning_type %></a>
+                <% end %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+        
+        <!--Record && Createタブ-->
+        <ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
+          <li class="nav-item">
+            <% if controller_name == "today_tranings" && action_name == "traning_new" %>
+              <a class="nav-link active" href="#Record">Record</a>
+            <% else %>
+              <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, traningtype_id: 1, traningevent_id: 1, bodypart_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <% if controller_name == "traningevents" && action_name == "new" %>
+              <a class="nav-link active" href="<%= new_user_traningevent_path(@user, traningtype_id: params[:traningtype_id], bodypart_id: bodypart, start_time: params[:start_time], start_date: params[:start_date])%>"> Create</a>
+            <% else %>
+              <a class="nav-link" href="<%= new_user_traningevent_path(@user, traningtype_id: params[:traningtype_id], bodypart_id: bodypart, start_time: params[:start_time], start_date: params[:start_date])%>"> Create</a>
+            <% end %>
+          </li>
+        </ul>
+        <% traningevents.each do |id, name| %>
+        
+          <!--Traningeventタブ-->
+          <% if controller_name == "today_tranings" && action_name == "traning_new" %>
+            <ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
+              <li class="nav-item">
+                <% if id == params[:traningevent_id].to_i %>
+                  <a class="nav-link active", href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: bodypart, traningtype_id: params[:traningtype_id], traningevent_id: id, start_time: params[:start_time], start_date: params[:start_date])%>"><%= name %></a>
+                <% else %>
+                  <a class="nav-link", href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: bodypart, traningtype_id: params[:traningtype_id], traningevent_id: id, start_time: params[:start_time], start_date: params[:start_date])%>"><%= name %></a>
+                <% end %>
+              </li>
+            </ul>
+          <% elsif controller_name == "traningevents" && action_name == "new" %>
+            <ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
+              <li class="nav-item">
+                <div class="nav-link"><h5>現在の種目一覧</h5></div>
+              </li>
+            </ul>
+            <ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
+              <li class="nav-item">
+                <div class="nav-link"><%= name %></div>
+              </li>
+            </ul>
+          <% end %>
+        <% end %>
+      </div>
+  <% end %>
+</div>

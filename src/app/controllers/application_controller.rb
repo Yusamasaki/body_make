@@ -111,6 +111,24 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+  
+  def set_traning_tab
+    @bodyparts = Bodypart.all
+    @traningtypes = Traningtype.all
+    @subbodyparts = SubBodypart.where(bodypart_id: params[:bodypart_id])
+    
+    @traningevents = @bodyparts.pluck(:id).map{|bodypart|
+        [bodypart, @user.traningevents.where(bodypart_id: bodypart, traningtype_id: params[:traningtype_id], subbodypart_id: params[:subbodypart_id]).pluck(:id, :traning_name)]
+      }
+      
+    @traning_analysis = @traningevents.map{|bodypart, traningevents|
+      traningevents.map{|id, name|
+        [
+          id, gon.day = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:start_time).map{|day| day.day}, gon.total = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:total_load), gon.max = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:max_load)
+        ]
+      }
+    }
+  end
     
 
   # TodayExeciseクラスの1ヶ月分start_time(日にち)を作成

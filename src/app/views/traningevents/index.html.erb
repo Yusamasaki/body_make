@@ -1,19 +1,22 @@
-<ul class="nav nav-tabs" id="myTab" role="tablist">
+<ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link" href="<%= user_today_tranings_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">HOME</a>
   </li>
   <li class="nav-item">
     <a class="nav-link active" id="Record-tab"href="#Record">Record</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" id="line-chart-tab" href="<%= user_today_tranings_chart_path(@user, traningtype_id: 1, traningevent_id: 1, bodypart_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>#line-chart">Line Chart</a>
+  </li>
 </ul>
 
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade show active" id="Record" role="tabpanel" aria-labelledby="Record-tab">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
       <% @bodyparts.each do |bodypart| %>
       <li class="nav-item">
-        <% if bodypart.id == 1 %>
-          <a class="nav-link active" id="tab-bodypart-1" data-toggle="tab" href="#bodypart-1" role="tab" aria-controls="bodypart-1" aria-selected="true"><%= bodypart.body_part %></a>
+        <% if bodypart.id == params[:bodypart_id].to_i %>
+          <a class="nav-link active" id="tab-bodypart-<%= params[:bodypart_id] %>" data-toggle="tab" href="#bodypart-<%= params[:bodypart_id] %>" role="tab" aria-controls="bodypart-<%= params[:bodypart_id] %>" aria-selected="true"><%= bodypart.body_part %></a>
         <% else %>
           <a class="nav-link" id="tab-bodypart-<%= bodypart.id %>" data-toggle="tab" href="#bodypart-<%= bodypart.id %>" role="tab" aria-controls="bodypart-<%= bodypart.id %>" aria-selected="true"><%= bodypart.body_part %></a>
         <% end %>
@@ -24,15 +27,30 @@
 </div>
 <div class="tab-content" id="myTabContent">
   <% @traningevents.each do |bodypart, traningevents| %>
-    <% if bodypart == 1 %>
-      <div class="tab-pane fade show active" id="bodypart-1" role="tabpanel" aria-labelledby="tab-bodypart-1">
+    <% if bodypart == params[:bodypart_id].to_i %>
+      <div class="tab-pane fade show active" id="bodypart-<%= params[:bodypart_id].to_i %>" role="tabpanel" aria-labelledby="tab-bodypart-<%= params[:bodypart_id].to_i %>">
     <% else %>
       <div class="tab-pane fade" id="bodypart-<%= bodypart %>" role="tabpanel" aria-labelledby="tab-bodypart-<%= bodypart %>">
     <% end %>
-        <% traningevents.each do |id, name| %>
-          <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
+          <% @traningtypes.each do |traningtype| %>
             <li class="nav-item">
-              <a class="nav-link" href="<%= user_traningevents_path(@user, bodypart_id: bodypart, traningevent_id: id, start_time: params[:start_time], start_date: params[:start_date])%>" ><%= name %></a>
+              <a class="nav-link active" href="#"><%= traningtype.traning_type %></a>
+            </li>
+          <% end %>
+        </ul>
+        <ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" href="#Record">Record</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<%= new_user_traningevent_path(@user, bodypart_id: bodypart, start_time: params[:start_time], start_date: params[:start_date])%>"> Create</a>
+          </li>
+        </ul>
+        <% traningevents.each do |id, name| %>
+          <ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: bodypart, traningevent_id: id, start_time: params[:start_time], start_date: params[:start_date])%>" ><%= name %></a>
             </li>
           </ul>
         <% end %>
@@ -41,58 +59,3 @@
 </div>
 
 
-<div class="row">
-  <div class="col-md-12">
-    
-    <div class="content-area">
-      <div class="content show">
-        <% @traningtypes.each do |traningtype| %>
-          <h2><%= traningtype.traning_type %></h2>
-          <%= link_to(new_user_traningevent_path(current_user, traningevent_id: params[:traningevent_id], traningtype_id: traningtype, bodypart_id: 1, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
-            <i class="far fa-plus-square fa-2x"></i>
-          <% end %>
-          <table class="table table-striped">
-            <tbody>
-              <% @traningevents = @user.traningevents.where(bodypart_id: 1, traningtype_id: traningtype) %>
-              <% @traningevents.each do |traningevent| %>
-                <tr>
-                  <td><%= link_to traningevent.traning_name, user_today_tranings_traning_new_path(@user, traningevent_id: traningevent, start_time: params[:start_time], start_date: params[:start_date]), class: "traning-title text-original" %></td>
-                  <td>
-                    <%= link_to(user_traningevent_path(@user, traningevent, start_time: params[:start_time], start_date: params[:start_date]), class: "traning-title text-original") do %>
-                      <i class="fas fa-edit"></i>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        <% end %>
-      </div>
-      <% @bodyparts.each do |bodypart| %>
-        <div class="content">
-          <% @traningtypes.each do |traningtype| %>
-            <h2><%= traningtype.traning_type %></h2>
-            <%= link_to(new_user_traningevent_path(current_user, traningtype_id: traningtype, bodypart_id: bodypart, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
-              <i class="far fa-plus-square fa-2x"></i>
-            <% end %>
-            <table class="table table-striped">
-              <tbody>
-                <% @traningevents = @user.traningevents.where(bodypart_id: bodypart, traningtype_id: traningtype) %>
-                <% @traningevents.each do |traningevent| %>
-                  <tr>
-                    <td><%= link_to traningevent.traning_name, user_today_tranings_traning_new_path(@user, traningevent_id: traningevent, start_time: params[:start_time], start_date: params[:start_date]), class: "traning-title text-original" %></td>
-                    <td>
-                      <%= link_to(user_traningevent_path(@user, traningevent, start_time: params[:start_time], start_date: params[:start_date]), class: "traning-title text-original") do %>
-                        <i class="fas fa-edit"></i>
-                      <% end %>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
