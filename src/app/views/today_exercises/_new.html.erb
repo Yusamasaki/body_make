@@ -21,6 +21,13 @@
         </div><br>
 
         <div>
+          <%= f.label :body_weight %>
+          <div class="form-inline">
+            <%= f.number_field :body_weight, step: "0.1", value: @now_body_weight, class: "form-control form-control-sm w-25" %>&nbsp;kg
+          </div>
+        </div><br>
+
+        <div>
           <%= f.label :note, class: "label-form" %>
           <%= f.text_field :note, class: "form-control form-control-sm" %>
         </div><br>

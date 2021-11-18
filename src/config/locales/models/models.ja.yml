@@ -33,6 +33,7 @@ ja:
         mets: メッツ
       today_exercise:
         start_time: 日付
+        body_weight: 現在の体重
         exercise_time: 運動時間
         note: 備考
       traningevent:

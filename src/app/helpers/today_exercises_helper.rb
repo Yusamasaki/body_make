@@ -10,7 +10,7 @@ module TodayExercisesHelper
   def mets(exercise)
     if exercise.exercise_content_id.present?
       mets = ExerciseContent.find(exercise.exercise_content_id).mets
-      body_weight = Targetweight.find_by(user_id: @user.id).now_body_weight
+      body_weight = exercise.body_weight
       exercise_hour = exercise.exercise_time.hour * 60
       exercise_min = exercise.exercise_time.min
       exercise_time = ((exercise_hour + exercise_min) / 60.to_f).round(2)
