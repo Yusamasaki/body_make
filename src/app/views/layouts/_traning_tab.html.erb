@@ -30,13 +30,12 @@
     <% end %>
   </li>
   <% @bodyparts.each do |bodypart| %>
-  <% subbodypart_active_bodypart = SubBodypart.where(bodypart_id: bodypart).order(:id).limit(1).pluck(:id).sum %>
   <li class="nav-item">
     <% if controller_name == "today_tranings" && action_name == "traning_new" %>
       <% if bodypart.id == params[:bodypart_id].to_i %>
         <a class="nav-link active" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= bodypart.body_part %></a>
       <% else %>
-        <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: bodypart.id, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= bodypart.body_part %></a>
+        <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: bodypart.id, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>#bodypart-1"><%= bodypart.body_part %></a>
       <% end %>
     <% elsif controller_name == "traningevents" && action_name == "new" %>
       <% if bodypart.id == params[:bodypart_id].to_i %>
