@@ -14,6 +14,7 @@ class TodayExercisesController < ApplicationController
     @today_exercise = TodayExercise.new
     @category_params = params[:exercise_category_id]
     @content_params = params[:exercise_content_id]
+    @now_body_weight = @user.targetweight.now_body_weight unless params[:recipe_id].present?
   end
 
   def create
@@ -104,6 +105,6 @@ class TodayExercisesController < ApplicationController
     end
 
     def exercise_params
-      params.require(:today_exercise).permit(:start_time, :exercise_time, :note, :exercise_category_id, :exercise_content_id, :user_id)
+      params.require(:today_exercise).permit(:start_time, :exercise_time, :body_weight, :note, :exercise_category_id, :exercise_content_id, :user_id)
     end
 end
