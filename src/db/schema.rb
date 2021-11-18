@@ -158,8 +158,8 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
     t.float "goal_body_weight"
     t.float "now_bodyfat_percentage"
     t.float "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-11-18 02:47:21"
-    t.datetime "target_date", default: "2021-11-19 02:47:21"
+    t.datetime "beginning_date", default: "2021-11-18 14:17:16"
+    t.datetime "target_date", default: "2021-11-19 14:17:16"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -245,13 +245,11 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
     t.string "traning_name"
     t.string "sub_body_part"
     t.bigint "subbodypart_id"
-    t.bigint "user_id"
     t.bigint "traningtype_id"
     t.bigint "bodypart_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["bodypart_id"], name: "index_traningevents_on_bodypart_id"
-    t.index ["traningtype_id"], name: "index_traningevents_on_traningtype_id"
     t.index ["user_id"], name: "index_traningevents_on_user_id"
   end
 
@@ -303,7 +301,5 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
   add_foreign_key "todaymeals", "users"
   add_foreign_key "traning_analyses", "traningevents"
   add_foreign_key "traning_analyses", "users"
-  add_foreign_key "traningevents", "bodyparts"
-  add_foreign_key "traningevents", "traningtypes"
   add_foreign_key "traningevents", "users"
 end

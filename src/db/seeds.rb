@@ -66,7 +66,7 @@ Bodypart.create!(
 	[{body_part: "胸"}, {body_part: "背中"}, {body_part: "脚"}, {body_part: "肩"}, {body_part: "腕"}, {body_part: "腹筋"}]
 )
 
-SubBodypart.create(
+SubBodypart.create!(
 	[
 		{sub_body_part: "大胸筋上部", bodypart_id: 1}, {sub_body_part: "大胸筋中部", bodypart_id: 1}, {sub_body_part: "大胸筋下部", bodypart_id: 1},
 	  {sub_body_part: "僧帽筋上部", bodypart_id: 2}, {sub_body_part: "僧帽筋中部", bodypart_id: 2}, {sub_body_part: "僧帽筋下部", bodypart_id: 2}, {sub_body_part: "広背筋上部", bodypart_id: 2}, {sub_body_part: "広背筋下部", bodypart_id: 2},
@@ -80,10 +80,10 @@ SubBodypart.create(
 Traningevent.create!(
 	[
 		{traning_name: "ベンチプレス", subbodypart_id: 1, bodypart_id: 1, traningtype_id: 1, user_id: 1},
-		{traning_name: "デッドリフト", sub_body_part: 5, bodypart_id: 2, traningtype_id: 1, user_id: 1},
-		{traning_name: "スクワット", sub_body_part: 10, bodypart_id: 3, traningtype_id: 1, user_id: 1},
-		{traning_name: "バーベルショルダープレス", sub_body_part: 12, bodypart_id: 4, traningtype_id: 1, user_id: 1},
-		{traning_name: "バーベルカール", sub_body_part: 16, bodypart_id: 5, traningtype_id: 1, user_id: 1}
+		{traning_name: "デッドリフト", subbodypart_id: 5, bodypart_id: 2, traningtype_id: 1, user_id: 1},
+		{traning_name: "スクワット", subbodypart_id: 10, bodypart_id: 3, traningtype_id: 1, user_id: 1},
+		{traning_name: "バーベルショルダープレス", subbodypart_id: 12, bodypart_id: 4, traningtype_id: 1, user_id: 1},
+		{traning_name: "バーベルカール", subbodypart_id: 16, bodypart_id: 5, traningtype_id: 1, user_id: 1}
 	]
 )
 

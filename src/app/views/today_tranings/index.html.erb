@@ -3,7 +3,7 @@
     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: 1, subbodypart_id: 1, traningevent_id: 1, traningtype_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
+    <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="line-chart-tab" href="<%= user_today_tranings_chart_path(@user, traningtype_id: 1, traningevent_id: 1, bodypart_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>#line-chart">Line Chart</a>

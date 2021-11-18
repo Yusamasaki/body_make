@@ -115,13 +115,23 @@ class ApplicationController < ActionController::Base
   def set_traning_tab
     @bodyparts = Bodypart.all
     @traningtypes = Traningtype.all
+    @subbodypart_active = SubBodypart.where(bodypart_id: params[:bodypart_id]).order(:id).limit(1).pluck(:id).sum
     @subbodyparts = SubBodypart.where(bodypart_id: params[:bodypart_id])
     
-    @traningevents = @bodyparts.pluck(:id).map{|bodypart|
-        [bodypart, @user.traningevents.where(bodypart_id: bodypart, traningtype_id: params[:traningtype_id], subbodypart_id: params[:subbodypart_id]).pluck(:id, :traning_name)]
-      }
-      
-    @traning_analysis = @traningevents.map{|bodypart, traningevents|
+    if params[:bodypart_id].present? && params[:subbodypart_id].present? && params[:traningtype_id].present?
+      @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], subbodypart_id: params[:subbodypart_id])
+    elsif params[:bodypart_id].present? && params[:subbodypart_id].present? && params[:traningtype_id].nil?
+      @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id])
+    elsif params[:bodypart_id].present? && params[:subbodypart_id].nil? && params[:traningtype_id].nil?
+      @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id])
+    else
+      @traningevents = @user.traningevents.all
+    end
+    
+    @traningeventss = @bodyparts.pluck(:id).map{|bodypart|
+      [bodypart, @user.traningevents.where(bodypart_id: bodypart).pluck(:id, :traning_name)]
+    }
+    @traning_analysis = @traningeventss.map{|bodypart, traningevents|
       traningevents.map{|id, name|
         [
           id, gon.day = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:start_time).map{|day| day.day}, gon.total = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:total_load), gon.max = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:max_load)
