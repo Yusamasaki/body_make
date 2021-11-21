@@ -187,4 +187,5 @@ class ApplicationController < ActionController::Base
         @meals_analysis = @user.meals_analysis.where(start_time: @first_day..@last_day).order(:start_time)
       end
   end
+  
 end

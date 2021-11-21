@@ -13,18 +13,18 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def callback_for(provider)
-    @user = User.from_omniauth(request.env["omniauth.auth"])
-    if @user.persisted?
-      sign_in_and_redirect @user, event: :authentication #this will throw if @user is not activated
-      flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'
-    else
-      session["devise.#{provider}_data"] = request.env["omniauth.auth"].except("extra")
-      redirect_to new_user_registration_url
+    @omniauth = request.env['omniauth.auth']
+    @user = User.find_oauth(@omniauth)[:user]
+    if @user.persisted? 
+      after_sign_up_path_for @user
+      set_flash_message(:notice, :success, kind: "#{provider}".capitalize) if is_navigational_format?
+    else 
+      render template: "devise/registrations/new" 
     end
   end
 
   def failure
-    redirect_to root_path
+    redirect_to root_path and return
   end
   
   # You should also create an action method in this controller like this:
