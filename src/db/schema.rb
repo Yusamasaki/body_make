@@ -136,15 +136,6 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
-  create_table "sns_credentials", force: :cascade do |t|
-    t.string "provider"
-    t.string "uid"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_sns_credentials_on_user_id"
-  end
-
   create_table "sub_bodyparts", force: :cascade do |t|
     t.string "sub_body_part"
     t.bigint "bodypart_id"
@@ -158,8 +149,8 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
     t.float "goal_body_weight"
     t.float "now_bodyfat_percentage"
     t.float "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-11-13 19:18:21"
-    t.datetime "target_date", default: "2021-11-14 19:18:21"
+    t.datetime "beginning_date", default: "2021-11-21 14:51:53"
+    t.datetime "target_date", default: "2021-11-22 14:51:53"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -173,8 +164,8 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-11-18", null: false
-    t.datetime "exercise_time", default: "2021-11-17 15:00:00", null: false
+    t.date "start_time", default: "2021-11-21", null: false
+    t.datetime "exercise_time", default: "2021-11-20 15:00:00", null: false
     t.float "body_weight"
     t.string "note"
     t.bigint "exercise_category_id"
@@ -264,6 +255,7 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.string "nickname", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -287,7 +279,6 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
   add_foreign_key "recipefoods", "users"
   add_foreign_key "recipes", "timezones"
   add_foreign_key "recipes", "users"
-  add_foreign_key "sns_credentials", "users"
   add_foreign_key "sub_bodyparts", "bodyparts"
   add_foreign_key "targetweights", "users"
   add_foreign_key "today_exercises", "exercise_categories"

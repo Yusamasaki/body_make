@@ -12,22 +12,19 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     callback_for(:google)
   end
 
-
   def callback_for(provider)
-    @omniauth = request.env['omniauth.auth']
-    info = User.find_oauth(@omniauth)
-    @user = info[:user]
-    if @user.persisted? 
-      sign_in_and_redirect @user, event: :authentication
-      set_flash_message(:notice, :success, kind: "#{provider}".capitalize) if is_navigational_format?
-    else 
-      @sns = info[:sns]
-      render template: "devise/registrations/new" 
+    @user = User.from_omniauth(request.env["omniauth.auth"])
+    if @user.persisted?
+      sign_in_and_redirect @user, event: :authentication #this will throw if @user is not activated
+      flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'
+    else
+      session["devise.#{provider}_data"] = request.env["omniauth.auth"].except("extra")
+      redirect_to new_user_registration_url
     end
   end
 
   def failure
-    redirect_to root_path and return
+    redirect_to root_path
   end
   
   # You should also create an action method in this controller like this:
@@ -53,4 +50,5 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # def after_omniauth_failure_path_for(scope)
   #   super(scope)
   # end
+
 end
