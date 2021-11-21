@@ -30,6 +30,7 @@ puts 'sample exercise_category created!'
 30.times do |n|
 	ExerciseContent.create!(
 		content: "運動コンテンツ#{n + 1}",
+		mets: rand(1..3.9).floor(1),
 		exercise_category_id: rand(1..3)
 	)
 end

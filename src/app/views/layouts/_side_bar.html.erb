@@ -32,7 +32,7 @@
           <% end %>
         </li>
         <li>
-          <%= link_to user_today_exercises_path(current_user, start_time: params[:start_time], start_date: params[:start_date]) do %>
+          <%= link_to user_today_exercises_path(current_user, start_time: Date.current, start_date: Date.current.beginning_of_month) do %>
             <i class="fas fa-running"></i>
             <span>Exercise</span>
           <% end %>

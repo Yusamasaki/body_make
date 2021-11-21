@@ -1,8 +1,8 @@
 class CreateExerciseContents < ActiveRecord::Migration[5.2]
   def change
     create_table :exercise_contents do |t|
-      t.string :content, default: "", null: false
-      t.float :calorie, null: false, default: 0
+      t.string :content
+      t.float :mets
       t.references :exercise_category, foreign_key: true
 
       t.timestamps
