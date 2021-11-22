@@ -27,8 +27,6 @@
   
   .simple-calendar{
     width: 100%;
-    margin-left: 10px;
-    margin-right: 10px;
   }
   .calendar-heading{
     text-align: center;
@@ -40,7 +38,32 @@
   
 }
 
+// 画面サイズ428ピクセル以上1024ピクセル未満用
 @media screen and (min-width: 428px) and (max-width: 1023px) {
+  .simple-calendar{
+    width: 100%;
+  }
+  .calendar-heading{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: x-large;
+  }
+}
+
+@media screen and (max-width: 428px) {
+  
+  .simple-calendar{
+    width: 100%;
+  }
+  .calendar-heading{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: x-large;
+  }
   
 }
 

@@ -1,0 +1,41 @@
+<%= render "layouts/traning_tab" %>
+
+<% if params[:traningevent_id].present? %>
+  <div class="canvas-container">
+    <canvas id="total_load"></canvas>
+    <script>
+    
+      let day = <%= @analysis_day %>;
+      let total = <%= @analysis_total_load %>;
+      
+      for (let i = 0; i < total.length; i++){
+      	if (total[i] === 0){
+      		total.splice(i, 1, null); 
+      		if (i > 0) i--;
+      	}                                                       
+      }
+      
+      total_load_graph();
+  
+    </script>
+  </div>
+  <div>
+    <canvas id="max_load"></canvas>
+    <script>
+    
+      let max = <%= @analysis_max_load %>;
+      
+      for (let i = 0; i < max.length; i++){
+      	if (max[i] === 0){
+      		max.splice(i, 1, null); 
+      		if (i > 0) i--;
+      	}                                                       
+      }
+      
+      max_load_graph();
+  
+    </script>
+  </div>
+<% end %>
+
+

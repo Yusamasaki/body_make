@@ -5,7 +5,7 @@ class TodayTraningsController < ApplicationController
     before_action :set_analysis_day, only: [:traning_new, :traning_analysis, :index, :chart, :chart_traningevent]
     before_action :set_traningevent, only: [:create, :update, :destroy]
     before_action :start_time_next_valid, only: [:index, :traning_new, :traning_analysis, :chart, :chart_traningevent]
-    before_action :set_traning_tab, only: [:index, :traning_new, ]
+    before_action :set_traning_tab, only: [:index, :traning_new, :traning_analysis]
     
     def index
       @today_tranings = @user.today_tranings.all
@@ -14,10 +14,10 @@ class TodayTraningsController < ApplicationController
     def create
       @today_traning = @user.today_tranings.new(start_time: params[:start_time], traningevent_id: params[:traningevent_id])
       if @today_traning.save!
-        redirect_to user_today_tranings_traning_new_path(@user, traningevent_id: params[:traningevent_id], start_date: params[:start_date], start_time: params[:start_time])
+        redirect_to user_today_tranings_traning_new_path(@user, traningevent_id: params[:traningevent_id], bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], start_date: params[:start_date], start_time: params[:start_time])
       else
         flash[:danger] = "登録に失敗しました。"
-        redirect_to user_today_tranings_traning_new_path(@user, traningevent_id: params[:traningevent_id], start_date: params[:start_date], start_time: params[:start_time])
+        redirect_to user_today_tranings_traning_new_path(@user, traningevent_id: params[:traningevent_id], bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], start_date: params[:start_date], start_time: params[:start_time])
       end
       
     end
@@ -71,45 +71,10 @@ class TodayTraningsController < ApplicationController
     end
     
     def traning_analysis
-      @bodyparts = Bodypart.all
-      @bodypart = Bodypart.find(params[:bodypart_id])
-      @traningevents = @user.traningevents.where(bodypart_id: @bodypart)
-    end
-    
-    def chart
-      @bodyparts = Bodypart.all
-      
-      @traningevents = @bodyparts.pluck(:id).map{|bodypart|
-        [bodypart, @user.traningevents.where(bodypart_id: bodypart).pluck(:id, :traning_name)]
-      }
-      
-      @traning_analysis = @traningevents.map{|bodypart, traningevents|
-        traningevents.map{|id, name|
-          [
-            id, gon.day = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:start_time).map{|day| day.day}, gon.total = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:total_load), gon.max = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:max_load)
-          ]
-        }
-      }
-    end
-    
-    def chart_traningevent
-      @bodyparts = Bodypart.all
-      
-      @traningevents = @bodyparts.pluck(:id).map{|bodypart|
-        [bodypart, @user.traningevents.where(bodypart_id: bodypart).pluck(:id, :traning_name)]
-      }
-      
-      @traning_analysis = @traningevents.map{|bodypart, traningevents|
-        traningevents.map{|id, name|
-          [
-            id, gon.day = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:start_time).map{|day| day.day}, gon.total = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:total_load), gon.max = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:max_load)
-          ]
-        }
-      }
-      
       @first_day = params[:start_date].nil? ?
       Date.current.beginning_of_month : params[:start_date].to_date
       @last_day = @first_day.end_of_month
+      
       # グラフ横軸(日にち)
       @analysis_day = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time).pluck(:start_time).map{|day| day.day}
       

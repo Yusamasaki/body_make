@@ -1,71 +1,28 @@
 <% provide(:title, "更新") %>
 <% provide(:btn_text, "更新") %>
 
-<ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link" href="<%= user_today_tranings_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">HOME</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link active" id="Record-tab"href="#Record">Record</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="line-chart-tab" href="<%= user_today_tranings_chart_path(@user, bodypart_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>#line-chart">Line Chart</a>
-  </li>
-</ul>
 
-<div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="Record" role="tabpanel" aria-labelledby="Record-tab">
-    <ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
-      <% @bodyparts.each do |bodypart| %>
-      <li class="nav-item">
-        <% if bodypart.id == params[:bodypart_id].to_i %>
-          <a class="nav-link active" id="tab-bodypart-<%= params[:bodypart_id].to_i %>" href="<%= user_traningevents_path(@user, bodypart_id: params[:bodypart_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= bodypart.body_part %></a>
-        <% else %>
-          <a class="nav-link" id="tab-bodypart-<%= bodypart.id %>" href="<%= user_traningevents_path(@user, bodypart_id: bodypart.id, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= bodypart.body_part %></a>
-        <% end %>
-      </li>
+<%= render "layouts/traning_tab" %>
+
+<div class="box1">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      
+      <h5>トレーニング種目編集</h5><br>
+      
+      <%= form_with(model: @traningevent, url: user_traningevent_path(@user, @traningevent, start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
+        
+        <%= f.label :traning_name, class: "label-form" %><br>
+        <%= f.text_field :traning_name, class: "form-control" %><br>
+        
+        <%= f.submit yield(:btn_text), class: "btn btn-md btn-original btn-form  btn-block btn-setup" %>
+        <%= link_to "戻る", user_today_tranings_traning_new_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], traningevent_id: @traningevent, start_time: params[:start_time], start_date: params[:start_date]), class:"btn btn-md btn-form  btn-block btn-setup" %>
+        
+        <%= f.hidden_field :bodypart_id, value: params[:bodypart_id] %>
+        <%= f.hidden_field :subbodypart_id, value: params[:subbodypart_id] %>
+        <%= f.hidden_field :traningtype_id, value: params[:traningtype_id] %>
+        
       <% end %>
-    </ul>
-  </div>
-</div>
-<div class="tab-content" id="myTabContent">
-  <% @traningevents.each do |bodypart, traningevents| %>
-    <% if bodypart == params[:bodypart_id].to_i %>
-      <div class="tab-pane fade show active" id="bodypart-<%= params[:bodypart_id].to_i %>" role="tabpanel" aria-labelledby="tab-bodypart-<%= params[:bodypart_id].to_i %>">
-    <% else %>
-      <div class="tab-pane fade" id="bodypart-<%= bodypart %>" role="tabpanel" aria-labelledby="tab-bodypart-<%= bodypart %>">
-    <% end %>
-        <% traningevents.each do |id, name| %>
-          <ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
-            <li class="nav-item">
-              <% if id == params[:traningevent_id].to_i %>
-                <a class="nav-link active", id="traningevent-<%= params[:traningevent_id] %>", href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: bodypart, traningevent_id: id, start_time: params[:start_time], start_date: params[:start_date])%>#traningevent-<%= params[:traningevent_id] %>"><%= name %></a>
-              <% else %>
-                <a class="nav-link", id="traningevent-<%= id %>" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: bodypart, traningevent_id: id, start_time: params[:start_time], start_date: params[:start_date])%>#traningevent-<%= id %>" ><%= name %></a>
-              <% end %>
-            </li>
-          </ul>
-        <% end %>
-      </div>
-  <% end %>
-</div>
-
-
-<div class="row">
-  <div class="col-md-6 offset-md-3">
-    
-    <h1>トレーニング種目編集</h1><br>
-    
-    <%= form_with(model: @traningevent, url: user_traningevent_path(current_user, today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
-      
-      <%= f.label :sub_body_part, class: "label-form" %><br>
-      <%= f.select :sub_body_part, options_for_select(@sub_bodyparts), {include_blank: '選択してください'}, {class: 'form-control'} %><br>
-      
-      <%= f.label :traning_name, class: "label-form" %><br>
-      <%= f.text_field :traning_name, class: "form-control" %><br>
-      
-      <%= f.submit yield(:btn_text), class: "btn btn-lg btn-original btn-form  btn-block btn-setup" %>
-
-    <% end %>
+    </div>
   </div>
 </div>

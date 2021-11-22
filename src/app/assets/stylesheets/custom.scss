@@ -65,16 +65,16 @@ html {
 }
 
 //box1項目を囲うため
-  
+
 .box1{
-  padding: 0.5em 1em;
-  margin: 2em 0;
-  color: #274277;
-  background: white;
-  border-top: solid 5px #274277;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
-  height: 100%;
-}
+    margin:1em 0;
+    color: #274277;
+    background: white;
+    border-top: solid 5px #274277;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+    height: 100%;
+  }
+  
 .box1_action{
   padding: 0.5em 1em;
   margin: 2em 0;
@@ -89,13 +89,39 @@ html {
   padding: 0;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+.nav-link.active {
   color: #fff;
   background-color: #274277;
+  font-family:"ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro";
 }
-.nav-pills .nav-link, .nav-pills > .nav-link {
+.nav-link{
   color: #274277;
+  background-color: #EEEEEE;
+  font-family:"ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro";
 }
+.nav-link:hover{
+  color: #274277;
+  background-color: #66FFFF;
+  font-family:"ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro";
+}
+
+.calender-event-box {
+  margin-bottom: 0.2em;
+  text-align: center;
+  color: #FFF;
+  background: #274277;
+  border: solid 1px #274277;
+  border-radius: 10px;
+}
+
+.traning-set {
+  text-align: center;
+  color: #FFF;
+  background: #274277;
+  border: solid 1px #274277;
+  border-radius: 10px;
+}
+
 
 // 画面サイズ1024ピクセル以上用
 @media screen and (min-width: 1024px) {
@@ -166,7 +192,6 @@ html {
       width: 60%;
     }
   }
-
 }
 
 // 画面サイズ428ピクセル以上1024ピクセル未満用

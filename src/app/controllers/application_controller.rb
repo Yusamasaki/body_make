@@ -120,9 +120,13 @@ class ApplicationController < ActionController::Base
     
     if params[:bodypart_id].present? && params[:subbodypart_id].present? && params[:traningtype_id].present?
       @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], subbodypart_id: params[:subbodypart_id])
-    elsif params[:bodypart_id].present? && params[:subbodypart_id].present? && params[:traningtype_id].nil?
+    elsif params[:bodypart_id].present? && params[:subbodypart_id].present?
+      @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id])
+    elsif params[:bodypart_id].present? && params[:traningtype_id].present?
       @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id])
-    elsif params[:bodypart_id].present? && params[:subbodypart_id].nil? && params[:traningtype_id].nil?
+    elsif params[:traningtype_id].present?
+      @traningevents = @user.traningevents.where(traningtype_id: params[:traningtype_id])
+    elsif params[:bodypart_id].present?
       @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id])
     else
       @traningevents = @user.traningevents.all
