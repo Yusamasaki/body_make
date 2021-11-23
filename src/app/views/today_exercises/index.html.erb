@@ -42,13 +42,14 @@
 
 <div class="box1">
   グラフ(仮)
-  <div class="col-md-6 align-self-center">
+  <div class="col-md-10 offset-md-1 align-self-center">
     <div class="exercise-chart">
-      <canvas id="exercise_myChart" width="800" height="400"></canvas>
+      <canvas id="exercise_myChart" width="200" height="100"></canvas>
       <script>exercise_draw_graph();</script>
     </div>
   </div>
-  
+  <%= @aa %><br>
+  <%= @test %>
 </div>
 
 <div class="box1">
@@ -70,7 +71,7 @@
       </thead>
       
       <tbody>
-        <% @today_exercises.drop(1).each do |exercise| %>
+        <% @today_exercises.each do |exercise| %>
           <tr>
             <td><%= category(exercise) %> / <%= content(exercise) %></td>
             <td><%= exercise.exercise_time.strftime('%-H時間 %M分') %></td>

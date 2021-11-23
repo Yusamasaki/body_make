@@ -1,4 +1,5 @@
 class TodayExercisesController < ApplicationController
+  include TodayExercisesHelper
   before_action :authenticate_user!
   before_action :set_user
   before_action :today_exercise_set_one_month, only: [:index]
@@ -8,6 +9,19 @@ class TodayExercisesController < ApplicationController
 
   def index
     @today_exercises = TodayExercise.where(start_time: params[:start_time]).order(:id)
+
+    month_before = params[:start_time].to_date.beginning_of_month
+    after_month = month_before.end_of_month
+    gon.start_times = [*month_before.day..after_month.day]
+    month_body_weights = [TodayExercise.where(start_time: month_before..after_month ).group(:start_time).sum(:body_weight).values]
+    gon.test = month_body_weights.flatten.map { |i| i }
+    @aa = gon.test
+    @test = TodayExercise.where(start_time: month_before..after_month).group(:start_time).sum(:body_weight).values
+  
+
+    # @test = aaa
+    # aaa = TodayExercise.where(start_time: month_before..after_month ).group(:start_time).sum('exercise_time').values
+    # @test = aaa.map {|a|a}
   end
 
   def new
