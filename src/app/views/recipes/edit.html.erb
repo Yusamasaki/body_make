@@ -1,12 +1,28 @@
 
+<ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+  <li class="nav-item">
+    <% if params[:before] == "new" %>
+      <a class="nav-link" href="<%= new_user_todaymeal_recipe_path(@user, timezone_id: params[:timezone_id], recipe_id: params[:id], timezone_id: params[:timezone_id], switching: "record", start_time: params[:start_time], start_date: params[:start_date]) %>"><i class="fas fa-undo-alt">戻る</i></a>
+    <% else %>
+      <a class="nav-link" href="<%= edit_user_todaymeal_recipe_path(@user, params[:todaymeal_recipe_id], recipe_id: params[:id], timezone_id: params[:timezone_id], switching: "record", start_time: params[:start_time], start_date: params[:start_date]) %>"><i class="fas fa-undo-alt">戻る</i></a>
+    <% end %>
+  </li>
+</ul>
+
 <div class="box1">
-  <%= form_with(model: @recipe, url: user_recipe_path(@user, @recipe, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:action], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= form_with(model: @recipe, url: user_recipe_path(@user, @recipe, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
+        
+        <%= f.label :recipe_name, class: "label-form" %><br>
+        <%= f.text_field :recipe_name, class: "form-control" %><br>
+    </div>    
+    <div class="mx-auto">
+          <%= f.submit "更新", class: "btn btn-md btn-original btn-form" %>
+          <%= link_to "削除", user_recipe_path(@user, @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :delete,
+              data: { confirm: "「#{@recipe.recipe_name}」を削除します。なお、同時に日々の記録していたデータも消えてしまいます。本当によろしいですか？" }, class: "btn btn-md btn-danger" %>
+    </div>
+      <% end %>
     
-      <%= f.label :recipe_name, class: "label-form" %><br>
-      <%= f.text_field :recipe_name, class: "form-control" %><br>
-    
-    <%= f.submit "更新", class: "btn btn-lg btn-original btn-form" %>
-    <%= link_to "削除", user_recipe_path(@user, @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :delete,
-        data: { confirm: "「#{@recipe.recipe_name}」を削除します。本当によろしいですか？" }, class: "btn btn-lg btn-danger" %>
-  <% end %>
+  </div>
 </div>

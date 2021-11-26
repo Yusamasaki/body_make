@@ -38,8 +38,8 @@ class ApplicationController < ActionController::Base
   
   # 基礎代謝　＆　目標設定
   def set_basic
-    @bmr = @user.bmr unless params[:recipe_id].present?
-    @target_weight = @user.targetweight unless params[:recipe_id].present?
+    @bmr = @user.bmr
+    @target_weight = @user.targetweight
     @pfc = @user.pfc_ratio
   end
   
