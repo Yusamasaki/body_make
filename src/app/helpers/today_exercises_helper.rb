@@ -11,8 +11,8 @@ module TodayExercisesHelper
     if exercise.exercise_content_id.present?
       mets = ExerciseContent.find(exercise.exercise_content_id).mets
       body_weight = exercise.body_weight
-      exercise_hour = exercise.exercise_time.hour * 60
-      exercise_min = exercise.exercise_time.min
+      exercise_hour = exercise.exercise_time_hour * 60
+      exercise_min = exercise.exercise_time_min
       exercise_time = ((exercise_hour + exercise_min) / 60.to_f).round(2)
       calorie = mets * body_weight * exercise_time * 1.05 # 消費カロリー = (メッツ * 体重kg * 運動時間 * 1.05)
       calorie.round(2)

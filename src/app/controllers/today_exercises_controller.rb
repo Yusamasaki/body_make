@@ -14,9 +14,38 @@ class TodayExercisesController < ApplicationController
     after_month = month_before.end_of_month
     gon.start_times = [*month_before.day..after_month.day]
     month_body_weights = [TodayExercise.where(start_time: month_before..after_month ).group(:start_time).sum(:body_weight).values]
-    gon.test = month_body_weights.flatten.map { |i| i }
-    @aa = gon.test
-    @test = TodayExercise.where(start_time: month_before..after_month).group(:start_time).sum(:body_weight).values
+    # gon.test = month_body_weights.flatten.map { |i| i }
+    # @aa = gon.test
+    # @test = TodayExercise.where(start_time: month_before..after_month).group(:start_time).sum(:body_weight).values
+@test =
+    gon.calorie = 
+      TodayExercise.where(start_time: month_before..after_month).group_by { |exercise| exercise.start_time }.map { |start_time, value|
+        [
+          (((value.sum { |exercise| exercise.exercise_content_id == nil ? 0 : ExerciseContent.find(exercise.exercise_content_id.to_i).mets }) \
+          * ([:body_weight] == nil ? 0 : (value.map(&:body_weight)[1]).to_i) \
+          * (((value.map(&:exercise_time_hour).sum * 60) + (value.map(&:exercise_time_min).sum)) / 60.to_f).round(2)) \
+          * 1.05) / (value.count - 1)
+        ]
+      }
+      
+
+    # aaa = TodayExercise.where(start_time: month_before..after_month)
+    # @test = TodayExercise.where(start_time: month_before..after_month).group_by { |x| x.start_time }.map { |start_time, record|
+    #   [([:body_weight] == nil ? 0 : (record.map(&:body_weight))),
+    #     record.each.with_index { |(key, val), i| i }, 
+    #     record.each_index.select {|a| record[1]},
+    #     record.sum {|a|a.body_weight == nil ? 0 : a.body_weight} / record.map {|a|a.body_weight}.size,
+    #     record.map {|a|a.body_weight == nil ? 0 : a.body_weight}[0],
+    #     record.map {|a|a.body_weight}.size,
+    #     record.map(&:body_weight).map(&:to_i).sum,
+    #     ((record.sum{|a| a.exercise_content_id == nil ? 0 : ExerciseContent.find(a.exercise_content_id.to_i).mets }) \
+    #     * ([:body_weight] == nil ? 0 : (record.map(&:body_weight)[1]).to_i) * (((record.map(&:exercise_time_hour).sum * 60) + (record.map(&:exercise_time_min).sum)) / 60.to_f).round(2)) * 1.05 ,
+    #     (record.map(&:exercise_time_hour).sum * 60),
+    #     record.map(&:exercise_time_min).sum,
+    #     record.sum{|a| a.exercise_content_id == nil ? 0 : ExerciseContent.find(a.exercise_content_id.to_i).mets },
+    #     (((record.map(&:exercise_time_hour).sum * 60) + (record.map(&:exercise_time_min).sum)) / 60.to_f).round(2)
+    #   ]
+    # }
   
 
     # @test = aaa
@@ -119,6 +148,6 @@ class TodayExercisesController < ApplicationController
     end
 
     def exercise_params
-      params.require(:today_exercise).permit(:start_time, :exercise_time, :body_weight, :note, :exercise_category_id, :exercise_content_id, :user_id)
+      params.require(:today_exercise).permit(:start_time, :exercise_time_hour, :exercise_time_min, :body_weight, :note, :exercise_category_id, :exercise_content_id, :user_id)
     end
 end

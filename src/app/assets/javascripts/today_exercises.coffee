@@ -6,16 +6,17 @@ window.exercise_draw_graph = ->
             labels: gon.start_times,
             datasets: [{
               label: '消費カロリー',
-              data: gon.test,
+              data: gon.calorie,
               backgroundColor: 'rgba(0, 0, 0, 0)',
               borderColor: '#0000FF',
               borderWidth: 1,
               hoverBackgroundColor: undefined,
-              spanGaps: true
+              spanGaps: true,
+              lineTension: 0
             }]
         },
         options: {
-          # responsive: true,
-          # maintainAspectRatio: false
+        #   responsive: true,
+        #   maintainAspectRatio: false
         }
     })

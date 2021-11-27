@@ -74,7 +74,7 @@
         <% @today_exercises.each do |exercise| %>
           <tr>
             <td><%= category(exercise) %> / <%= content(exercise) %></td>
-            <td><%= exercise.exercise_time.strftime('%-H時間 %M分') %></td>
+            <td><%= exercise.exercise_time_hour %>時間<%= exercise.exercise_time_min %>分</td>
             <td><%= mets(exercise) %> cal</td>
             <td><%= exercise.note %></td>
             <td class="center">
