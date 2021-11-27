@@ -14,7 +14,11 @@ class ApplicationController < ActionController::Base
   end
   
   def set_user
-    @user = User.find(current_user.id)
+    if params[:user_id].present?
+      @user = User.find(params[:user_id])
+    else
+      @user = User.find(params[:id])
+    end
   end
   
   # ログイン済みのユーザーか確認します。
@@ -121,13 +125,13 @@ class ApplicationController < ActionController::Base
     
     one_month = [*@first_day..@last_day]
     
-    @exercises = current_user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
+    @exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
     
     unless one_month.count <= @exercises.count
       ActiveRecord::Base.transaction do
         one_month.each { |day| current_user.today_exercise.create!(start_time: day) }
       end
-      @today_exercises = current_user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
+      @today_exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
     end
   end
   
@@ -187,4 +191,5 @@ class ApplicationController < ActionController::Base
         @meals_analysis = @user.meals_analysis.where(start_time: @first_day..@last_day).order(:start_time)
       end
   end
+  
 end

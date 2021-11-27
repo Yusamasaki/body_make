@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   
-  before_action :today_exercise_set_one_month, only: [:show]
+  # before_action :today_exercise_set_one_month, only: [:show]
   before_action :set_user, only: [:show, :setting]
   before_action :set_basic, only: [:show, :setting]
   before_action :set_bmr, only: [:setting]
@@ -14,13 +14,13 @@ class UsersController < ApplicationController
     
     one_month = [*@first_day..@last_day]
     
-    @bodyweights = current_user.bodyweights.where( start_time: @first_day..@last_day).order(:start_time)
+    @bodyweights = @user.bodyweights.where( start_time: @first_day..@last_day).order(:start_time)
     
     unless one_month.count == @bodyweights.count
       ActiveRecord::Base.transaction do
-        one_month.each { |day| current_user.bodyweights.create!(start_time: day) }
+        one_month.each { |day| @user.bodyweights.create!(start_time: day) }
       end
-      @bodyweights = current_user.bodyweights.where(start_time: @first_day..@last_day).order(:start_time)
+      @bodyweights = @user.bodyweights.where(start_time: @first_day..@last_day).order(:start_time)
     end
     
     @body_weight = @user.bodyweights.find_by(start_time: params[:start_time])
