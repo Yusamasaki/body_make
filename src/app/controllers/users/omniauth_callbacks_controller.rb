@@ -15,11 +15,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def callback_for(provider)
     @omniauth = request.env['omniauth.auth']
     @user = User.find_oauth(@omniauth)[:user]
-    if @user.persisted? 
-      after_sign_up_path_for @user
+    if @user.persisted?
       set_flash_message(:notice, :success, kind: "#{provider}".capitalize) if is_navigational_format?
+      redirect_to new_user_bmr_path @user, event: :authentication
     else 
-      render template: "devise/registrations/new" 
+      session["devise.#{provider}_data"] = request.env["omniauth.auth"]
+      redirect_to root_path
     end
   end
 

@@ -27,19 +27,16 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: %i[facebook google_oauth2]
 
     
-  # SNS 認証@
+  # SNS 認証
    def self.find_oauth(auth)
-    uid = auth.uid
-    provider = auth.provider
-    snscredential = User.where(uid: uid, provider: provider).first
-    if snscredential.present?
-      user = User.where(id: snscredential.id).first
-    else
+    user = User.find_by(email: auth.info.email)
+    unless user
       user = User.create(
-        email: auth.email,
-        username: auth.username,
-        uid: auth.uid,
         provider: auth.provider,
+        uid: auth.uid,
+        email: auth.info.email,
+        username: auth.info.name,
+        password: Devise.friendly_token[0,20]
       )
     end
     return {user: user}
