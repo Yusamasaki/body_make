@@ -15,7 +15,7 @@
     <div class="sidebar-menu">
       <ul>
         <li>
-          <%= link_to(user_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)) do %>
+          <%= link_to(user_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current), data: {"turbolinks"=>false}) do %>
             <div>
               <i class="fas fa-home"></i>
               <span>HOME</span>
