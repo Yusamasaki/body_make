@@ -38,12 +38,15 @@
   </ul>
 </div>
 
-<div class="float-right">
-  <%= link_to(new_user_recipe_path(@user, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), class: "btn btn-sm btn-original") do %>
-    <i class="far fa-plus-square fa-lg">レシピ追加</i>
-  <% end %>
+<div class="row">
+  <div class="mx-auto">
+    <%= link_to(new_user_recipe_path(@user, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), class: "btn btn-sm btn-original") do %>
+      <i class="far fa-plus-square fa-lg">レシピ追加</i>
+    <% end %>
+  </div>
 </div>
 
+<br>
 <div class="row">
   <div class="mx-auto">
     <%= paginate @recipes %>
@@ -58,9 +61,6 @@
           <tr>
             <th><%= Recipe.human_attribute_name(:recipe_name) %></th>
             <th><%= Myfood.human_attribute_name(:calorie) %></th>
-            <th><%= Myfood.human_attribute_name(:protein) %></th>
-            <th><%= Myfood.human_attribute_name(:fat) %></th>
-            <th><%= Myfood.human_attribute_name(:carbo) %></th>
           </tr>
         </thead>
         <tbody>
@@ -68,9 +68,6 @@
           <tr data-href= <%= new_user_todaymeal_recipe_path(@user, switching: "record", recipe_id: recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]) %>>
             <td><%= recipe.recipe_name %></td>
             <td><%= recipe.calorie %></td>
-            <td><%= recipe.protein %></td>
-            <td><%= recipe.fat %></td>
-            <td><%= recipe.carbo %></td>
           </tr>
           <% end %>
         </tbody>

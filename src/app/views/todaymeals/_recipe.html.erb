@@ -23,7 +23,7 @@
             <td class="align-middle"><%= @recipe.carbo * todaymeal_recipe.amount %></td>
             <td class="align-middle"><%= @recipe.sugar * todaymeal_recipe.amount %></td>
             <td class="align-middle"><%= @recipe.dietary_fiber * todaymeal_recipe.amount %></td>
-            <td class="align-middle"><%= @recipe.salt * todaymeal_recipe.amount %></td>
+            <td class="align-middle"><%= @recipe.salt * todaymeal_recipe.amount if @recipe.salt.present? %></td>
           </tr>
         <% end %>
       </tbody>

@@ -23,7 +23,4 @@
 
     <%= f.submit yield(:btn_text), class: "btn btn-primary btn-block btn-setup" %><br>
     
-    <% if "#{yield(:btn_text)}" == "編集" %>
-      <%= link_to "戻る", user_path(@user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-danger btn-block btn-setup" %>
-    <% end %>
   <% end %>

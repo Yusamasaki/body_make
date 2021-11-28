@@ -1,7 +1,7 @@
 class MyfoodsController < ApplicationController
   
-  before_action :set_user, only: [:index, :new, :create, :show, :edit, :update, :destroy]
-  before_action :set_basic, only: [:index, :new]
+  before_action :set_user, only: [:index, :new, :create, :show, :edit, :update, :destroy, :api_new, :api_create]
+  before_action :set_basic, only: [:index, :new, :api_new]
   before_action :set_myfood, only: [:show, :update, :destroy]
   before_action :set_recipe, only: [:index]
   before_action :ser_recipefoods_total, only: [:index]
@@ -10,7 +10,7 @@ class MyfoodsController < ApplicationController
   def index
     @timezones = Timezone.all
     @q = @user.myfoods.ransack(params[:q], start_time: params[:start_time])
-    @myfoods = @q.result(distinct: true).order(:id).page(params[:page])
+    @myfoods = @q.result(distinct: true).order(id: "DESC").page(params[:page])
     @todaymeal_recipe = @user.todaymeal_recipes.find(params[:id]) if params[:id].present?
     
   end
@@ -56,7 +56,27 @@ class MyfoodsController < ApplicationController
     @myfood.destroy
     flash[:success] = "削除しました。"
     redirect_to user_myfoods_url(@user, recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]) 
-      
+  end
+  
+  def api_new
+    @apifoods = [:calorie, :protein, :fat, :carbo, :sugar, :dietary_fiber, :salt].map{|nutrition|
+      params[nutrition]
+    }
+  end
+  
+  def api_create
+    @myfood = @user.myfoods.new(food_name: params[:food_name], calorie: params[:calorie], protein: params[:protein],
+                                fat: params[:fat], carbo: params[:carbo], sugar: params[:sugar], dietary_fiber: params[:dietary_fiber], salt: params[:salt])
+    ActiveRecord::Base.transaction do 
+      @myfood.save!
+      flash[:success] = "#{@myfood.food_name}の登録に成功しました。"
+      redirect_to user_myfoods_path(@user, id: params[:id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: 1, start_date: params[:start_date], start_time: params[:start_time])
+    rescue ActiveRecord::RecordInvalid
+      flash[:danger] = "登録に失敗しました。"
+      redirect_to user_myfoods_api_new_path(@user, id: params[:id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], 
+                                            food_name: params[:food_name], calorie: params[:calorie], protein: params[:protein], fat: params[:fat], carbo: params[:carbo],
+                                            dietary_fiber: params[:dietary_fiber], sugar: params[:sugar], salt: params[:salt], start_date: params[:start_date], start_time: params[:start_time])
+    end
   end
   
   private

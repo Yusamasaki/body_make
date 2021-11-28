@@ -27,6 +27,9 @@ Rails.application.routes.draw do
     
     get 'todaymeals/analysis'
     
+    get 'myfoods/api_new'
+    post 'myfoods/api_create'
+    
     resources :bodyweights, only: [:create, :edit, :update]
 
     resources :targetweights, only: [:new, :create, :edit, :update]
@@ -47,6 +50,7 @@ Rails.application.routes.draw do
     resources :recipes
     resources :recipefoods
     resources :myfoods
+    resources :apifoods, only: [:index]
     resources :meals_analysis
     
 

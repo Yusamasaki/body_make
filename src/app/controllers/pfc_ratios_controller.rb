@@ -1,6 +1,7 @@
 class PfcRatiosController < ApplicationController
 
   before_action :set_user, only: [:new, :create, :edit, :update]
+  before_action :set_basic, only: [:new, :edit]
 
   def new
     @pfc = PfcRatio.new

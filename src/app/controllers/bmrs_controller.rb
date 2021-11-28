@@ -1,6 +1,6 @@
 class BmrsController < ApplicationController
   before_action :set_user, only: [:new, :create, :edit, :update]
-
+  before_action :set_basic, only: [:new, :edit]
 
   def new
     if Bmr.where(user_id: @user.id).blank?

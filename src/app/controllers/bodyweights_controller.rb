@@ -1,4 +1,5 @@
 class BodyweightsController < ApplicationController
+  before_action :set_basic, only: [:edit]
 
   def create
     @body_weight = current_user.bodyweights.new(body_weight_params)
