@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
   
   def set_user
-    @user = User.find(current_user.id)
+    @user = current_user
   end
   
   # ログイン済みのユーザーか確認します。
@@ -115,19 +115,19 @@ class ApplicationController < ActionController::Base
 
   # TodayExeciseクラスの1ヶ月分start_time(日にち)を作成
   def today_exercise_set_one_month
+    @user = User.find(params[:id])
     @first_day = params[:start_date].nil? ?
     Date.current.beginning_of_month : params[:start_date].to_date
     @last_day = @first_day.end_of_month
     
     one_month = [*@first_day..@last_day]
-    
-    @exercises = current_user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
+    @exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
     
     unless one_month.count <= @exercises.count
       ActiveRecord::Base.transaction do
-        one_month.each { |day| current_user.today_exercise.create!(start_time: day) }
+        one_month.each { |day| @user.today_exercise.create!(start_time: day) }
       end
-      @today_exercises = current_user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
+      @today_exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
     end
   end
   
