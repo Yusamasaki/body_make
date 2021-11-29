@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     get 'myfoods/api_new'
     post 'myfoods/api_create'
     
-    resources :bodyweights, only: [:create, :edit, :update]
+    resources :bodyweights, only: [:edit, :update]
 
     resources :targetweights, only: [:new, :create, :edit, :update]
     resources :bmrs, only: [:new, :create, :edit, :update]
