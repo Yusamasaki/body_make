@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   before_action :start_time_next_valid, only: [:show]
   
   def show
+    
     @first_day = params[:start_date].nil? ?
     Date.current.beginning_of_month : params[:start_date].to_date
     @last_day = @first_day.end_of_month

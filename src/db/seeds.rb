@@ -56,6 +56,7 @@ Targetweight.create!(
 	target_date: Time.current.since(6.month)
 )
 
+
 # -----トレーニング関連------
 
 Traningtype.create!(

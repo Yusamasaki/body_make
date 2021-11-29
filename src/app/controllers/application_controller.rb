@@ -57,22 +57,26 @@ class ApplicationController < ActionController::Base
     # 目標の摂取カロリー
     @day_target_calorie = Bmr.day_target_calorie(@day_calorie.floor(1), @target_weight)
     # 目標のPFCバランス（グラム・カロリー）
-    @target_pfcs = [["たんぱく質", 20, 4, @pfc.protein], ["脂質", 20, 9, @pfc.fat], ["炭水化物", 60, 4, @pfc.carbo]].map{|name, ratio, per_1g, ratio_new| 
-      if @pfc.id.present?
-        [name, PfcRatio.pfc_calorie_format(@day_target_calorie, ratio_new), (PfcRatio.pfc_calorie_format(@day_target_calorie, ratio_new) / per_1g).floor(1)]
-      else
-        [name, PfcRatio.pfc_calorie_format(@day_target_calorie, ratio), (PfcRatio.pfc_calorie_format(@day_target_calorie, ratio) / per_1g).floor(1)]
-      end
-    }
+    if @pfc.present?
+      @target_pfcs = [["たんぱく質", @pfc.protein, 4 ], ["脂質", @pfc.fat, 9], ["炭水化物", @pfc.carbo, 4]].map{|name, ratio, per_1g|
+        [name, PfcRatio.pfc_calorie_format(@day_target_calorie, ratio), (PfcRatio.pfc_calorie_format(@day_target_calorie, ratio) / per_1g).floor(1), ratio]
+      }
+    else
+      @target_pfcs = [["たんぱく質", 20, 4 ], ["脂質", 20, 9], ["炭水化物", 60, 4]].map{|name, ratio, per_1g|
+        [name, PfcRatio.pfc_calorie_format(@day_target_calorie, ratio), (PfcRatio.pfc_calorie_format(@day_target_calorie, ratio) / per_1g).floor(1), ratio]
+      }
+    end
     
     # 目標のPFCカロリー
-    target_pfc_calorie = [[20, 4, @pfc.protein], [20, 9, @pfc.fat], [60, 4, @pfc.carbo]].map{|ratio, per_1g, ratio_new|
-      if @pfc.id.present?
+    if @pfc.present?
+      target_pfc_calorie = [[20, 4, @pfc.protein], [20, 9, @pfc.fat], [60, 4, @pfc.carbo]].map{|ratio, per_1g, ratio_new|
         [PfcRatio.pfc_calorie_format(@day_target_calorie, ratio_new), per_1g, @day_target_calorie]
-      else
+      }
+    else
+      target_pfc_calorie = [[20, 4], [20, 9], [60, 4]].map{|ratio, per_1g|
         [PfcRatio.pfc_calorie_format(@day_target_calorie, ratio), per_1g, @day_target_calorie]
-      end
-    }
+      }
+    end
     # グラフ値
     gon.pfc_calorie_ratios = target_pfc_calorie.map{|pfc_calorie, per_1g, day_target_calorie| ((pfc_calorie / day_target_calorie) * 100).floor(1)}
 

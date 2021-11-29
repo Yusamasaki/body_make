@@ -9,6 +9,12 @@
   <div class="card-body">
     <%= form_with(model:[@user, @tw], url: user_targetweight_path(start_date: params[:start_date], start_time: params[:start_time]), local: true) do |f| %>
       <%= render partial: "form", locals: { f: f }%>
-    <% end %>
+  <div class="card-footer">
+    <div class="row">
+      <div class="mx-auto">
+        <%= f.submit yield(:btn_text), class: "btn btn-md btn-original" %>
+      </div>
+    </div>
   </div>
+    <% end %>
 </div>
