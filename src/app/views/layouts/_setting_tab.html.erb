@@ -22,7 +22,7 @@
       <% end %>
     </li>
     <li class="nav-item">
-      <% if @pfc.present? %>
+      <% if @pfc.id.present? %>
         <% if params[:switching] == "pfc" %>
           <a class="nav-link active" href="<%= edit_user_pfc_ratio_path(@user, @pfc, switching: "pfc", start_date: params[:start_date], start_time: params[:start_time]) %>">PFC設定</a>
         <% else %>

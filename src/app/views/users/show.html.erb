@@ -12,7 +12,7 @@
       <% end %>
     <% end %>
     <a class="right">
-    <%= link_to(user_bodyweights_calender_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original", remote: true) do %>
+    <%= link_to(user_bodyweights_calender_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
       <i class="fas fa-calendar-alt fa-lg"></i>
     <% end %>
   </a>
@@ -75,4 +75,3 @@
   <% end %>
 </div>
 
-<div id="calender" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

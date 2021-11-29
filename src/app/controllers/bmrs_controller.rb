@@ -26,11 +26,13 @@ class BmrsController < ApplicationController
 
   def update
     @bmr = Bmr.find_by(user_id: @user.id)
-    if @bmr.update_attributes(bmr_params)
+    ActiveRecord::Base.transaction do
+      @bmr.update_attributes!(bmr_params)
       flash[:success] = "更新しました"
-      redirect_to user_path(@user, start_date: params[:start_date], start_time: params[:start_time])
-    else
-      render :edit
+      redirect_to edit_user_bmr_path(@user, @bmr, switching: "basic", start_date: params[:start_date], start_time: params[:start_time])
+    rescue ActiveRecord::RecordInvalid
+      flash[:danger] = "更新に失敗しました"
+      redirect_to edit_user_bmr_path(@user, @bmr, switching: "basic", start_date: params[:start_date], start_time: params[:start_time])
     end
 
 

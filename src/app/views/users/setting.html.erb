@@ -50,13 +50,4 @@
     <% end %>
   </div>
 </div>
-  
-  
-      <%= link_to "目標編集", edit_user_targetweight_path(@user, @target_weight, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary btn-edit" %>
-      <%= link_to "基本設定編集", edit_user_bmr_path(@user, @bmr, startw_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary btn-edit" %>
-      <% if @pfc.present? %>
-        <%= link_to "PFC", edit_user_pfc_ratio_path(@user, @pfc, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary" %>
-      <% else %>
-        <%= link_to "PFC", new_user_pfc_ratio_path(@user, @pfc, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-md btn-primary" %>
-      <% end %>
     

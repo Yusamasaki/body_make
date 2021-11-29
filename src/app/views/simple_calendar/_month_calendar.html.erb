@@ -3,11 +3,11 @@
   <div class="calendar-heading">
     <!--パスをデフォルトから変更してる。calendar.url_for_previous_view → user_path-->
     <% if controller.controller_name == "bodyweights" %>
-      <%= link_to t(user_bodyweights_calender_path(current_user, start_date: @first_day.prev_month), remote: true) do %>
+      <%= link_to(user_bodyweights_calender_path(current_user, start_date: @first_day.prev_month, start_time: @first_day), data: {"turbolinks"=>false}) do %>
         <i class="fas fa-chevron-left"></i>
       <% end %>
       <span class="calendar-title"> <%= start_date.year %>年 <%= t('date.month_names')[start_date.month] %></span>
-      <%= link_to(user_bodyweights_calender_path(current_user, start_date: @first_day.next_month), remote: true) do %>
+      <%= link_to(user_bodyweights_calender_path(current_user, start_date: @first_day.next_month, start_time: @first_day), data: {"turbolinks"=>false}) do %>
         <i class="fas fa-chevron-right"></i>
       <% end %>
     <% elsif controller.controller_name == "today_tranings" %>

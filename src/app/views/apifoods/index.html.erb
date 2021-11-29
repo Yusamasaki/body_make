@@ -1,13 +1,18 @@
+<ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link" href="<%= user_myfoods_path(@user, switching: "record", timezone_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>"><i class="fas fa-undo-alt">戻る</i></a>
+  </li>
+</ul>
 
-
-<p>検索</p>
-<%= form_tag(user_apifoods_path(timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]),:method => 'get') do %>
-  <%= text_field_tag :food_name %>
-  <%= hidden_field_tag :start_time, params[:start_time] %>
-  <%= hidden_field_tag :start_date, params[:start_date] %>
-  <%= hidden_field_tag :timezone_id, params[:timezone_id] %>
-  <%= submit_tag 'Search' %>
+<br>
+<%= form_with(url: user_apifoods_path(timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), method: :get, local: true) do |f| %>
+  <%= f.text_field :food_name %>
+  <%= f.hidden_field :start_time, value: params[:start_time] %>
+  <%= f.hidden_field :start_date, value: params[:start_date] %>
+  <%= f.hidden_field :timezone_id, value: params[:timezone_id] %>
+  <%= f.submit '検索' %>
 <% end %>
+<br>
 
 <% if params[:food_name].present? %>
 

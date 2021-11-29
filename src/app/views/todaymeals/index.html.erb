@@ -92,11 +92,6 @@
 
 <% @timezone_meals.each do |timezone, recipe_myfood, recipe, myfood| %>
   <div class="box1">
-    <div>
-      <%= link_to(user_recipes_path(current_user, timezone_id: timezone, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
-        <i class="far fa-plus-square fa-2x"></i>
-      <% end %>
-    </div>
     <div class="row">
       <div class="col-md-12">
         <div class="panel-group">

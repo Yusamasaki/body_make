@@ -56,26 +56,27 @@ class ApplicationController < ActionController::Base
     @day_calorie = Bmr.day_calorie(@bmr_format, @bmr.activity).floor(1)
     # 目標の摂取カロリー
     @day_target_calorie = Bmr.day_target_calorie(@day_calorie.floor(1), @target_weight)
-    # 目標のPFCカロリー
-    target_pfc_calorie = [[20, 4], [20, 9], [60, 4]].map{|ratio, per_1g|
-      if @pfc.present?
-        [PfcRatio.pfc_calorie_format(@day_target_calorie, pfc_ratios_protein(@pfc.protein)), per_1g, @day_target_calorie]
-      else
-        [PfcRatio.pfc_calorie_format(@day_target_calorie, ratio), per_1g, @day_target_calorie]
-      end
-    }
-    
-    # グラフ値
-    gon.pfc_calorie_ratios = target_pfc_calorie.map{|pfc_calorie, per_1g, day_target_calorie| ((pfc_calorie / day_target_calorie) * 100).floor(1)}
-
     # 目標のPFCバランス（グラム・カロリー）
-    @target_pfcs = [["たんぱく質", 20, 4], ["脂質", 20, 9], ["炭水化物", 60, 4]].map{|name, ratio, per_1g| 
-      if @pfc.present?
-        [name,PfcRatio.pfc_calorie_format(@day_target_calorie, pfc_ratios_protein(@pfc.protein)), (PfcRatio.pfc_calorie_format(@day_target_calorie, pfc_ratios_protein(@pfc.protein)) * per_1g).floor(1)] 
+    @target_pfcs = [["たんぱく質", 20, 4, @pfc.protein], ["脂質", 20, 9, @pfc.fat], ["炭水化物", 60, 4, @pfc.carbo]].map{|name, ratio, per_1g, ratio_new| 
+      if @pfc.id.present?
+        [name, PfcRatio.pfc_calorie_format(@day_target_calorie, ratio_new), (PfcRatio.pfc_calorie_format(@day_target_calorie, ratio_new) / per_1g).floor(1)]
       else
         [name, PfcRatio.pfc_calorie_format(@day_target_calorie, ratio), (PfcRatio.pfc_calorie_format(@day_target_calorie, ratio) / per_1g).floor(1)]
       end
     }
+    
+    # 目標のPFCカロリー
+    target_pfc_calorie = [[20, 4, @pfc.protein], [20, 9, @pfc.fat], [60, 4, @pfc.carbo]].map{|ratio, per_1g, ratio_new|
+      if @pfc.id.present?
+        [PfcRatio.pfc_calorie_format(@day_target_calorie, ratio_new), per_1g, @day_target_calorie]
+      else
+        [PfcRatio.pfc_calorie_format(@day_target_calorie, ratio), per_1g, @day_target_calorie]
+      end
+    }
+    # グラフ値
+    gon.pfc_calorie_ratios = target_pfc_calorie.map{|pfc_calorie, per_1g, day_target_calorie| ((pfc_calorie / day_target_calorie) * 100).floor(1)}
+
+    
   end
   
   # アクセスした先のが明日以上の場合返す

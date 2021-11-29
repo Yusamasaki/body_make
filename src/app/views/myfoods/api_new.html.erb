@@ -30,13 +30,14 @@
       </tbody>
     </table>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <div class="mx-auto">
-      <%= link_to "新規登録", user_myfoods_api_create_path(@user, food_name: params[:food_name], calorie: params[:calorie], protein: params[:protein], fat: params[:fat], carbo: params[:carbo],
-                                                          dietary_fiber: params[:dietary_fiber], sugar: params[:sugar], salt: params[:salt], start_time: params[:start_time], start_date: params[:start_date]), 
-                                                          class: "btn btn-md btn-original btn-form", method: :post %>
+  <div class="card-footer">
+    <div class="row">
+      <div class="mx-auto">
+        <%= link_to "新規登録", user_myfoods_api_create_path(@user, food_name: params[:food_name], calorie: params[:calorie], protein: params[:protein], fat: params[:fat], carbo: params[:carbo],
+                                                            dietary_fiber: params[:dietary_fiber], sugar: params[:sugar], salt: params[:salt], start_time: params[:start_time], start_date: params[:start_date]), 
+                                                            class: "btn btn-md btn-original btn-form", method: :post %>
+      </div>
     </div>
   </div>
 </div>
+

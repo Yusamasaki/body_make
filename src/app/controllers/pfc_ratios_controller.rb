@@ -10,7 +10,7 @@ class PfcRatiosController < ApplicationController
   def create
     @pfc = PfcRatio.new(pfc_params)
     if @pfc.save
-      redirect_to user_path(@user, pfc_if: @pfc, start_date: Date.current.beginning_of_month, start_time: Date.current)
+      redirect_to user_setting_path(@user, switching: "index", start_date: Date.current.beginning_of_month, start_time: Date.current)
     else
       render :new
     end
@@ -25,10 +25,10 @@ class PfcRatiosController < ApplicationController
     ActiveRecord::Base.transaction do
       if @pfc.update_attributes!(pfc_params)
         flash[:success] = "変更に成功しました"
-        redirect_to user_path(@user, start_date: params[:start_date], start_time: params[:start_time])
+        redirect_to edit_user_pfc_ratio_path(@user, @pfc, switching: "pfc", start_date: params[:start_date], start_time: params[:start_time])
       else
         flash[:danger] = "変更に失敗しました"
-        redirect_to user_path(@user, start_date: params[:start_date], start_time: params[:start_time])
+        redirect_to edit_user_pfc_ratio_path(@user, @pfc, switching: "pfc", start_date: params[:start_date], start_time: params[:start_time])
       end
     end
   rescue ActiveRecord::RecordInvalid
