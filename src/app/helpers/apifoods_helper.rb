@@ -1,0 +1,2 @@
+module ApifoodsHelper
+end

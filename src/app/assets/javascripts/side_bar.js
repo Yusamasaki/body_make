@@ -21,13 +21,20 @@ $(".sidebar-dropdown > a").click(function() {
   }
 });
 
-document.addEventListener("turbolinks:load", function () {
-  $("#close-sidebar").click(function() {
-    $(".page-wrapper").removeClass("toggled");
+var windowWidth = $(window).width();
+var windowSm = 768;
+if (windowWidth <= windowSm) {
+  document.addEventListener("turbolinks:load", function () {
+    $("#close-sidebar").click(function() {
+      $(".page-wrapper").removeClass("toggled");
+    });
   });
-});
-document.addEventListener("turbolinks:load", function () {
-  $("#show-sidebar").click(function() {
-    $(".page-wrapper").addClass("toggled");
+  document.addEventListener("turbolinks:load", function () {
+    $("#show-sidebar").click(function() {
+      $(".page-wrapper").addClass("toggled");
+    });
   });
-});
+} else {
+
+}
+

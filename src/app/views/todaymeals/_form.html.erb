@@ -1,4 +1,4 @@
- 
+
 <%= f.label :amount, class: "label-form" %><br>
 <%= f.number_field :amount, class: "form-control" %><br>
 
@@ -10,13 +10,8 @@
 <%= f.hidden_field :myfood_id, value: params[:myfood_id] %>
 </div>
 <div class="mx-auto">
-  <%= f.submit yield(:btn_text), class: "btn btn-lg btn-original btn-form" %>
+  <%= f.submit yield(:btn_text), class: "btn btn-md btn-original btn-form" %>
   <% if controller.action_name == "edit" %>
-    <%= link_to "削除", user_todaymeal_path(@user, @todaymeal, start_time: params[:start_time], start_date: params[:start_date]), method: :delete, class: "btn btn-lg btn-danger" %>
-  <% end %>
-  <% if controller.action_name == "edit" %>
-    <%= link_to "戻る", user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-lg btn-default btn-form" %>
-  <% elsif controller.action_name == "new" %>
-    <%= link_to "戻る", user_myfoods_path(@user, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-lg btn-default btn-form" %>
+    <%= link_to "削除", user_todaymeal_path(@user, @todaymeal, start_time: params[:start_time], start_date: params[:start_date]), method: :delete, class: "btn btn-md btn-danger" %>
   <% end %>
 </div>

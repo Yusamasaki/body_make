@@ -1,11 +1,69 @@
+<ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link" href="<%= user_today_tranings_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">HOME</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" id="Record-tab"href="#Record">Record</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="line-chart-tab" href="<%= user_today_tranings_chart_path(@user, bodypart_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>#line-chart">Line Chart</a>
+  </li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="Record" role="tabpanel" aria-labelledby="Record-tab">
+    <ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
+      <% @bodyparts.each do |bodypart| %>
+      <li class="nav-item">
+        <% if bodypart.id == params[:bodypart_id].to_i %>
+          <a class="nav-link active" id="tab-bodypart-<%= params[:bodypart_id].to_i %>" href="<%= edit_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= bodypart.body_part %></a>
+        <% else %>
+          <a class="nav-link" id="tab-bodypart-<%= bodypart.id %>" href="<%= edit_user_traningevent_path(@user, bodypart_id: bodypart.id, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= bodypart.body_part %></a>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<div class="tab-content" id="myTabContent">
+  <% @traningevents.each do |bodypart, traningevents| %>
+    <% if bodypart == params[:bodypart_id].to_i %>
+      <div class="tab-pane fade show active" id="bodypart-<%= params[:bodypart_id].to_i %>" role="tabpanel" aria-labelledby="tab-bodypart-<%= params[:bodypart_id].to_i %>">
+    <% else %>
+      <div class="tab-pane fade" id="bodypart-<%= bodypart %>" role="tabpanel" aria-labelledby="tab-bodypart-<%= bodypart %>">
+    <% end %>
+        <ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
+          <% @traningtypes.each do |traningtype| %>
+            <li class="nav-item">
+              <% if traningtype.id == params[:traningtype_id].to_i %>
+                <a class="nav-link active" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: bodypart, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= traningtype.traning_type %></a>
+              <% else %>
+                <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: bodypart, traningtype_id: traningtype, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= traningtype.traning_type %></a>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+        <% traningevents.each do |id, name| %>
+          <ul class="nav nav-pills mb-3 nav-fill justify-content-center" id="myTab" role="tablist">
+            <li class="nav-item">
+              <% if id == params[:id].to_i %>
+                <a class="nav-link active", id="traningevent-<%= params[:id] %>", href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: bodypart, traningevent_id: id, start_time: params[:start_time], start_date: params[:start_date])%>#traningevent-<%= params[:id] %>"><%= name %></a>
+              <% else %>
+                <a class="nav-link", id="traningevent-<%= id %>" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: bodypart, traningevent_id: id, start_time: params[:start_time], start_date: params[:start_date])%>#traningevent-<%= id %>" ><%= name %></a>
+              <% end %>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+  <% end %>
+</div>
+
 <div class="box1">
   <div class="row">
     <div class="col-12">
       <table class="table table-striped">
         <tbody>
           <tr>
-            <th><%= @traningevent.traning_name %></th>
-            <th><%= @bodypart.body_part %></th>
             <th><%= @traningevent.sub_body_part %></th>
             <th><%= link_to "編集", edit_user_traningevent_path(@user, @traningevent, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-success" %></th>
             <th><%= link_to "削除", user_traningevent_path(@user, @traningevent, start_date: params[:start_date], start_time: params[:start_time]), method: :delete,
@@ -15,8 +73,8 @@
         </tbody>
       </table>
     </div>
-    <div class="col-2 offset-5">
-      <%= link_to "戻る", user_traningevents_path(@user, today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-default" %>
+    <div class="mx-auto">
+      <%= link_to "戻る", user_traningevents_path(@user, bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], traningevent_id: params[:traningevent_id], start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-default" %>
     </div>
   </div>
 </div>

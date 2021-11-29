@@ -1,6 +1,7 @@
 class RecipefoodsController < ApplicationController
   
   before_action :set_user, only: [:index, :new, :create, :destroy]
+  before_action :set_basic, only: [:new]
   before_action :set_recipe, only: [:index, :new]
   before_action :set_myfood, only: [:new]
   before_action :ser_recipefoods_total, only: [:index]
@@ -47,7 +48,7 @@ class RecipefoodsController < ApplicationController
         @recipe_carbo = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:carbo), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
         @recipe_sugar = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:sugar), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
         @recipe_dietary_fiber = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:dietary_fiber), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
-        @recipe_salt = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:salt), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
+        @recipe_salt = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:salt), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum if @recipe_salt.present?
         
         @recipe.update_attributes!(calorie: @recipe_calorie, protein: @recipe_protein, fat: @recipe_fat, carbo: @recipe_carbo,
                                   sugar: @recipe_sugar, dietary_fiber: @recipe_dietary_fiber, salt: @recipe_salt)
@@ -55,9 +56,9 @@ class RecipefoodsController < ApplicationController
         flash[:success] = "#{@myfood.food_name}の登録に成功しました。"
         
         if params[:before] == "new"
-          redirect_to new_user_todaymeal_recipe_path(@user, before: params[:before], recipe_id: @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+          redirect_to new_user_todaymeal_recipe_path(@user, switching: "record", before: params[:before], recipe_id: @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
         elsif params[:before] == "edit"
-          redirect_to edit_user_todaymeal_recipe_path(@user, params[:todaymeal_recipe_id], before: params[:before], recipe_id: @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+          redirect_to edit_user_todaymeal_recipe_path(@user, params[:todaymeal_recipe_id], switching: "record", before: params[:before], recipe_id: @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
         end
       rescue ActiveRecord::RecordInvalid
         flash[:danger] = "登録に失敗しました。"
@@ -90,9 +91,9 @@ class RecipefoodsController < ApplicationController
     
     flash[:success] = "#{@myfood.food_name}を削除しました。"
     if params[:before] == "new"
-      redirect_to new_user_todaymeal_recipe_path(@user, before: params[:action], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+      redirect_to new_user_todaymeal_recipe_path(@user, switching: "record", before: params[:action], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
     elsif params[:before] == "edit"
-      redirect_to edit_user_todaymeal_recipe_path(@user, params[:todaymeal_recipe_id], before: params[:action], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+      redirect_to edit_user_todaymeal_recipe_path(@user, params[:todaymeal_recipe_id], switching: "record", before: params[:action], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
     end
   end
   
