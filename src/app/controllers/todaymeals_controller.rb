@@ -1,7 +1,7 @@
 class TodaymealsController < ApplicationController
   
   before_action :set_user, only: [:index, :new, :create, :edit, :update, :destroy, :analysis]
-  before_action :set_basic, only: [:index, :analysis]
+  before_action :set_basic, only: [:index, :new, :analysis]
   before_action :set_bmr, only: [:index]
   before_action :set_myfood, only: [:new, :edit, :update]
   before_action :set_meals, only: [:edit, :update]
@@ -10,10 +10,15 @@ class TodaymealsController < ApplicationController
   
   def index
     
-    @timezones = Timezone.all
+    if params[:timezone_id].present?
+      timezones = Timezone.where(id: params[:timezone_id])
+    else
+      timezones = Timezone.all
+    end
     
+    @timezones = Timezone.all
     # 時間帯別の総摂取栄養素・摂取栄養素
-    @timezone_meals = @timezones.map {|timezone| 
+    @timezone_meals = timezones.map {|timezone| 
       [
         timezone, @user.todaymeal_recipes.where(start_time: params[:start_time], timezone_id: timezone).pluck(:recipe_id, :amount), 
         @user.todaymeals.where(start_time: params[:start_time], timezone_id: timezone).pluck(:myfood_id, :amount)
@@ -68,6 +73,7 @@ class TodaymealsController < ApplicationController
   
   def new
     @todaymeal = @user.todaymeals.new
+    @timezones = Timezone.all
     @timezone = Timezone.find(params[:timezone_id])
     
     gon.food_name = [:protein, :fat, :carbo].map{|nutrition| Myfood.human_attribute_name(nutrition)}

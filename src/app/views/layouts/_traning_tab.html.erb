@@ -1,0 +1,292 @@
+
+<% unless controller_name == "traningevents" && action_name == "edit" %>
+<div class="box1">
+  <!--大項目選択タブ-->
+  <ul class="nav nav-pills nav-fill justify-content-center" id="myTab" role="tablist">
+    <!--HOMEタブ-->
+    <li class="nav-item">
+      <a class="nav-link" href="<%= user_today_tranings_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">
+        HOME
+      </a>
+    </li>
+    <!--Recordタブ-->
+    <li class="nav-item">
+      <% if controller_name == "today_tranings" && action_name == "traning_new" || controller_name == "traningevents" && action_name == "new" %>
+        <a class="nav-link active" href="<%= user_today_tranings_traning_new_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">
+          Record
+        </a>
+      <% else %>
+        <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">
+          Record
+        </a>
+      <% end %>
+    </li>
+    <!--Analysisタブ-->
+    <li class="nav-item">
+      <% if controller_name == "today_tranings" && action_name == "traning_analysis" %>
+        <%= link_to(user_today_tranings_traning_analysis_path(@user, start_time: params[:start_time], start_date: params[:start_date]), class: "nav-link active", data: {"turbolinks"=>false}) do %>
+          <div>Line Chart</div>
+        <% end %>
+      <% else %>
+        <%= link_to(user_today_tranings_traning_analysis_path(@user, start_time: params[:start_time], start_date: params[:start_date]), class: "nav-link", data: {"turbolinks"=>false}) do %>
+          <div>Line Chart</div>
+        <% end %>
+      <% end %>
+    </li>
+  </ul>
+</div>
+<% end %>
+
+
+<div class="box1">
+<!--Bodypartタブ-->
+<ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+  <li class="nav-item">
+    <% if controller_name == "today_tranings" && action_name == "traning_new" %>
+      <% unless params[:bodypart_id].present? %>
+        <a class="nav-link active" href="<%= user_today_tranings_traning_new_path(@user, subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% else %>
+        <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% end %>
+    <% elsif controller_name == "traningevents" && action_name == "new" %>
+      <% unless params[:bodypart_id].present? %>
+        <a class="nav-link active" href="<%= new_user_traningevent_path(@user, subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% else %>
+        <a class="nav-link" href="<%= new_user_traningevent_path(@user, subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% end %>
+    <% elsif controller_name == "today_tranings" && action_name == "traning_analysis" %>
+      <% unless params[:bodypart_id].present? %>
+        <a class="nav-link active" href="<%= user_today_tranings_traning_analysis_path(@user, subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% else %>
+        <a class="nav-link" href="<%= user_today_tranings_traning_analysis_path(@user, subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% end %>
+    <% elsif controller_name == "traningevents" && action_name == "edit" %>
+      <% unless params[:bodypart_id].present? %>
+        <a class="nav-link active" href="<%= edit_user_traningevent_path(@user, subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% else %>
+        <a class="nav-link" href="<%= edit_user_traningevent_path(@user, subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% end %>
+    <% end %>
+  </li>
+  <% @bodyparts.each do |bodypart| %>
+  <li class="nav-item">
+    <% if controller_name == "today_tranings" && action_name == "traning_new" %>
+      <% if bodypart.id == params[:bodypart_id].to_i %>
+        <a class="nav-link active" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= bodypart.body_part %></a>
+      <% else %>
+        <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: bodypart.id, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>#bodypart-1"><%= bodypart.body_part %></a>
+      <% end %>
+    <% elsif controller_name == "traningevents" && action_name == "new" %>
+      <% if bodypart.id == params[:bodypart_id].to_i %>
+        <a class="nav-link active" href="<%= new_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= bodypart.body_part %></a>
+      <% else %>
+        <a class="nav-link" href="<%= new_user_traningevent_path(@user, bodypart_id: bodypart.id, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= bodypart.body_part %></a>
+      <% end %>
+    <% elsif controller_name == "today_tranings" && action_name == "traning_analysis" %>
+      <% if bodypart.id == params[:bodypart_id].to_i %>
+        <a class="nav-link active" href="<%= user_today_tranings_traning_analysis_path(@user, bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= bodypart.body_part %></a>
+      <% else %>
+        <a class="nav-link" href="<%= user_today_tranings_traning_analysis_path(@user, bodypart_id: bodypart.id, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= bodypart.body_part %></a>
+      <% end %>
+    <% elsif controller_name == "traningevents" && action_name == "edit" %>
+      <% if bodypart.id == params[:bodypart_id].to_i %>
+        <a class="nav-link active" href="<%= user_today_tranings_traning_analysis_path(@user, bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= bodypart.body_part %></a>
+      <% else %>
+        <a class="nav-link" href="<%= edit_user_traningevent_path(@user, bodypart_id: bodypart.id, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= bodypart.body_part %></a>
+      <% end %>
+    <% end %>
+  </li>
+  <% end %>
+</ul>
+<% if params[:bodypart_id].present? %>
+<ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+  <li class="nav-item">
+    <% if controller_name == "today_tranings" && action_name == "traning_new" %>
+      <% unless params[:subbodypart_id].present? %>
+        <a class="nav-link active" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% else %>
+        <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% end %>
+    <% elsif controller_name == "traningevents" && action_name == "new" %>
+      <% unless params[:subbodypart_id].present? %>
+        <a class="nav-link active" href="<%= new_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% else %>
+        <a class="nav-link" href="<%= new_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% end %>
+    <% elsif controller_name == "today_tranings" && action_name == "traning_analysis" %>
+      <% unless params[:subbodypart_id].present? %>
+        <a class="nav-link active" href="<%= user_today_tranings_traning_analysis_path(@user, bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% else %>
+        <a class="nav-link" href="<%= user_today_tranings_traning_analysis_path(@user, bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% end %>
+    <% elsif controller_name == "traningevents" && action_name == "edit" %>
+      <% unless params[:subbodypart_id].present? %>
+        <a class="nav-link active" href="<%= edit_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% else %>
+        <a class="nav-link" href="<%= edit_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% end %>
+    <% end %>
+  </li>
+  <% @subbodyparts.each do |subbodypart| %>
+    <li class="nav-item">
+      <% if controller_name == "today_tranings" && action_name == "traning_new" %>
+        <% if subbodypart.id == @subbodypart_active && @subbodypart_active == params[:subbodypart_id].to_i %>
+          <a class="nav-link active" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: @subbodypart_active, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= subbodypart.sub_body_part %></a>
+        <% elsif subbodypart.id == params[:subbodypart_id].to_i %>
+          <a class="nav-link active" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id].to_i, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= subbodypart.sub_body_part %></a>
+        <% else %>
+          <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: subbodypart, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= subbodypart.sub_body_part %></a>
+        <% end %>
+      <% elsif controller_name == "traningevents" && action_name == "new" %>
+        <% if subbodypart.id == @subbodypart_active && @subbodypart_active == params[:subbodypart_id].to_i %>
+          <a class="nav-link active" href="<%= new_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: @subbodypart_active, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= subbodypart.sub_body_part %></a>
+        <% elsif subbodypart.id == params[:subbodypart_id].to_i %>
+          <a class="nav-link active" href="<%= new_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id].to_i, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= subbodypart.sub_body_part %></a>
+        <% else %>
+          <a class="nav-link" href="<%= new_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: subbodypart, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= subbodypart.sub_body_part %></a>
+        <% end %>
+      <% elsif controller_name == "today_tranings" && action_name == "traning_analysis" %>
+        <% if subbodypart.id == @subbodypart_active && @subbodypart_active == params[:subbodypart_id].to_i %>
+          <a class="nav-link active" href="<%= user_today_tranings_traning_analysis_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: @subbodypart_active, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= subbodypart.sub_body_part %></a>
+        <% elsif subbodypart.id == params[:subbodypart_id].to_i %>
+          <a class="nav-link active" href="<%= user_today_tranings_traning_analysis_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id].to_i, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= subbodypart.sub_body_part %></a>
+        <% else %>
+          <a class="nav-link" href="<%= user_today_tranings_traning_analysis_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: subbodypart, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= subbodypart.sub_body_part %></a>
+        <% end %>
+      <% elsif controller_name == "traningevents" && action_name == "edit" %>
+        <% if subbodypart.id == @subbodypart_active && @subbodypart_active == params[:subbodypart_id].to_i %>
+          <a class="nav-link active" href="<%= edit_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: @subbodypart_active, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= subbodypart.sub_body_part %></a>
+        <% elsif subbodypart.id == params[:subbodypart_id].to_i %>
+          <a class="nav-link active" href="<%= edit_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id].to_i, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= subbodypart.sub_body_part %></a>
+        <% else %>
+          <a class="nav-link" href="<%= edit_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: subbodypart, traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= subbodypart.sub_body_part %></a>
+        <% end %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+<% end %>
+
+<!--Traningtypeタブ-->
+<ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+  <li class="nav-item">
+    <% if controller_name == "today_tranings" && action_name == "traning_new" %>
+      <% unless params[:traningtype_id].present? %>
+        <a class="nav-link active" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% else %>
+        <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% end %>
+    <% elsif controller_name == "traningevents" && action_name == "new" %>
+      <% unless params[:traningtype_id].present? %>
+        <a class="nav-link active" href="<%= new_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% else %>
+        <a class="nav-link" href="<%= new_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% end %>
+    <% elsif controller_name == "today_tranings" && action_name == "traning_analysis" %>
+      <% unless params[:traningtype_id].present? %>
+        <a class="nav-link active" href="<%= user_today_tranings_traning_analysis_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% else %>
+        <a class="nav-link" href="<%= user_today_tranings_traning_analysis_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% end %>
+    <% elsif controller_name == "traningevents" && action_name == "edit" %>
+      <% unless params[:traningtype_id].present? %>
+        <a class="nav-link active" href="<%= edit_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% else %>
+        <a class="nav-link" href="<%= edit_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+      <% end %>
+    <% end %>
+  </li>
+  <% @traningtypes.each do |traningtype| %>
+    <li class="nav-item">
+      <% if controller_name == "today_tranings" && action_name == "traning_new" %>
+        <% if traningtype.id == params[:traningtype_id].to_i %>
+          <a class="nav-link active" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= traningtype.traning_type %></a>
+        <% else %>
+          <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], traningtype_id: traningtype, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= traningtype.traning_type %></a>
+        <% end %>
+      <% elsif controller_name == "traningevents" && action_name == "new" %>
+        <% if traningtype.id == params[:traningtype_id].to_i %>
+          <a class="nav-link active" href="<%= new_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= traningtype.traning_type %></a>
+        <% else %>
+          <a class="nav-link" href="<%= new_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], traningtype_id: traningtype, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= traningtype.traning_type %></a>
+        <% end %>
+      <% elsif controller_name == "today_tranings" && action_name == "traning_analysis" %>
+        <% if traningtype.id == params[:traningtype_id].to_i %>
+          <a class="nav-link active" href="<%= user_today_tranings_traning_analysis_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= traningtype.traning_type %></a>
+        <% else %>
+          <a class="nav-link" href="<%= user_today_tranings_traning_analysis_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], traningtype_id: traningtype, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= traningtype.traning_type %></a>
+        <% end %>
+      <% elsif controller_name == "traningevents" && action_name == "edit" %>
+        <% if traningtype.id == params[:traningtype_id].to_i %>
+          <a class="nav-link active" href="<%= edit_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><%= traningtype.traning_type %></a>
+        <% else %>
+          <a class="nav-link" href="<%= edit_user_traningevent_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], traningtype_id: traningtype, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= traningtype.traning_type %></a>
+        <% end %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+</div>
+
+<!--Record && Createタブ-->
+<% unless controller_name == "today_tranings" && action_name == "traning_analysis" || controller_name == "traningevents" && action_name == "edit" %>
+  <div class="box1">
+    <ul class="nav nav-fill justify-content-center mb-3" id="myTab" role="tablist">
+      <li class="nav-item">
+        <% if controller_name == "today_tranings" && action_name == "traning_new" %>
+          <a class="nav-link active" href="#Record">Record</a>
+        <% else %>
+          <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, traningtype_id: 1, traningevent_id: 1, bodypart_id: 1, subbodypart_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <% if controller_name == "traningevents" && action_name == "new" %>
+          <a class="nav-link active" href="<%= new_user_traningevent_path(@user, traningtype_id: params[:traningtype_id], bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], start_time: params[:start_time], start_date: params[:start_date])%>"> Create</a>
+        <% else %>
+          <a class="nav-link" href="<%= new_user_traningevent_path(@user, traningtype_id: params[:traningtype_id], bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], start_time: params[:start_time], start_date: params[:start_date])%>"> Create</a>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+<% end %>
+
+<% if controller_name == "traningevents" && action_name == "new" %>
+  <ul class="nav nav-pills nav-fill justify-content-center" id="myTab" role="tablist">
+    <li class="nav-item">
+      <div><h5>現在の種目一覧</h5></div>
+    </li>
+  </ul>
+<% end %>
+
+<!--Traningeventタブ-->
+<% if controller_name == "traningevents" && action_name == "new" || controller_name == "traningevents" && action_name == "edit" %>
+  <div>
+<% else %>
+  <div class="box1">
+<% end %>
+  <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+    <% @traningevents.each do |traningevent| %>
+      <li class="nav-item">
+        <% if controller_name == "today_tranings" && action_name == "traning_new" %>
+          <% if traningevent.id == params[:traningevent_id].to_i %>
+            <a class="nav-link active", href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], traningevent_id: traningevent, start_time: params[:start_time], start_date: params[:start_date])%>"><%= traningevent.traning_name %></a>
+          <% else %>
+            <a class="nav-link", href="<%= user_today_tranings_traning_new_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], traningevent_id: traningevent, start_time: params[:start_time], start_date: params[:start_date])%>"><%= traningevent.traning_name %></a>
+          <% end %>
+        <% elsif controller_name == "traningevents" && action_name == "new" %>
+          <div><%= traningevent.traning_name %></div>
+        <% elsif controller_name == "today_tranings" && action_name == "traning_analysis" %>
+          <% if traningevent.id == params[:traningevent_id].to_i %>
+            <%= link_to(user_today_tranings_traning_analysis_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], traningevent_id: traningevent, start_time: params[:start_time], start_date: params[:start_date]), class: "nav-link active", data: {"turbolinks"=>false}) do %>
+              <div><%= traningevent.traning_name %></div>
+            <% end %>
+          <% else %>
+            <%= link_to(user_today_tranings_traning_analysis_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], traningevent_id: traningevent, start_time: params[:start_time], start_date: params[:start_date]), class: "nav-link", data: {"turbolinks"=>false}) do %>
+              <div><%= traningevent.traning_name %></div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

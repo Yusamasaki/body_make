@@ -50,12 +50,27 @@
       border-left: 5px solid #fff;
 }
 
+.sample5-1 {
+  padding: 10px;  
+}
 .sample5-1::before{
-    left: 3px;
-    width: 20px;
-    height: 20px;
-    border-top: 3px solid #274277;
-    border-right: 3px solid #274277;
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
+  width: 25px;
+  height: 25px;
+  border: 5px solid;
+  border-color: #274277 #274277 transparent transparent;
+  transform: rotate(45deg);
+}
+
+@media screen and (max-width: 428px) {
+  .sample5-1 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+  .sample5-1::before{
+    width: 25px;
+    height: 25px;
+    border: 5px solid;
+    border-color:  transparent transparent #274277 #274277;
+    transform: rotate(-45deg);
+  }
 }

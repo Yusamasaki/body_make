@@ -1,9 +1,9 @@
 class BmrsController < ApplicationController
   before_action :set_user, only: [:new, :create, :edit, :update]
-
+  before_action :set_basic, only: [:new, :edit]
 
   def new
-    if Bmr.where(user_id: @user.id).blank?
+    if Bmr.where(user_id: @user).blank?
       @bmr = Bmr.new
     else
       flash[:success] = "登録済みです"
@@ -21,16 +21,18 @@ class BmrsController < ApplicationController
   end
 
   def edit
-    @bmr = Bmr.find_by(user_id: @user.id)
+    @bmr = Bmr.find_by(user_id: @user)
   end
 
   def update
     @bmr = Bmr.find_by(user_id: @user.id)
-    if @bmr.update_attributes(bmr_params)
+    ActiveRecord::Base.transaction do
+      @bmr.update_attributes!(bmr_params)
       flash[:success] = "更新しました"
-      redirect_to user_path(@user, start_date: params[:start_date], start_time: params[:start_time])
-    else
-      render :edit
+      redirect_to edit_user_bmr_path(@user, @bmr, switching: "basic", start_date: params[:start_date], start_time: params[:start_time])
+    rescue ActiveRecord::RecordInvalid
+      flash[:danger] = "更新に失敗しました"
+      redirect_to edit_user_bmr_path(@user, @bmr, switching: "basic", start_date: params[:start_date], start_time: params[:start_time])
     end
 
 

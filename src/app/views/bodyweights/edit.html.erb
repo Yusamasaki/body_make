@@ -1,9 +1,17 @@
+<ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+  <li class="nav-item">
+    <%= link_to(user_path(@user, start_date: params[:start_date], start_time: params[:start_time]), class: "nav-link", data: {"turbolinks"=>false}) do %>
+      <i class="fas fa-undo-alt">戻る</i>
+    <% end %>
+  </li>
+</ul>
+</br>
 
-
-<div class="bodyweights_flame">
-
-  <h1>体重記録</h1>
-  
+<div class="card">
+  <div class="card-header">
+    <h5>体重記録</h5>
+  </div>
+  <div class="card-body">
   <%= form_with(model: @body_weight, url: user_bodyweight_path(start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
     
     <% if params[:bodyweight] == "body_weight" %>
@@ -15,8 +23,13 @@
       <%= f.label :bodyfat_percentage, class: "label-form" %><br>
       <%= f.number_field :bodyfat_percentage, step: '0.1', class: "form-control" %><br>
     <% end %>
-    
-    <%= f.submit "更新", class: "btn btn-lg btn-original btn-form" %>
-  
+  </div>
+  <div class="card-footer">
+    <div class="row">
+      <div class="mx-auto">
+        <%= f.submit "更新", class: "btn btn-md btn-original btn-form" %>
+      </div>
+    </div>
+  </div>
   <% end %>
 </div>

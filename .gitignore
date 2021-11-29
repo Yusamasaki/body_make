@@ -33,4 +33,4 @@ src/yarn-error.log
 src/yarn-debug.log*
 src/.yarn-integrity
 
-.env
+web_db.env

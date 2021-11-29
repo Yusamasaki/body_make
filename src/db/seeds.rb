@@ -64,27 +64,27 @@ Traningtype.create!(
 )
 
 Bodypart.create!(
-	[{body_part: "胸"}, {body_part: "背中"}, {body_part: "脚"}, {body_part: "肩"}, {body_part: "腕"}, {body_part: "腹筋"}]
+	[{body_part: "胸", recovery_day: 2}, {body_part: "背中", recovery_day: 3}, {body_part: "脚", recovery_day: 3}, {body_part: "肩", recovery_day: 2}, {body_part: "腕", recovery_day: 2}, {body_part: "腹筋", recovery_day: 1}]
 )
 
-SubBodypart.create(
+SubBodypart.create!(
 	[
-		{sub_body_part: "大胸筋上部", bodypart_id: 1}, {sub_body_part: "大胸筋中部", bodypart_id: 1}, {sub_body_part: "大胸筋下部", bodypart_id: 1},
-	  {sub_body_part: "僧帽筋上部", bodypart_id: 2}, {sub_body_part: "僧帽筋中部", bodypart_id: 2}, {sub_body_part: "僧帽筋下部", bodypart_id: 2}, {sub_body_part: "広背筋上部", bodypart_id: 2}, {sub_body_part: "広背筋下部", bodypart_id: 2},
-		{sub_body_part: "大腿四頭筋", bodypart_id: 3}, {sub_body_part: "大腿二頭筋(ハムストリング)", bodypart_id: 3}, {sub_body_part: "下腿三頭筋(ふくらはぎ)", bodypart_id: 3},
-		{sub_body_part: "三角筋前部", bodypart_id: 4}, {sub_body_part: "三角筋側部", bodypart_id: 4}, {sub_body_part: "三角筋後部", bodypart_id: 4},
-		{sub_body_part: "上腕三頭筋", bodypart_id: 5}, {sub_body_part: "上腕二頭筋", bodypart_id: 5},
-		{sub_body_part: "腹横筋", bodypart_id: 6}, {sub_body_part: "内腹斜筋", bodypart_id: 6}, {sub_body_part: "外腹斜筋", bodypart_id: 6}, {sub_body_part: "腹直筋", bodypart_id: 6}
+		{sub_body_part: "大胸筋上部", recovery_day: 2, bodypart_id: 1}, {sub_body_part: "大胸筋中部", recovery_day: 2, bodypart_id: 1}, {sub_body_part: "大胸筋下部", recovery_day: 2, bodypart_id: 1},
+	  {sub_body_part: "僧帽筋上部", recovery_day: 2, bodypart_id: 2}, {sub_body_part: "僧帽筋中部", recovery_day: 3, bodypart_id: 2}, {sub_body_part: "僧帽筋下部", recovery_day: 3, bodypart_id: 2}, {sub_body_part: "広背筋上部", recovery_day: 3, bodypart_id: 2}, {sub_body_part: "広背筋下部", recovery_day: 3, bodypart_id: 2}, {sub_body_part: "脊柱起立筋", recovery_day: 3, bodypart_id: 2},
+		{sub_body_part: "大腿四頭筋", recovery_day: 3, bodypart_id: 3}, {sub_body_part: "大腿二頭筋(ハムストリング)", recovery_day: 3, bodypart_id: 3}, {sub_body_part: "下腿三頭筋(ふくらはぎ)", recovery_day: 1, bodypart_id: 3}, {sub_body_part: "大臀筋(お尻)", recovery_day: 2, bodypart_id: 3},
+		{sub_body_part: "三角筋前部", recovery_day: 2, bodypart_id: 4}, {sub_body_part: "三角筋側部", recovery_day: 2, bodypart_id: 4}, {sub_body_part: "三角筋後部", recovery_day: 2, bodypart_id: 4},
+		{sub_body_part: "上腕三頭筋", recovery_day: 2, bodypart_id: 5}, {sub_body_part: "上腕二頭筋", recovery_day: 2, bodypart_id: 5},
+		{sub_body_part: "腹横筋", recovery_day: 1, bodypart_id: 6}, {sub_body_part: "内腹斜筋", recovery_day: 1, bodypart_id: 6}, {sub_body_part: "外腹斜筋", recovery_day: 1, bodypart_id: 6}, {sub_body_part: "腹直筋", recovery_day: 1, bodypart_id: 6}
 	]
 )
 
 Traningevent.create!(
 	[
-		{traning_name: "ベンチプレス", sub_body_part: "大胸筋中部", bodypart_id: 1, traningtype_id: 1, user_id: 1},
-		{traning_name: "デッドリフト", sub_body_part: "僧帽筋中部", bodypart_id: 2, traningtype_id: 1, user_id: 1},
-		{traning_name: "スクワット", sub_body_part: "大腿二頭筋(ハムストリング)", bodypart_id: 3, traningtype_id: 1, user_id: 1},
-		{traning_name: "バーベルショルダープレス", sub_body_part: "三角筋前部", bodypart_id: 4, traningtype_id: 1, user_id: 1},
-		{traning_name: "バーベルカール", sub_body_part: "上腕二頭筋", bodypart_id: 5, traningtype_id: 1, user_id: 1}
+		{traning_name: "ベンチプレス", subbodypart_id: 2, bodypart_id: 1, traningtype_id: 1, user_id: 1},
+		{traning_name: "デッドリフト", subbodypart_id: 5, bodypart_id: 2, traningtype_id: 1, user_id: 1},
+		{traning_name: "スクワット", subbodypart_id: 11, bodypart_id: 3, traningtype_id: 1, user_id: 1},
+		{traning_name: "バーベルショルダープレス", subbodypart_id: 14, bodypart_id: 4, traningtype_id: 1, user_id: 1},
+		{traning_name: "バーベルカール", subbodypart_id: 18, bodypart_id: 5, traningtype_id: 1, user_id: 1}
 	]
 )
 
