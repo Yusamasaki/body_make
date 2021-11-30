@@ -121,10 +121,6 @@ class ApplicationController < ActionController::Base
     @last_day = @first_day.end_of_month
     
     one_month = [*@first_day..@last_day]
-<<<<<<< HEAD
-=======
-    
->>>>>>> a17728afcb7c68010cc0eac4eae144af40c056c8
     @exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
     
     unless one_month.count <= @exercises.count
