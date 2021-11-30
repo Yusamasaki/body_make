@@ -13,10 +13,12 @@
         <h5><%= ExerciseCategory.find(@category_params).name %>(<%= ExerciseContent.find(@content_params).content %>)</h5><br>
         <div>
           <div>
-            <%= f.label :exercise_time_hour, class: "label-form" %>
+            <%= f.label '運動時間', class: "label-form" %>
           </div>
-          <%= f.number_field :exercise_time_hour, class: "form-control form-control-sm", style: 'display: inline-block; width: auto;' %>
-          <%= f.number_field :exercise_time_min, class: "form-control form-control-sm", style: 'display: inline-block; width: auto;' %>
+          <%= f.select :exercise_time_hour, options_for_select(0..23), {}, { class: "form-control form-control-sm", style: 'display: inline-block; width: auto;' }  %>
+          <%= f.label :exercise_time_hour, class: "label-form" %>
+          <%= f.select :exercise_time_min, options_for_select((0..55).select { |i| i if i % 5  == 0 }), {}, { class: "form-control form-control-sm", style: 'display: inline-block; width: auto;' } %>
+          <%= f.label :exercise_time_min, class: "label-form" %>
         </div><br>
 
         <div>
