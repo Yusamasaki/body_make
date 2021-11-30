@@ -16,7 +16,6 @@ class UsersController < ApplicationController
   end
   
   def show
-    
     @first_day = params[:start_date].nil? ?
     Date.current.beginning_of_month : params[:start_date].to_date
     @last_day = @first_day.end_of_month
@@ -35,6 +34,26 @@ class UsersController < ApplicationController
     @body_weight = @user.bodyweights.find_by(start_time: params[:start_time])
     @body_weights = @user.bodyweights.all
     @bodyparts = Bodypart.all
+    
+    @bodypart_recoverys = @bodyparts.map{|bodypart|
+      current_day = Time.current.to_date.yday
+      record_day = @user.today_tranings.where(bodypart_id: bodypart).order(start_time: :desc).limit(1).pluck(:start_time)
+      [
+        bodypart, 
+        if record_day.present?
+          if (current_day - record_day.sum.yday) <= bodypart.recovery_day
+            (current_day - record_day.sum.yday)
+          else
+            bodypart.recovery_day
+          end
+        else
+          bodypart.recovery_day
+        end
+        ]
+    }.map{|bodypart, current|
+      recovery_parcentage = ((current / bodypart.recovery_day.to_f) * 100)
+      [recovery_parcentage, bodypart, current]
+    }
     
     # 最新のレコード(start_time)
     today_tranings_1 = @user.today_tranings.where(bodypart_id: 1).order(start_time: :desc).limit(1).pluck(:start_time).sum

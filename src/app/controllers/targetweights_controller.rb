@@ -1,5 +1,6 @@
 class TargetweightsController < ApplicationController
   before_action :set_user, only: [:new, :create, :edit, :update]
+  before_action :set_basic, only: [:new, :edit]
 
   def new
     if Targetweight.where(user_id: @user.id).blank?
@@ -11,9 +12,10 @@ class TargetweightsController < ApplicationController
   end
   def create
     @tw = Targetweight.new(targetweight_params)
-    if @tw.save
+    ActiveRecord::Base.transaction do 
+      @tw.save!
       redirect_to user_path(@user, start_date: Date.current.beginning_of_month, start_time: Date.current)
-    else
+    rescue ActiveRecord::RecordInvalid
       render :new
     end
   end
@@ -24,11 +26,13 @@ class TargetweightsController < ApplicationController
 
   def update
     @tw = Targetweight.find_by(user_id: @user.id)
-    if @tw.update_attributes(targetweight_params)
+    ActiveRecord::Base.transaction do
+      @tw.update_attributes!(targetweight_params)
       flash[:success] = "更新完了しました"
-      redirect_to user_path(@user, start_date: params[:start_date], start_time: params[:start_time])
-    else
-      render :edit
+      redirect_to edit_user_targetweight_path(@user, @tw, switching: "target", start_date: params[:start_date], start_time: params[:start_time])
+    rescue ActiveRecord::RecordInvalid
+      flash[:danger] = "更新に失敗しました"
+      redirect_to edit_user_targetweight_path(@user, @tw, switching: "target", start_date: params[:start_date], start_time: params[:start_time])
     end
   end
 

@@ -4,9 +4,9 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th><%= Recipe.human_attribute_name(:recipe_name) %></th>
+          <th class="align-middle"><%= Recipe.human_attribute_name(:recipe_name) %></th>
           <% @attribute_names.each do |attribute_name| %>
-            <th><%= attribute_name %></th>
+            <th class="align-middle"><%= attribute_name %></th>
           <% end %>
         </tr>
       </thead>
@@ -15,40 +15,40 @@
         <% @todaymeal_recipes.each do |todaymeal_recipe| %>
         <% @recipe = @user.recipes.find(todaymeal_recipe.recipe_id) %>
         
-          <tr data-href=<%= edit_user_todaymeal_recipe_path(@user, todaymeal_recipe, recipe_id: @recipe, timezone_id: timezone, start_time: params[:start_time], start_date: params[:start_date]) %>>
-            <td><%= @recipe.recipe_name %>(<%= todaymeal_recipe.amount %>人分)</td>
-            <td><%= @recipe.calorie * todaymeal_recipe.amount %></td>
-            <td><%= @recipe.protein * todaymeal_recipe.amount %></td>
-            <td><%= @recipe.fat * todaymeal_recipe.amount %></td>
-            <td><%= @recipe.carbo * todaymeal_recipe.amount %></td>
-            <td><%= @recipe.sugar * todaymeal_recipe.amount %></td>
-            <td><%= @recipe.dietary_fiber * todaymeal_recipe.amount %></td>
-            <td><%= @recipe.salt * todaymeal_recipe.amount %></td>
+          <tr data-href=<%= edit_user_todaymeal_recipe_path(@user, todaymeal_recipe, switching: "record", recipe_id: @recipe, timezone_id: timezone, start_time: params[:start_time], start_date: params[:start_date]) %>>
+            <td class="align-middle"><%= @recipe.recipe_name %>(<%= todaymeal_recipe.amount %>人分)</td>
+            <td class="align-middle"><%= @recipe.calorie * todaymeal_recipe.amount %></td>
+            <td class="align-middle"><%= @recipe.protein * todaymeal_recipe.amount %></td>
+            <td class="align-middle"><%= @recipe.fat * todaymeal_recipe.amount %></td>
+            <td class="align-middle"><%= @recipe.carbo * todaymeal_recipe.amount %></td>
+            <td class="align-middle"><%= @recipe.sugar * todaymeal_recipe.amount %></td>
+            <td class="align-middle"><%= @recipe.dietary_fiber * todaymeal_recipe.amount %></td>
+            <td class="align-middle"><%= @recipe.salt * todaymeal_recipe.amount if @recipe.salt.present? %></td>
           </tr>
         <% end %>
       </tbody>
       <tfoot>
         <tr>
-          <th>合計</th>
-          <th>
+          <th class="align-middle">合計</th>
+          <th class="align-middle">
             <% @recipes_calorie = @todaymeal_recipes.pluck(:recipe_id, :amount).map {|todaymeal_recipe, amount| @user.recipes.where(id: todaymeal_recipe).pluck(:calorie).sum * amount}.sum %><%= @recipes_calorie %>
           </th>
-          <th>
+          <th class="align-middle">
             <% @recipes_protein = @todaymeal_recipes.pluck(:recipe_id, :amount).map {|todaymeal_recipe, amount| @user.recipes.where(id: todaymeal_recipe).pluck(:protein).sum * amount}.sum %><%= @recipes_protein %>
           </th>
-          <th>
+          <th class="align-middle">
             <% @recipes_fat = @todaymeal_recipes.pluck(:recipe_id, :amount).map {|todaymeal_recipe, amount| @user.recipes.where(id: todaymeal_recipe).pluck(:fat).sum * amount}.sum %><%= @recipes_fat %>
           </th>
-          <th>
+          <th class="align-middle">
             <% @recipes_carbo = @todaymeal_recipes.pluck(:recipe_id, :amount).map {|todaymeal_recipe, amount| @user.recipes.where(id: todaymeal_recipe).pluck(:carbo).sum * amount}.sum %><%= @recipes_carbo %>
           </th>
-          <th>
+          <th class="align-middle">
             <% @recipes_sugar = @todaymeal_recipes.pluck(:recipe_id, :amount).map {|todaymeal_recipe, amount| @user.recipes.where(id: todaymeal_recipe).pluck(:sugar).sum * amount}.sum %><%= @recipes_sugar %>
           </th>
-          <th>
+          <th class="align-middle">
             <% @recipes_dietary_fiber = @todaymeal_recipes.pluck(:recipe_id, :amount).map {|todaymeal_recipe, amount| @user.recipes.where(id: todaymeal_recipe).pluck(:dietary_fiber).sum * amount}.sum %><%= @recipes_dietary_fiber %>
           </th>
-          <th>
+          <th class="align-middle">
             <% @recipes_salt = @todaymeal_recipes.pluck(:recipe_id, :amount).map {|todaymeal_recipe, amount| @user.recipes.where(id: todaymeal_recipe).pluck(:salt).sum * amount}.sum %><%= @recipes_salt %>
           </th>
         </tr>

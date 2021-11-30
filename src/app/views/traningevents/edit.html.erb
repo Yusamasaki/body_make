@@ -2,21 +2,27 @@
 <% provide(:btn_text, "更新") %>
 
 
-<div class="row">
-  <div class="col-md-6 offset-md-3">
-    
-    <h1>トレーニング種目編集</h1><br>
-    
-    <%= form_with(model: @traningevent, url: user_traningevent_path(current_user, today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
-      
-      <%= f.label :sub_body_part, class: "label-form" %><br>
-      <%= f.select :sub_body_part, options_for_select(@sub_bodyparts), {include_blank: '選択してください'}, {class: 'form-control'} %><br>
-      
-      <%= f.label :traning_name, class: "label-form" %><br>
-      <%= f.text_field :traning_name, class: "form-control" %><br>
-      
-      <%= f.submit yield(:btn_text), class: "btn btn-lg btn-original btn-form  btn-block btn-setup" %>
+<%= render "layouts/traning_tab" %>
 
-    <% end %>
+<div class="box1">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      
+      <h5>トレーニング種目編集</h5><br>
+      
+      <%= form_with(model: @traningevent, url: user_traningevent_path(@user, @traningevent, start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
+        
+        <%= f.label :traning_name, class: "label-form" %><br>
+        <%= f.text_field :traning_name, class: "form-control" %><br>
+        
+        <%= f.submit yield(:btn_text), class: "btn btn-md btn-original btn-form  btn-block btn-setup" %>
+        <%= link_to "戻る", user_today_tranings_traning_new_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], traningevent_id: @traningevent, start_time: params[:start_time], start_date: params[:start_date]), class:"btn btn-md btn-form  btn-block btn-setup" %>
+        
+        <%= f.hidden_field :bodypart_id, value: params[:bodypart_id] %>
+        <%= f.hidden_field :subbodypart_id, value: params[:subbodypart_id] %>
+        <%= f.hidden_field :traningtype_id, value: params[:traningtype_id] %>
+        
+      <% end %>
+    </div>
   </div>
 </div>

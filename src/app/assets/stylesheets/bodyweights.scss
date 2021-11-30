@@ -2,6 +2,7 @@
 // ドーナツグラフ
 
 .doughnut_graph{
+  padding-bottom: 10px;
   width: 100%;
   height: 100%;
   position: relative;
@@ -39,10 +40,6 @@
 
 // 体重グラフ
 
-.bodyweight-chart{
-  padding-left: 10px;
-  padding-right: 10px;
-}
 
 .chartjs-size-monitor{
   height: 100%;
@@ -76,39 +73,28 @@
     transform: translate(-50%, -50%);
 }
 
+// box2
+
+.box2 {
+  border: solid 3px #274277;
+}
+.box2 .box-title {
+  font-size: 100%;
+  background: #274277;
+  padding: 4px;
+  text-align: center;
+  color: #FFF;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+.box2 p {
+  padding: 10px 15px;
+  margin: 0;
+  text-align: center;
+}
+
 @media screen and (min-width: 1024px) {
-
-  // box2
-
-  .box2 {
-    margin: 2em 0;
-    border: solid 3px #274277;
-  }
-  .box2 .box-title {
-    font-size: 100%;
-    background: #274277;
-    padding: 4px;
-    text-align: center;
-    color: #FFF;
-    font-weight: bold;
-    letter-spacing: 0.05em;
-  }
-  .box2 p {
-    padding: 10px 15px;
-    margin: 0;
-    text-align: center;
-  }
-
-  // 体重記録
-
-  .bodyweights_flame{
-    text-align: center;
-  }
-
-  .bodyweights_box input[type="number"]{
-    width: 300px;
-    height: 40px;
-  }
+  
   
 }
 

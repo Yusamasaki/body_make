@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
 
   create_table "bodyparts", force: :cascade do |t|
     t.string "body_part"
+    t.integer "recovery_day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -138,6 +139,7 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
 
   create_table "sub_bodyparts", force: :cascade do |t|
     t.string "sub_body_part"
+    t.integer "recovery_day"
     t.bigint "bodypart_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -246,13 +248,12 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
   create_table "traningevents", force: :cascade do |t|
     t.string "traning_name"
     t.string "sub_body_part"
-    t.bigint "user_id"
+    t.bigint "subbodypart_id"
     t.bigint "traningtype_id"
     t.bigint "bodypart_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["bodypart_id"], name: "index_traningevents_on_bodypart_id"
-    t.index ["traningtype_id"], name: "index_traningevents_on_traningtype_id"
     t.index ["user_id"], name: "index_traningevents_on_user_id"
   end
 
@@ -304,7 +305,5 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
   add_foreign_key "todaymeals", "users"
   add_foreign_key "traning_analyses", "traningevents"
   add_foreign_key "traning_analyses", "users"
-  add_foreign_key "traningevents", "bodyparts"
-  add_foreign_key "traningevents", "traningtypes"
   add_foreign_key "traningevents", "users"
 end

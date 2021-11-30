@@ -1,8 +1,12 @@
 <% provide(:title, "目標編集") %>
 <% provide(:btn_text, "編集") %>
-<div class="box">
-  <div class="box-inner">
-    <h1>目標編集</h1>
+
+<%= render "layouts/setting_tab" %>
+<div class="card">
+  <div class="card-header">
+    <h5>目標編集</h5>
+  </div>
+  <div class="card-body">
     <%= form_with(model:[@user, @tw], url: user_targetweight_path(start_date: params[:start_date], start_time: params[:start_time]), local: true) do |f| %>
       <%= render partial: "form", locals: { f: f }%>
     <% end %>

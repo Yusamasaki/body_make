@@ -1,26 +1,52 @@
 <% provide(:title, "#{@recipe.recipe_name}の食材登録") %>
 <% provide(:btn_text, "記録") %>
 
+<ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+  <li class="nav-item">
+    <% if params[:before] == "new" %>
+      <a class="nav-link" href="<%= new_user_todaymeal_recipe_path(@user, switching: "record", todaymeal_recipe_id: params[:id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]) %>"><i class="fas fa-undo-alt">戻る</i></a>
+    <% else %>
+      <a class="nav-link" href="<%= edit_user_todaymeal_recipe_path(@user, params[:id], switching: "record", before: params[:before], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]) %>"><i class="fas fa-undo-alt">戻る</i></a>
+    <% end %>
+  </li>
+</ul>
+
+<div class="box1">
+  <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+    <li class="nav-item">
+      <% if params[:switching] == "record" %>
+        <a class="nav-link active" href="<%= new_user_recipefood_path(@user, switching: "record", before: params[:before], recipe_id: params[:recipe_id], myfood_id: @myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
+      <% else %>
+        <a class="nav-link" href="<%= new_user_recipefood_path(@user, switching: "record", before: params[:before], recipe_id: params[:recipe_id], myfood_id: @myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <% if params[:switching] == "rader-chart" %>
+        <a class="nav-link active" href="<%= new_user_recipefood_path(@user, switching: "rader-chart", before: params[:before], recipe_id: params[:recipe_id], myfood_id: @myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>">RaderChart</a>
+      <% else %>
+        <a class="nav-link" href="<%= new_user_recipefood_path(@user, switching: "rader-chart", before: params[:before], recipe_id: params[:recipe_id], myfood_id: @myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>">RaderChart</a>
+      <% end %>
+    </li>
+  </ul>
+</div>
+
 <%= link_to(edit_user_myfood_path(@user, @myfood, before: params[:before], todaymeal_recipe_id: params[:id], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date])) do %>
 <div class="box1">
   <div class="row">
     <div class="col-12">
       <table class="table table-striped">
         <thead>
-          <tr>
-            <th><%= Myfood.human_attribute_name(:food_name) %></th>
-            <th><%= Myfood.human_attribute_name(:calorie) %></th>
-            <th><%= Myfood.human_attribute_name(:protein) %></th>
-            <th><%= Myfood.human_attribute_name(:fat) %></th>
-            <th><%= Myfood.human_attribute_name(:carbo) %></th>
-            <th><%= Myfood.human_attribute_name(:sugar) %></th>
-            <th><%= Myfood.human_attribute_name(:dietary_fiber) %></th>
-            <th><%= Myfood.human_attribute_name(:salt) %></th>
+          <tr class="text-center">
+            <th colspan="7"><%= @myfood.food_name %></th>
+          </tr>
+          <tr class="text-center">
+            <% @attribute_names.each do |attribute_name| %>
+              <th class="align-middle"><%= attribute_name %></th>
+            <% end %>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th><%= @myfood.food_name %></th>
             <td><%= @myfood.calorie %></td>
             <td><%= @myfood.protein %></td>
             <td><%= @myfood.fat %></td>
@@ -36,8 +62,11 @@
 </div>
 <% end %>
 
-<%= render template: "graph/_nutrition_radar_graph" %>
+<% if params[:switching] == "rader-chart" %>
+  <%= render template: "graph/_nutrition_radar_graph" %>
+<% end %>
 
+<% if params[:switching] == "record" %>
 <div class="box1">
   <div class="row">
     <div class="col-12">
@@ -47,16 +76,12 @@
         <%= f.number_field :amount, :placeholder => "分量", step: '0.1', class: "form-control" %>
         
         <%= f.hidden_field :recipe_id, value: params[:recipe_id] %>
-        <%= f.hidden_field :myfood_id, value: params[:myfood_id] %>
+        <%= f.hidden_field :myfood_id, value: params[:myfood_id] %></br>
     </div>
     <div class="mx-auto">
-        <%= f.submit yield(:btn_text), class: "btn btn-lg btn-original btn-form" %>
-        <% if params[:before] == "new" %>
-          <%= link_to "戻る", new_user_todaymeal_recipe_path(@user, todaymeal_recipe_id: params[:id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-lg btn-default btn-form" %>
-        <% elsif params[:before] == "edit" %>
-          <%= link_to "戻る", edit_user_todaymeal_recipe_path(@user, params[:id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-lg btn-default btn-form" %>
-        <% end %>
+        <%= f.submit yield(:btn_text), class: "btn btn-md btn-original btn-form" %>
       <% end %>
     </div>
   </div>
 </div>
+<% end %>
