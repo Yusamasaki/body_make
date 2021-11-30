@@ -14,11 +14,7 @@ class ApplicationController < ActionController::Base
   end
   
   def set_user
-    if params[:user_id].present?
-      @user = User.find(params[:user_id])
-    else
-      @user = User.find(params[:id])
-    end
+    @user = User.find(current_user.id)
   end
   
   # ログイン済みのユーザーか確認します。
@@ -42,8 +38,8 @@ class ApplicationController < ActionController::Base
   
   # 基礎代謝　＆　目標設定
   def set_basic
-    @bmr = @user.bmr
-    @target_weight = @user.targetweight
+    @bmr = @user.bmr unless params[:recipe_id].present?
+    @target_weight = @user.targetweight unless params[:recipe_id].present?
     @pfc = @user.pfc_ratio
   end
   
@@ -56,27 +52,26 @@ class ApplicationController < ActionController::Base
     @day_calorie = Bmr.day_calorie(@bmr_format, @bmr.activity).floor(1)
     # 目標の摂取カロリー
     @day_target_calorie = Bmr.day_target_calorie(@day_calorie.floor(1), @target_weight)
-    # 目標のPFCバランス（グラム・カロリー）
-    @target_pfcs = [["たんぱく質", 20, 4, @pfc.protein], ["脂質", 20, 9, @pfc.fat], ["炭水化物", 60, 4, @pfc.carbo]].map{|name, ratio, per_1g, ratio_new| 
-      if @pfc.id.present?
-        [name, PfcRatio.pfc_calorie_format(@day_target_calorie, ratio_new), (PfcRatio.pfc_calorie_format(@day_target_calorie, ratio_new) / per_1g).floor(1)]
-      else
-        [name, PfcRatio.pfc_calorie_format(@day_target_calorie, ratio), (PfcRatio.pfc_calorie_format(@day_target_calorie, ratio) / per_1g).floor(1)]
-      end
-    }
-    
     # 目標のPFCカロリー
-    target_pfc_calorie = [[20, 4, @pfc.protein], [20, 9, @pfc.fat], [60, 4, @pfc.carbo]].map{|ratio, per_1g, ratio_new|
-      if @pfc.id.present?
-        [PfcRatio.pfc_calorie_format(@day_target_calorie, ratio_new), per_1g, @day_target_calorie]
+    target_pfc_calorie = [[20, 4], [20, 9], [60, 4]].map{|ratio, per_1g|
+      if @pfc.present?
+        [PfcRatio.pfc_calorie_format(@day_target_calorie, pfc_ratios_protein(@pfc.protein)), per_1g, @day_target_calorie]
       else
         [PfcRatio.pfc_calorie_format(@day_target_calorie, ratio), per_1g, @day_target_calorie]
       end
     }
+    
     # グラフ値
     gon.pfc_calorie_ratios = target_pfc_calorie.map{|pfc_calorie, per_1g, day_target_calorie| ((pfc_calorie / day_target_calorie) * 100).floor(1)}
 
-    
+    # 目標のPFCバランス（グラム・カロリー）
+    @target_pfcs = [[20, 4], [20, 9], [60, 4]].map{|ratio, per_1g| 
+      if @pfc.present?
+        [PfcRatio.pfc_calorie_format(@day_target_calorie, pfc_ratios_protein(@pfc.protein)), (PfcRatio.pfc_calorie_format(@day_target_calorie, pfc_ratios_protein(@pfc.protein)) * per_1g).floor(1)] 
+      else
+        [PfcRatio.pfc_calorie_format(@day_target_calorie, ratio), (PfcRatio.pfc_calorie_format(@day_target_calorie, ratio) / per_1g).floor(1)]
+      end
+    }
   end
   
   # アクセスした先のが明日以上の場合返す
@@ -115,38 +110,6 @@ class ApplicationController < ActionController::Base
         @traning_analysis = @user.traning_analysis.where(start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time)
       end
     end
-  end
-  
-  def set_traning_tab
-    @bodyparts = Bodypart.all
-    @traningtypes = Traningtype.all
-    @subbodypart_active = SubBodypart.where(bodypart_id: params[:bodypart_id]).order(:id).limit(1).pluck(:id).sum
-    @subbodyparts = SubBodypart.where(bodypart_id: params[:bodypart_id])
-    
-    if params[:bodypart_id].present? && params[:subbodypart_id].present? && params[:traningtype_id].present?
-      @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], subbodypart_id: params[:subbodypart_id])
-    elsif params[:bodypart_id].present? && params[:subbodypart_id].present?
-      @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id])
-    elsif params[:bodypart_id].present? && params[:traningtype_id].present?
-      @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id])
-    elsif params[:traningtype_id].present?
-      @traningevents = @user.traningevents.where(traningtype_id: params[:traningtype_id])
-    elsif params[:bodypart_id].present?
-      @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id])
-    else
-      @traningevents = @user.traningevents.all
-    end
-    
-    @traningeventss = @bodyparts.pluck(:id).map{|bodypart|
-      [bodypart, @user.traningevents.where(bodypart_id: bodypart).pluck(:id, :traning_name)]
-    }
-    @traning_analysis = @traningeventss.map{|bodypart, traningevents|
-      traningevents.map{|id, name|
-        [
-          id, gon.day = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:start_time).map{|day| day.day}, gon.total = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:total_load), gon.max = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:max_load)
-        ]
-      }
-    }
   end
     
 
@@ -224,5 +187,4 @@ class ApplicationController < ActionController::Base
         @meals_analysis = @user.meals_analysis.where(start_time: @first_day..@last_day).order(:start_time)
       end
   end
-  
 end

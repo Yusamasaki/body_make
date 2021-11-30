@@ -50,28 +50,30 @@
       <h4>トレーニング部位別回復状態</h4>
     </div>
   </div><br>
-  <% @bodypart_recoverys.each do |recovery_parcentage, bodypart, current| %>
+  <!--
+  < @bodypart_recoverys.each do |recovery_parcentage, bodypart, current| %>
     <div class="card">
       <div class="card-header">
-        <%= bodypart.body_part %>
+        <= bodypart.body_part %>
       </div>
       <div class="card-body">
-        <% unless current == bodypart.recovery_day %>
-          <p style="color:green;"><%= current %>日経過</p>
-        <% else %>
+        < unless current == bodypart.recovery_day %>
+          <p style="color:green;"><= current %>日経過</p>
+        < else %>
           <p style="color:blue;">回復状態です</p>
-        <% end %>
+        < end %>
         <div class="progress">
-          <div class="progress-bar" role="progressbar" style="width: <%= recovery_parcentage %>%;" aria-valuenow="<%= bodypart.recovery_day %>" aria-valuemin="0" aria-valuemax="<%= bodypart.recovery_day %>">
-            <% unless current == bodypart.recovery_day %>
-              <%= current %>日経過
-            <% else %>
+          <div class="progress-bar" role="progressbar" style="width: <= recovery_parcentage %>%;" aria-valuenow="<= bodypart.recovery_day %>" aria-valuemin="0" aria-valuemax="<= bodypart.recovery_day %>">
+            < unless current == bodypart.recovery_day %>
+              <= current %>日経過
+            < else %>
               回復状態です
-            <% end %>
+            < end %>
           </div>
         </div>
       </div>
     </div>
-  <% end %>
+  < end %>
+  -->
 </div>
 
