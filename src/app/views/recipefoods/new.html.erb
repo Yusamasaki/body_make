@@ -33,29 +33,31 @@
 <div class="box1">
   <div class="row">
     <div class="col-12">
-      <table class="table table-striped">
-        <thead>
-          <tr class="text-center">
-            <th colspan="7"><%= @myfood.food_name %></th>
-          </tr>
-          <tr class="text-center">
-            <% @attribute_names.each do |attribute_name| %>
-              <th class="align-middle"><%= attribute_name %></th>
-            <% end %>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= @myfood.calorie %></td>
-            <td><%= @myfood.protein %></td>
-            <td><%= @myfood.fat %></td>
-            <td><%= @myfood.carbo %></td>
-            <td><%= @myfood.sugar %></td>
-            <td><%= @myfood.dietary_fiber %></td>
-            <td><%= @myfood.salt %></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="card">
+        <div class="card-header">
+          <%= @myfood.food_name %>
+        </div>
+        <table class="table">
+          <thead>
+            <tr class="text-center">
+              <% @attribute_names.each do |attribute_name| %>
+                <th class="align-middle"><%= attribute_name %></th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= @myfood.calorie %></td>
+              <td><%= @myfood.protein %></td>
+              <td><%= @myfood.fat %></td>
+              <td><%= @myfood.carbo %></td>
+              <td><%= @myfood.sugar %></td>
+              <td><%= @myfood.dietary_fiber %></td>
+              <td><%= @myfood.salt %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

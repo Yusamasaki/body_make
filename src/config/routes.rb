@@ -49,7 +49,9 @@ Rails.application.routes.draw do
     resources :todaymeal_recipes
     resources :recipes
     resources :recipefoods
-    resources :myfoods
+    resources :myfoods do
+      collection {post :import}
+    end
     resources :apifoods, only: [:index]
     resources :meals_analysis
     

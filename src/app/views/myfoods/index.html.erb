@@ -135,6 +135,21 @@
 <% end %>
 <div class="row">
   <div class="mx-auto">
+    <%= form_with(url: import_user_myfoods_path, multipart: true) do |f| %>
+      <%= f.file_field :file %>
+      <%= f.hidden_field :start_time, value: params[:start_time] %>
+      <%= f.hidden_field :start_date, value: params[:start_date] %>
+      <%= f.hidden_field :timezone_id, value: params[:timezone_id] %>
+      <%= f.hidden_field :recipe_id, value: params[:recipe_id] %>
+      <%= f.hidden_field :todaymeal_recipe_id, value: params[:todaymeal_recipe_id] %>
+      <%= f.hidden_field :before, value: params[:before] %>
+      <%= f.submit "インポート" %>
+    <% end %>
+  </div>
+</div>
+</br>
+<div class="row">
+  <div class="mx-auto">
     <%= link_to(user_apifoods_path(@user, food_name: "", timezone_id: params[:timezone_id], recipe_id: params[:recipe_id], todaymeal_recipe_id: params[:todaymeal_recipe_id],
                                    before: params[:before], start_time: params[:start_time], start_date: params[:start_date]), class: "btn btn-sm btn-original") do %>
       <i class="far fa-plus-square fa-lg">API食品追加</i>

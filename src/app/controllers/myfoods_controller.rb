@@ -1,6 +1,6 @@
 class MyfoodsController < ApplicationController
   
-  before_action :set_user, only: [:index, :new, :create, :show, :edit, :update, :destroy, :api_new, :api_create]
+  before_action :set_user, only: [:index, :new, :create, :show, :edit, :update, :destroy, :api_new, :api_create, :import]
   before_action :set_basic, only: [:index, :new, :edit, :api_new]
   before_action :set_myfood, only: [:show, :update, :destroy]
   before_action :set_recipe, only: [:index]
@@ -78,6 +78,12 @@ class MyfoodsController < ApplicationController
                                             food_name: params[:food_name], calorie: params[:calorie], protein: params[:protein], fat: params[:fat], carbo: params[:carbo],
                                             dietary_fiber: params[:dietary_fiber], sugar: params[:sugar], salt: params[:salt], start_date: params[:start_date], start_time: params[:start_time])
     end
+  end
+  
+  def import
+    @user.myfoods.import(params[:file])
+    flash[:success] = "登録に成功しました。"
+    redirect_to user_myfoods_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: 1, start_date: params[:start_date], start_time: params[:start_time])
   end
   
   private
