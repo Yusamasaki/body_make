@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  # create前にset_idメソッドを呼び出す
-  before_create :set_id
 
   has_many :bodyweights, dependent: :destroy
 
@@ -29,14 +27,6 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: %i[facebook google_oauth2]
   
   private
-    def set_id
-      # id未設定、または、すでに同じidのレコードが存在する場合はループに入る
-      while self.id.blank? || User.find_by(id: self.id).present? do
-        # ランダムな20文字をidに設定し、whileの条件検証に戻る
-        self.id = SecureRandom.alphanumeric(20)
-      end
-    end
-
     
   # SNS 認証
    def self.find_oauth(auth)
