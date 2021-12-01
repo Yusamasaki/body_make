@@ -19,7 +19,7 @@
 </div>
 
 <div class="box1">
-  カテゴリー選択
+  運動内容選択
   <div class="f-container">
     <% @categories.each do |category| %>
       <details>
@@ -41,7 +41,6 @@
 </div>
 
 <div class="box1">
-  グラフ(仮)
   <div class="col-md-10 offset-md-1 align-self-center">
     <div class="exercise-chart">
       <canvas id="exercise_myChart" width="200" height="100"></canvas>
@@ -53,7 +52,7 @@
 </div>
 
 <div class="box1">
-  日別総消費カロリー: <%= sum_mets %> cal
+  消費カロリー合計: <%= sum_mets %> cal
 </div>
 
 <div class="box1">
@@ -61,19 +60,19 @@
     <table class="table table-sm table-striped table-bordered">
       <thead>
         <tr>
-          <th>運動内容</th>
-          <th><%= TodayExercise.human_attribute_name :exercise_time %></th>
+          <th class="align-middle">運動内容</th>
+          <th>運動時間</th>
           <th>カロリー</th>
           <th><%= TodayExercise.human_attribute_name :note %></th>
           <th></th>
           <th></th>
         </tr>
       </thead>
-      
+
       <tbody>
-        <% @today_exercises.each.drop(1) do |exercise| %>
+        <% @today_exercises.drop(1).each do |exercise| %>
           <tr>
-            <td><%= category(exercise) %> / <%= content(exercise) %></td>
+            <td class="align-middle"><%= category(exercise) %> / <%= content(exercise) %></td>
             <td><%= exercise.exercise_time_hour %>時間<%= exercise.exercise_time_min %>分</td>
             <td><%= mets(exercise) %> cal</td>
             <td><%= exercise.note %></td>
@@ -105,6 +104,12 @@
             </td>
           </tr>
         <% end %>
+        <tr> 
+          <td class="align-middle">合計</td>
+          <td></td>
+          <td><%= sum_mets %> cal</td>
+          <td colspan="3"></td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -131,7 +136,7 @@ details[open] .content {
 @keyframes fadeIn {
   0% {
     opacity: 0; /* Transparent */
-    transform: translateY(+100px); 
+    transform: translateY(-5px); 
     /* translateX(+100px)：右から表示 */
     /* translateX(-100px)：左から表示 */
     /* translateY(+100px)：下から表示 */

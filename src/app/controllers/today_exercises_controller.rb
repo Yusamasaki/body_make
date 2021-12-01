@@ -9,21 +9,21 @@ class TodayExercisesController < ApplicationController
   before_action :set_today_exercise, only: [:edit, :update, :destroy]
 
   def index
-    @today_exercises = TodayExercise.where(start_time: params[:start_time]).order(:id)
+    @today_exercises = @user.today_exercise.where(start_time: params[:start_time]).order(:id)
 
     month_before = params[:start_time].to_date.beginning_of_month
     after_month = month_before.end_of_month
     gon.start_times = [*month_before.day..after_month.day]
-    month_body_weights = [TodayExercise.where(start_time: month_before..after_month ).group(:start_time).sum(:body_weight).values]
+    month_body_weights = [@user.today_exercise.where(start_time: month_before..after_month ).group(:start_time).sum(:body_weight).values]
 @test =
     gon.calorie = 
-      TodayExercise.where(start_time: month_before..after_month).group_by { |exercise| exercise.start_time }.map { |start_time, value|
-        [
+      @user.today_exercise.where(start_time: month_before..after_month).group_by { |exercise| exercise.start_time }.map { |start_time, value|
+        # [
           (((value.sum { |exercise| exercise.exercise_content_id == nil ? 0 : ExerciseContent.find(exercise.exercise_content_id.to_i).mets }) \
           * ([:body_weight] == nil ? 0 : (value.map(&:body_weight)[1]).to_i) \
           * (((value.map(&:exercise_time_hour).sum * 60) + (value.map(&:exercise_time_min).sum)) / 60.to_f).round(2)) \
           * 1.05) / (value.count - 1)
-        ]
+        # ]
       }
   end
 
