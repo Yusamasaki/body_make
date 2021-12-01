@@ -190,15 +190,14 @@ class ApplicationController < ActionController::Base
   def ser_recipefoods_total
     if params[:recipe_id].present?
       @recipefoods = @user.recipefoods.where(recipe_id: params[:recipe_id])
-      nutritions = [:calorie, :protein, :fat, :carbo, :sugar, :dietary_fiber, :salt]
-      @recipe_myfoods =  nutritions.map {|nutrition|@recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(nutrition), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum}
-    elsif params[:id].present? 
+    elsif params[:id].present?
       @recipefoods = @user.recipefoods.where(recipe_id: params[:id])
+    end
+    if params[:recipe_id].present? || params[:id].present?
       nutritions = [:calorie, :protein, :fat, :carbo, :sugar, :dietary_fiber, :salt]
-      @recipe_myfoods =  nutritions.map {|nutrition|@recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(nutrition), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum}
+      @recipe_myfoods =  nutritions.map {|nutrition| @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(nutrition), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum}
     end
   end
-  
   def set_meals
     @timezones = Timezone.all
     
