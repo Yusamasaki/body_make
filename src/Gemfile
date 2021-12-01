@@ -54,7 +54,9 @@ gem 'cocoon'
 gem 'gon'
 
 gem 'kaminari'
-gem 'ransack'
+
+# CSVインポート
+gem 'roo'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

@@ -20,8 +20,7 @@
     <%= f.date_field :target_date, class: "form-control" %><br>
 
     <%= f.hidden_field :user_id, value: @user.id %>
-    <div class="card-footer">
-      <%= f.submit yield(:btn_text), class: "btn btn-primary btn-block btn-setup" %><br>
-    </div>
+    
+    
     
   <% end %>

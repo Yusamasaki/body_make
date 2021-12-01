@@ -1,6 +1,7 @@
 <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link" href="<%= user_apifoods_path(@user, food_name: params[:food_name], start_date: params[:start_date], start_time: params[:start_time]) %>"><i class="fas fa-undo-alt">戻る</i></a>
+    <a class="nav-link" href="<%= user_apifoods_path(@user, food_name: params[:food_name], recipe_id: params[:recipe_id], todaymeal_recipe_id: params[:todaymeal_recipe_id],
+                                                     before: params[:before], start_date: params[:start_date], start_time: params[:start_time]) %>"><i class="fas fa-undo-alt">戻る</i></a>
   </li>
 </ul>
 
@@ -31,13 +32,10 @@
     </table>
   </div>
   <div class="card-footer">
-    <div class="row">
-      <div class="mx-auto">
         <%= link_to "新規登録", user_myfoods_api_create_path(@user, food_name: params[:food_name], calorie: params[:calorie], protein: params[:protein], fat: params[:fat], carbo: params[:carbo],
-                                                            dietary_fiber: params[:dietary_fiber], sugar: params[:sugar], salt: params[:salt], start_time: params[:start_time], start_date: params[:start_date]), 
-                                                            class: "btn btn-md btn-original btn-form", method: :post %>
-      </div>
-    </div>
+                                                            dietary_fiber: params[:dietary_fiber], sugar: params[:sugar], salt: params[:salt], recipe_id: params[:recipe_id], todaymeal_recipe_id: params[:todaymeal_recipe_id],
+                                                            before: params[:before], start_time: params[:start_time], start_date: params[:start_date]), 
+                                                            class: "btn btn-md btn-original btn-block", method: :post %>
   </div>
 </div>
 

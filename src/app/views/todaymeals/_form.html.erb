@@ -8,10 +8,7 @@
 <%= f.hidden_field :start_time, value: params[:start_time] %>
 <%= f.hidden_field :timezone_id, value: params[:timezone_id] %>
 <%= f.hidden_field :myfood_id, value: params[:myfood_id] %>
-</div>
-<div class="mx-auto">
-  <%= f.submit yield(:btn_text), class: "btn btn-md btn-original btn-form" %>
+  <%= f.submit yield(:btn_text), class: "btn btn-md btn-original btn-block" %>
   <% if controller.action_name == "edit" %>
-    <%= link_to "削除", user_todaymeal_path(@user, @todaymeal, start_time: params[:start_time], start_date: params[:start_date]), method: :delete, class: "btn btn-md btn-danger" %>
+    <%= link_to "削除", user_todaymeal_path(@user, @todaymeal, start_time: params[:start_time], start_date: params[:start_date]), method: :delete, class: "btn btn-md btn-danger btn-block" %>
   <% end %>
-</div>

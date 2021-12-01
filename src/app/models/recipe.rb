@@ -5,5 +5,12 @@ class Recipe < ApplicationRecord
 
   validates :recipe_name, presence: true, length: { maximum: 100 }, uniqueness: true
   
+  def self.search_recipe(search)
+    if search.present?
+      Recipe.where(['recipe_name LIKE ?', "%#{search}%"])
+    else
+      Recipe.all.order(id: "DESC")
+    end
+  end
   
 end
