@@ -68,7 +68,8 @@
           <th></th>
         </tr>
       </thead>
-
+<%= @exercise_hour %>
+<%= @exercise_min %>
       <tbody>
         <% @today_exercises.drop(1).each do |exercise| %>
           <tr>
@@ -106,7 +107,7 @@
         <% end %>
         <tr> 
           <td class="align-middle">合計</td>
-          <td></td>
+          <td><%= sum_today_exercise_time(@today_exercises) %></td>
           <td><%= sum_mets %> cal</td>
           <td colspan="3"></td>
         </tr>

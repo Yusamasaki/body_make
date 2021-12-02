@@ -11,7 +11,7 @@
         start_date: params[:start_date], start_time: params[:start_time]), method: :patch, remote: true) do |f| %>
       <div class="modal-body">
         <h5><%= ExerciseCategory.find(@today_exercise.exercise_category_id).name %>(<%= ExerciseContent.find(@today_exercise.exercise_content_id).content %>)</h5><br>
-        <div>
+        <div><%= ExerciseContent.find(@today_exercise.exercise_content_id).mets %>
           <div>
             <%= f.label :exercise_time_hour, class: "label-form" %>
           </div>
