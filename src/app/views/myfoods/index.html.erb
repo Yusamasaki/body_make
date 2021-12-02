@@ -1,7 +1,7 @@
 
 <% unless params[:recipe_id].present? %>
   <div class="box1">
-    <ul class="nav nav-pills nav-fill justify-content-center" id="myTab" role="tablist">
+    <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
       <li class="nav-item">
         <a class="nav-link" href="<%= user_todaymeals_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">Home</a>
       </li>

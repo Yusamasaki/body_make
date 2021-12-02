@@ -29,7 +29,7 @@ class User < ApplicationRecord
   private
     
   # SNS 認証
-   def self.find_oauth(auth)
+  def self.find_oauth(auth)
     user = User.find_by(email: auth.info.email)
     unless user
       user = User.create(
