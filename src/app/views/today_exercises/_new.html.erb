@@ -10,7 +10,8 @@
     <%= form_with(model: @today_exercise, url: user_today_exercises_path(
       @current_user, start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
       <div class="modal-body">
-        <h5><%= ExerciseCategory.find(@category_params).name %>(<%= ExerciseContent.find(@content_params).content %>)</h5><br>
+        <h5><%= ExerciseCategory.find(@category_params).name %></h5>
+        <h6><%= ExerciseContent.find(@content_params).content %> (<%= ExerciseContent.find(@content_params).mets %>METs)</h6><br>
         <div>
           <div>
             <%= f.label '運動時間', class: "label-form" %>
