@@ -1,7 +1,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>
 
 <nav>
-  <div class="nav nav-pill" id="nav-tab" role="tablist">
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <% if params[:switching] == "bodyweight" %>
       <a class="nav-item nav-link active" href="<%= user_path(@user, switching: "bodyweight", start_time: params[:start_time], start_date: params[:start_date]) %>">体重</a>
     <% else %>
@@ -35,23 +35,17 @@
     </div>
   </div>
   <div class="box1">
-    <div class="row">
-      <div class="col-md-6 offset-md-3">
-        <div class="tab-area">
-          <div class="tab active">
-            体重
-          </div>
-          <div class="tab">
-            体脂肪率
-          </div>
-        </div>  
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-weight-tab" data-toggle="tab" href="#nav-weight" role="tab" aria-controls="nav-weight" aria-selected="true">体重</a>
+        <a class="nav-item nav-link" id="nav-percentage-tab" data-toggle="tab" href="#nav-percentage" role="tab" aria-controls="nav-percentage" aria-selected="false">体脂肪率</a>
       </div>
-    </div>
-    <div class="content-area">
-      <div class="content show">
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-weight" role="tabpanel" aria-labelledby="nav-weight-tab">
         <%= render 'bodyweight' %>
       </div>
-      <div class="content">
+      <div class="tab-pane fade" id="nav-percentage" role="tabpanel" aria-labelledby="nav-percentage-tab">
         <%= render 'bodyfat_percentage' %>
       </div>
     </div>
