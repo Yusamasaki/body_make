@@ -1,38 +1,39 @@
-
-<div class="box1">
-  <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" href="<%= user_todaymeal_recipes_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="<%= user_recipes_path(@user, timezone_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
-    </li>
-    <li class="nav-item">
-      <%= link_to(user_meals_analysis_index_path(@user, graph: "line", start_time: params[:start_time], start_date: params[:start_date]), class: "nav-link",data: {"turbolinks"=>false}) do %>
-        <div>Analysis</div>
-      <% end %>
-    </li>
-  </ul>
-</div>
-
-<div class="box1">
-  <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
-    <li class="nav-item">
-      <% if params[:timezone_id].present? %>
-        <a class="nav-link" href="<%= user_todaymeals_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
-      <% else %>
-        <a class="nav-link active" href="<%= user_todaymeals_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
-      <% end %>
-    </li>
-    <% @timezones.each do |timezone| %>
+<div class="jumbotron">
+  <div class="box1">
+    <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
       <li class="nav-item">
-        <% if timezone.id == params[:timezone_id].to_i %>
-          <a class="nav-link active" href="<%= user_todaymeals_path(@user, timezone_id: timezone, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= timezone.time_zone %></a>
-        <% else %>
-          <a class="nav-link" href="<%= user_todaymeals_path(@user, timezone_id: timezone, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= timezone.time_zone %></a>
+        <a class="nav-link active" href="<%= user_todaymeal_recipes_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<%= user_recipes_path(@user, timezone_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
+      </li>
+      <li class="nav-item">
+        <%= link_to(user_meals_analysis_index_path(@user, graph: "line", start_time: params[:start_time], start_date: params[:start_date]), class: "nav-link",data: {"turbolinks"=>false}) do %>
+          <div>Analysis</div>
         <% end %>
-    <% end %>
-  </ul>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="box1">
+    <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+      <li class="nav-item">
+        <% if params[:timezone_id].present? %>
+          <a class="nav-link" href="<%= user_todaymeals_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+        <% else %>
+          <a class="nav-link active" href="<%= user_todaymeals_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+        <% end %>
+      </li>
+      <% @timezones.each do |timezone| %>
+        <li class="nav-item">
+          <% if timezone.id == params[:timezone_id].to_i %>
+            <a class="nav-link active" href="<%= user_todaymeals_path(@user, timezone_id: timezone, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= timezone.time_zone %></a>
+          <% else %>
+            <a class="nav-link" href="<%= user_todaymeals_path(@user, timezone_id: timezone, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= timezone.time_zone %></a>
+          <% end %>
+      <% end %>
+    </ul>
+  </div>
 </div>
 
 <div class="box1">
@@ -135,3 +136,17 @@
     </div>
   </div>
 <% end %>
+
+<script>
+  jQuery( function($) {
+      $('tbody tr[data-href]').addClass('clickable').click( function() {
+          window.location = $(this).attr('data-href');
+      }).find('a').hover( function() {
+          $(this).parents('tr').unbind('click');
+      }, function() {
+          $(this).parents('tr').click( function() {
+              window.location = $(this).attr('data-href');
+          });
+      });
+  });
+</script>

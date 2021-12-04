@@ -1,1 +1,69 @@
-body{padding-top:90px}@media (min-width:768px){body{padding-top:0}}@media (min-width:768px){body{margin-left:232px}}.navbar.fixed-left{position:fixed;top:0;left:0;right:0;z-index:1030}@media (min-width:768px){.navbar.fixed-left{bottom:0;width:232px;flex-flow:column nowrap;align-items:flex-start}.navbar.fixed-left .navbar-collapse{flex-grow:0;flex-direction:column;width:100%}.navbar.fixed-left .navbar-collapse .navbar-nav{flex-direction:column;width:100%}.navbar.fixed-left .navbar-collapse .navbar-nav .nav-item{width:100%}.navbar.fixed-left .navbar-collapse .navbar-nav .nav-item .dropdown-menu{top:0}}@media (min-width:768px){.navbar.fixed-left{right:auto}.navbar.fixed-left .navbar-nav .nav-item .dropdown-toggle:after{border-top:.3em solid transparent;border-left:.3em solid;border-bottom:.3em solid transparent;border-right:none;vertical-align:baseline}.navbar.fixed-left .navbar-nav .nav-item .dropdown-menu{left:100%}}
+body{
+    padding-top:90px
+}
+
+#logo {
+    float: left;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    padding: 9px 15px;
+    font-weight: bold;
+    text-shadow: 2px 3px 3px #8fa8da;
+    text-align: center;
+    border-bottom: solid 1px #fff;
+}
+
+.nav-original-link{
+  display: inline-block;
+  width: 100%;
+  text-decoration: none;
+  position: relative;
+  padding: 8px 30px 8px 20px;
+  color: #fff;
+  font-size: 20px;
+  text-align: center;
+}
+
+
+@media (min-width:768px){
+    body{
+        padding-top:0
+    }
+}
+@media (min-width:768px){
+    body{
+        margin-left:280px
+    }
+}
+.navbar.fixed-left{
+    position:fixed;top:0;left:0;right:0;z-index:1030
+}
+@media (min-width:768px){
+    .navbar.fixed-left{
+        bottom:0;width:280px;flex-flow:column nowrap;align-items:flex-start
+    }
+    .navbar.fixed-left .navbar-collapse{
+        flex-grow:0;flex-direction:column;width:100%
+    }
+    .navbar.fixed-left .navbar-collapse .navbar-nav{
+        flex-direction:column;width:100%
+    }
+    .navbar.fixed-left .navbar-collapse .navbar-nav .nav-item{
+        width:100%
+    }
+    .navbar.fixed-left .navbar-collapse .navbar-nav .nav-item .dropdown-menu{
+        top:0
+    }
+}
+@media (min-width:768px){
+    .navbar.fixed-left{
+        right:auto
+    }
+    .navbar.fixed-left .navbar-nav .nav-item .dropdown-toggle:after{
+        border-top:.3em solid transparent;border-left:.3em solid;border-bottom:.3em solid transparent;border-right:none;vertical-align:baseline
+    }
+    .navbar.fixed-left .navbar-nav .nav-item .dropdown-menu{
+        left:100%
+    }
+}

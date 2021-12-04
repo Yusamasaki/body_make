@@ -1,21 +1,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>
 
-<nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <% if params[:switching] == "bodyweight" %>
-      <a class="nav-item nav-link active" href="<%= user_path(@user, switching: "bodyweight", start_time: params[:start_time], start_date: params[:start_date]) %>">体重</a>
-    <% else %>
-      <a class="nav-item nav-link" href="<%= user_path(@user, switching: "bodyweight", start_time: params[:start_time], start_date: params[:start_date]) %>">体重</a>
-    <% end %>
-    <% if params[:switching] == "recovery" %>
-      <a class="nav-item nav-link active" href="<%= user_path(@user, switching: "recovery", start_time: params[:start_time], start_date: params[:start_date]) %>">トレーニング回復部位別状況</a>
-    <% else %>
-      <a class="nav-item nav-link" href="<%= user_path(@user, switching: "recovery", start_time: params[:start_time], start_date: params[:start_date]) %>">トレーニング回復部位別状況</a>
-    <% end %>
+<div class="jumbotron">
+  <div class="box1">
+    <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+      <li class="nav-item">
+        <% if params[:switching] == "bodyweight" || params[:switching].blank? %>
+          <a class="nav-item nav-link active" href="<%= user_path(@user, switching: "bodyweight", start_time: params[:start_time], start_date: params[:start_date]) %>">体重</a>
+        <% else %>
+          <a class="nav-item nav-link" href="<%= user_path(@user, switching: "bodyweight", start_time: params[:start_time], start_date: params[:start_date]) %>">体重</a>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <% if params[:switching] == "recovery" %>
+          <a class="nav-item nav-link active" href="<%= user_path(@user, switching: "recovery", start_time: params[:start_time], start_date: params[:start_date]) %>">トレーニング回復部位別状況</a>
+        <% else %>
+          <a class="nav-item nav-link" href="<%= user_path(@user, switching: "recovery", start_time: params[:start_time], start_date: params[:start_date]) %>">トレーニング回復部位別状況</a>
+        <% end %>
+      </li>
+    </ul>
   </div>
-</nav>
+</div>
 
-<% if params[:switching] == "bodyweight" %>
+<% if params[:switching] == "bodyweight" || params[:switching].blank? %>
   <div class="box1">
     <div class="center">
       <%= link_to(user_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date].to_date.prev_month)) do %>

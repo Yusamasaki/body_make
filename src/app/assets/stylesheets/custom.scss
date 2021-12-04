@@ -5,6 +5,7 @@ body,
 html {
   margin: 0;
   padding: 0;
+  background-color: #F9F9F9;
 }
 
 
@@ -64,13 +65,22 @@ html {
   width: 100px !important;
 }
 
+.top-nav-area{
+  background-color: #E0DEDE;
+}
+
+.jumbotron {
+  padding: 10px 0px;
+  margin: 0px 0px 10px;
+}
+
 //box1項目を囲うため
 
 .box1{
     margin:1em 0;
     color: #274277;
     background: white;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.22);
     height: 100%;
   }
 
@@ -81,7 +91,7 @@ html {
 
 .nav-link.active {
   color: #fff;
-  background-color: #274277;
+  background-color: #154DBA;
   font-family:"ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro";
 }
 .nav-link{
