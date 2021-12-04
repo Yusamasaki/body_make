@@ -25,10 +25,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[facebook google_oauth2]
-
+  
+  private
     
   # SNS 認証
-   def self.find_oauth(auth)
+  def self.find_oauth(auth)
     user = User.find_by(email: auth.info.email)
     unless user
       user = User.create(

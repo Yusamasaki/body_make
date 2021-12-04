@@ -22,8 +22,8 @@
             <td class="align-middle"><%= @myfood.protein * todaymeal.amount %></td>
             <td class="align-middle"><%= @myfood.fat * todaymeal.amount %></td>
             <td class="align-middle"><%= @myfood.carbo * todaymeal.amount %></td>
-            <td class="align-middle"><%= @myfood.sugar * todaymeal.amount %></td>
-            <td class="align-middle"><%= @myfood.dietary_fiber * todaymeal.amount %></td>
+            <td class="align-middle"><%= @myfood.sugar * todaymeal.amount if @myfood.sugar.present? %></td>
+            <td class="align-middle"><%= @myfood.dietary_fiber * todaymeal.amount if @myfood.dietary_fiber.present? %></td>
             <td class="align-middle"><%= @myfood.salt * todaymeal.amount if @myfood.salt.present? %></td>
           </tr>
         <% end %>

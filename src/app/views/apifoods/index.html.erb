@@ -1,17 +1,25 @@
 <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link" href="<%= user_myfoods_path(@user, switching: "record", timezone_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>"><i class="fas fa-undo-alt">戻る</i></a>
+    <a class="nav-link" href="<%= user_myfoods_path(@user, switching: "record", timezone_id: 1, recipe_id: params[:recipe_id], todaymeal_recipe_id: params[:todaymeal_recipe_id],
+                                                    before: params[:before], start_time: params[:start_time], start_date: params[:start_date]) %>"><i class="fas fa-undo-alt">戻る</i></a>
   </li>
 </ul>
 
 <br>
-<%= form_with(url: user_apifoods_path(timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), method: :get, local: true) do |f| %>
-  <%= f.text_field :food_name %>
-  <%= f.hidden_field :start_time, value: params[:start_time] %>
-  <%= f.hidden_field :start_date, value: params[:start_date] %>
-  <%= f.hidden_field :timezone_id, value: params[:timezone_id] %>
-  <%= f.submit '検索' %>
-<% end %>
+<div class="row">
+  <div class="mx-auto">
+    <%= form_with(url: user_apifoods_path(@user, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), method: :get, local: true) do |f| %>
+      <%= f.text_field :food_name %>
+      <%= f.hidden_field :start_time, value: params[:start_time] %>
+      <%= f.hidden_field :start_date, value: params[:start_date] %>
+      <%= f.hidden_field :timezone_id, value: params[:timezone_id] %>
+      <%= f.hidden_field :recipe_id, value: params[:recipe_id] %>
+      <%= f.hidden_field :todaymeal_recipe_id, value: params[:todaymeal_recipe_id] %>
+      <%= f.hidden_field :before, value: params[:before] %>
+      <%= f.submit '検索' %>
+    <% end %>
+  </div>
+</div>
 <br>
 
 <% if params[:food_name].present? %>
@@ -29,7 +37,8 @@
     <tbody>
       <% @food_hash.each do |hash| %>
       <tr data-href=<%= user_myfoods_api_new_path(@user, food_name: hash['food_name'], calorie: hash['calorie'], protein: hash['protein'], fat: hash['fat'], carbo: hash['carbo'],
-                                                  dietary_fiber: hash['dietary_fiber'], sugar: hash['sugar'], salt: hash['salt'], start_time: params[:start_time], start_date: params[:start_date]) %>>
+                                                  dietary_fiber: hash['dietary_fiber'], sugar: hash['sugar'], salt: hash['salt'], start_time: params[:start_time], start_date: params[:start_date],
+                                                  recipe_id: params[:recipe_id], todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before]) %>>
         <td><%= hash['food_name'] %></td>
         <td><%= hash['calorie'] %></td>
         <td><%= hash['protein'] %></td>
@@ -39,5 +48,18 @@
       <% end %>
     </tbody>
   </table>
-  
 <% end %>
+
+<script>
+  jQuery( function($) {
+      $('tbody tr[data-href]').addClass('clickable').click( function() {
+          window.location = $(this).attr('data-href');
+      }).find('a').hover( function() {
+          $(this).parents('tr').unbind('click');
+      }, function() {
+          $(this).parents('tr').click( function() {
+              window.location = $(this).attr('data-href');
+          });
+      });
+  });
+</script>

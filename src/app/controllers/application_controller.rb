@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
   
   def set_user
-    @user = User.find(current_user.id)
+    @user = current_user
   end
   
   # ログイン済みのユーザーか確認します。
@@ -52,6 +52,7 @@ class ApplicationController < ActionController::Base
     @day_calorie = Bmr.day_calorie(@bmr_format, @bmr.activity).floor(1)
     # 目標の摂取カロリー
     @day_target_calorie = Bmr.day_target_calorie(@day_calorie.floor(1), @target_weight)
+<<<<<<< HEAD
     # 目標のPFCカロリー
     target_pfc_calorie = [[20, 4], [20, 9], [60, 4]].map{|ratio, per_1g|
       if @pfc.present?
@@ -61,6 +62,29 @@ class ApplicationController < ActionController::Base
       end
     }
     
+=======
+    # 目標のPFCバランス（グラム・カロリー）
+    if @pfc.present?
+      @target_pfcs = [["たんぱく質", @pfc.protein, 4 ], ["脂質", @pfc.fat, 9], ["炭水化物", @pfc.carbo, 4]].map{|name, ratio, per_1g|
+        [name, PfcRatio.pfc_calorie_format(@day_target_calorie, ratio), (PfcRatio.pfc_calorie_format(@day_target_calorie, ratio) / per_1g).floor(1), ratio]
+      }
+    else
+      @target_pfcs = [["たんぱく質", 20, 4 ], ["脂質", 20, 9], ["炭水化物", 60, 4]].map{|name, ratio, per_1g|
+        [name, PfcRatio.pfc_calorie_format(@day_target_calorie, ratio), (PfcRatio.pfc_calorie_format(@day_target_calorie, ratio) / per_1g).floor(1), ratio]
+      }
+    end
+    
+    # 目標のPFCカロリー
+    if @pfc.present?
+      target_pfc_calorie = [[20, 4, @pfc.protein], [20, 9, @pfc.fat], [60, 4, @pfc.carbo]].map{|ratio, per_1g, ratio_new|
+        [PfcRatio.pfc_calorie_format(@day_target_calorie, ratio_new), per_1g, @day_target_calorie]
+      }
+    else
+      target_pfc_calorie = [[20, 4], [20, 9], [60, 4]].map{|ratio, per_1g|
+        [PfcRatio.pfc_calorie_format(@day_target_calorie, ratio), per_1g, @day_target_calorie]
+      }
+    end
+>>>>>>> develop
     # グラフ値
     gon.pfc_calorie_ratios = target_pfc_calorie.map{|pfc_calorie, per_1g, day_target_calorie| ((pfc_calorie / day_target_calorie) * 100).floor(1)}
 
@@ -115,12 +139,12 @@ class ApplicationController < ActionController::Base
 
   # TodayExeciseクラスの1ヶ月分start_time(日にち)を作成
   def today_exercise_set_one_month
+    @user = User.find(params[:id])
     @first_day = params[:start_date].nil? ?
     Date.current.beginning_of_month : params[:start_date].to_date
     @last_day = @first_day.end_of_month
     
     one_month = [*@first_day..@last_day]
-    
     @exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
     
     unless one_month.count <= @exercises.count
@@ -139,7 +163,11 @@ class ApplicationController < ActionController::Base
   end
   
   def set_myfood
-    @myfood = @user.myfoods.find(params[:myfood_id]) if params[:myfood_id].present?
+    if params[:myfood_id].present?
+      @myfood = @user.myfoods.find(params[:myfood_id]) 
+    else
+      @myfood = @user.myfoods.find(params[:id])
+    end
   end
   
   def set_recipe
@@ -149,15 +177,14 @@ class ApplicationController < ActionController::Base
   def ser_recipefoods_total
     if params[:recipe_id].present?
       @recipefoods = @user.recipefoods.where(recipe_id: params[:recipe_id])
-      nutritions = [:calorie, :protein, :fat, :carbo, :sugar, :dietary_fiber, :salt]
-      @recipe_myfoods =  nutritions.map {|nutrition|@recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(nutrition), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum}
-    elsif params[:id].present? 
+    elsif params[:id].present?
       @recipefoods = @user.recipefoods.where(recipe_id: params[:id])
+    end
+    if params[:recipe_id].present? || params[:id].present?
       nutritions = [:calorie, :protein, :fat, :carbo, :sugar, :dietary_fiber, :salt]
-      @recipe_myfoods =  nutritions.map {|nutrition|@recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(nutrition), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum}
+      @recipe_myfoods =  nutritions.map {|nutrition| @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(nutrition), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum}
     end
   end
-  
   def set_meals
     @timezones = Timezone.all
     

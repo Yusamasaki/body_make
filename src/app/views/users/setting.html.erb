@@ -34,11 +34,11 @@
   </div>
   
   <div class="row">
-    <% @target_pfcs.each do |name, calorie, gram| %>
+    <% @target_pfcs.each do |name, calorie, gram, ratio| %>
       <div class="col-md-4">
         <div class="card">
           <div class="card-header">
-            <%= name %>
+            <%= name %> ( 割合：<%= ratio %>％ )
           </div>
           <div class="card-body">
             <blockquote class="blockquote mb-0">

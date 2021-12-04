@@ -84,13 +84,13 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
 
   create_table "myfoods", force: :cascade do |t|
     t.string "food_name"
-    t.float "calorie"
-    t.float "protein"
-    t.float "fat"
-    t.float "carbo"
-    t.float "sugar"
-    t.float "dietary_fiber"
-    t.float "salt"
+    t.float "calorie", default: 0.0
+    t.float "protein", default: 0.0
+    t.float "fat", default: 0.0
+    t.float "carbo", default: 0.0
+    t.float "sugar", default: 0.0
+    t.float "dietary_fiber", default: 0.0
+    t.float "salt", default: 0.0
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -166,9 +166,14 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
+<<<<<<< HEAD
     t.date "start_time", default: "2021-11-30", null: false
     t.integer "exercise_time_hour", default: 0, null: false
     t.integer "exercise_time_min", default: 0, null: false
+=======
+    t.date "start_time", default: "2021-12-02", null: false
+    t.datetime "exercise_time", default: "2021-12-01 15:00:00", null: false
+>>>>>>> develop
     t.float "body_weight"
     t.string "note"
     t.bigint "exercise_category_id"

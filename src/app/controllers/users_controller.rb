@@ -1,12 +1,22 @@
 class UsersController < ApplicationController
   
-  # before_action :today_exercise_set_one_month, only: [:show]
+  before_action :first_setting, only: :show
+  before_action :today_exercise_set_one_month, only: [:show]
   before_action :set_user, only: [:show, :setting]
   before_action :set_basic, only: [:show, :setting]
   before_action :set_bmr, only: [:setting]
   before_action :start_time_next_valid, only: [:show]
+
+  def first_setting
+    if current_user.bmr.present?
+      return
+    else
+      redirect_to new_user_bmr_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)
+    end
+  end
   
   def show
+    
     @first_day = params[:start_date].nil? ?
     Date.current.beginning_of_month : params[:start_date].to_date
     @last_day = @first_day.end_of_month
@@ -24,7 +34,6 @@ class UsersController < ApplicationController
     
     @body_weight = @user.bodyweights.find_by(start_time: params[:start_time])
     @body_weights = @user.bodyweights.all
-    
     @bodyparts = Bodypart.all
     
     # @bodypart_recoverys = @bodyparts.map{|bodypart|
