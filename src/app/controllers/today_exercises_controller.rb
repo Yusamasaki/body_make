@@ -21,8 +21,8 @@ class TodayExercisesController < ApplicationController
         value.drop(1).sum { |exercise|
           ((((exercise.exercise_time_hour * 60) + (exercise.exercise_time_min)) / 60.to_f) \
           * ExerciseContent.find(exercise.exercise_content_id.to_i).mets \
-          * (value.map(&:body_weight)[1]).to_f \
-          * 1.05).floor(2)
+          * exercise.body_weight.to_f \
+          * 1.05).truncate(1)
         }
       }
   end
