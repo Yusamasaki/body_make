@@ -6,6 +6,7 @@ html {
   margin: 0;
   padding: 0;
   background-color: #F9F9F9;
+  font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro";
 }
 
 
@@ -87,6 +88,10 @@ html {
 .box1 p {
   margin: 0; 
   padding: 0;
+}
+
+.box1-padding {
+  padding: 10px 0 10px 0;
 }
 
 .nav-link.active {

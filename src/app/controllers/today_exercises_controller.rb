@@ -15,7 +15,7 @@ class TodayExercisesController < ApplicationController
     after_month = month_before.end_of_month
     gon.start_times = [*month_before.day..after_month.day]
     month_body_weights = [@user.today_exercise.where(start_time: month_before..after_month).group(:start_time).sum(:body_weight).values]
-@test =
+
     gon.calorie = 
       @user.today_exercise.where(start_time: month_before..after_month).order(:id).group_by {|exercise| exercise.start_time }.map { |start_time, value|
         value.drop(1).sum { |exercise|
@@ -54,7 +54,7 @@ class TodayExercisesController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       if @today_exercise.update_attributes!(exercise_params)
-        flash[:success] = "#{@today_exercise.start_time}の運動を記録しました"
+        flash[:success] = "#{@today_exercise.start_time}の運動を修正しました"
         redirect_to user_today_exercises_path(
           user_id: current_user,
           id: @today_exercise,

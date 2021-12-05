@@ -8,7 +8,7 @@
     </div>
 
     <%= form_with(model: @today_exercise, url: user_today_exercise_path(
-        start_date: params[:start_date], start_time: params[:start_time]), method: :patch, remote: true) do |f| %>
+        start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
       <div class="modal-body">
         <h5><%= ExerciseCategory.find(@today_exercise.exercise_category_id).name %></h5>
         <h6><%= ExerciseContent.find(@today_exercise.exercise_content_id).content %> (<%= ExerciseContent.find(@today_exercise.exercise_content_id).mets %>METs)</h6><br>

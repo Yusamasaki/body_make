@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
   
   def set_user
-    @user = current_user
+    @user = User.find(current_user.id)
   end
   
   # ログイン済みのユーザーか確認します。
@@ -52,17 +52,6 @@ class ApplicationController < ActionController::Base
     @day_calorie = Bmr.day_calorie(@bmr_format, @bmr.activity).floor(1)
     # 目標の摂取カロリー
     @day_target_calorie = Bmr.day_target_calorie(@day_calorie.floor(1), @target_weight)
-<<<<<<< HEAD
-    # 目標のPFCカロリー
-    target_pfc_calorie = [[20, 4], [20, 9], [60, 4]].map{|ratio, per_1g|
-      if @pfc.present?
-        [PfcRatio.pfc_calorie_format(@day_target_calorie, pfc_ratios_protein(@pfc.protein)), per_1g, @day_target_calorie]
-      else
-        [PfcRatio.pfc_calorie_format(@day_target_calorie, ratio), per_1g, @day_target_calorie]
-      end
-    }
-    
-=======
     # 目標のPFCバランス（グラム・カロリー）
     if @pfc.present?
       @target_pfcs = [["たんぱく質", @pfc.protein, 4 ], ["脂質", @pfc.fat, 9], ["炭水化物", @pfc.carbo, 4]].map{|name, ratio, per_1g|
@@ -84,7 +73,6 @@ class ApplicationController < ActionController::Base
         [PfcRatio.pfc_calorie_format(@day_target_calorie, ratio), per_1g, @day_target_calorie]
       }
     end
->>>>>>> develop
     # グラフ値
     gon.pfc_calorie_ratios = target_pfc_calorie.map{|pfc_calorie, per_1g, day_target_calorie| ((pfc_calorie / day_target_calorie) * 100).floor(1)}
 
@@ -139,7 +127,7 @@ class ApplicationController < ActionController::Base
 
   # TodayExeciseクラスの1ヶ月分start_time(日にち)を作成
   def today_exercise_set_one_month
-    @user = User.find(params[:id])
+    @user = current_user
     @first_day = params[:start_date].nil? ?
     Date.current.beginning_of_month : params[:start_date].to_date
     @last_day = @first_day.end_of_month

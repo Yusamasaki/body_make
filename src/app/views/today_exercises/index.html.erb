@@ -1,6 +1,5 @@
-<div class="box1">
+<div class="box1 box1-padding">
   <div class="row">
-    
     <div class="col-md-3 offset-md-5 align-self-center">
       <%= link_to user_today_exercises_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date].to_date.prev_month) do %>
         <div class="arrow round-arrow-left"></div>
@@ -18,12 +17,12 @@
   </div>
 </div>
 
-<div class="box1">
-  運動内容選択
-  <div class="f-container">
+<div class="box1 box1-padding">
+  <h5 class="center">運動内容選択</h5>
+  <div class="f-container exercise-category-group">
     <% @categories.each do |category| %>
       <details>
-        <summary class="f-item btn btn-sm btn-original">
+        <summary class="f-item exercise-category-btn btn btn-sm btn-original">
           <%= category.name %>
         </summary>
         <% category.exercise_contents.each do |content| %>
@@ -41,18 +40,12 @@
 </div>
 
 <div class="box1">
-  <div class="col-md-10 offset-md-1 align-self-center">
+  <div class="col-md-12 align-self-center">
     <div class="exercise-chart">
-      <canvas id="exercise_myChart" width="200" height="100"></canvas>
+      <canvas id="exercise_myChart" width="200" height="50"></canvas>
       <script>exercise_draw_graph();</script>
     </div>
   </div>
-  <%= @aa %><br>
-  <%= @test %>
-</div>
-
-<div class="box1">
-  消費カロリー合計: <%= sum_mets %> cal
 </div>
 
 <div class="box1">
@@ -68,8 +61,7 @@
           <th></th>
         </tr>
       </thead>
-<%= @exercise_hour %>
-<%= @exercise_min %>
+
       <tbody>
         <% @today_exercises.drop(1).each do |exercise| %>
           <tr>
@@ -148,5 +140,13 @@ details[open] .content {
     opacity: 1;
     transform: none;
   }
+}
+
+.exercise-category-btn {
+  width: 200px;
+}
+
+.exercise-category-group {
+  padding-left: 10px; 
 }
 </style>
