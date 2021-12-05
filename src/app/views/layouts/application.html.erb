@@ -16,21 +16,28 @@
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
      
   </head>
-
-  <body>
+  
+  <% if user_signed_in? %>
+    <body class="login">
       <%= render 'layouts/side_bar' %>
-        <% flash.each do |message_type, msg| %>
-          <div class= "alert-original alert-<%= message_type %>"><%= msg.html_safe %></div>
-        <% end %>
+      <% flash.each do |message_type, msg| %>
+        <div class= "alert-original alert-<%= message_type %>"><%= msg.html_safe %></div>
+      <% end %>
         <div class="container">
           <%= yield %>
           <%= debug(params) if Rails.env.development? %>
         </div>
-    </div
-  </body>
-  
-  <footer>
-    
-  </footer>
+    </body>
+  <% else %>
+    <body class="logout">
+      <% flash.each do |message_type, msg| %>
+        <div class= "alert-original alert-<%= message_type %>"><%= msg.html_safe %></div>
+      <% end %>
+        <div class="container-field">
+          <%= yield %>
+          <%= debug(params) if Rails.env.development? %>
+        </div>
+    </body>
+  <% end %>
   
 </html>

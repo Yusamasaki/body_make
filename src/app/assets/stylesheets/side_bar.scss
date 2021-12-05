@@ -2,11 +2,11 @@ body{
     padding-top:90px
 }
 
+
 #logo {
     float: left;
     color: #fff;
     text-transform: uppercase;
-    letter-spacing: -1px;
     padding: 9px 15px;
     font-weight: bold;
     text-shadow: 2px 3px 3px #8fa8da;
@@ -25,21 +25,35 @@ body{
   text-align: center;
 }
 
+.nav-user{
+    background-color: #314E7F;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+.user_box{
+    background-color: #DBDEE3;
+    color: #274277;
+    margin-top: 3px;
+}
 
-@media (min-width:768px){
+@media (min-width:428px){
     body{
         padding-top:0
     }
 }
-@media (min-width:768px){
-    body{
+@media (min-width:428px){
+    body.login{
         margin-left:280px
     }
+    body.logout{
+        margin-left:0px
+    }
+    
 }
 .navbar.fixed-left{
     position:fixed;top:0;left:0;right:0;z-index:1030
 }
-@media (min-width:768px){
+@media (min-width:428px){
     .navbar.fixed-left{
         bottom:0;width:280px;flex-flow:column nowrap;align-items:flex-start
     }
@@ -56,7 +70,7 @@ body{
         top:0
     }
 }
-@media (min-width:768px){
+@media (min-width:428px){
     .navbar.fixed-left{
         right:auto
     }
@@ -67,3 +81,26 @@ body{
         left:100%
     }
 }
+
+
+/*--------------------------side-footer------------------------------*/
+
+.sidebar-footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  background-color: #20335B;
+  padding: 5px;
+}
+
+.sidebar-footer > a {
+  flex-grow: 1;
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  position: relative;
+}
+

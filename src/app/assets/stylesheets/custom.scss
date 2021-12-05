@@ -5,6 +5,12 @@ body,
 html {
   margin: 0;
   padding: 0;
+  
+}
+body.login{
+  background-color: #F9F9F9;
+}
+body.logout{
   background-color: #F9F9F9;
 }
 
@@ -69,8 +75,9 @@ html {
   background-color: #E0DEDE;
 }
 
+
 .jumbotron {
-  padding: 10px 0px;
+  padding: 10px 5px;
   margin: 0px 0px 10px;
 }
 
@@ -366,6 +373,13 @@ html {
   .card-text {
     text-align: center;
     font-size: 12px;
+  }
+  
+  .tab-area {
+    overflow-x: scroll;
+  }
+  .tab-menu{
+    width: 50em;
   }
 }
 
