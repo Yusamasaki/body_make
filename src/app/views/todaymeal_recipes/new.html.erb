@@ -139,7 +139,7 @@
 
 <% if params[:switching] == "rader-chart" %>
   <% if @recipe.calorie.present? %>
-    <%= render template: "graph/_nutrition_radar_graph_2" %>
+    <%= render template: "layouts/_nutrition_radar_graph" %>
   <% end %>
 <% end %>
 
