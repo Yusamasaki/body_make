@@ -151,8 +151,8 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
     t.float "goal_body_weight"
     t.float "now_bodyfat_percentage"
     t.float "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-12-06 00:27:33"
-    t.datetime "target_date", default: "2021-12-07 00:27:33"
+    t.datetime "beginning_date", default: "2021-12-06 13:34:49"
+    t.datetime "target_date", default: "2021-12-07 13:34:49"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

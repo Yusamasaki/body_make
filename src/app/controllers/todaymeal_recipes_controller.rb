@@ -1,7 +1,6 @@
 class TodaymealRecipesController < ApplicationController
   
   before_action :set_user, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_basic, only: [:new, :edit]
   before_action :set_recipe, only: [:new, :create, :edit, :update]
   before_action :ser_recipefoods_total, only: [:new, :edit, :update]
   before_action :set_nutritions, only: [:new, :edit]

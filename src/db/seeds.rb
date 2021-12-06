@@ -92,19 +92,6 @@ Traningevent.create!(
 
 Timezone.create!([ {time_zone: "朝食"}, {time_zone: "昼食"}, {time_zone: "夕食"}, {time_zone: "間食"},])
 
-30.times do |n|
-	Myfood.create!(
-		user_id: 1,
-		food_name: "食品#{n + 1}",
-		calorie: rand(100),
-		protein: rand(100),
-		fat: rand(100),
-		carbo: rand(100),
-		sugar: rand(100),
-		dietary_fiber: rand(100),
-		salt: rand(100)
-	)
-end
 
 30.times do |n|
 	Recipe.create!(
