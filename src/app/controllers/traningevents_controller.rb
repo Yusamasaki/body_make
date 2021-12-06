@@ -1,13 +1,9 @@
 class TraningeventsController < ApplicationController
   
-  before_action :set_user, only: [:index, :new, :create, :edit, :update, :show, :destroy]
-  before_action :set_basic, only: [:index, :new, :show, :edit]
-  before_action :set_traningevent, only: [:edit, :update, :destroy, :show]
-  before_action :set_traning_tab, only: [:index, :new, :edit, :show]
-  
-  def index
-    @traningevents_all = @user.traningevents.all
-  end
+  before_action :set_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_basic, only: [:new, :edit]
+  before_action :set_traningevent, only: [:edit, :update, :destroy]
+  before_action :set_traning_tab, only: [:new, :edit]
   
   def new
     @traningevent = @user.traningevents.new
@@ -36,10 +32,6 @@ class TraningeventsController < ApplicationController
         flash[:danger] = "更新に失敗しました"
         redirect_to edit_user_traningevent_path(@user, @traningevent, bodypart_id: @traningevent.bodypart_id, subbodypart_id: @traningevent.subbodypart_id, traningtype_id: @traningevent.traningtype_id, start_date: params[:start_date], start_time: params[:start_time])
     end
-  end
-
-  def show
-    @bodypart = Bodypart.find(@traningevent.bodypart_id)
   end
 
   def destroy
