@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :exercise_category do
-    name { "MyString" }
+    name { "カテゴリー1" }
   end
 end
