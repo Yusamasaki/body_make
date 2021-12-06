@@ -89,11 +89,20 @@ body.logout{
     background: white;
     box-shadow: 0 3px 7px rgba(0, 0, 0, 0.22);
     height: 100%;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
   }
-
-.box1 p {
-  margin: 0; 
-  padding: 0;
+  
+.login-box1{
+    margin:1em 0;
+    color: #274277;
+    background: white;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.22);
+    height: 100%;
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .nav-link.active {
@@ -181,7 +190,6 @@ body.logout{
   text-align: right;
   padding-left: 7px;
 }
-
 
 // 画面サイズ1024ピクセル以上用
 @media screen and (min-width: 1024px) {
@@ -380,6 +388,13 @@ body.logout{
   }
   .tab-menu{
     width: 50em;
+  }
+  
+  .box1{
+    width: 100%;
+  }
+  .login-box1{
+    width: 100%;
   }
 }
 

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-original fixed-top">
   <div class="logo">
     <% if user_signed_in? %>
-      <%= link_to "BODY MAKE APP", user_path(current_user, start_date: params[:start_date], start_time: params[:start_time]), id: "logo" %>
+      <%= link_to "BODY MAKE APP", user_path(current_user, switching: "bodyweight", start_date: Date.current.beginning_of_month, start_time: Date.current), id: "logo" %>
     <% else %>
       <%= link_to "BODY MAKE APP", root_path, id: "logo" %>
     <% end %>
@@ -15,7 +15,7 @@
     <ul class="navbar-nav">
       <% if user_signed_in? %>
       <li class="nav-item nav-user">
-        <%= link_to(edit_user_registration_path(@user), class: "nav-original-link") do %>
+        <%= link_to(edit_user_registration_path(@user, start_date: Date.current.beginning_of_month, start_time: Date.current), class: "nav-original-link") do %>
           Login User
           <i class="fas fa-sign-in-alt"></i>
           <div class="user_box">
@@ -25,7 +25,7 @@
         <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to(user_path(@user, switching: "bodyweight", start_date: Date.current.beginning_of_month, start_time: Date.current), data: {"turbolinks"=>false}, class: "nav-original-link") do %>
+        <%= link_to(user_path(@user, switching: "bodyweight", start_date: Date.current.beginning_of_month, start_time: Date.current), class: "nav-original-link") do %>
           <div>
             <i class="fas fa-home"></i>
             <span>HOME</span>
@@ -33,7 +33,7 @@
         <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to(user_todaymeals_path(@user, start_date: Date.current.beginning_of_month, start_time: Date.current), data: {"turbolinks"=>false}, class: "nav-original-link") do %>
+        <%= link_to(user_todaymeals_path(@user, start_date: Date.current.beginning_of_month, start_time: Date.current), class: "nav-original-link") do %>
           <div>
             <i class="fas fa-utensils"></i>
             <span>Meal</span>
