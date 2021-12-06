@@ -18,22 +18,30 @@ Admin.create!(
 puts 'sample admin created!'
 
 # 運動カテゴリー
-3.times do |n|
-  ExerciseCategory.create!(
-		name: "運動カテゴリー#{n + 1}"
-	)
-end
+ExerciseCategory.create(name: "自転車")
+ExerciseCategory.create(name: "コンディショニング")
+ExerciseCategory.create(name: "歩行")
+ExerciseCategory.create(name: "ランニング")
+ExerciseCategory.create(name: "スポーツ")
 
 puts 'sample exercise_category created!'
 
 # 運動コンテンツ
-30.times do |n|
-	ExerciseContent.create!(
-		content: "運動コンテンツ#{n + 1}",
-		mets: rand(1..3.9).floor(1),
-		exercise_category_id: rand(1..3)
-	)
-end
+ExerciseContent.create(content: "全般", mets: 7.5, exercise_category_id: 1)
+ExerciseContent.create(content: "通勤", mets: 6.8, exercise_category_id: 1)
+ExerciseContent.create(content: "モトクロス", mets: 8.5, exercise_category_id: 1)
+ExerciseContent.create(content: "腕立て伏せ•腹筋•懸垂", mets: 8.0, exercise_category_id: 2)
+ExerciseContent.create(content: "なわとび", mets: 12.3, exercise_category_id: 2)
+ExerciseContent.create(content: "ストレッチ", mets: 2.3, exercise_category_id: 2)
+ExerciseContent.create(content: "散歩", mets: 3.5, exercise_category_id: 3)
+ExerciseContent.create(content: "競歩", mets: 6.5, exercise_category_id: 3)
+ExerciseContent.create(content: "山を登る", mets: 6.3, exercise_category_id: 3)
+ExerciseContent.create(content: "ジョギング", mets: 7.0, exercise_category_id: 4)
+ExerciseContent.create(content: "ランニング", mets: 8.0, exercise_category_id: 4)
+ExerciseContent.create(content: "トラック•チーム練習", mets: 10.0, exercise_category_id: 4)
+ExerciseContent.create(content: "ゴルフ", mets: 4.8, exercise_category_id: 5)
+ExerciseContent.create(content: "サッカー", mets: 7.0, exercise_category_id: 5)
+ExerciseContent.create(content: "ソフトボール", mets: 4.0, exercise_category_id: 5)
 
 puts 'sample exercise_cotent created!'
 
@@ -56,6 +64,7 @@ Targetweight.create!(
 	beginning_date: Time.current,
 	target_date: Time.current.since(6.month)
 )
+
 
 # -----トレーニング関連------
 

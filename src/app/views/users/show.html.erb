@@ -1,77 +1,92 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>
 
-<div class="box1">
-  <div class="center">
-    <%= link_to(user_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date].to_date.prev_month)) do %>
-      <div class="arrow round-arrow-left"></div>
-    <% end %>
-    <a style="color: #274277;"><%= params[:start_time] %></a>
-    <% unless params[:start_time].to_date.tomorrow == Time.current.to_date.tomorrow %>
-      <%= link_to(user_path(current_user, start_time: params[:start_time].to_date.tomorrow, start_date: params[:start_date].to_date.next_month)) do %>
-        <div class="arrow round-arrow-right"></div>
-      <% end %>
-    <% end %>
-    <a class="right">
-    <%= link_to(user_bodyweights_calender_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
-      <i class="fas fa-calendar-alt fa-lg"></i>
-    <% end %>
-  </a>
-  </div>
-   
-</div>
-
-
-<div class="box1">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <div class="tab-area">
-        <div class="tab active">
-          体重
-        </div>
-        <div class="tab">
-          体脂肪率
-        </div>
-      </div>  
-    </div>
-  </div>
-  <div class="content-area">
-    <div class="content show">
-      <%= render 'bodyweight' %>
-    </div>
-    <div class="content">
-      <%= render 'bodyfat_percentage' %>
-    </div>
-  </div>
-</div>
-
-<div class="box1"><br>
-  <div class="row">
-    <div class="mx-auto">
-      <h4>トレーニング部位別回復状態</h4>
-    </div>
-  </div><br>
-  <% @bodypart_recoverys.each do |recovery_parcentage, bodypart, current| %>
-    <div class="card">
-      <div class="card-header">
-        <%= bodypart.body_part %>
-      </div>
-      <div class="card-body">
-        <% unless current == bodypart.recovery_day %>
-          <p style="color:green;"><%= current %>日経過</p>
+<div class="jumbotron">
+  <div class="box1">
+    <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+      <li class="nav-item">
+        <% if params[:switching] == "bodyweight" || params[:switching].blank? %>
+          <a class="nav-item nav-link active" href="<%= user_path(@user, switching: "bodyweight", start_time: params[:start_time], start_date: params[:start_date]) %>">体重</a>
         <% else %>
-          <p style="color:blue;">回復状態です</p>
+          <a class="nav-item nav-link" href="<%= user_path(@user, switching: "bodyweight", start_time: params[:start_time], start_date: params[:start_date]) %>">体重</a>
         <% end %>
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" style="width: <%= recovery_parcentage %>%;" aria-valuenow="<%= bodypart.recovery_day %>" aria-valuemin="0" aria-valuemax="<%= bodypart.recovery_day %>">
-            <% unless current == bodypart.recovery_day %>
-              <%= current %>日経過
-            <% else %>
-              回復状態です
-            <% end %>
+      </li>
+      <li class="nav-item">
+        <% if params[:switching] == "recovery" %>
+          <a class="nav-item nav-link active" href="<%= user_path(@user, switching: "recovery", start_time: params[:start_time], start_date: params[:start_date]) %>">トレーニング回復部位別状況</a>
+        <% else %>
+          <a class="nav-item nav-link" href="<%= user_path(@user, switching: "recovery", start_time: params[:start_time], start_date: params[:start_date]) %>">トレーニング回復部位別状況</a>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<% if params[:switching] == "bodyweight" || params[:switching].blank? %>
+  <div class="box1">
+    <div class="center">
+      <%= link_to(user_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date].to_date.prev_month)) do %>
+        <div class="arrow round-arrow-left"></div>
+      <% end %>
+      <a style="color: #274277;"><%= params[:start_time] %></a>
+      <% unless params[:start_time].to_date.tomorrow == Time.current.to_date.tomorrow %>
+        <%= link_to(user_path(current_user, start_time: params[:start_time].to_date.tomorrow, start_date: params[:start_date].to_date.next_month)) do %>
+          <div class="arrow round-arrow-right"></div>
+        <% end %>
+      <% end %>
+      <a class="right">
+        <%= link_to(user_bodyweights_calender_path(current_user, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
+          <i class="fas fa-calendar-alt fa-lg"></i>
+        <% end %>
+      </a>
+    </div>
+  </div>
+  <div class="box1">
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-weight-tab" data-toggle="tab" href="#nav-weight" role="tab" aria-controls="nav-weight" aria-selected="true">体重</a>
+        <a class="nav-item nav-link" id="nav-percentage-tab" data-toggle="tab" href="#nav-percentage" role="tab" aria-controls="nav-percentage" aria-selected="false">体脂肪率</a>
+      </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-weight" role="tabpanel" aria-labelledby="nav-weight-tab">
+        <%= render 'bodyweight' %>
+      </div>
+      <div class="tab-pane fade" id="nav-percentage" role="tabpanel" aria-labelledby="nav-percentage-tab">
+        <%= render 'bodyfat_percentage' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if params[:switching] == "recovery" %>
+  <div class="box1"><br>
+    <div class="row">
+      <div class="mx-auto">
+        <h4>トレーニング部位別回復状態</h4>
+      </div>
+    </div><br>
+    <% @bodypart_recoverys.each do |recovery_parcentage, bodypart, current| %>
+      <div class="card">
+        <div class="card-header">
+          <%= bodypart.body_part %>
+        </div>
+        <div class="card-body">
+          <% unless current == bodypart.recovery_day %>
+            <p style="color:green;"><%= current %>日経過</p>
+          <% else %>
+            <p style="color:blue;">回復状態です</p>
+          <% end %>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: <%= recovery_parcentage %>%;" aria-valuenow="<%= bodypart.recovery_day %>" aria-valuemin="0" aria-valuemax="<%= bodypart.recovery_day %>">
+              <% unless current == bodypart.recovery_day %>
+                <%= current %>日経過
+              <% else %>
+                回復状態です
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  <% end %>
-</div>
-
+    <% end %>
+  </div>
+<% end %>

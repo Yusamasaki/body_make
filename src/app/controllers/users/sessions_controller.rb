@@ -5,7 +5,7 @@ class Users::SessionsController < Devise::SessionsController
   
   def after_sign_in_path_for(resource)
     @bodyweight = @user.bodyweights.find_by(start_time: Date.current)
-    user_path(@user, start_date: Date.current.beginning_of_month, start_time: Date.current, bodyweight_id: @bodyweight)
+    user_path(@user, switching: "bodyweight", start_date: Date.current.beginning_of_month, start_time: Date.current, bodyweight_id: @bodyweight)
   end
   
   def after_sign_out_path_for(resource)

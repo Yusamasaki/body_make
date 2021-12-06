@@ -1,6 +1,5 @@
-<div class="box1">
+<div class="box1 box1-padding">
   <div class="row">
-    
     <div class="col-md-3 offset-md-5 align-self-center">
       <%= link_to user_today_exercises_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date].to_date.prev_month) do %>
         <div class="arrow round-arrow-left"></div>
@@ -18,16 +17,16 @@
   </div>
 </div>
 
-<div class="box1">
-  カテゴリー選択
-  <div class="f-container">
+<div class="box1 box1-padding">
+  <h5 class="center">運動内容選択</h5>
+  <div class="f-container exercise-category-group">
     <% @categories.each do |category| %>
       <details>
-        <summary class="f-item btn btn-sm btn-original">
+        <summary class="f-item exercise-category-btn btn btn-sm btn-original">
           <%= category.name %>
         </summary>
         <% category.exercise_contents.each do |content| %>
-          <div class="box2-exercise">
+          <div class="box2-exercise content">
             <%= link_to content.content, new_user_today_exercise_path(
                 current_user, start_date: params[:start_date], start_time: params[:start_time], exercise_category_id: category.id, exercise_content_id: content.id),
                 class: "content-item",
@@ -41,18 +40,12 @@
 </div>
 
 <div class="box1">
-  グラフ(仮)
-  <div class="col-md-6 align-self-center">
+  <div class="col-md-12 align-self-center">
     <div class="exercise-chart">
-      <canvas id="exercise_myChart" width="800" height="400"></canvas>
+      <canvas id="exercise_myChart" width="200" height="50"></canvas>
       <script>exercise_draw_graph();</script>
     </div>
   </div>
-  
-</div>
-
-<div class="box1">
-  日別総消費カロリー: <%= sum_mets %> cal
 </div>
 
 <div class="box1">
@@ -60,20 +53,20 @@
     <table class="table table-sm table-striped table-bordered">
       <thead>
         <tr>
-          <th>運動内容</th>
-          <th><%= TodayExercise.human_attribute_name :exercise_time %></th>
+          <th class="align-middle">運動内容</th>
+          <th>運動時間</th>
           <th>カロリー</th>
           <th><%= TodayExercise.human_attribute_name :note %></th>
           <th></th>
           <th></th>
         </tr>
       </thead>
-      
+
       <tbody>
         <% @today_exercises.drop(1).each do |exercise| %>
           <tr>
-            <td><%= category(exercise) %> / <%= content(exercise) %></td>
-            <td><%= exercise.exercise_time.strftime('%-H時間 %M分') %></td>
+            <td class="align-middle"><%= category(exercise) %> / <%= content(exercise) %></td>
+            <td><%= exercise.exercise_time_hour %>時間<%= exercise.exercise_time_min %>分</td>
             <td><%= mets(exercise) %> cal</td>
             <td><%= exercise.note %></td>
             <td class="center">
@@ -104,10 +97,15 @@
             </td>
           </tr>
         <% end %>
+        <tr> 
+          <td class="align-middle">合計</td>
+          <td><%= sum_today_exercise_time(@today_exercises) %></td>
+          <td><%= sum_mets %> cal</td>
+          <td colspan="3"></td>
+        </tr>
       </tbody>
     </table>
   </div>
-<%= params[:start_date] %>
   <!--
   <div class="right">
     <= link_to '追加', new_user_today_exercise_path(
@@ -122,3 +120,33 @@
 <div id="calender" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <div id="new-exercise-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <div id="edit-exercise-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+<style>
+/* 開いて実行されるアニメーションを設定*/
+details[open] .content {
+  animation: fadeIn 0.5s ease-in-out;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0; /* Transparent */
+    transform: translateY(-5px); 
+    /* translateX(+100px)：右から表示 */
+    /* translateX(-100px)：左から表示 */
+    /* translateY(+100px)：下から表示 */
+    /* translateY(-100px)：上から表示 */
+
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.exercise-category-btn {
+  width: 200px;
+}
+
+.exercise-category-group {
+  padding-left: 10px; 
+}
+</style>
