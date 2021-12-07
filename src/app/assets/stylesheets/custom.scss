@@ -10,6 +10,7 @@ html {
 // ログイン状態の背景
 body.login{
   background-color: #F9F9F9;
+  font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro";
 }
 
 // ログアウト状態の背景
@@ -113,7 +114,14 @@ body.logout{
     margin-right: auto;
 }
 
+<<<<<<< HEAD
 // --------------- タブ　オリジナル----------------
+=======
+.box1-padding {
+  padding: 10px 0 10px 0;
+}
+
+>>>>>>> develop
 .nav-link.active {
   color: #fff;
   background-color: #154DBA;

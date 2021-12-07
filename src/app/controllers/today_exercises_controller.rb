@@ -1,13 +1,30 @@
 class TodayExercisesController < ApplicationController
+  include TodayExercisesHelper
   before_action :authenticate_user!
   before_action :set_user
+  before_action :set_basic, only: [:index]
   before_action :today_exercise_set_one_month, only: [:index]
   before_action :set_categories, only: [:index, :new, :create, :edit]
   before_action :set_contents, only: [:index, :new, :create, :edit, :new_contents, :edit_contents]
   before_action :set_today_exercise, only: [:edit, :update, :destroy]
 
   def index
-    @today_exercises = TodayExercise.where(start_time: params[:start_time]).order(:id)
+    @today_exercises = @user.today_exercise.where(start_time: params[:start_time]).order(:id)
+
+    month_before = params[:start_time].to_date.beginning_of_month
+    after_month = month_before.end_of_month
+    gon.start_times = [*month_before.day..after_month.day]
+    month_body_weights = [@user.today_exercise.where(start_time: month_before..after_month).group(:start_time).sum(:body_weight).values]
+
+    gon.calorie = 
+      @user.today_exercise.where(start_time: month_before..after_month).order(:id).group_by {|exercise| exercise.start_time }.map { |start_time, value|
+        value.drop(1).sum { |exercise|
+          ((((exercise.exercise_time_hour * 60) + (exercise.exercise_time_min)) / 60.to_f) \
+          * ExerciseContent.find(exercise.exercise_content_id.to_i).mets \
+          * exercise.body_weight.to_f \
+          * 1.05).truncate(1)
+        }
+      }
   end
 
   def new
@@ -37,7 +54,7 @@ class TodayExercisesController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       if @today_exercise.update_attributes!(exercise_params)
-        flash[:success] = "#{@today_exercise.start_time}の運動を記録しました"
+        flash[:success] = "#{@today_exercise.start_time}の運動を修正しました"
         redirect_to user_today_exercises_path(
           user_id: current_user,
           id: @today_exercise,
@@ -105,6 +122,6 @@ class TodayExercisesController < ApplicationController
     end
 
     def exercise_params
-      params.require(:today_exercise).permit(:start_time, :exercise_time, :body_weight, :note, :exercise_category_id, :exercise_content_id, :user_id)
+      params.require(:today_exercise).permit(:start_time, :exercise_time_hour, :exercise_time_min, :body_weight, :note, :exercise_category_id, :exercise_content_id, :user_id)
     end
 end

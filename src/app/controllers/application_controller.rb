@@ -154,7 +154,7 @@ class ApplicationController < ActionController::Base
 
   # TodayExeciseクラスの1ヶ月分start_time(日にち)を作成
   def today_exercise_set_one_month
-    @user = User.find(params[:id])
+    @user = current_user
     @first_day = params[:start_date].nil? ?
     Date.current.beginning_of_month : params[:start_date].to_date
     @last_day = @first_day.end_of_month
