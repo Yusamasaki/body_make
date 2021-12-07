@@ -10,14 +10,16 @@
     <%= form_with(model: @today_exercise, url: user_today_exercises_path(
       @current_user, start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
       <div class="modal-body">
-        <h5><%= ExerciseCategory.find(@category_params).name %>(<%= ExerciseContent.find(@content_params).content %>)</h5><br>
+        <h5><%= ExerciseCategory.find(@category_params).name %></h5>
+        <h6><%= ExerciseContent.find(@content_params).content %> (<%= ExerciseContent.find(@content_params).mets %>METs)</h6><br>
         <div>
           <div>
-            <%= f.label :exercise_time, class: "label-form" %>
+            <%= f.label '運動時間', class: "label-form" %>
           </div>
-          <%= f.time_select :exercise_time, { start_hour: 0, end_hour: 23, minute_step: 5 },
-                                            { class: "form-control form-control-sm", style: 'display: inline-block; width: auto;' }
-          %>
+          <%= f.select :exercise_time_hour, options_for_select(0..23), {}, { class: "form-control form-control-sm", style: 'display: inline-block; width: auto;' }  %>
+          <%= f.label :exercise_time_hour, class: "label-form" %>
+          <%= f.select :exercise_time_min, options_for_select((0..55).select { |i| i if i % 5  == 0 }), {}, { class: "form-control form-control-sm", style: 'display: inline-block; width: auto;' } %>
+          <%= f.label :exercise_time_min, class: "label-form" %>
         </div><br>
 
         <div>

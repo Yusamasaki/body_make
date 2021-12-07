@@ -7,18 +7,36 @@ module TodayExercisesHelper
     ExerciseContent.find(exercise.exercise_content_id).content if exercise.exercise_content_id.present?
   end
 
+  # 1日の運動時間合計
+  def sum_today_exercise_time(exercise)
+    total_min =
+      @user.today_exercise.where(start_time: params[:start_time]).map {
+        |exercise| (exercise.exercise_time_hour * 60) + (exercise.exercise_time_min)
+      }.sum
+
+    hour = (total_min / 60)
+    exercise_hour = hour.to_s + '時間' if 0 < hour
+
+    min = total_min - (hour * 60)
+    exercise_min = min.to_s + '分' if 0 < min
+
+    exercise_hour.to_s + exercise_min.to_s
+  end
+
+  # 1件当たりのカロリー計算
   def mets(exercise)
     if exercise.exercise_content_id.present?
       mets = ExerciseContent.find(exercise.exercise_content_id).mets
       body_weight = exercise.body_weight
-      exercise_hour = exercise.exercise_time.hour * 60
-      exercise_min = exercise.exercise_time.min
-      exercise_time = ((exercise_hour + exercise_min) / 60.to_f).round(2)
+      exercise_hour = exercise.exercise_time_hour * 60
+      exercise_min = exercise.exercise_time_min
+      exercise_time = ((exercise_hour + exercise_min) / 60.to_f)
       calorie = mets * body_weight * exercise_time * 1.05 # 消費カロリー = (メッツ * 体重kg * 運動時間 * 1.05)
-      calorie.round(2)
+      calorie.truncate(1)
     end
   end
 
+  # 1日の運動カロリー合計
   def sum_mets
     mets =
       @today_exercises.map { |exercise|

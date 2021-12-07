@@ -1,23 +1,25 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content" style="width: 430px;">
     <div class="modal-header">
-      <h5>運動登録</h5>
+      <h5>Exercise</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
 
     <%= form_with(model: @today_exercise, url: user_today_exercise_path(
-        start_date: params[:start_date], start_time: params[:start_time]), method: :patch, remote: true) do |f| %>
+        start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
       <div class="modal-body">
-        <h5><%= ExerciseCategory.find(@today_exercise.exercise_category_id).name %>(<%= ExerciseContent.find(@today_exercise.exercise_content_id).content %>)</h5><br>
+        <h5><%= ExerciseCategory.find(@today_exercise.exercise_category_id).name %></h5>
+        <h6><%= ExerciseContent.find(@today_exercise.exercise_content_id).content %> (<%= ExerciseContent.find(@today_exercise.exercise_content_id).mets %>METs)</h6><br>
         <div>
           <div>
-            <%= f.label :exercise_time, class: "label-form" %>
+            <%= f.label '運動時間', class: "label-form" %>
           </div>
-          <%= f.time_select :exercise_time, { start_hour: 0, end_hour: 23, minute_step: 5 },
-                                            { class: "form-control form-control-sm", style: 'display: inline-block; width: auto;' }
-          %>
+          <%= f.select :exercise_time_hour, options_for_select(0..23, {selected: @today_exercise.exercise_time_hour}), {}, { class: "form-control form-control-sm", style: 'display: inline-block; width: auto;' }  %>
+          <%= f.label :exercise_time_hour, class: "label-form" %>
+          <%= f.select :exercise_time_min, options_for_select((0..55).select { |i| i if i % 5  == 0 }, {selected: @today_exercise.exercise_time_min}), {}, { class: "form-control form-control-sm", style: 'display: inline-block; width: auto;' } %>
+          <%= f.label :exercise_time_min, class: "label-form" %>
         </div><br>
 
         <div>
