@@ -4,6 +4,7 @@ class TraningeventsController < ApplicationController
   before_action :set_basic, only: [:index, :new, :show, :edit]
   before_action :set_traningevent, only: [:edit, :update, :destroy, :show]
   before_action :set_traning_tab, only: [:index, :new, :edit, :show]
+  before_action ::logged_in_user, only: [:index, :new, :create, :edit, :update, :show, :destroy]
   
   def index
     @traningevents_all = @user.traningevents.all
