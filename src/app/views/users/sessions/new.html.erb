@@ -1,5 +1,5 @@
 <div class="jumbotron">
-  BODY MAKE APP
+  <div class="top-logo">BODY MAKE APP</div>
 </div>
 
 <div class="login-box1">
@@ -23,7 +23,7 @@
       </div><br />
       
       <div class="box-action">
-        <%= f.submit "ログイン" %>
+        <%= f.submit "ログイン", class: "btn btn-md btn-outline-original btn-block" %>
         <% if devise_mapping.rememberable? %>
           <div class="remember">
             <%= f.check_box :remember_me %>
@@ -33,7 +33,7 @@
       </div>
     <% end %>
     
-    <%= link_to(user_google_oauth2_omniauth_authorize_path, class: "btn btn-md btn-default btn-block") do %>
+    <%= link_to(user_google_oauth2_omniauth_authorize_path, class: "btn btn-md btn-outline-original btn-block") do %>
       <i class="fab fa-google"></i>  Sign in with Google
     <% end %>
     
