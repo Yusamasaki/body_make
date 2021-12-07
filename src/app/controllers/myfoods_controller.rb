@@ -3,7 +3,7 @@ class MyfoodsController < ApplicationController
   before_action :set_user, only: [:index, :new, :create, :edit, :update, :destroy, :api_new, :api_create, :import]
   before_action :set_myfood, only: [:update, :destroy]
   before_action :set_recipe, only: [:index]
-  before_action :ser_recipefoods_total, only: [:index]
+  before_action :set_recipefoods_total, only: [:index]
   before_action :set_nutritions, only: [:index]
   
   def index

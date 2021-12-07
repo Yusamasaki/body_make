@@ -113,7 +113,23 @@ body.logout{
     margin-right: auto;
 }
 
-
+// --------------- タブ　オリジナル----------------
+.nav-link.active {
+  color: #fff;
+  background-color: #154DBA;
+  font-family:"ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro";
+}
+.nav-link{
+  color: #274277;
+  background-color: #EEEEEE;
+  font-family:"ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro";
+}
+.nav-link:hover{
+  color: #274277;
+  background-color: #66FFFF;
+  font-family:"ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro";
+}
+// --------------- タブ　オリジナル----------------
 
 // traning カレンダー内の部位名表示レイアウト
 .calender-event-box {
@@ -133,12 +149,6 @@ body.logout{
   border: solid 1px #274277;
   border-radius: 10px;
 }
-
-// 不明のため削除予定
-// .add {
-//   text-align: center;
-//   padding-bottom: 10px;
-// }
 
 // 画面サイズ1024ピクセル以上用
 @media screen and (min-width: 1024px) {
@@ -336,7 +346,6 @@ body.logout{
     width: 100%;
   }
 }
-
 
 /*------------------------------------
 - COLOR original (サイトイメージカラー)
