@@ -1,5 +1,7 @@
 FactoryBot.define do
   factory :exercise_content do
-    content { "MyString" }
+    content { "コンテンツ1" }
+    mets { 1.1 }
+    association :exercise_category
   end
 end
