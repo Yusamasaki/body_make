@@ -48,6 +48,6 @@ class ExerciseCategoriesController < ApplicationController
     end
 
     def content_params
-      params.require(:exercise_content).permit(exercise_content:[:content, :mets)
+      params.require(:exercise_content).permit(exercise_content:[:content, :mets])
     end  
 end
