@@ -1,7 +1,6 @@
 class RecipesController < ApplicationController
   
-  before_action :set_user, only: [:index, :new, :create, :show, :edit, :update, :destroy]
-  before_action :set_basic, only: [:index, :new, :edit]
+  before_action :set_user, only: [:index, :new, :create, :edit, :update, :destroy]
   
   def index
     @timezones = Timezone.all
@@ -47,9 +46,6 @@ class RecipesController < ApplicationController
       flash[:danger] = "変更に失敗しました。"
       redirect_to edit_user_recipe_path(@user, @recipe, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
     end
-  end
-  
-  def show
   end
   
   def destroy

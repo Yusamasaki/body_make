@@ -3,21 +3,23 @@
 
 <%= render "layouts/setting_tab" %>
 
-<div class="card">
-  <div class="card-header">
-    <h5>基本設定変更</h5>
-  </div>
-  <div class="card-body">
-    <%= form_with(model: [@user, @bmr], url: user_bmr_path(start_time: params[:start_time], start_date: params[:start_date]), local: true) do |f| %>
-    
-      <%= render partial: "form", locals: { f: f }%>
-  </div>
-  <div class="card-footer">
-    <div class="row">
-      <div class="mx-auto">
-        <%= f.submit yield(:btn_text), class: "btn btn-md btn-original" %><br>
-      </div>
+<div class="box1">
+  <div class="card">
+    <div class="card-header">
+      <h5>基本設定変更</h5>
     </div>
-  </div> 
-    <% end %>
+    <div class="card-body">
+      <%= form_with(model: [@user, @bmr], url: user_bmr_path(start_time: params[:start_time], start_date: params[:start_date]), local: true) do |f| %>
+      
+        <%= render partial: "form", locals: { f: f }%>
+    </div>
+    <div class="card-footer">
+      <div class="row">
+        <div class="mx-auto">
+          <%= f.submit yield(:btn_text), class: "btn btn-md btn-original" %><br>
+        </div>
+      </div>
+    </div> 
+      <% end %>
+  </div>
 </div>

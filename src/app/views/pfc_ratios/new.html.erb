@@ -4,34 +4,35 @@
 
 <%= render "layouts/setting_tab" %>
 
-<div class="card">
-  <div class="card-header">
-    <h5>PFC設定</h5>
-  </div>
-  <div class="card-body">
-    <%= form_with(model: @pfc, url: user_pfc_ratios_path(@user, start_time: params[:start_time], start_date: params[:start_date]), local: true) do |f| %>
-    
-      <%= render 'shared/error_messages', object: @pfc %>
-
-      <%= f.label :protein, class: "label" %><br>
-      <%= f.number_field :protein, step: '0.1', class: "form-control" %><br>
-
-      <%= f.label :fat, class: "label" %><br>
-      <%= f.number_field :fat, step: '0.1', class: "form-control" %><br>
-      
-      <%= f.label :carbo, class: "label" %><br>
-      <%= f.number_field :carbo, step: '0.1', class: "form-control" %><br>
-      
-      <%= f.hidden_field :user_id, value: @user.id %>
-  </div>
-  <div class="card-footer">
-    <div class="row">
-      <div class="mx-auto">
-        <%= f.submit yield(:btn_text), class: "btn btn-md btn-original" %>
-      </div>
+<div class="box1">
+  <div class="card">
+    <div class="card-header">
+      <h5>PFC設定</h5>
     </div>
+    <div class="card-body">
+      <%= form_with(model: @pfc, url: user_pfc_ratios_path(@user, start_time: params[:start_time], start_date: params[:start_date]), local: true) do |f| %>
       
-  </div>   
-    <% end %>
+        <%= render 'shared/error_messages', object: @pfc %>
+  
+        <%= f.label :protein, class: "label" %><br>
+        <%= f.number_field :protein, step: '0.1', class: "form-control" %><br>
+  
+        <%= f.label :fat, class: "label" %><br>
+        <%= f.number_field :fat, step: '0.1', class: "form-control" %><br>
+        
+        <%= f.label :carbo, class: "label" %><br>
+        <%= f.number_field :carbo, step: '0.1', class: "form-control" %><br>
+        
+        <%= f.hidden_field :user_id, value: @user.id %>
+    </div>
+    <div class="card-footer">
+      <div class="row">
+        <div class="mx-auto">
+          <%= f.submit yield(:btn_text), class: "btn btn-md btn-original" %>
+        </div>
+      </div>
+        
+    </div>   
+      <% end %>
+  </div>
 </div>
-

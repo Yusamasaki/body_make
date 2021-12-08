@@ -15,4 +15,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 }).call(this);
 
-
+/*
+Background Gradients From -- 
+https://uigradients.com
+*/

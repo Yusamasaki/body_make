@@ -98,6 +98,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  # ------トレーニンググラフ------
   def set_analysis_day
     @first_day = params[:start_date].nil? ?
     Date.current.beginning_of_month : params[:start_date].to_date
@@ -117,6 +118,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  # トレーニング関連タブ
   def set_traning_tab
     @bodyparts = Bodypart.all
     @traningtypes = Traningtype.all
@@ -152,23 +154,23 @@ class ApplicationController < ActionController::Base
 
   # TodayExeciseクラスの1ヶ月分start_time(日にち)を作成
   def today_exercise_set_one_month
-    @user = current_user
-    @first_day = params[:start_date].nil? ?
-    Date.current.beginning_of_month : params[:start_date].to_date
-    @last_day = @first_day.end_of_month
+    # @user = current_user
+    # @first_day = params[:start_date].nil? ?
+    # Date.current.beginning_of_month : params[:start_date].to_date
+    # @last_day = @first_day.end_of_month
     
-    one_month = [*@first_day..@last_day]
-    @exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
+    # one_month = [*@first_day..@last_day]
+    # @exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
     
-    unless one_month.count <= @exercises.count
-      ActiveRecord::Base.transaction do
-        one_month.each { |day| @user.today_exercise.create!(start_time: day) }
-      end
-      @today_exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
-    end
+    # unless one_month.count <= @exercises.count
+    #   ActiveRecord::Base.transaction do
+    #     one_month.each { |day| @user.today_exercise.create!(start_time: day) }
+    #   end
+    #   @today_exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
+    # end
   end
   
-  # 食事関連
+  # ========== 食事関連 ==========
   
   def set_nutritions
     @nutritions = [:calorie, :protein, :fat, :carbo, :sugar, :dietary_fiber, :salt]
@@ -187,10 +189,10 @@ class ApplicationController < ActionController::Base
     @recipe = @user.recipes.find(params[:recipe_id]) if params[:recipe_id].present?
   end
   
-  def ser_recipefoods_total
+  def set_recipefoods_total
     if params[:recipe_id].present?
       @recipefoods = @user.recipefoods.where(recipe_id: params[:recipe_id])
-    elsif params[:id].present?
+    else
       @recipefoods = @user.recipefoods.where(recipe_id: params[:id])
     end
     if params[:recipe_id].present? || params[:id].present?
@@ -198,6 +200,7 @@ class ApplicationController < ActionController::Base
       @recipe_myfoods =  nutritions.map {|nutrition| @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(nutrition), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum}
     end
   end
+  
   def set_meals
     @timezones = Timezone.all
     
@@ -208,7 +211,7 @@ class ApplicationController < ActionController::Base
     @recipes = @todaymeal_recipes.map{|todaymeal_recipe| @user.recipes.where(id: todaymeal_recipe).pluck(:calorie)}
   end
   
-  def ser_meals_analysis
+  def set_meals_analysis
     @first_day = params[:start_date].nil? ?
     Date.current.beginning_of_month : params[:start_date].to_date
     @last_day = @first_day.end_of_month

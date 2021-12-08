@@ -2,18 +2,20 @@
 <%= render "layouts/traning_tab" %>
 
 <% if params[:traningevent_id].present? %>
-  <div class="card">
-    <div class="card-header">
-      選択中の種目
-    </div>
-    <div class="card-body">
-      <%= link_to(edit_user_traningevent_path(@user, params[:traningevent_id], bodypart_id: @traningevent.bodypart_id, subbodypart_id: @traningevent.subbodypart_id, traningtype_id: @traningevent.traningtype_id, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
-        <h5>
-          <%= @traningevent.traning_name %>
-          <i class="fas fa-edit fa-md">編集</i>
-        </blockquote>
-        </h5>
-      <% end %>
+  <div class="box1">
+    <div class="card">
+      <div class="card-header">
+        選択中の種目
+      </div>
+      <div class="card-body">
+        <%= link_to(edit_user_traningevent_path(@user, params[:traningevent_id], bodypart_id: @traningevent.bodypart_id, subbodypart_id: @traningevent.subbodypart_id, traningtype_id: @traningevent.traningtype_id, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
+          <h5>
+            <%= @traningevent.traning_name %>
+            <i class="fas fa-edit fa-md">編集</i>
+          </blockquote>
+          </h5>
+        <% end %>
+      </div>
     </div>
   </div>
   <style>
