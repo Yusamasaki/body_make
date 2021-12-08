@@ -17,19 +17,14 @@
     
   </head>
   
-  <% if user_signed_in? %>
+  <% if controller.controller_name == "bmrs" && controller.action_name == "new" || controller.controller_name == "targetweights" && controller.action_name == "new" %>
+    <body class="logout">
+  <% elsif user_signed_in? %>
     <body class="login">
       <%= render 'layouts/side_bar' %>
-      <% flash.each do |message_type, msg| %>
-        <div class= "alert-original alert-<%= message_type %>"><%= msg.html_safe %></div>
-      <% end %>
-        <div class="container-field">
-          <%= yield %>
-          <%= debug(params) if Rails.env.development? %>
-        </div>
-    </body>
   <% else %>
     <body class="logout">
+  <% end %>
       <% flash.each do |message_type, msg| %>
         <div class= "alert-original alert-<%= message_type %>"><%= msg.html_safe %></div>
       <% end %>
@@ -38,6 +33,4 @@
           <%= debug(params) if Rails.env.development? %>
         </div>
     </body>
-  <% end %>
-  
 </html>

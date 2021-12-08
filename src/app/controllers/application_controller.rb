@@ -154,20 +154,20 @@ class ApplicationController < ActionController::Base
 
   # TodayExeciseクラスの1ヶ月分start_time(日にち)を作成
   def today_exercise_set_one_month
-    @user = current_user
-    @first_day = params[:start_date].nil? ?
-    Date.current.beginning_of_month : params[:start_date].to_date
-    @last_day = @first_day.end_of_month
+    # @user = current_user
+    # @first_day = params[:start_date].nil? ?
+    # Date.current.beginning_of_month : params[:start_date].to_date
+    # @last_day = @first_day.end_of_month
     
-    one_month = [*@first_day..@last_day]
-    @exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
+    # one_month = [*@first_day..@last_day]
+    # @exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
     
-    unless one_month.count <= @exercises.count
-      ActiveRecord::Base.transaction do
-        one_month.each { |day| @user.today_exercise.create!(start_time: day) }
-      end
-      @today_exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
-    end
+    # unless one_month.count <= @exercises.count
+    #   ActiveRecord::Base.transaction do
+    #     one_month.each { |day| @user.today_exercise.create!(start_time: day) }
+    #   end
+    #   @today_exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
+    # end
   end
   
   # ========== 食事関連 ==========
