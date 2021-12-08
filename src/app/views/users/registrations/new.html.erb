@@ -1,48 +1,66 @@
+<div class="context">
+  <h1>BODY MAKE APP</h1>
+</div>
 
-<div class="login-box1">
-  <div class="box-inner">
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      
-      <h2>アカウント登録</h2>
-      <div class="box-username">
-        <%= f.label :username %>
-        <%= f.text_field :username, autofocus: true, autocomplete: "username", class: "form-control" %>
-      </div>
-        
-      <div class="box-email">
-        <%= f.label :email %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
-      </div>
-      
-      <div class="box-password">
-        <div class="a-row">
-          <div class="column-left">
-            <%= f.label :password %>
-            <% if @minimum_password_length %>
-              <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
-            <% end %>
+<div class="area">
+  <ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</div>
+
+<div class="bg_pattern Paper_v2"></div>
+  <div class="section">
+    <div class="login-box1">
+      <div class="box-inner">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          
+          <h2>アカウント登録</h2>
+          <div class="box-username">
+            <%= f.label :username %>
+            <%= f.text_field :username, autofocus: true, autocomplete: "username", class: "form-control" %>
           </div>
-        </div>
-        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
-      </div>
-      
-      <div class="box-password-confirmation">
-        <div class="a-row">
-          <div class="column-left">
-            <%= f.label :password_confirmation %>
+            
+          <div class="box-email">
+            <%= f.label :email %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
           </div>
-        </div>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+          
+          <div class="box-password">
+            <div class="a-row">
+              <div class="column-left">
+                <%= f.label :password %>
+                <% if @minimum_password_length %>
+                  <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
+                <% end %>
+              </div>
+            </div>
+            <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+          </div>
+          
+          <div class="box-password-confirmation">
+            <div class="a-row">
+              <div class="column-left">
+                <%= f.label :password_confirmation %>
+              </div>
+            </div>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+          </div>
+          
+          <%= f.submit (), class: "btn btn-md btn-outline-original btn-block" %>
+        <% end %><br>
+        <div>アカウントをすでにお持ちの方はこちら→<%= link_to "ログイン", new_session_path(resource_name) %></div>
       </div>
-      
-      <div class="box-login">
-        <%= f.submit (), class: "button" %>
-      </div>
-    <% end %>
-    <div>アカウントをすでにお持ちの方はこちら→<%= render "devise/shared/links" %></div>
+    </div>
   </div>
 </div>
-</div>
-  
 
 
