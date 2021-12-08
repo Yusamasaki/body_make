@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe ExerciseCategory, type: :model do
   let(:exercise_category) { FactoryBot.build(:exercise_category) }
 
-  describe '運動カテゴリーを登録する' do
-
+  describe '運動カテゴリーの登録' do
     it '重複したカテゴリー名があれば無効な状態であること' do
       category1 = FactoryBot.create(:exercise_category)
       category2 = FactoryBot.build(:exercise_category, name: category1.name)
@@ -37,6 +36,5 @@ RSpec.describe ExerciseCategory, type: :model do
         expect(category.errors[:name]).to include('は15文字以内で入力してください')
       end
     end
-
   end
 end
