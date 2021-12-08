@@ -1,5 +1,6 @@
 class TodayTraningsController < ApplicationController
     
+  # before_action :logged_in_user, only: [:index, :create, :update, :destroy, :traning_new, :traning_analysis]
     before_action :set_user, only: [:index, :create, :update, :destroy, :traning_new, :traning_analysis, :chart, :chart_traningevent, :event]
     before_action :set_basic, only: [:index, :traning_analysis, :chart, :chart_traningevent, :traning_new]
     before_action :set_analysis_day, only: [:traning_new, :traning_analysis, :index, :chart, :chart_traningevent]

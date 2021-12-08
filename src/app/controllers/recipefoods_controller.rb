@@ -1,5 +1,6 @@
 class RecipefoodsController < ApplicationController
   
+  before_action :logged_in_user, only: [:index, :new, :create, :destroy]
   before_action :set_user, only: [:index, :new, :create, :destroy]
   before_action :set_basic, only: [:new]
   before_action :set_recipe, only: [:index, :new]

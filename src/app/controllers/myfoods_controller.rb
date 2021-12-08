@@ -1,5 +1,6 @@
 class MyfoodsController < ApplicationController
   
+  # before_action :logged_in_user, only: [:index, :new, :create, :show, :edit :update, :destroy, :api_new, :api_create, :import]
   before_action :set_user, only: [:index, :new, :create, :show, :edit, :update, :destroy, :api_new, :api_create, :import]
   before_action :set_basic, only: [:index, :new, :edit, :api_new]
   before_action :set_myfood, only: [:show, :update, :destroy]

@@ -1,5 +1,6 @@
 class BodyweightCalculationController < ActionController::Base
 
+  # before_action :logged_in_user, only: :body_weight_caluculation
 
   def body_weight_caluculation
     # 選択している日の1週間前

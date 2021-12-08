@@ -1,5 +1,6 @@
 class TodaymealsController < ApplicationController
   
+  # before_action :logged_in_user, only: [:index, :new, :create, :edit, :update, :destroy, :analysis]
   before_action :set_user, only: [:index, :new, :create, :edit, :update, :destroy, :analysis]
   before_action :set_basic, only: [:index, :new, :analysis]
   before_action :set_bmr, only: [:index]
