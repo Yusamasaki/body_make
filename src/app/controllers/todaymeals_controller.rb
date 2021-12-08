@@ -1,13 +1,9 @@
 class TodaymealsController < ApplicationController
   
-  # before_action :logged_in_user, only: [:index, :new, :create, :edit, :update, :destroy, :analysis]
-  before_action :set_user, only: [:index, :new, :create, :edit, :update, :destroy, :analysis]
-  before_action :set_basic, only: [:index, :new, :analysis]
-  before_action :set_bmr, only: [:index]
+  before_action :set_user, only: [:index, :new, :create, :edit, :update, :destroy]
   before_action :set_myfood, only: [:new, :edit, :update]
   before_action :set_meals, only: [:edit, :update]
   before_action :set_nutritions, only: [:index, :new, :edit, :update]
-  before_action :ser_meals_analysis, only: [:index, :analysis]
   
   def index
     
@@ -236,21 +232,6 @@ class TodaymealsController < ApplicationController
     
     flash[:success] = "#{@myfood.food_name}を削除しました。"
     redirect_to user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time])
-  end
-  
-  def analysis
-    @first_day = params[:start_date].nil? ?
-    Date.current.beginning_of_month : params[:start_date].to_date
-    @last_day = @first_day.end_of_month
-    
-    gon.one_month = [*@first_day..@last_day]
-    
-    gon.meals = gon.one_month.map {|day|
-      [@user.todaymeals.where(start_time: day).pluck(:myfood_id), @user.todaymeal_recipes.where(start_time: day).pluck(:recipe_id)]
-    }.map{|myfood, recipe|
-      [@user.myfoods.where(id: myfood).pluck(:calorie).sum, @user.recipes.where(id: recipe).pluck(:calorie).sum].sum
-    }
-                # debugger
   end
   
   private

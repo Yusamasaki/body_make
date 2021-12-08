@@ -1,18 +1,7 @@
 class RecipefoodsController < ApplicationController
   
-  before_action :logged_in_user, only: [:index, :new, :create, :destroy]
-  before_action :set_user, only: [:index, :new, :create, :destroy]
-  before_action :set_basic, only: [:new]
-  before_action :set_recipe, only: [:index, :new]
-  before_action :set_myfood, only: [:new]
-  before_action :ser_recipefoods_total, only: [:index]
+  before_action :set_user, only: [:new, :create, :destroy]
   before_action :set_nutritions, only: [:new]
-  
-  def index
-    @todaymeal_recipe = @user.todaymeal_recipes.new
-    @recipefoods = @user.recipefoods.where(recipe_id: params[:recipe_id])
-    @timezone = Timezone.find(params[:timezone_id])
-  end
   
   def new
     @recipefood = @user.recipefoods.new

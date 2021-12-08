@@ -1,11 +1,9 @@
 class MyfoodsController < ApplicationController
   
-  # before_action :logged_in_user, only: [:index, :new, :create, :show, :edit :update, :destroy, :api_new, :api_create, :import]
-  before_action :set_user, only: [:index, :new, :create, :show, :edit, :update, :destroy, :api_new, :api_create, :import]
-  before_action :set_basic, only: [:index, :new, :edit, :api_new]
-  before_action :set_myfood, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:index, :new, :create, :edit, :update, :destroy, :api_new, :api_create, :import]
+  before_action :set_myfood, only: [:update, :destroy]
   before_action :set_recipe, only: [:index]
-  before_action :ser_recipefoods_total, only: [:index]
+  before_action :set_recipefoods_total, only: [:index]
   before_action :set_nutritions, only: [:index]
   
   def index
@@ -32,10 +30,6 @@ class MyfoodsController < ApplicationController
       flash[:danger] = "登録に失敗しました。"
       redirect_to new_user_myfood_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
     end
-  end
-  
-  def show
-    gon.nutrition = [@myfood.protein, @myfood.fat, @myfood.carbo, @myfood.sugar, @myfood.dietary_fiber, @myfood.salt]
   end
   
   def edit
