@@ -1,8 +1,10 @@
 FactoryBot.define do
   factory :today_exercise do
-    start_time { "2021-08-19" }
+    start_time { Date.current }
     exercise_time_hour { 1 }
-    exercise_time_min { 0 }
-    note { "MyString" }
+    exercise_time_min { 5 }
+    body_weight {65.0}
+    note { "note1" }
+    association :user
   end
 end

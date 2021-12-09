@@ -30,7 +30,7 @@ RSpec.describe ExerciseCategory, type: :model do
         expect(exercise_category).to be_valid
       end
 
-      it '15文字以上であれば無効であること' do
+      it '16文字以上であれば無効であること' do
         category = FactoryBot.build(:exercise_category, name: 'a' * 16)
         category.valid?
         expect(category.errors[:name]).to include('は15文字以内で入力してください')
