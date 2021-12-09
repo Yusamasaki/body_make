@@ -5,7 +5,17 @@ body,
 html {
   margin: 0;
   padding: 0;
-  
+}
+
+.flash {
+  color: $white;
+  text-align: center;
+  &__alert{
+    background-color: red;
+  }
+  &__notice {
+    background-color: $blue;
+  }
 }
 // ログイン状態の背景
 body.login{
