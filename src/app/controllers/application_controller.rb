@@ -89,86 +89,94 @@ class ApplicationController < ActionController::Base
   end
   
   # ---------トレーニング関連---------
-  
-  def set_traningevent
-    if params[:traningevent_id].present?
-      @traningevent = @user.traningevents.find(params[:traningevent_id])
-    else
-      @traningevent = @user.traningevents.find(params[:id])
-    end
-  end
-  
-  # ------トレーニンググラフ------
-  def set_analysis_day
-    @first_day = params[:start_date].nil? ?
-    Date.current.beginning_of_month : params[:start_date].to_date
-    @last_day = @first_day.end_of_month
-    
-    one_month = [*@first_day..@last_day]
       
-    if params[:traningevent_id].present?
-      @traning_analysis = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time)
+      def set_timezones
+        @timezones = Timezone.all
+      end
       
-      unless one_month.count <= @traning_analysis.count
-        ActiveRecord::Base.transaction do
-          one_month.each { |day| @user.traning_analysis.create!(start_time: day, traningevent_id: params[:traningevent_id]) }
+      def set_timezone
+        @timezone = Timezone.find(params[:timezone_id])
+      end
+      
+      def set_traningevent
+        if params[:traningevent_id].present?
+          @traningevent = @user.traningevents.find(params[:traningevent_id])
+        else
+          @traningevent = @user.traningevents.find(params[:id])
         end
-        @traning_analysis = @user.traning_analysis.where(start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time)
       end
-    end
-  end
-  
-  # トレーニング関連タブ
-  def set_traning_tab
-    @bodyparts = Bodypart.all
-    @traningtypes = Traningtype.all
-    @subbodypart_active = SubBodypart.where(bodypart_id: params[:bodypart_id]).order(:id).limit(1).pluck(:id).sum
-    @subbodyparts = SubBodypart.where(bodypart_id: params[:bodypart_id])
-    
-    if params[:bodypart_id].present? && params[:subbodypart_id].present? && params[:traningtype_id].present?
-      @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], subbodypart_id: params[:subbodypart_id])
-    elsif params[:bodypart_id].present? && params[:subbodypart_id].present?
-      @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id])
-    elsif params[:bodypart_id].present? && params[:traningtype_id].present?
-      @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id])
-    elsif params[:traningtype_id].present?
-      @traningevents = @user.traningevents.where(traningtype_id: params[:traningtype_id])
-    elsif params[:bodypart_id].present?
-      @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id])
-    else
-      @traningevents = @user.traningevents.all
-    end
-    
-    @traningeventss = @bodyparts.pluck(:id).map{|bodypart|
-      [bodypart, @user.traningevents.where(bodypart_id: bodypart).pluck(:id, :traning_name)]
-    }
-    @traning_analysis = @traningeventss.map{|bodypart, traningevents|
-      traningevents.map{|id, name|
-        [
-          id, gon.day = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:start_time).map{|day| day.day}, gon.total = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:total_load), gon.max = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:max_load)
-        ]
-      }
-    }
-  end
-    
-
-  # TodayExeciseクラスの1ヶ月分start_time(日にち)を作成
-  def today_exercise_set_one_month
-    @user = current_user
-    @first_day = params[:start_date].nil? ?
-    Date.current.beginning_of_month : params[:start_date].to_date
-    @last_day = @first_day.end_of_month
-    
-    one_month = [*@first_day..@last_day]
-    @exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
-    
-    unless one_month.count <= @exercises.count
-      ActiveRecord::Base.transaction do
-        one_month.each { |day| @user.today_exercise.create!(start_time: day) }
+      
+      # ------トレーニンググラフ------
+      def set_analysis_day
+        @first_day = params[:start_date].nil? ?
+        Date.current.beginning_of_month : params[:start_date].to_date
+        @last_day = @first_day.end_of_month
+        
+        one_month = [*@first_day..@last_day]
+          
+        if params[:traningevent_id].present?
+          @traning_analysis = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time)
+          
+          unless one_month.count <= @traning_analysis.count
+            ActiveRecord::Base.transaction do
+              one_month.each { |day| @user.traning_analysis.create!(start_time: day, traningevent_id: params[:traningevent_id]) }
+            end
+            @traning_analysis = @user.traning_analysis.where(start_time: @first_day..@last_day, traningevent_id: params[:traningevent_id]).order(:start_time)
+          end
+        end
       end
-      @today_exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
-    end
-  end
+      
+      # トレーニング関連タブ
+      def set_traning_tab
+        @bodyparts = Bodypart.all
+        @traningtypes = Traningtype.all
+        @subbodypart_active = SubBodypart.where(bodypart_id: params[:bodypart_id]).order(:id).limit(1).pluck(:id).sum
+        @subbodyparts = SubBodypart.where(bodypart_id: params[:bodypart_id])
+        
+        if params[:bodypart_id].present? && params[:subbodypart_id].present? && params[:traningtype_id].present?
+          @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], subbodypart_id: params[:subbodypart_id])
+        elsif params[:bodypart_id].present? && params[:subbodypart_id].present?
+          @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id])
+        elsif params[:bodypart_id].present? && params[:traningtype_id].present?
+          @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id])
+        elsif params[:traningtype_id].present?
+          @traningevents = @user.traningevents.where(traningtype_id: params[:traningtype_id])
+        elsif params[:bodypart_id].present?
+          @traningevents = @user.traningevents.where(bodypart_id: params[:bodypart_id])
+        else
+          @traningevents = @user.traningevents.all
+        end
+        
+        @traningeventss = @bodyparts.pluck(:id).map{|bodypart|
+          [bodypart, @user.traningevents.where(bodypart_id: bodypart).pluck(:id, :traning_name)]
+        }
+        @traning_analysis = @traningeventss.map{|bodypart, traningevents|
+          traningevents.map{|id, name|
+            [
+              id, gon.day = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:start_time).map{|day| day.day}, gon.total = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:total_load), gon.max = @user.traning_analysis.where( start_time: @first_day..@last_day, traningevent_id: id).order(:start_time).pluck(:max_load)
+            ]
+          }
+        }
+      end
+        
+    
+      # TodayExeciseクラスの1ヶ月分start_time(日にち)を作成
+      def today_exercise_set_one_month
+        @user = current_user
+        @first_day = params[:start_date].nil? ?
+        Date.current.beginning_of_month : params[:start_date].to_date
+        @last_day = @first_day.end_of_month
+        
+        one_month = [*@first_day..@last_day]
+        @exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
+        
+        unless one_month.count <= @exercises.count
+          ActiveRecord::Base.transaction do
+            one_month.each { |day| @user.today_exercise.create!(start_time: day) }
+          end
+          @today_exercises = @user.today_exercise.where(start_time: @first_day..@last_day).order(:start_time)
+        end
+      end
   
   # ========== 食事関連 ==========
   
