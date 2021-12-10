@@ -3,7 +3,7 @@ class ExerciseCategoriesController < ApplicationController
   before_action :set_category, only: %i(edit update destroy)
 
   def index
-    @categories = ExerciseCategory.all.order(:id)
+    @categories = ExerciseCategory.all.page(params[:page]).per(2).order(:id)
   end
 
   def new
