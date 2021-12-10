@@ -22,9 +22,7 @@
   <% elsif user_signed_in? %>
     <body class="login">
       <%= render 'layouts/side_bar' %>
-      <% flash.each do |message_type, msg| %>
-        <div class="alert alert-<%= message_type %> center"><%= msg.html_safe %></div>
-      <% end %>
+      <%= render 'layouts/flashes' %>
   <% else %>
     <body class="logout">
   <% end %>
