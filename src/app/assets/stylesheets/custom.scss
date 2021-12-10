@@ -17,6 +17,7 @@ html {
     background-color: $blue;
   }
 }
+
 // ログイン状態の背景
 body.login{
   background-color: #F9F9F9;
@@ -133,18 +134,24 @@ body.logout{
     margin-right: auto;
   }
 
-// ログイン時box1
-.login-box1{
+// フォーム用box1
+.form-box1{
     margin: 1em 5em;
     color: #274277;
     background: white;
     box-shadow: 0 3px 7px rgba(0, 0, 0, 0.22);
     height: 100%;
-    width: 25%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
-
+@media screen and (min-width: 768px) {
+  .form-box1{
+      width: 30%;
+      margin-left: auto;
+      margin-right: auto;
+  }
+}
 .box1-padding {
   padding: 10px 0 10px 0;
 }

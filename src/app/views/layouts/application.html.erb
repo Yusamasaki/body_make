@@ -17,7 +17,7 @@
     
   </head>
   
-  <% if controller.controller_name == "bmrs" && controller.action_name == "new" || controller.action_name == "create" || controller.controller_name == "targetweights" && controller.action_name == "new" || controller.action_name == "create" %>
+  <% if controller.controller_name == "bmrs" && controller.action_name == "new" || controller.controller_name == "bmrs" && controller.action_name == "create" || controller.controller_name == "targetweights" && controller.action_name == "new" || controller.controller_name == "targetweights" && controller.action_name == "create" %>
     <body class="logout">
   <% elsif user_signed_in? %>
     <body class="login">

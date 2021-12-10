@@ -8,17 +8,15 @@
   </li>
 </ul>
 
-<div class="box1">
-  <div class="row">
-    <div class="col-md-12">
-      <%= form_with(model: @myfood, url: user_myfoods_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
-        
-        <%= render partial: "form", locals: { f: f }%>
-        
-        <%= f.submit yield(:btn_text), class: "btn btn-md btn-original btn-block" %>
-      <% end %>
-    </div>
+<div class="form-box1">
+  <div class="box-inner">
+  <h5>食品追加</h5><br>
+  <%= form_with(model: @myfood, url: user_myfoods_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
+    
+    <%= render partial: "form", locals: { f: f }%>
+    
+    <%= f.submit yield(:btn_text), class: "btn btn-md btn-original btn-block" %>
+  <% end %>
   </div>
 </div>
 <script>

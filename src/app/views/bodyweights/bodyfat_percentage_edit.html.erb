@@ -7,7 +7,7 @@
 </ul>
 </br>
 
-<div class="login-box1">
+<div class="form-box1">
   <div class="box-inner">
     <h5>体脂肪率記録</h5><br>
     <%= form_with(model: @body_weight, url: user_bodyweight_path(@user, @body_weight, start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>

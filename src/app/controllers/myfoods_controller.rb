@@ -22,13 +22,11 @@ class MyfoodsController < ApplicationController
   
   def create
     @myfood = @user.myfoods.new(myfood_params)
-    ActiveRecord::Base.transaction do 
-      @myfood.save!
+    if @myfood.save
       flash[:success] = "#{@myfood.food_name}の登録に成功しました。"
       redirect_to user_myfoods_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
-    rescue ActiveRecord::RecordInvalid
-      flash[:danger] = "登録に失敗しました。"
-      redirect_to new_user_myfood_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+    else
+      render 'new'
     end
   end
   
