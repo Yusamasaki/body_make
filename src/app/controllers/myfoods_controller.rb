@@ -53,23 +53,23 @@ class MyfoodsController < ApplicationController
   end
   
   def api_new
+    @myfood = @user.myfoods.new
     @apifoods = [:calorie, :protein, :fat, :carbo, :sugar, :dietary_fiber, :salt].map{|nutrition|
       params[nutrition]
     }
   end
   
   def api_create
+    @apifoods = [:calorie, :protein, :fat, :carbo, :sugar, :dietary_fiber, :salt].map{|nutrition|
+      params[nutrition]
+    }
     @myfood = @user.myfoods.new(food_name: params[:food_name], calorie: params[:calorie], protein: params[:protein],
                                 fat: params[:fat], carbo: params[:carbo], sugar: params[:sugar], dietary_fiber: params[:dietary_fiber], salt: params[:salt])
-    ActiveRecord::Base.transaction do 
-      @myfood.save!
+    if @myfood.save
       flash[:success] = "#{@myfood.food_name}の登録に成功しました。"
       redirect_to user_myfoods_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: 1, start_date: params[:start_date], start_time: params[:start_time])
-    rescue ActiveRecord::RecordInvalid
-      flash[:danger] = "登録に失敗しました。"
-      redirect_to user_myfoods_api_new_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], 
-                                            food_name: params[:food_name], calorie: params[:calorie], protein: params[:protein], fat: params[:fat], carbo: params[:carbo],
-                                            dietary_fiber: params[:dietary_fiber], sugar: params[:sugar], salt: params[:salt], start_date: params[:start_date], start_time: params[:start_time])
+    else
+      render 'api_new'
     end
   end
   
