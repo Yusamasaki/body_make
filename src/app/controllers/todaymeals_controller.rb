@@ -149,8 +149,7 @@ class TodaymealsController < ApplicationController
     @todaymeal = @user.todaymeals.find(params[:id])
     @meals_analys = @user.meals_analysis.find_by(start_time: params[:start_time])
     
-    ActiveRecord::Base.transaction do 
-      @todaymeal.update_attributes!(todaymeal_params)
+    if @todaymeal.update_attributes(todaymeal_params)
       
         # -------- @meals_analyのUpdate機能 --------
         
@@ -184,9 +183,8 @@ class TodaymealsController < ApplicationController
       
       flash[:success] = "更新に成功しました"
       redirect_to user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time])
-    rescue ActiveRecord::RecordInvalid
-      flash[:danger] = "更新に失敗しました"
-      redirect_to user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time])
+    else
+      render 'edit'
     end
   end
   

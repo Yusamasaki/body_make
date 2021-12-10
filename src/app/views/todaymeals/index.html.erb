@@ -71,7 +71,7 @@
               <tr>
                 <th class="align-middle"><%= timezone.time_zone %></th>
                 <% recipe_myfood.each do |recipemyfood| %>
-                  <td class="align-middle"><%= recipemyfood %></td>
+                  <td class="align-middle"><%= recipemyfood.floor(1) %></td>
                 <% end %>
               </tr>
             <% end %>
@@ -80,7 +80,7 @@
             <tr>
               <th class="align-middle">合計</th>
               <% @day_totalmeals.each do |totalmeal| %>
-                <th class="align-middle"><%= totalmeal %></th>
+                <th class="align-middle"><%= totalmeal.floor(1) %></th>
               <% end %>
             </tr>
           </tfoot>
@@ -116,7 +116,7 @@
                         <tbody>
                           <tr>
                             <% recipe_myfood.each do |recipemyfood| %>
-                              <th class="align-middle"><%= recipemyfood %></th>
+                              <th class="align-middle"><%= recipemyfood.floor(1) %></th>
                             <% end %>
                           </tr>
                         </tbody>
