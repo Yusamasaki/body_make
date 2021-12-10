@@ -114,30 +114,29 @@
   <% end %>
 </div>
 
-<div class="box1">
-  <div class="card">
-    <div class="card-header">
-      合計
+  <div class="box1">
+    <div class="card">
+      <div class="card-header">
+        合計
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <% @attribute_names.each do |name| %>
+              <th><%= name %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <% @recipe_myfoods.each do |recipe_myfood| %>
+              <td><%= recipe_myfood %></td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <table class="table">
-      <thead>
-        <tr>
-          <% @attribute_names.each do |name| %>
-            <th><%= name %></th>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <% @recipe_myfoods.each do |recipe_myfood| %>
-            <td><%= recipe_myfood %></td>
-          <% end %>
-        </tr>
-      </tbody>
-    </table>
   </div>
-</div>
-
 
 <% if params[:switching] == "rader-chart" %>
   <% if @recipe.calorie.present? %>
@@ -147,24 +146,23 @@
 
 <% if params[:switching] == "record" %>
   <div class="box1">
-    <div class="row">
-      <div class="col-12">
-        <%= form_with(model: @todaymeal_recipe, url: user_todaymeal_recipes_path(@user, recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
-          <br>
-          <%= f.label :amount, class: "label-form" %><br>
-          <%= f.number_field :amount, :placeholder => "分量(何人分か)", class: "form-control" %><br>
-          
-          <%= f.label :note, class: "label-form" %><br>
-          <%= f.text_area :note, :placeholder => "備考", class: "form-control" %><br>
-          
-          <%= f.hidden_field :start_time, value: params[:start_time] %>
-          <%= f.hidden_field :recipe_id, value: params[:recipe_id] %>
-          <%= f.hidden_field :timezone_id, value: params[:timezone_id] %>
-
-          <%= f.submit yield(:btn_text), class: "btn btn-md btn-original btn-block" %>
-      
-        <% end %>
-      </div>
+    <div class="box-inner">
+      <%= form_with(model: @todaymeal_recipe, url: user_todaymeal_recipes_path(@user, switching: params[:switching], before: params[:before], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        
+        <%= f.label :amount, class: "label-form" %><a style="color: red; margin-left: 5px;">*入力必須</a>
+        <%= f.number_field :amount, :placeholder => "分量(何人分か)", class: "form-control" %><br>
+        
+        <%= f.label :note, class: "label-form" %>
+        <%= f.text_area :note, :placeholder => "備考", class: "form-control" %><br>
+        
+        <%= f.hidden_field :start_time, value: params[:start_time] %>
+        <%= f.hidden_field :recipe_id, value: params[:recipe_id] %>
+        <%= f.hidden_field :timezone_id, value: params[:timezone_id] %>
+    
+        <%= f.submit yield(:btn_text), class: "btn btn-md btn-original btn-block" %>
+    
+      <% end %>
     </div>
   </div>
 <% end %>
