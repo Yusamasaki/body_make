@@ -26,20 +26,8 @@
 
     <div class="">
       <div class="mb-1">
-        <%= link_to "運動カテゴリー", exercise_categories_path, class: "btn btn-original w-25" %>
-        <span class="admin-menu">登録件数：<%= ExerciseCategory.count %>件</span>
-      </div>
-      <div class="mb-1">
         <%= link_to "ユーザー", "#", class: "btn btn-original w-25" %>
         <span class="admin-menu">登録件数：<%= User.count %>件</span>
-      </div>
-      <div class="mb-1">
-        <%= link_to "サンプル", "#", class: "btn btn-original w-25" %>
-        <span class="admin-menu">登録件数：件</span>
-      </div>
-      <div class="mb-1">
-        <%= link_to "サンプル", "#", class: "btn btn-original w-25" %>
-        <span class="admin-menu">登録件数：件</span>
       </div>
 
       <div class="mb-1 mt-5">
@@ -51,5 +39,3 @@
     </div>
   </div>
 </div>
-
-<div>ログインしているユーザー<%= current_admin.username %></div>

@@ -1,0 +1,28 @@
+<div class="modal-dialog modal-dialog-fluid"  role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+    <h5 class="center">運動カテゴリ登録</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div><br>
+
+    <div class="col col-12">    
+      <div class="admin-form">
+        <%= button_tag '登録', class: "btn btn-sm btn-primary w-100px", form: "exercise_category-btn" %>
+      </div><br>
+    
+      <div class="admin-form">
+        <%= render 'form' %>
+      </div>
+    </div><br>
+  </div>
+</div>
+
+<style>
+.modal-dialog-fluid {
+  max-width: inherit;
+  width: 40%;
+  /* margin-left: 15px; */
+}
+</style>

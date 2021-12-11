@@ -1,6 +1,7 @@
 <div class="col col-md-12">
-  <div class="admin-form">
-    <%= link_to '新規登録', new_exercise_category_path, class: "btn btn-sm btn-primary" %>
+  <div class="admin-form flex-form">
+    <div><%= link_to '新規登録', new_exercise_category_path, remote: true, class: "btn btn-sm btn-primary" %></div>
+    <div class="flex-form-right" style="padding: 5px 5px 0 0;">登録件数：<%= ExerciseCategory.count %>件</div>
   </div>
 
   <div class="">
@@ -34,3 +35,5 @@
   </div>
   <%= paginate @categories %>
 </div>
+
+<div id="new-category-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
