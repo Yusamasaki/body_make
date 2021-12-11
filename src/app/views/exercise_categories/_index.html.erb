@@ -1,15 +1,9 @@
-<script src="./asset/bootstrap-transition.js"></script>
-<script src="./asset/bootstrap-tab.js"></script>
 <div class="col col-md-12">
-  <!-- <div class="admin-box center">
-    運動カテゴリ一覧
-  </div> -->
-
-  <div class="admin-box">
-    <%= link_to '新規登録', new_exercise_category_path, class: "btn btn-sm btn-original" %>
+  <div class="admin-form">
+    <%= link_to '新規登録', new_exercise_category_path, class: "btn btn-sm btn-primary" %>
   </div>
 
-  <div class="admin-box">
+  <div class="">
     <table class="table table-sm table-bordered table-striped">
       <thead class="thead-original">
         <tr>
@@ -38,6 +32,5 @@
       </tbody>
     </table>
   </div>
+  <%= paginate @categories %>
 </div>
-
-<%= paginate @categories %>

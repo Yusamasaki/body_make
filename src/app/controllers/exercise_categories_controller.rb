@@ -14,7 +14,7 @@ class ExerciseCategoriesController < ApplicationController
   def create
     @category = ExerciseCategory.new(category_params)
     if @category.save
-      redirect_to exercise_categories_url, flash: { success: "「#{@category.name}」を登録しました。" }
+      redirect_to admin_url(current_admin), flash: { success: "カテゴリー「#{@category.name}」を登録しました。" }
     else
       render :new
     end
