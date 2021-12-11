@@ -1,7 +1,7 @@
 class TodayExercisesController < ApplicationController
   include TodayExercisesHelper
 
-  # before_action :logged_in_user, only: [:index, :new, :create, :edit, :update, :destroy, :new_contents, :edit_contents, :calender]
+  before_action :logged_in_user, only: [:index, :new, :create, :edit, :update, :destroy, :new_contents, :edit_contents, :calender]
   before_action :authenticate_user!
   before_action :set_user
   before_action :set_basic, only: [:index]
@@ -18,7 +18,7 @@ class TodayExercisesController < ApplicationController
     gon.start_times = [*month_before.day..after_month.day]
     month_body_weights = [@user.today_exercise.where(start_time: month_before..after_month).group(:start_time).sum(:body_weight).values]
 
-    gon.calorie = 
+    gon.calorie =
       @user.today_exercise.where(start_time: month_before..after_month).order(:id).group_by {|exercise| exercise.start_time }.map { |start_time, value|
         value.drop(1).sum { |exercise|
           ((((exercise.exercise_time_hour * 60) + (exercise.exercise_time_min)) / 60.to_f) \
@@ -104,7 +104,7 @@ class TodayExercisesController < ApplicationController
     @first_day = params[:start_date].nil? ?
     Date.current.beginning_of_month : params[:start_date].to_date
     @last_day = @first_day.end_of_month
-    
+
     @today_exercise = current_user.today_exercise.find_by(start_time: params[:start_time])
     @today_exercises = current_user.today_exercise.all
   end

@@ -1,6 +1,6 @@
 class TargetweightsController < ApplicationController
 
-  # before_action :logged_in_user, only: [:new, :create, :edit, :update]
+  before_action :logged_in_user, only: [:new, :create, :edit, :update]
   before_action :set_user, only: [:new, :create, :edit, :update]
   before_action :set_basic, only: [:new, :edit]
 
@@ -14,7 +14,7 @@ class TargetweightsController < ApplicationController
   end
   def create
     @tw = Targetweight.new(targetweight_params)
-    ActiveRecord::Base.transaction do 
+    ActiveRecord::Base.transaction do
       @tw.save!
       redirect_to user_path(@user, start_date: Date.current.beginning_of_month, start_time: Date.current)
     rescue ActiveRecord::RecordInvalid
@@ -40,7 +40,7 @@ class TargetweightsController < ApplicationController
 
   private
   def targetweight_params
-    params.require(:targetweight).permit(:now_body_weight, :goal_body_weight, :now_bodyfat_percentage, :goal_bodyfat_percentage, 
+    params.require(:targetweight).permit(:now_body_weight, :goal_body_weight, :now_bodyfat_percentage, :goal_bodyfat_percentage,
                                          :beginning_date, :target_date, :user_id
                                         )
   end
