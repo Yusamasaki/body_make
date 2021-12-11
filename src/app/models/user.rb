@@ -19,6 +19,7 @@ class User < ApplicationRecord
   has_one :bmr, dependent: :destroy
   has_one :pfc_ratio, dependent: :destroy
 
+  validates :username, presence: true
   
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -27,7 +28,6 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: %i[facebook google_oauth2]
   
   private
-    
   # SNS 認証
   def self.find_oauth(auth)
     user = User.find_by(email: auth.info.email)

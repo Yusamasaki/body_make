@@ -3,8 +3,8 @@ class TodaymealRecipesController < ApplicationController
   before_action :set_user, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_recipe, only: [:new, :create, :edit, :update]
   before_action :set_recipefoods_total, only: [:new, :create, :edit, :update]
-  before_action :set_nutritions, only: [:new, :create, :edit]
-  before_action :set_timezones, only: [:new, :create, :edit]
+  before_action :set_nutritions, only: [:new, :create, :edit, :update]
+  before_action :set_timezones, only: [:new, :create, :edit, :update]
   before_action :set_timezone, only: [:new, :create, :edit]
   before_action :set_meals_analysis, only: [:new]
   
@@ -101,8 +101,7 @@ class TodaymealRecipesController < ApplicationController
     @todaymeal_recipe = @user.todaymeal_recipes.find(params[:id])
     @meals_analys = @user.meals_analysis.find_by(start_time: params[:start_time])
     
-    ActiveRecord::Base.transaction do 
-      @todaymeal_recipe.update_attributes!(todaymeal_recipe_params)
+    if @todaymeal_recipe.update_attributes(todaymeal_recipe_params)
       
         # -------- @meals_analyのUpdate機能 --------
         
@@ -136,9 +135,8 @@ class TodaymealRecipesController < ApplicationController
       
       flash[:success] = "更新に成功しました"
       redirect_to user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time])
-    rescue ActiveRecord::RecordInvalid
-      flash[:danger] = "更新に失敗しました"
-      redirect_to user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time])
+    else
+      render 'edit'
     end
   end
   

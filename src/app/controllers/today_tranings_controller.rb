@@ -5,7 +5,7 @@ class TodayTraningsController < ApplicationController
     before_action :set_analysis_day, only: [:traning_new, :traning_analysis, :index, :chart, :chart_traningevent]
     before_action :set_traningevent, only: [:create, :update, :destroy]
     before_action :start_time_next_valid, only: [:index, :traning_new, :traning_analysis, :chart, :chart_traningevent]
-    before_action :set_traning_tab, only: [:index, :traning_new, :traning_analysis]
+    before_action :set_traning_tab, only: [:index, :traning_new, :traning_analysis, :update]
     
     def index
       @today_tranings = @user.today_tranings.all
@@ -19,10 +19,10 @@ class TodayTraningsController < ApplicationController
         flash[:danger] = "登録に失敗しました。"
         redirect_to user_today_tranings_traning_new_path(@user, traningevent_id: params[:traningevent_id], bodypart_id: params[:bodypart_id], subbodypart_id: params[:subbodypart_id], traningtype_id: params[:traningtype_id], start_date: params[:start_date], start_time: params[:start_time])
       end
-      
     end
     
     def update
+      @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: @traningevent).order(:id).pluck(:id)
       @today_traning = @user.today_tranings.find(params[:id])
       @today_analys = @user.traning_analysis.find_by(start_time: params[:start_time], traningevent_id: params[:traningevent_id])
       
