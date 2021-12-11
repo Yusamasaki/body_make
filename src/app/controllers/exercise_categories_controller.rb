@@ -1,4 +1,6 @@
 class ExerciseCategoriesController < ApplicationController
+
+  before_action :logged_in_user, only: [:index, :new, :create, :edit, :update, :destroy]
   before_action :authenticate_admin!
   before_action :set_category, only: %i(edit update destroy)
 
@@ -37,7 +39,7 @@ class ExerciseCategoriesController < ApplicationController
   end
 
   private
-  
+
     def set_category
       @category = ExerciseCategory.find(params[:id])
     end
@@ -49,5 +51,5 @@ class ExerciseCategoriesController < ApplicationController
 
     def content_params
       params.require(:exercise_content).permit(exercise_content:[:content, :mets])
-    end  
+    end
 end

@@ -1,4 +1,5 @@
 class BodyweightsController < ApplicationController
+  before_action :logged_in_user, only: [:edit, :update, :calender]
   before_action :set_user, only: [:edit, :calender]
   before_action :set_basic, only: [:edit, :calender]
 
@@ -21,12 +22,12 @@ class BodyweightsController < ApplicationController
       flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
       redirect_to edit_user_bodyweight_url(start_date: params[:start_date], start_time: params[:start_time])
   end
-  
+
   def calender
     @first_day = params[:start_date].nil? ?
     Date.current.beginning_of_month : params[:start_date].to_date
     @last_day = @first_day.end_of_month
-    
+
     @body_weight = @user.bodyweights.find_by(start_time: params[:start_time])
     @body_weights = @user.bodyweights.all
   end
