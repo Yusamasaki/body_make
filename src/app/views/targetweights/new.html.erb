@@ -5,7 +5,7 @@
 <div class="section">
   <div class="form-box1">
     <div class="box-inner">
-      <h5>目標設定</h5>
+      <h5>目標設定</h5><br>
       <%= form_with(model:[@user, @tw], url: user_targetweights_path(start_date: params[:start_date], start_time: params[:start_time]), local: true) do |f| %>
         
         <%= render partial: "form", locals: { f: f }%>
