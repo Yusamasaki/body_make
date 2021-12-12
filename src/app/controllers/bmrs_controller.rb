@@ -1,6 +1,6 @@
 class BmrsController < ApplicationController
   before_action :set_user, only: [:new, :create, :edit, :update]
-  before_action :set_basic, only: [:new, :edit]
+  before_action :set_basic, only: [:new, :edit, :update]
 
   def new
     if Bmr.where(user_id: @user).blank?
@@ -26,13 +26,11 @@ class BmrsController < ApplicationController
 
   def update
     @bmr = Bmr.find_by(user_id: @user.id)
-    ActiveRecord::Base.transaction do
-      @bmr.update_attributes!(bmr_params)
+    if @bmr.update_attributes(bmr_params)
       flash[:success] = "更新しました"
-      redirect_to edit_user_bmr_path(@user, @bmr, switching: "basic", start_date: params[:start_date], start_time: params[:start_time])
-    rescue ActiveRecord::RecordInvalid
-      flash[:danger] = "更新に失敗しました"
-      redirect_to edit_user_bmr_path(@user, @bmr, switching: "basic", start_date: params[:start_date], start_time: params[:start_time])
+      redirect_to edit_user_bmr_path(@user, @bmr, switching: params[:switching], start_date: params[:start_date], start_time: params[:start_time])
+    else
+      render 'edit'
     end
 
 

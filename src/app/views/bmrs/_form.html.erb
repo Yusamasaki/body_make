@@ -14,3 +14,5 @@
 <%= f.select :activity, activity_select, {include_blank: "選択してください"}, class: "form-control" %><br>
 
 <%= f.hidden_field :user_id, value: @user.id %>
+
+<%= f.submit yield(:btn_text), class: "btn btn-md btn-original btn-block" %>

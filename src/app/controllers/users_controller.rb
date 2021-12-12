@@ -16,6 +16,9 @@ class UsersController < ApplicationController
   end
   
   def show
+    if @pfc.nil?
+      PfcRatio.create!(user_id: @user.id, protein: 20, fat: 20, carbo: 60)
+    end
     
     @first_day = params[:start_date].nil? ?
     Date.current.beginning_of_month : params[:start_date].to_date
