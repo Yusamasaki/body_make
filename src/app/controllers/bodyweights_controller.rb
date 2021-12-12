@@ -1,5 +1,8 @@
 class BodyweightsController < ApplicationController
+  
+  before_action :logged_in_user, only: [:edit, :update, :calender]
   before_action :set_user, only: [:edit, :update, :calender, :bodyfat_percentage_edit]
+  before_action :set_basic, only: [:edit]
 
   def edit
     @body_weight = current_user.bodyweights.find(params[:id])
@@ -18,12 +21,12 @@ class BodyweightsController < ApplicationController
       render 'edit'
     end
   end
-  
+
   def calender
     @first_day = params[:start_date].nil? ?
     Date.current.beginning_of_month : params[:start_date].to_date
     @last_day = @first_day.end_of_month
-    
+
     @body_weight = @user.bodyweights.find_by(start_time: params[:start_time])
     @body_weights = @user.bodyweights.all
   end

@@ -19,10 +19,10 @@ class ApplicationController < ActionController::Base
   
   # ログイン済みのユーザーか確認します。
   def logged_in_user
-    unless user_signed_in?
-      store_location
+    unless user_signed_in?.to_s == "true"
+      # store_location
       flash[:danger] = "ログインしてください。"
-      redirect_to login_url
+      redirect_to root_url
     end
   end
   

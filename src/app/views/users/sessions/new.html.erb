@@ -41,7 +41,7 @@
             </div>
             <%= f.password_field :password, autocomplete: "current-password" %>
           </div><br />
-          
+
           <div class="box-action">
             <%= f.submit "ログイン", class: "btn btn-md btn-outline-original btn-block" %>
             <% if devise_mapping.rememberable? %>
@@ -52,17 +52,17 @@
             <% end %>
           </div>
         <% end %>
-        
+
         <%= link_to(user_google_oauth2_omniauth_authorize_path, class: "btn btn-md btn-outline-original btn-block") do %>
           <i class="fab fa-google"></i>  Sign in with Google
         <% end %>
-        
+
         <%= link_to(user_facebook_omniauth_authorize_path, class: "btn btn-md btn-original btn-block") do %>
           <i class="fab fa-facebook"></i>  Sign in with Facebook
         <% end %>
         <br>
         <%= link_to "アカウントを作成", new_user_registration_path, class: "btn btn-md btn-outline-primary btn-block" %>
-        
+
         <%= link_to "管理ユーザー", new_admin_session_path, class: "btn btn-md btn-outline-secondary btn-block" %>
       </div>
     </div>

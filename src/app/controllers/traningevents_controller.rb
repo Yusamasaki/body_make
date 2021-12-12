@@ -1,5 +1,6 @@
 class TraningeventsController < ApplicationController
-  
+
+  before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_user, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_traningevent, only: [:edit, :update, :destroy]
   before_action :set_traning_tab, only: [:new, :create, :edit, :update]
@@ -7,7 +8,7 @@ class TraningeventsController < ApplicationController
   def new
     @traningevent = @user.traningevents.new
   end
-  
+
   def create
     @traningevent = @user.traningevents.new(traningevent_params)
     if @traningevent.save
@@ -33,13 +34,13 @@ class TraningeventsController < ApplicationController
   def destroy
     @traningevent.destroy
     flash[:success] = "削除しました。"
-    redirect_to user_traningevents_url(@user, start_date: params[:start_date], start_time: params[:start_time]) 
+    redirect_to user_traningevents_url(@user, start_date: params[:start_date], start_time: params[:start_time])
   end
 
   private
-  
+
     def traningevent_params
       params.require(:traningevent).permit(:traning_name, :bodypart_id, :subbodypart_id, :traningtype_id)
     end
-  
+
 end

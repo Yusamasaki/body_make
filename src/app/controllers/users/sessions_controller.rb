@@ -1,20 +1,24 @@
 # frozen_string_literal: true
-  
+
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
-  
+
   def after_sign_in_path_for(resource)
-    user_path(current_user, switching: "bodyweight", start_date: Date.current.beginning_of_month, start_time: Date.current)
+    user_path(resource, switching: "bodyweight", start_date: Date.current.beginning_of_month, start_time: Date.current)
   end
   
   def after_sign_out_path_for(resource)
     root_path
   end
-  
+
+  # def after_sign_out_path_for(resource)
+  #   root_path
+  # end
+
   # GET /resource/sign_in
-  def new
-    super
-  end
+  # def new
+  #   super
+  # end
 
   # POST /resource/sign_in
   # def create
