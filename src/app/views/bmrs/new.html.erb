@@ -4,14 +4,13 @@
 
 <div class="bg_pattern Paper_v2"></div>
 <div class="section">
-  <div class="login-box1">
+  <div class="form-box1">
     <div class="box-inner">
-      <h1>基本設定</h1>
+      <h5>基本設定</h5><br>
       <%= form_with(model: [@user, @bmr], url: user_bmrs_path(start_time: params[:start_time], start_date: params[:start_date]), local: true) do |f| %>
       
         <%= render partial: "form", locals: { f: f }%>
         
-        <%= f.submit yield(:btn_text), class: "btn btn-primary btn-block btn-setup" %>
       <% end %>
     </div>
   </div>

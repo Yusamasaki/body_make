@@ -1,0 +1,14 @@
+<%= render 'shared/error_messages', object: @pfc %>
+
+<%= f.label :protein, class: "label" %>
+<%= f.number_field :protein, step: '0.1', class: "form-control" %><br>
+
+<%= f.label :fat, class: "label" %>
+<%= f.number_field :fat, step: '0.1', class: "form-control" %><br>
+
+<%= f.label :carbo, class: "label" %>
+<%= f.number_field :carbo, step: '0.1', class: "form-control" %><br>
+
+<%= f.hidden_field :user_id, value: @user.id %>
+
+<%= f.submit yield(:btn_text), class: "btn btn-md btn-original btn-block" %>

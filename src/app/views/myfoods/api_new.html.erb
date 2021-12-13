@@ -5,37 +5,40 @@
   </li>
 </ul>
 
-<div class="card">
-  <div class="card-header text-original">
-    <%= params[:food_name] %>
-  </div>
-  <div class="card-body">
-    <table class="table">
-      <thead>
-        <tr>
-          <th><%= Myfood.human_attribute_name(:calorie) %></th>
-          <th><%= Myfood.human_attribute_name(:protein) %></th>
-          <th><%= Myfood.human_attribute_name(:fat) %></th>
-          <th><%= Myfood.human_attribute_name(:carbo) %></th>
-          <th><%= Myfood.human_attribute_name(:dietary_fiber) %></th>
-          <th><%= Myfood.human_attribute_name(:sugar) %></th>
-          <th><%= Myfood.human_attribute_name(:salt) %></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <% @apifoods.each do |apifood| %>
-            <td><%= apifood %></td>
-          <% end %>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="card-footer">
-        <%= link_to "新規登録", user_myfoods_api_create_path(@user, food_name: params[:food_name], calorie: params[:calorie], protein: params[:protein], fat: params[:fat], carbo: params[:carbo],
-                                                            dietary_fiber: params[:dietary_fiber], sugar: params[:sugar], salt: params[:salt], recipe_id: params[:recipe_id], todaymeal_recipe_id: params[:todaymeal_recipe_id],
-                                                            before: params[:before], start_time: params[:start_time], start_date: params[:start_date]), 
-                                                            class: "btn btn-md btn-original btn-block", method: :post %>
+<%= render 'shared/error_messages', object: @myfood %>
+
+<div class="box1">
+  <div class="card">
+    <div class="card-header text-original">
+      <%= params[:food_name] %>
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th><%= Myfood.human_attribute_name(:calorie) %></th>
+            <th><%= Myfood.human_attribute_name(:protein) %></th>
+            <th><%= Myfood.human_attribute_name(:fat) %></th>
+            <th><%= Myfood.human_attribute_name(:carbo) %></th>
+            <th><%= Myfood.human_attribute_name(:dietary_fiber) %></th>
+            <th><%= Myfood.human_attribute_name(:sugar) %></th>
+            <th><%= Myfood.human_attribute_name(:salt) %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <% @apifoods.each do |apifood| %>
+              <td><%= apifood %></td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+      <%= link_to "新規登録", user_myfoods_api_create_path(@user, food_name: params[:food_name], calorie: params[:calorie], protein: params[:protein], fat: params[:fat], carbo: params[:carbo],
+                                                              dietary_fiber: params[:dietary_fiber], sugar: params[:sugar], salt: params[:salt], recipe_id: params[:recipe_id], todaymeal_recipe_id: params[:todaymeal_recipe_id],
+                                                              before: params[:before], start_time: params[:start_time], start_date: params[:start_date]), 
+                                                              class: "btn btn-md btn-original btn-block", method: :post %>
+    </div>
   </div>
 </div>
-

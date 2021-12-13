@@ -1,17 +1,18 @@
 
 <%= render 'shared/error_messages', object: @bmr %>
 
-
-<%= f.label :gender, class: "label" %><br>
+<%= f.label :gender, class: "label" %>
 <%= f.select :gender, {'男性':"男性", '女性':"女性"}, {include_blank: "選択してください"}, class: "form-control" %><br>
 
-<%= f.label :age, class: "label" %><br>
+<%= f.label :age, class: "label" %>
 <%= f.number_field :age, class: "form-control" %><br>
 
-<%= f.label :height, class: "label" %><br>
+<%= f.label :height, class: "label" %>
 <%= f.number_field :height, step: '0.1', class: "form-control" %><br>
 
-<%= f.label :activity, class: "label" %><br>
+<%= f.label :activity, class: "label" %>
 <%= f.select :activity, activity_select, {include_blank: "選択してください"}, class: "form-control" %><br>
 
 <%= f.hidden_field :user_id, value: @user.id %>
+
+<%= f.submit yield(:btn_text), class: "btn btn-md btn-original btn-block" %>

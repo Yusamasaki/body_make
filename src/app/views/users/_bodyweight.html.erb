@@ -13,10 +13,7 @@
       <div class="col-md-4 align-self-center">
         <div class="row">
           <div class="mx-auto">
-            <%= 
-              link_to "体重記録", edit_user_bodyweight_path(
-              user_id: current_user, id: @body_weight, start_date: params[:start_date], start_time: params[:start_time], bodyweight: "body_weight"), class: "btn btn-lg btn-original" if @body_weight.present?
-            %>
+            <%= link_to "体重記録", edit_user_bodyweight_path(@user, @body_weight, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-lg btn-original" if @body_weight.present? %>
           </div>
         </div>
       </div> 
