@@ -5,6 +5,7 @@ class Traningevent < ApplicationRecord
   has_many :traning_analysis, dependent: :destroy
   
   
-  validates :traning_name, presence: true, length: { maximum: 30 }, uniqueness: true
+  validates :traning_name, presence: true, length: { maximum: 50 }, uniqueness: true
+  validates :bodypart_id, presence: true
   
 end

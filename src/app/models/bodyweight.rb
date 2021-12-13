@@ -12,7 +12,6 @@ class Bodyweight < ApplicationRecord
     end
   end
   
-  # -------- 体重 --------
   
   # 最新の体重
   def self.newwest_bodyweight_get(user)
@@ -57,6 +56,7 @@ class Bodyweight < ApplicationRecord
   end
   
   # -------- 体脂肪率 --------
+  
   
   # 最新の体脂肪率
   def self.newwest_bodyfat_percentage(user)

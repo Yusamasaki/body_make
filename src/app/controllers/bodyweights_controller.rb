@@ -15,8 +15,13 @@ class BodyweightsController < ApplicationController
   def update
     @body_weight = current_user.bodyweights.find(params[:id])
     if @body_weight.update_attributes(body_weight_params)
-      flash[:success] = "#{@body_weight.start_time}の記録を完了しました"
-      redirect_to user_path(current_user, bodyweight_id: @body_weight, start_date: params[:start_date], start_time: params[:start_time])
+      if @body_weight.bodyfat_percentage.present?
+        flash[:success] = "#{@body_weight.start_time}の記録を完了しました"
+        redirect_to user_path(current_user, bodyweight_id: @body_weight, start_date: params[:start_date], start_time: params[:start_time])
+      else
+        errors.add(:body_weight, "が必要です")
+        redirect_to user_path(current_user, bodyweight_id: @body_weight, start_date: params[:start_date], start_time: params[:start_time])
+      end
     else
       render 'edit'
     end
