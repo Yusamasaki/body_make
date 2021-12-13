@@ -25,7 +25,7 @@ class ExerciseCategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      redirect_to exercise_categories_url, flash: { success: "「#{@category.name}」を更新しました。" }
+      redirect_to admin_url(current_admin), flash: { success: "カテゴリー「#{@category.name}」を更新しました。" }
     else
       render :edit
     end

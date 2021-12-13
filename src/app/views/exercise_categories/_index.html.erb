@@ -21,7 +21,7 @@
             <td><%= category.name %></td>
             <td class="center" style="width: 130px"><%= category.exercise_contents.count %></td>
             <td class="center" style="width: 100px">
-              <%= link_to '編集', edit_exercise_category_path(category), class: "exercise_categoty-table-edit" %>
+              <%= link_to '編集', edit_exercise_category_path(category), remote: true, class: "exercise_categoty-table-edit" %>
             </td>
             <td class="center" style="width: 100px">
               <%= link_to '削除', exercise_category_path(category), method: :delete,
@@ -37,3 +37,4 @@
 </div>
 
 <div id="new-category-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id="edit-category-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
