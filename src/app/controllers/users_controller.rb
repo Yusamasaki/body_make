@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   
+  before_action :authenticate_admin!, only: :index
   before_action :first_setting, only: :show
   before_action :today_exercise_set_one_month, only: [:show]
   before_action :set_user, only: [:show, :setting]
@@ -13,6 +14,9 @@ class UsersController < ApplicationController
     else
       redirect_to new_user_bmr_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)
     end
+  end
+
+  def index
   end
   
   def show

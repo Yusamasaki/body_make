@@ -1,0 +1,40 @@
+<div class="col col-md-12">
+  <div class="admin-form flex-form">
+    <div><%= link_to '新規登録', "#", remote: true, class: "btn btn-sm btn-primary" %></div>
+    <div class="flex-form-right" style="padding: 5px 5px 0 0;">登録件数：<%= User.count %>件</div>
+  </div>
+
+  <div class="">
+    <table class="table table-sm table-bordered table-striped">
+      <thead class="thead-original">
+        <tr>
+          <th><%= ExerciseCategory.human_attribute_name :name %></th>
+          <th>コンテンツ数</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <% @users.each do |user| %>
+        <span data-toggle="tab"><%= user.email %></span>
+        <% end %>
+        <!-- <% @categories.each do |category| %>
+          <tr>
+            <td><%= category.name %></td>
+            <td class="center" style="width: 130px"><%= category.exercise_contents.count %></td>
+            <td class="center" style="width: 100px">
+              <%= link_to '編集', edit_exercise_category_path(category), remote: true, class: "exercise_categoty-table-edit" %>
+            </td>
+            <td class="center" style="width: 100px">
+              <%= link_to '削除', exercise_category_path(category), method: :delete,
+                                                                    class: "exercise_categoty-table-delete",
+                                                                    data: { confirm: "本当に削除しますか？" }  %>
+            </td>
+          </tr>
+        <% end %> -->
+      </tbody>
+    </table>
+  </div>
+  <%= paginate @users %>
+</div>
