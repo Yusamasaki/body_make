@@ -33,7 +33,7 @@
       </tbody>
     </table>
   </div>
-  <%= paginate @categories, render: 'exercise_categories/index' %>
+  <%= paginate @categories, param_name: :category_page %>
 </div>
 
 <div id="new-category-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
