@@ -49,42 +49,37 @@
 
 <% if @user.today_tranings.present? %>
   <div class="box1">
-    <div class="row">
-      <div class="col">
-        <% @traningevents.each do |traningevent| %>
-          <% @today_traning = @user.today_tranings.find_by(start_time: params[:start_time], traningevent_id: traningevent) %>
-          <% if @today_traning.present? && @today_traning.traning_weight.present? %>
-              <% @traningevent = @user.traningevents.find(@today_traning.traningevent_id) %>
-              <h5><%= @traningevent.traning_name if @today_traning.present? %></h5>
-                <table class="table table-striped">
-                  <thead>
+    <% @traningevents.each do |traningevent| %>
+      <% @today_traning = @user.today_tranings.find_by(start_time: params[:start_time], traningevent_id: traningevent) %>
+      <% if @today_traning.present? && @today_traning.traning_weight.present? %>
+          <% @traningevent = @user.traningevents.find(@today_traning.traningevent_id) %>
+          <h4 class="center"><%= @traningevent.traning_name if @today_traning.present? %></h4>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">セット数</th>
+                  <th scope="col">重量</th>
+                  <th scope="col">回数</th>
+                  <th scope="col">ノート</th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                <% @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: traningevent).order(:id).pluck(:id) %>
+                <% @today_tranings.each_with_index do |item, i| %>
+                  <% @today_traning = @user.today_tranings.find(item) %>
+                  <% if @today_traning.traning_weight.present? && @today_traning.traning_reps.present? %>
                     <tr>
-                      <th scope="col">セット数</th>
-                      <th scope="col">重量</th>
-                      <th scope="col">回数</th>
-                      <th scope="col">ノート</th>
+                      <th scope="row"><%= i + 1 %></th>
+                      <td><%= @today_traning.traning_weight %></td>
+                      <td><%= @today_traning.traning_reps %></td>
+                      <td><%= @today_traning.traning_note %></td>
                     </tr>
-                  </thead>
-                  
-                  <tbody>
-                    <% @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: traningevent).order(:id).pluck(:id) %>
-                    <% @today_tranings.each_with_index do |item, i| %>
-                      <% @today_traning = @user.today_tranings.find(item) %>
-                      <% if @today_traning.traning_weight.present? && @today_traning.traning_reps.present? %>
-                        <tr>
-                          <th scope="row"><%= i + 1 %></th>
-                          <td><%= @today_traning.traning_weight %></td>
-                          <td><%= @today_traning.traning_reps %></td>
-                          <td><%= @today_traning.traning_note %></td>
-                        </tr>
-                      <% end %>
-                    <% end %>
-                  </tbody>
-                </table>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
+      <% end %>
+    <% end %>
   </div>
 <% end %>
-</div>

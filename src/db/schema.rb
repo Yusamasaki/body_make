@@ -130,10 +130,8 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
     t.float "salt"
     t.string "note"
     t.bigint "user_id"
-    t.bigint "timezone_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["timezone_id"], name: "index_recipes_on_timezone_id"
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
@@ -151,10 +149,8 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
     t.float "goal_body_weight"
     t.float "now_bodyfat_percentage"
     t.float "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-12-11 11:56:39"
-    t.datetime "target_date", default: "2021-12-12 11:56:39"
-    t.datetime "beginning_date", default: "2021-12-12 07:41:40"
-    t.datetime "target_date", default: "2021-12-13 07:41:40"
+    t.datetime "beginning_date", default: "2021-12-14 06:28:38"
+    t.datetime "target_date", default: "2021-12-15 06:28:38"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -168,8 +164,7 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-12-11", null: false
-    t.date "start_time", default: "2021-12-12", null: false
+    t.date "start_time", default: "2021-12-14", null: false
     t.integer "exercise_time_hour", default: 0, null: false
     t.integer "exercise_time_min", default: 0, null: false
     t.float "body_weight"
@@ -241,7 +236,6 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
 
   create_table "traningevents", force: :cascade do |t|
     t.string "traning_name"
-    t.string "sub_body_part"
     t.bigint "subbodypart_id"
     t.bigint "traningtype_id"
     t.bigint "bodypart_id"
@@ -282,7 +276,6 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
   add_foreign_key "recipefoods", "myfoods"
   add_foreign_key "recipefoods", "recipes"
   add_foreign_key "recipefoods", "users"
-  add_foreign_key "recipes", "timezones"
   add_foreign_key "recipes", "users"
   add_foreign_key "sub_bodyparts", "bodyparts"
   add_foreign_key "targetweights", "users"

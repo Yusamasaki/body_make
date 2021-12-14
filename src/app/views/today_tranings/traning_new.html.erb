@@ -9,17 +9,17 @@
       </div>
       <div class="card-body">
         <%= link_to(edit_user_traningevent_path(@user, params[:traningevent_id], bodypart_id: @traningevent.bodypart_id, subbodypart_id: @traningevent.subbodypart_id, traningtype_id: @traningevent.traningtype_id, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
-          <h5>
+          <h4>
             <%= @traningevent.traning_name %>
             <i class="fas fa-edit fa-md">編集</i>
           </blockquote>
-          </h5>
+          </h4>
         <% end %>
       </div>
     </div>
   </div>
   <style>
-    h5 {
+    h4 {
       padding: 1rem 2rem;
       background: #f4f4f4;
     }
