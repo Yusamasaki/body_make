@@ -4,7 +4,7 @@ class CreateTodayExercises < ActiveRecord::Migration[5.2]
       t.date :start_time, null: false, default: Date.current
       t.integer :exercise_time_hour, null: false, default: 0
       t.integer :exercise_time_min, null: false, default: 0
-      t.float :body_weight
+      t.float :body_weight, null: false, default: 0
       t.string :note
       t.references :exercise_category, foreign_key: true
       t.references :exercise_content, foreign_key: true

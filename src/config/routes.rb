@@ -19,9 +19,8 @@ Rails.application.routes.draw do
     }
 
   resources :admins, only: [:show]
-  resources :users, only: [:show] do
-    
-    
+  resources :users, only: [:show, :index] do
+
     get 'setting'
     get 'bodyweights/calender'
     get 'bodyweights/bodyfat_percentage_edit'

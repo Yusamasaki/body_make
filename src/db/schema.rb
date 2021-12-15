@@ -151,10 +151,8 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
     t.float "goal_body_weight"
     t.float "now_bodyfat_percentage"
     t.float "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-12-11 11:56:39"
-    t.datetime "target_date", default: "2021-12-12 11:56:39"
-    t.datetime "beginning_date", default: "2021-12-12 07:41:40"
-    t.datetime "target_date", default: "2021-12-13 07:41:40"
+    t.datetime "beginning_date", default: "2021-12-14 08:10:01"
+    t.datetime "target_date", default: "2021-12-15 08:10:01"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -168,11 +166,10 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-12-11", null: false
-    t.date "start_time", default: "2021-12-12", null: false
+    t.date "start_time", default: "2021-12-14", null: false
     t.integer "exercise_time_hour", default: 0, null: false
     t.integer "exercise_time_min", default: 0, null: false
-    t.float "body_weight"
+    t.float "body_weight", default: 0.0, null: false
     t.string "note"
     t.bigint "exercise_category_id"
     t.bigint "exercise_content_id"

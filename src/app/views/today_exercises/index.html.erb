@@ -106,47 +106,8 @@
       </tbody>
     </table>
   </div>
-  <!--
-  <div class="right">
-    <= link_to '追加', new_user_today_exercise_path(
-      current_user, start_date: params[:start_date], start_time: params[:start_time]),
-      class: "btn btn-original"\
-      # if @today_exercises.first.exercise_category_id.present?
-    %>
-  </div>
-  -->
 </div>
 
 <div id="calender" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <div id="new-exercise-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <div id="edit-exercise-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
-
-<style>
-/* 開いて実行されるアニメーションを設定*/
-details[open] .content {
-  animation: fadeIn 0.5s ease-in-out;
-}
-@keyframes fadeIn {
-  0% {
-    opacity: 0; /* Transparent */
-    transform: translateY(-5px); 
-    /* translateX(+100px)：右から表示 */
-    /* translateX(-100px)：左から表示 */
-    /* translateY(+100px)：下から表示 */
-    /* translateY(-100px)：上から表示 */
-
-  }
-  100% {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.exercise-category-btn {
-  width: 200px;
-}
-
-.exercise-category-group {
-  padding-left: 10px; 
-}
-</style>

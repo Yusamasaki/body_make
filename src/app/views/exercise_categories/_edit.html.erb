@@ -1,0 +1,23 @@
+<div class="modal-dialog modal-dialog-fluid"  role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+    <h5 class="center">運動カテゴリ登録</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div><br>
+
+    <div class="col col-12">    
+      <div class="admin-box">
+        <%= button_tag '更新', class: "btn btn-sm btn-primary w-100px",
+                              form: "exercise_category-btn",
+                              data: {confirm: "更新しますか？削除したコンテンツは同時に削除されます。"} %>
+        <%= link_to '一覧へ戻る', exercise_categories_path, class: "btn btn-sm btn-secondary" %>
+      </div>
+    
+      <div class="admin-form">
+        <%= render 'form' %>
+      </div>
+    </div><br>
+  </div>
+</div>

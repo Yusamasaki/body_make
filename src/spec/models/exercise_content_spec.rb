@@ -31,7 +31,7 @@ RSpec.describe ExerciseContent, type: :model do
         expect(exercise_content).to be_valid
       end
 
-      it '20文字以上であれば無効な状態であること' do
+      it '21文字以上であれば無効な状態であること' do
         exercise_content.content = 'a' * 21
         exercise_content.valid?
         expect(exercise_content.errors[:content]).to include('は20文字以内で入力してください')
@@ -62,7 +62,7 @@ RSpec.describe ExerciseContent, type: :model do
         expect(exercise_content).to be_valid
       end
   
-      it '999以上であれば無効であること' do
+      it '999.1以上であれば無効であること' do
         exercise_content.mets = 999.1
         exercise_content.valid?
         expect(exercise_content.errors[:mets]).to include('は999以下の値にしてください')  

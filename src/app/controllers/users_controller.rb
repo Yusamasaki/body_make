@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-
-  before_action :logged_in_user, only: [:first_setting, :show, :setting]
+  
+  before_action :authenticate_admin!, only: :index
   before_action :first_setting, only: :show
   before_action :today_exercise_set_one_month, only: [:show]
   before_action :set_user, only: [:show, :setting]
@@ -16,6 +16,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def index
+  end
+  
   def show
     if @pfc.nil?
       PfcRatio.create!(user_id: @user.id, protein: 20, fat: 20, carbo: 60)

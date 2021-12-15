@@ -5,7 +5,7 @@ class ExerciseCategoriesController < ApplicationController
   before_action :set_category, only: %i(edit update destroy)
 
   def index
-    @categories = ExerciseCategory.all.order(:id)
+    @categories = ExerciseCategory.all.page(params[:page]).per(2).order(:id)
   end
 
   def new
@@ -16,7 +16,7 @@ class ExerciseCategoriesController < ApplicationController
   def create
     @category = ExerciseCategory.new(category_params)
     if @category.save
-      redirect_to exercise_categories_url, flash: { success: "「#{@category.name}」を登録しました。" }
+      redirect_to admin_url(current_admin), flash: { success: "カテゴリー「#{@category.name}」を登録しました。" }
     else
       render :new
     end
@@ -27,7 +27,7 @@ class ExerciseCategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      redirect_to exercise_categories_url, flash: { success: "「#{@category.name}」を更新しました。" }
+      redirect_to admin_url(current_admin), flash: { success: "カテゴリー「#{@category.name}」を更新しました。" }
     else
       render :edit
     end
