@@ -130,10 +130,8 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
     t.float "salt"
     t.string "note"
     t.bigint "user_id"
-    t.bigint "timezone_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["timezone_id"], name: "index_recipes_on_timezone_id"
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
@@ -238,7 +236,6 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
 
   create_table "traningevents", force: :cascade do |t|
     t.string "traning_name"
-    t.string "sub_body_part"
     t.bigint "subbodypart_id"
     t.bigint "traningtype_id"
     t.bigint "bodypart_id"
@@ -279,7 +276,6 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
   add_foreign_key "recipefoods", "myfoods"
   add_foreign_key "recipefoods", "recipes"
   add_foreign_key "recipefoods", "users"
-  add_foreign_key "recipes", "timezones"
   add_foreign_key "recipes", "users"
   add_foreign_key "sub_bodyparts", "bodyparts"
   add_foreign_key "targetweights", "users"

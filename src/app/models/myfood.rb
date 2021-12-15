@@ -8,9 +8,9 @@ class Myfood < ApplicationRecord
    validates :protein, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 1000, message: " : 0 ~ 1000 までの数値を入力ください。"}
    validates :fat, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 1000, message: " : 0 ~ 1000 までの数値を入力ください。"}
    validates :carbo, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 1000, message: " : 0 ~ 1000 までの数値を入力ください。"}
-   validates :sugar, numericality: {only_float: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 1000, message: " : 0 ~ 1000 までの数値を入力ください。"}
-   validates :dietary_fiber, numericality: {only_float: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 1000, message: " : 0 ~ 1000 までの数値を入力ください。"}
-   validates :salt, numericality: {only_float: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 1000, message: " : 0 ~ 1000 までの数値を入力ください。"}
+   validates :sugar, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 1000, message: " : 0 ~ 1000 までの数値を入力ください。"}
+   validates :dietary_fiber, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 1000, message: " : 0 ~ 1000 までの数値を入力ください。"}
+   validates :salt, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 1000, message: " : 0 ~ 1000 までの数値を入力ください。"}
    
   # 検索機能
    def self.search_food(search)
