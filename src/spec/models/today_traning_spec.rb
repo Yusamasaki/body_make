@@ -21,6 +21,18 @@ RSpec.describe TodayTraning, type: :model do
   
   describe "TodayTraningの登録" do
     
+    context "日付の存在が" do
+      it "あれば有効な状態であること" do
+        expect(today_traning).to be_valid
+      end
+      
+      it 'なければ無効な状態であること' do
+        today_traning.start_time = nil
+        today_traning.valid?
+        expect(today_traning.errors[:start_time]).to include('を入力してください')
+      end
+    end
+    
     context "traning_weight(重量)の存在が" do
       it "あれば有効な状態であること" do
         expect(today_traning).to be_valid
