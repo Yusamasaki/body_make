@@ -25,4 +25,18 @@ RSpec.describe TodaymealRecipe, type: :model do
       end
     end
   end
+  
+  describe "登録" do
+    context "日付の存在が" do
+      it "あれば有効な状態であること" do
+        expect(todaymeal_recipe).to be_valid
+      end
+      
+      it 'なければ無効な状態であること' do
+        todaymeal_recipe.start_time = nil
+        todaymeal_recipe.valid?
+        expect(todaymeal_recipe.errors[:start_time]).to include('を入力してください')
+      end
+    end
+  end
 end
