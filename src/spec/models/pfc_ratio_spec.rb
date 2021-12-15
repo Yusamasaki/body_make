@@ -49,12 +49,5 @@ RSpec.describe PfcRatio, type: :model do
       end
     end
     
-    context "PFCの合計が" do
-      it "100％であれば有効な状態であること" do
-        pfc_ratio.protein + pfc_ratio.fat + pfc_ratio.carbo
-        expect(pfc_ratio).to be_valid
-      end
-    end
-    
   end
 end
