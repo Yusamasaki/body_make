@@ -138,7 +138,7 @@
   <div class="myfood-import">
   <div class="row">
     <div class="mx-auto">
-      <%= form_with(url: import_user_myfoods_path, multipart: true) do |f| %>
+      <%= form_with(url: import_user_myfoods_path, multipart: true, local: true) do |f| %>
         <%= f.file_field :file %>
         <%= f.hidden_field :start_time, value: params[:start_time] %>
         <%= f.hidden_field :start_date, value: params[:start_date] %>
