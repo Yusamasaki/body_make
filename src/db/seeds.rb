@@ -74,12 +74,12 @@ puts 'Bmr作成！'
 
 # Targetweight.create!(
 # 	user_id: 1,
-	# now_body_weight: 80,
-	# goal_body_weight: 60,
-	# now_bodyfat_percentage: 20,
-	# goal_bodyfat_percentage: 10,
-	# beginning_date: Time.current,
-	# target_date: Time.current.since(6.month)
+# 	now_body_weight: 80,
+# 	goal_body_weight: 60,
+# 	now_bodyfat_percentage: 20,
+# 	goal_bodyfat_percentage: 10,
+# 	beginning_date: Time.current,
+# 	target_date: Time.current.since(6.month)
 # )
 
 User.all.each do |user|

@@ -1,0 +1,47 @@
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5>ユーザー詳細</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <table class="table table-sm table-bordered">
+        <tr>
+          <th><%= User.human_attribute_name :username %></th>
+          <td><%= @user.username %></td>
+        </tr>
+        <tr>
+          <th><%= User.human_attribute_name :nickname %></th>
+          <td><%= @user.nickname %></td>
+        </tr>
+        <tr>
+          <th><%= User.human_attribute_name :email %></th>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <th><%= User.human_attribute_name :created_at %></th>
+          <td><%= @user.created_at.to_s(:date) %></td>
+        </tr>
+        <tr>
+          <th><%= User.human_attribute_name :provider %></th>
+          <td><%= @user.provider %></td>
+        </tr>
+        <tr>
+          <th>ログイン回数</th>
+          <td><%= @user.sign_in_count %>回</td>
+        </tr>
+        <tr>
+          <th>最終ログイン</th>
+          <td><%= @user.current_sign_in_at %></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-sm btn-secondary w-25" data-dismiss="modal">閉じる</button>
+    </div>
+  </div>
+</div>
