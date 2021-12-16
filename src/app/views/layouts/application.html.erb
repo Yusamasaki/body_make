@@ -26,9 +26,13 @@
   <% else %>
     <body class="logout">
   <% end %>
-        <div class="container-field">
-          <%= yield %>
-          <%= debug(params) if Rails.env.development? %>
+      <div class="bg_pattern Paper_v2"></div>
+        <div class="section">
+          <div class="container-field">
+            <%= yield %>
+            <%= debug(params) if Rails.env.development? %>
+          </div>
         </div>
+      </div>
     </body>
 </html>
