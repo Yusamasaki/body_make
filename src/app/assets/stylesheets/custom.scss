@@ -7,6 +7,7 @@ html {
   padding: 0;
 }
 
+// deviseのflashメッセージ
 .flash {
   color: $white;
   text-align: center;
@@ -30,6 +31,7 @@ body.logout{
   font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro";
 }
 
+// ログイン画面のタイトルロゴ
 .top-logo{
     text-align: center;
     background-color: #274277;
@@ -42,7 +44,6 @@ body.logout{
     padding: 100px 0px;
   }
 
-// ログイン画面のタイトルロゴ
 @media screen and (min-width:768px){
   .top-logo{
     text-align: center;
@@ -55,42 +56,6 @@ body.logout{
     text-shadow: 2px 3px 5px #8fa8da;
   }
 }
-
-// //全体
-// .top {
-//   background-color: aquamarine;
-// }
-
-// 削除予定
-// .flash_messages {
-//   margin-left: 20%;
-// }
-
-// 削除予定
-// .alert,.notice {
-//   // position: absolute;
-//   // margin-left: 25%;
-// }
-
-// 削除予定
-// .alert-fleam {
-//   margin-left: 20%;
-//   text-align: center;
-// }
-
-// 削除予定
-// //side menu
-// .side-menu {
-//   position: fixed;
-//   z-index: inherit;
-// }
-
-// 削除予定
-//table color
-// .thead-original {
-//   color: #fff;
-//   background-color: #274277;
-// }
 
 // debug(params)
 .debug_dump {
@@ -113,10 +78,6 @@ body.logout{
   width: 100px !important;
 }
 
-// .top-nav-area{
-//   background-color: #E0DEDE;
-// }
-
 // 画面上部のタブなど囲う
 .jumbotron {
   padding: 10px 5px;
@@ -125,26 +86,26 @@ body.logout{
 
 //box1項目を囲うため
 .box1{
-    margin:1em 0;
-    color: #274277;
-    background: white;
-    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.22);
-    height: 100%;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+  margin:1em 0;
+  color: #274277;
+  background: white;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.22);
+  height: 100%;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
   }
 
 // フォーム用box1
 .form-box1{
-    margin: 1em 5em;
-    color: #274277;
-    background: white;
-    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.22);
-    height: 100%;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+  margin: 1em 5em;
+  color: #274277;
+  background: white;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.22);
+  height: 100%;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h5 {
@@ -175,9 +136,9 @@ h5:after {
 
 @media screen and (min-width: 768px) {
   .form-box1{
-      width: 30%;
-      margin-left: auto;
-      margin-right: auto;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 .box1-padding {
@@ -223,186 +184,18 @@ h5:after {
 
 // 画面サイズ1024ピクセル以上用
 @media screen and (min-width: 1024px) {
-  // Topページ
-  
-  // 削除予定
-  // //contents
-  // .contents {
-  //   margin-left: 20%;
-  // }
-  
-  // 削除予定
-  // .top {
-  //   h1 {
-  //     text-align: center;
-  //     color: blueviolet;
-  //     padding-top: 10px;
-  //     font-family: serif;
-  //     font-size: 5em;
-  //   }
 
-  //   // ボタン位置設定
-  //   #top-btn {
-  //     text-align: center;
-  //     padding-top: 30em;
-  //   }
-  //   // ボタン画像設定
-  //   .top-btn-img {
-  //     width: 20%;
-  //     height: 20%;
-  //   }
-
-  //   label {
-  //     font-size: 3em;
-  //     font-family: serif;
-  //   }
-
-  //   // ボタン間隔設定
-  //   .new-top-btn {
-  //     padding-left: 10%;
-  //   }
-  // }
-
-  // 削除予定
-  // // side menu
-  // .side-menu {
-  //   width: 20%;
-  //   height: 100%;
-  //   background-color: bisque;
-
-  //   .body-name {
-  //     font-size: 40px;
-  //     text-align: center;
-  //   }
-
-  //   .menu-link {
-  //     font-size: 25px;
-  //     text-align: center;
-  //     padding-top: 30px;
-  //   }
-
-  //   .menu-link span {
-  //     display: block;
-  //   }
-
-  //   .menu {
-  //     margin-left: 20%;
-  //     margin-right: 25%;
-  //     line-height: 2em;
-  //     width: 60%;
-  //   }
-  // }
 }
 
 // 画面サイズ428ピクセル以上1024ピクセル未満用
 @media screen and (min-width: 428px) and (max-width: 1023px) {
   
-  // 削除予定
-  // // Topページ
-  // .top {
-  //   height: 1023px;
 
-  //   h1 {
-  //     text-align: center;
-  //     color: blueviolet;
-  //     font-size: 4em;
-  //   }
-
-  //   // ボタン位置設定
-  //   #top-btn {
-  //     text-align: center;
-  //     padding-top: 40%;
-  //   }
-
-  //   // ボタン画像設定
-  //   .top-btn-img {
-  //     width: 20%;
-  //     height: 20%;
-  //   }
-  //   label {
-  //     font-size: 2em;
-  //   }
-
-  //   // ボタン間隔設定
-  //   .new-top-btn {
-  //     padding-left: 10%;
-  //   }
-  // }
-
-  // 削除予定
-  // // side-menu
-  // .side-menu {
-  //   background-color: bisque;
-  //   width: 100%;
-  //   bottom: 0;
-  //   margin-top: 85%;
-  // }
-
-  // .menu-link {
-  //   font-size: 25px;
-  //   text-align: center;
-  //   padding-bottom: 1em;
-  // }
-
-  // .menu {
-  //   padding-left: 20px;
-  //   width: 30%;
-  // }
 }
 
 // 画面サイズ500ピクセル以下用
 @media screen and (max-width: 428px) {
-  
-  // 削除予定
-  // // Topページ
-  // .top {
-  //   height: 768px;
 
-  //   h1 {
-  //     text-align: center;
-  //     font-size: 1.8em;
-  //     color: blueviolet;
-  //   }
-
-  //   // ボタン位置設定
-  //   #top-btn {
-  //     text-align: center;
-  //     padding-top: 60%;
-  //   }
-
-  //   // ボタン画像設定
-  //   .top-btn-img {
-  //     width: 15%;
-  //     height: 15%;
-  //   }
-
-  //   // ボタン間隔設定
-  //   .new-top-btn {
-  //     padding-left: 10%;
-  //   }
-  // }
-  
-  // 削除予定
-  // // side-menu
-  // .side-menu {
-  //   background-color: bisque;
-  //   width: 100%;
-  //   bottom: 0;
-  //   margin-top: 100%;
-  // }
-
-  // .menu-link {
-  //   font-size: 10px;
-  //   text-align: center;
-  //   padding-bottom: 1em;
-  // }
-
-  // .menu {
-  //   padding-left: 5px;
-  //   width: 30%;
-  // }
-
-  
   .tab-area {
     overflow-x: scroll;
   }
