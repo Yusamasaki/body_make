@@ -28,10 +28,12 @@ ja:
         updated_at: 更新日
       user:
         username: ユーザー名
+        nickname: ニックネーム
+        provider: アカウント連携
         confirmation_sent_at: パスワード確認送信時刻
         confirmation_token: パスワード確認用トークン
         confirmed_at: パスワード確認時刻
-        created_at: 作成日
+        created_at: 登録日
         current_password: 現在のパスワード
         current_sign_in_at: 現在のログイン時刻
         current_sign_in_ip: 現在のログインIPアドレス
@@ -53,7 +55,7 @@ ja:
         updated_at: 更新日
     models:
       user: ユーザー
-      sdmin: ユーザー
+      admin: 管理者
   devise:
     confirmations:
       confirmed: メールアドレスが確認できました。

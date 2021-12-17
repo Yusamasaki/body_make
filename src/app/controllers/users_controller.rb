@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   end
 
   def detail
-    @user = User.find_by(params[:id])
+    @user = User.find(params[:user_id])
   end
   
   def show

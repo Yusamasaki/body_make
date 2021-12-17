@@ -10,31 +10,31 @@
     <div class="modal-body">
       <table class="table table-sm table-bordered">
         <tr>
-          <th><%= User.human_attribute_name :username %></th>
+          <th class="user-detail-th"><%= User.human_attribute_name :username %></th>
           <td><%= @user.username %></td>
         </tr>
         <tr>
-          <th><%= User.human_attribute_name :nickname %></th>
+          <th class="user-detail-th"><%= User.human_attribute_name :nickname %></th>
           <td><%= @user.nickname %></td>
         </tr>
         <tr>
-          <th><%= User.human_attribute_name :email %></th>
+          <th class="user-detail-th"><%= User.human_attribute_name :email %></th>
           <td><%= @user.email %></td>
         </tr>
         <tr>
-          <th><%= User.human_attribute_name :created_at %></th>
-          <td><%= @user.created_at.to_s(:date) %></td>
+          <th class="user-detail-th"><%= User.human_attribute_name :created_at %></th>
+          <td><%= @user.created_at %></td>
         </tr>
         <tr>
-          <th><%= User.human_attribute_name :provider %></th>
+          <th class="user-detail-th"><%= User.human_attribute_name :provider %></th>
           <td><%= @user.provider %></td>
         </tr>
         <tr>
-          <th>ログイン回数</th>
+          <th class="user-detail-th"><%= User.human_attribute_name :sign_in_count %></th>
           <td><%= @user.sign_in_count %>回</td>
         </tr>
         <tr>
-          <th>最終ログイン</th>
+          <th class="user-detail-th"><%= User.human_attribute_name :current_sign_in_at %></th>
           <td><%= @user.current_sign_in_at %></td>
         </tr>
       </table>
@@ -45,3 +45,10 @@
     </div>
   </div>
 </div>
+
+<style>
+  .user-detail-th {
+    background-color: #274277;
+    color: #fff;
+  }
+</style>
