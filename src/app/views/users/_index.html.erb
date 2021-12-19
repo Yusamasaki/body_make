@@ -8,9 +8,11 @@
     <table class="table table-sm table-bordered table-striped">
       <thead class="thead-original">
         <tr>
-          <th><%= ExerciseCategory.human_attribute_name :name %></th>
-          <th>コンテンツ数</th>
-          <th></th>
+          <th><%= User.human_attribute_name :id %></th>
+          <th><%= User.human_attribute_name :username %></th>
+          <th><%= User.human_attribute_name :nickname %></th>
+          <th><%= User.human_attribute_name :email %></th>
+          <th><%= User.human_attribute_name :created_at %></th>
           <th></th>
         </tr>
       </thead>
@@ -18,25 +20,18 @@
       <tbody>
         <% @users.each do |user| %>
         <tr>
-          <td data-toggle="tab"><%= user.email %></td>
+          <td data-toggle="tab"><%= user.id %></td>
+          <td><%= user.username %></td>
+          <td><%= user.nickname%></td>
+          <td><%= user.email %></td>
+          <td><%= user.created_at.to_s(:date) %></td>
+          <td><%= link_to '詳細', user_detail_path(user.id), remote: true %></td>
         </tr>
         <% end %>
-        <!-- <% @categories.each do |category| %>
-          <tr>
-            <td><%= category.name %></td>
-            <td class="center" style="width: 130px"><%= category.exercise_contents.count %></td>
-            <td class="center" style="width: 100px">
-              <%= link_to '編集', edit_exercise_category_path(category), remote: true, class: "exercise_categoty-table-edit" %>
-            </td>
-            <td class="center" style="width: 100px">
-              <%= link_to '削除', exercise_category_path(category), method: :delete,
-                                                                    class: "exercise_categoty-table-delete",
-                                                                    data: { confirm: "本当に削除しますか？" }  %>
-            </td>
-          </tr>
-        <% end %> -->
       </tbody>
     </table>
   </div>
   <%= paginate @users, param_name: :user_page %>
 </div>
+
+<div id="detail-user-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

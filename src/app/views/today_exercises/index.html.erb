@@ -4,7 +4,7 @@
       <%= link_to user_today_exercises_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date].to_date.prev_month) do %>
         <div class="arrow round-arrow-left"></div>
       <% end %>
-      <a style="color: #274277;"><%= params[:start_time].to_time.strftime("%Y年%-m月%-d日") %></a>
+      <a style="color: #274277;"><%= params[:start_time].to_time.to_s(:date) %></a>
       <%= link_to user_today_exercises_path(current_user, start_time: params[:start_time].to_date.tomorrow, start_date: params[:start_date].to_date.next_month) do %>
         <div class="arrow round-arrow-right"></div>
       <% end %>

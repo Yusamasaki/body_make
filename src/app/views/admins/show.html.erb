@@ -1,11 +1,9 @@
 <div class="col col-md-8 offset-md-2">
-  <div class="admin-box1 center">
-    管理者画面
-    <div class="mb-1">
-      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-secondary w-25" %>
-    </div>
-    <div class="mb-1 mt-5">
-      <%= link_to "管理者情報", edit_admin_registration_path, class: "btn btn-original w-25" %>
+  <div class="admin-box1">
+    <h5>管理画面</h5>
+    <div class="right">
+      <%= link_to "管理者情報", edit_admin_registration_path, class: "btn btn-sm btn-original" %>
+      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-sm btn-secondary" %>
     </div>
   </div>
 
@@ -26,7 +24,9 @@
         <%= render 'users/index' %><br>
       </div>
       <div class="tab-pane fade" id="nav-admin" role="tabpanel" aria-labelledby="nav-admin-tab">
-        ここに管理者設定
+        <div>
+          <%= current_admin.email %>
+        </div>
       </div>
     </div>
   </div>
