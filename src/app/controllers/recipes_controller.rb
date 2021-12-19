@@ -51,10 +51,10 @@ class RecipesController < ApplicationController
     @recipe = @user.recipes.find(params[:id])
     @recipe.destroy
     flash[:success] = "#{@recipe.recipe_name}を削除しました。"
-    if params[:before] == "new"
-      redirect_to user_recipes_path(@user, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
-    else
+    if params[:before] == "edit"
       redirect_to user_todaymeals_path(@user, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+    else
+      redirect_to user_recipes_path(@user, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
     end
   end
 

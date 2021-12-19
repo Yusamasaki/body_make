@@ -8,7 +8,7 @@
           <canvas id="bodyfat-chart-area" class="doughnut_graph" width="1500" height="1000"></canvas>
           <script>bodyfat_doughnut_graph();</script>
           <p><%= bodyfat_percentage_achievement_rate(@progress_bodyfat_percentage, @target_weight) %>％達成</p>
-          <a>残り<%= @now_bodyfat_percentage_pull_goal_bodyfat_percentage.floor(1) %>％</a>
+          <a>残り<%= @now_bodyfat_percentage_pull_goal_bodyfat_percentage.floor(1).abs %>％</a>
         </div>
       </div>
 

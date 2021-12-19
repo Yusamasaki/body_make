@@ -54,7 +54,7 @@ class RecipefoodsController < ApplicationController
       end
     else
       flash[:danger] = "登録に失敗しました。#{@recipe.recipe_name}には#{@myfood.food_name}は登録してあります。分量などで調整下さい"
-      redirect_to new_user_recipefood_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], myfood_id: @myfood, recipe_id: @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+      redirect_to new_user_recipefood_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], switching: "record", before: params[:before], myfood_id: @myfood, recipe_id: @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
     end
   end
 

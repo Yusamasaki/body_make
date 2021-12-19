@@ -1,4 +1,4 @@
-<% provide(:title, "#{@recipe.recipe_name}の食事編集") %>
+<% provide(:title, "#{@recipe.recipe_name}の食事内容編集") %>
 <% provide(:btn_text, "編集") %>
 
 <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
@@ -40,22 +40,16 @@
 </div>
 
 <div class="box1">
-  <div class="row">
-    <div class="mx-auto">
-      <h5>
-        <%= @recipe.recipe_name if @recipe.present? %>
-        <%= link_to(edit_user_recipe_path(@user, @recipe, todaymeal_recipe_id: params[:id], before: params[:action], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), class: "traning-title text-original") do %>
-          <i class="fas fa-edit fa-md"></i>
-        <% end %>
-      </h5>
-    </div>
-  </div>
-  <div class="row">
-    <div class="mx-auto">
-      <%= link_to(user_myfoods_path(@user, todaymeal_recipe_id: params[:id], before: params[:action], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), class: "btn btn-sm btn-original") do %>
-        <i class="far fa-plus-square fa-lg">食品を追加</i>
+  <div class="center" style="padding: 10px;">
+    <h4>
+      <%= @recipe.recipe_name if @recipe.present? %>
+      <%= link_to(edit_user_recipe_path(@user, @recipe, todaymeal_recipe_id: params[:id], before: params[:action], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), class: "traning-title text-original") do %>
+        <i class="fas fa-edit fa-md"></i>
       <% end %>
-    </div>
+    </h4>
+    <%= link_to(user_myfoods_path(@user, todaymeal_recipe_id: params[:id], before: params[:action], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), class: "btn btn-sm btn-original") do %>
+      <i class="far fa-plus-square fa-lg">食品を追加</i>
+    <% end %>
   </div>
   
   <% @recipefoods.each do |recipefood| %>
@@ -65,11 +59,10 @@
         <div class="panel-heading">
           <div class="panel-title">
             <a class="text-original" data-toggle="collapse" href="#collapse<%= @myfood.id %>">
-              
               <div class="card">
-                <h5 class="card-header"><%= @myfood.food_name %>(<%= recipefood.amount %>個分)</h5>
+                <h4 class="card-header"><%= @myfood.food_name %>(<%= recipefood.amount %>個分)</h4>
                 <div class="card-body">
-                  <h5 class="card-title">カロリー：<%= recipefood_format(@myfood.calorie, recipefood.amount) %>kcal</h5>
+                  <h4 class="card-title">カロリー：<%= recipefood_format(@myfood.calorie, recipefood.amount) %>kcal</h4>
                   <p class="card-text">P：<%= recipefood_format(@myfood.protein, recipefood.amount) %>g　
                     F：<%= recipefood_format(@myfood.fat, recipefood.amount) %>g　
                     C：<%= recipefood_format(@myfood.carbo, recipefood.amount) %>g
@@ -137,12 +130,13 @@
 </div>
 
 <% if params[:switching] == "rader-chart" %>
-  <%= render template: "graph/_nutrition_radar_graph" %>
+  <%= render template: "layouts/_nutrition_radar_graph" %>
 <% end %>
 
 <% if params[:switching] == "record" %>
   <div class="box1">
     <div class="box-inner">
+      <h5 class="center"><%= yield(:title) %></h5><br>
       <%= form_with(model: @todaymeal_recipe, url: user_todaymeal_recipe_path(@user, @todaymeal_recipe, switching: params[:switching], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
         

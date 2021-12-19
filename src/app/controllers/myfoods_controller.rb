@@ -52,7 +52,7 @@ class MyfoodsController < ApplicationController
 
   def destroy
     @myfood.destroy
-    flash[:success] = "削除しました。"
+    flash[:success] = "#{@myfood.food_name}を削除しました。"
     redirect_to user_myfoods_url(@user, recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
   end
 
@@ -78,8 +78,8 @@ class MyfoodsController < ApplicationController
   end
 
   def import
-    @user.myfoods.import(params[:file])
-    flash[:success] = "登録に成功しました。"
+    cnt = @user.myfoods.import(params[:file])
+    flash[:success] = "#{cnt}件の登録に成功しました。"
     redirect_to user_myfoods_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: 1, start_date: params[:start_date], start_time: params[:start_time])
   end
 

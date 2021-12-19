@@ -1,4 +1,4 @@
-<% provide(:title, "食事編集") %>
+<% provide(:title, "#{@myfood.food_name}の食事内容編集") %>
 <% provide(:btn_text, "編集") %>
 
 <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
@@ -44,7 +44,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <h5 class="card-header"><%= @myfood.food_name %></h5>
+          <h4 class="card-header"><%= @myfood.food_name %></h4>
           <table class="table table-striped">
             <thead>
               <tr class="text-center">
@@ -78,6 +78,7 @@
 <% if params[:switching] == "record" %>
   <div class="box1">
     <div class="box-inner">
+      <h5 class="center"><%= yield(:title) %></h5><br>
       <%= form_with(model: @todaymeal, url: user_todaymeal_path(@user, @todaymeal, switching: params[:switching], myfood_id: params[:myfood_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
         <%= render partial: "form", locals: { f: f } %>
       <% end %>
