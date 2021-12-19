@@ -53,14 +53,7 @@
   </ul>
   
 <div class="box1">
-  <div class="row">
-    <div class="mx-auto">
-      <h4>
-        <%= @recipe.recipe_name if @recipe.present? %>
-      </h4>
-    </div>
-  </div>
-  
+  <h4 class="center" style="padding: 10px;"><%= @recipe.recipe_name if @recipe.present? %></h4>
   <% @recipefoods.each do |recipefood| %>
   <% @myfood = @user.myfoods.find(recipefood.myfood_id) %>
     <div class="panel-group">
@@ -68,11 +61,10 @@
         <div class="panel-heading">
           <div class="panel-title">
             <a class="text-original" data-toggle="collapse" href="#collapse<%= @myfood.id %>">
-              
               <div class="card">
-                <h5 class="card-header"><%= @myfood.food_name %>(<%= recipefood.amount %>個分)</h5>
+                <h4 class="card-header"><%= @myfood.food_name %>(<%= recipefood.amount %>個分)</h4>
                 <div class="card-body">
-                  <h5 class="card-title">カロリー：<%= recipefood_format(@myfood.calorie, recipefood.amount) %>kcal</h5>
+                  <h4 class="card-title">カロリー：<%= recipefood_format(@myfood.calorie, recipefood.amount) %>kcal</h4>
                   <p class="card-text">P：<%= recipefood_format(@myfood.protein, recipefood.amount) %>g　
                     F：<%= recipefood_format(@myfood.fat, recipefood.amount) %>g　
                     C：<%= recipefood_format(@myfood.carbo, recipefood.amount) %>g
@@ -138,7 +130,7 @@
   <div class="myfood-import">
   <div class="row">
     <div class="mx-auto">
-      <%= form_with(url: import_user_myfoods_path, multipart: true) do |f| %>
+      <%= form_with(url: import_user_myfoods_path, multipart: true, local: true) do |f| %>
         <%= f.file_field :file %>
         <%= f.hidden_field :start_time, value: params[:start_time] %>
         <%= f.hidden_field :start_date, value: params[:start_date] %>
@@ -194,32 +186,28 @@
 <% end %>
 
 <div class="box1">
-  <div class="row">
-    <div class="col-md-12">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th><%= Myfood.human_attribute_name(:food_name) %></th>
-            <th><%= Myfood.human_attribute_name(:calorie) %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @myfoods.each do |myfood| %>
-            <% unless params[:recipe_id].present? %>
-              <tr data-href=<%= new_user_todaymeal_path(@user, switching: "record", myfood_id: myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>>
-            <% else %>  
-              <tr data-href=<%= new_user_recipefood_path(@user, switching: "record", myfood_id: myfood, timezone_id: params[:timezone_id], todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], start_time: params[:start_time], start_date: params[:start_date]) %>>
-            <% end %>
-              <td>
-                <%= myfood.food_name %>
-              </td>
-              <td><%= myfood.calorie %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><%= Myfood.human_attribute_name(:food_name) %></th>
+        <th><%= Myfood.human_attribute_name(:calorie) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @myfoods.each do |myfood| %>
+        <% unless params[:recipe_id].present? %>
+          <tr data-href=<%= new_user_todaymeal_path(@user, switching: "record", myfood_id: myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>>
+        <% else %>  
+          <tr data-href=<%= new_user_recipefood_path(@user, switching: "record", myfood_id: myfood, timezone_id: params[:timezone_id], todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], start_time: params[:start_time], start_date: params[:start_date]) %>>
+        <% end %>
+          <td>
+            <%= myfood.food_name %>
+          </td>
+          <td><%= myfood.calorie %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
 <% unless params[:search].present? %>
