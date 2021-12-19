@@ -3,7 +3,6 @@ class CreateTraningevents < ActiveRecord::Migration[5.2]
     create_table :traningevents do |t|
       
       t.string :traning_name
-      t.string :sub_body_part
       
       t.bigint :subbodypart_id
       t.bigint :traningtype_id

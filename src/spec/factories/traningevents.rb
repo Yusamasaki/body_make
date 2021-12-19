@@ -1,8 +1,7 @@
 FactoryBot.define do
   factory :traningevent do
-    bodypart { "MyString" }
-    traning_type { "MyString" }
-    traning_name { "MyString" }
-    sub_bodypart { "MyString" }
+    traning_name {"ベンチプレス"}
+    bodypart_id { 1 }
+    association :user
   end
 end

@@ -5,6 +5,7 @@ class TodaymealsController < ApplicationController
   before_action :set_myfood, only: [:new, :edit, :update]
   before_action :set_meals, only: [:edit, :update]
   before_action :set_nutritions, only: [:index, :new, :create, :edit, :update]
+  before_action :set_meals_analysis, only: [:index, :new]
   before_action :set_timezones, only: [:index, :new, :create]
   before_action :set_timezone, only: [:new, :create]
   

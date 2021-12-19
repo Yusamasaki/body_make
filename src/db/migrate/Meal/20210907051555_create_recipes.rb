@@ -12,7 +12,6 @@ class CreateRecipes < ActiveRecord::Migration[5.2]
       t.string :note
       
       t.references :user, foreign_key: true
-      t.references :timezone, foreign_key: true
 
       t.timestamps
     end

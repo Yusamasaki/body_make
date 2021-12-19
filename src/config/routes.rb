@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
     get 'setting'
     get 'bodyweights/calender'
-    get 'bodyweights/bodyfat_percentage_edit'
+    
     get 'today_tranings/traning_new'
     get 'today_tranings/traning_analysis'
     get 'today_tranings/chart'
@@ -36,7 +36,10 @@ Rails.application.routes.draw do
 
     get 'detail'
 
-    resources :bodyweights, only: [:edit, :update]
+    resources :bodyweights, only: [:edit, :update] do
+      get 'bodyfat_percentage_edit'
+      patch 'bodyfat_percentage_update'
+    end
 
     resources :targetweights, only: [:new, :create, :edit, :update]
     resources :bmrs, only: [:new, :create, :edit, :update]
