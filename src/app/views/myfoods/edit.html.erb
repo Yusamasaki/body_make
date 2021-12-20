@@ -17,7 +17,7 @@
     
       <%= f.submit yield(:btn_text), class: "btn btn-md btn-original btn-block" %>
       <%= link_to "削除", user_myfood_path(@user, @myfood, recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :delete,
-          data: { confirm: "「#{@myfood.food_name}」を削除します。本当によろしいですか？" }, class: "btn btn-md btn-danger btn-block" %>
+          data: { confirm: "「#{@myfood.food_name}」を削除します。なお、同時に日々の記録していたデータも消えてしまいます。本当によろしいですか？" }, class: "btn btn-md btn-danger btn-block" %>
     
   <% end %>
   </div>

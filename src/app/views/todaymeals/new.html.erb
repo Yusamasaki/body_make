@@ -1,4 +1,4 @@
-<% provide(:title, "食事記録") %>
+<% provide(:title, "#{@myfood.food_name}の食事内容記録") %>
 <% provide(:btn_text, "記録") %>
 
 <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
@@ -78,6 +78,7 @@
 <% if params[:switching] == "record" %>
   <div class="box1">
     <div class="box-inner">
+      <h5 class="center"><%= yield(:title) %></h5><br>
       <%= form_with(model: @todaymeal, url: user_todaymeals_path(@user, switching: params[:switching], myfood_id: params[:myfood_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
         <%= render partial: "form", locals: { f: f } %>
       <% end %>

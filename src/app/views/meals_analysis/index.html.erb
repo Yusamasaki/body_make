@@ -36,7 +36,7 @@
             <div>RaderChart</div>
           <% end %>
         <% else %>
-          <%= link_to(user_meals_analysis_index_path(@user, graph: "rader", start_time: params[:start_time], start_date: params[:start_date]), class: "nav-link", data: {"turbolinks"=>false}) do %>
+          <%= link_to(user_meals_analysis_index_path(@user, graph: "rader", start_time: params[:start_time], start_date: params[:start_date]), class: "nav-link",   data: {"turbolinks"=>false}) do %>
             <div>RaderChart</div>
           <% end %>
         <% end %>
@@ -46,39 +46,43 @@
 </div>
 
 <div class="box1">
-  <div class="row">
-    <div class="mx-auto">
-      <h5>
-        <%= link_to(user_meals_analysis_index_path(@user, start_time: params[:start_time], start_date: params[:start_date].to_date.prev_month), data: {"turbolinks" => false}) do %>
-          <div class="arrow round-arrow-left"></div>
-        <% end %>
-        <%= params[:start_date].to_date.year %>年<%= params[:start_date].to_date.mon %>月
-        <%= link_to(user_meals_analysis_index_path(@user, start_time: params[:start_time], start_date: params[:start_date].to_date.next_month), data: {"turbolinks" => false}) do %>
-          <div class="arrow round-arrow-right"></div>
-        <% end %>
-      </h5>
-    </div>
-  </div>
+  <h4 class="center" style="padding: 10px;">
+    <%= link_to(user_meals_analysis_index_path(@user, start_time: params[:start_time], start_date: params[:start_date].to_date.prev_month), data: {"turbolinks" => false}) do %>
+      <div class="arrow round-arrow-left"></div>
+    <% end %>
+    <%= params[:start_date].to_date.year %>年<%= params[:start_date].to_date.mon %>月
+    <%= link_to(user_meals_analysis_index_path(@user, start_time: params[:start_time], start_date: params[:start_date].to_date.next_month), data: {"turbolinks" => false}) do %>
+      <div class="arrow round-arrow-right"></div>
+    <% end %>
+  </h4>
 </div>
 
 <% if params[:graph] == "line" %>
-  <div class="box1">
-    <div class="row">
-      <div class="col-md-12">
-        <canvas id="myMealChart" width="500" height="300"></canvas>
-        <script>meals_graph();</script>
+  <% if @todaymeals.present? || @todaymeal_recipes.present? %>
+    <div class="box1">
+      <div class="row">
+        <div class="col-md-12">
+          <canvas id="myMealChart" width="500" height="300"></canvas>
+          <script>meals_graph();</script>
+        </div>
       </div>
     </div>
-  </div>
+  <% else %>
+    <div class="box1">
+      <h3 class="center" style="padding: 10px;">食事が登録されてません。食事を登録してください。</h3>
+    </div>
+  <% end %>  
 <% end %>
 
 <% if params[:graph] == "rader" %>
-  <div class="box1">
-    <div class="row">
-      <div class="col-md-12">
-        <canvas id="myRadarChart" width="500" height="300"></canvas>
-        <script>myfood_graph();</script>
-      </div>
+  <% if @todaymeals.present? || @todaymeal_recipes.present? %>
+    <div class="box1">
+      <canvas id="myRadarChart" width="500" height="300"></canvas>
+      <script>myfood_graph();</script>
     </div>
-  </div>
+  <% else %>
+    <div class="box1">
+      <h3 class="center" style="padding: 10px;">食事が登録されてません。食事を登録してください。</h3>
+    </div>
+  <% end %>  
 <% end %>

@@ -25,11 +25,11 @@
         <li class="nav-item">
           <% if controller_name == "today_tranings" && action_name == "traning_analysis" %>
             <%= link_to(user_today_tranings_traning_analysis_path(@user, traningevent_id: 1, start_time: params[:start_time], start_date: params[:start_date]), class: "nav-link active", data: {"turbolinks"=>false}) do %>
-              <div>Line Chart</div>
+              <div>Analysis</div>
             <% end %>
           <% else %>
             <%= link_to(user_today_tranings_traning_analysis_path(@user, traningevent_id: 1, start_time: params[:start_time], start_date: params[:start_date]), class: "nav-link", data: {"turbolinks"=>false}) do %>
-              <div>Line Chart</div>
+              <div>Analysis</div>
             <% end %>
           <% end %>
         </li>
@@ -247,7 +247,7 @@
           <% if controller_name == "today_tranings" && action_name == "traning_new" %>
             <a class="nav-link active" href="#Record">Record</a>
           <% else %>
-            <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, traningtype_id: 1, traningevent_id: 1, bodypart_id: 1, subbodypart_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
+            <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
           <% end %>
         </li>
         <li class="nav-item">
@@ -264,7 +264,7 @@
   <% if controller_name == "traningevents" && action_name == "new" || controller_name == "traningevents" && action_name == "create" %>
     <ul class="nav nav-pills nav-fill justify-content-center" id="myTab" role="tablist">
       <li class="nav-item">
-        <div><h5>現在の種目一覧</h5></div>
+        <div><h4>現在の種目一覧</h4></div>
       </li>
     </ul>
   <% end %>

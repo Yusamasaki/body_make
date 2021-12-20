@@ -44,8 +44,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
-    archive-zip (0.12.0)
-      io-like (~> 0.3.0)
     arel (9.0.0)
     autoprefixer-rails (10.3.3.0)
       execjs (~> 2)
@@ -69,9 +67,6 @@ GEM
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
     childprocess (4.1.0)
-    chromedriver-helper (2.1.1)
-      archive-zip (~> 0.10)
-      nokogiri (~> 1.8)
     cocoon (1.2.15)
     coderay (1.1.3)
     coffee-rails (4.2.2)
@@ -140,7 +135,6 @@ GEM
     hashie (5.0.0)
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
-    io-like (0.3.1)
     jbuilder (2.11.3)
       activesupport (>= 5.0.0)
     jquery-rails (4.4.0)
@@ -232,6 +226,10 @@ GEM
       bundler (>= 1.3.0)
       railties (= 5.2.6)
       sprockets-rails (>= 2.0.0)
+    rails-controller-testing (1.0.5)
+      actionpack (>= 5.0.1.rc1)
+      actionview (>= 5.0.1.rc1)
+      activesupport (>= 5.0.1.rc1)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -329,6 +327,10 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webdrivers (5.0.0)
+      nokogiri (~> 1.6)
+      rubyzip (>= 1.3.0)
+      selenium-webdriver (~> 4.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -344,7 +346,6 @@ DEPENDENCIES
   bootstrap (~> 4.6.0)
   byebug
   capybara (>= 2.15)
-  chromedriver-helper
   cocoon
   coffee-rails (~> 4.2)
   database_cleaner
@@ -366,6 +367,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 3.11)
   rails (~> 5.2.6)
+  rails-controller-testing
   roo
   rspec-rails
   sass-rails (~> 5.0)
@@ -377,6 +379,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  webdrivers
 
 RUBY VERSION
    ruby 2.7.3p183
