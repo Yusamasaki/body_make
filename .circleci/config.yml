@@ -2,32 +2,24 @@ version: 2.1
 
 orbs:
   ruby: circleci/ruby@1.1.2
-  node: circleci/node@2
-
-# setup
-commands:
-  setup:
-    steps:
-      - checkout
-      - ruby/install-deps
-      - node/install-packages:
-          pkg-manager: yarn
-          cache-key: "yarn.lock"
 
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.7-node
+      - image: circleci/ruby:2.7
+    working_directory: ~/intern/src
     steps:
-      - setup
+      - checkout:
+        path: ~/intern/src
+      - ruby/install-deps
+      
   test:
     docker:
-      - image: circleci/ruby:2.7-node
-      - image: circleci/postgres:11.6-alpine
-        name: "db"
+      - image: circleci/ruby:2.7
+      - image: circleci/mysql:5.5
         environment:
-          POSTGRES_USER: postgres
-          POSTGRES_DB: myapp_test
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: myapp_development
           POSTGRES_PASSWORD: ""
     environment:
       BUNDLE_JOBS: "4"
