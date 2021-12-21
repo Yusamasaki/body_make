@@ -12,7 +12,6 @@
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <a class="nav-item nav-link active" id="nav-category-tab" data-toggle="tab" href="#nav-category" role="tab" aria-controls="nav-category" aria-selected="true" style="border: 0.5px solid #f8f9fa;">カテゴリー</a>
         <a class="nav-item nav-link" id="nav-user-tab" data-toggle="tab" href="#nav-user" role="tab" aria-controls="nav-user" aria-selected="false" style="border: 0.5px solid #f8f9fa;">ユーザー</a>
-        <a class="nav-item nav-link" id="nav-admin-tab" data-toggle="tab" href="#nav-admin" role="tab" aria-controls="nav-admin" aria-selected="false" style="border: 0.5px solid #f8f9fa;">管理者設定</a>
       </div>
     </nav><br>
 
@@ -23,27 +22,6 @@
       <div class="tab-pane fade" id="nav-user" role="tabpanel" aria-labelledby="nav-user-tab">
         <%= render 'users/index' %><br>
       </div>
-      <div class="tab-pane fade" id="nav-admin" role="tabpanel" aria-labelledby="nav-admin-tab">
-        <div>
-          <%= current_admin.email %>
-        </div>
-      </div>
     </div>
   </div>
 </div>
-
-<script>
-  $(function() { 
-    // for bootstrap 3 use 'shown.bs.tab', for bootstrap 2 use 'shown' in the next line
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        // save the latest tab; use cookies if you like 'em better:
-        localStorage.setItem('lastTab', $(this).attr('href'));
-    });
-
-    // go to the latest tab, if it exists:
-    var lastTab = localStorage.getItem('lastTab');
-    if (lastTab) {
-        $('[href="' + lastTab + '"]').tab('show');
-    }
-});
-</script>
