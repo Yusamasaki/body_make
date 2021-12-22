@@ -17,25 +17,6 @@ class ApplicationController < ActionController::Base
     @user = current_user
   end
   
-  # ログイン済みのユーザーか確認します。
-  def logged_in_user
-    unless user_signed_in?.to_s == "true"
-      # store_location
-      flash[:danger] = "ログインしてください。"
-      redirect_to root_url
-    end
-  end
-  
-  # ログアウト済みのユーザーか確認。
-  def log_out_user
-    redirect_to user_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current) if user_signed_in?
-  end
-    
-  # アクセスしたユーザーが現在ログインしているユーザーか確認します。
-  def correct_user
-    redirect_to(users_url) unless current_user?(@user)
-  end
-  
   # 基礎代謝　＆　目標設定
   def set_basic
     @bmr = @user.bmr

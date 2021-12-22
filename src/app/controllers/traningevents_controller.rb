@@ -1,6 +1,7 @@
 class TraningeventsController < ApplicationController
 
-  before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  
   before_action :set_user, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_traningevent, only: [:edit, :update, :destroy]
   before_action :set_traning_tab, only: [:new, :create, :edit, :update]

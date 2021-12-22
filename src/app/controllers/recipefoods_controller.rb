@@ -1,6 +1,7 @@
 class RecipefoodsController < ApplicationController
 
-  before_action :logged_in_user, only: [:new, :create, :destroy]
+  before_action :authenticate_user!
+  
   before_action :set_user, only: [:new, :create, :destroy]
   before_action :set_nutritions, only: [:new, :create]
   
