@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   
+  require 'digest/md5'
+  
   # 小数点の誤差をなくす
   require 'bigdecimal'
   
@@ -11,6 +13,20 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
     devise_parameter_sanitizer.permit :sign_in, keys: added_attrs
+  end
+  
+  def user_access_false
+    if user_signed_in?
+      flash[:danger] = "編集権限がありません。"
+      redirect_to user_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)
+    end
+  end
+  
+  def admin_access_false
+    if admin_signed_in?
+      flash[:danger] = "編集権限がありません。"
+      redirect_to admin_path(current_admin)
+    end
   end
   
   def set_user
