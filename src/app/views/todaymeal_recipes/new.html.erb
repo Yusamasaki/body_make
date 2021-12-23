@@ -145,7 +145,7 @@
 <% if params[:switching] == "record" %>
   <div class="box1">
     <div class="box-inner">
-      <h5 class="center"><%= yield(:title) %></h5><br>
+      <h5><%= yield(:title) %></h5><br>
       <%= form_with(model: @todaymeal_recipe, url: user_todaymeal_recipes_path(@user, switching: params[:switching], before: params[:before], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
         
