@@ -4,11 +4,11 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:show, :setting]
   
   before_action :first_setting, only: :show
-  before_action :today_exercise_set_one_month, only: [:show]
+  before_action :today_exercise_set_one_month, only: :show
   before_action :set_user, only: [:show, :setting]
   before_action :set_basic, only: [:show, :setting]
-  before_action :set_bmr, only: [:setting]
-  before_action :start_time_next_valid, only: [:show]
+  before_action :set_bmr, only: :setting
+  before_action :start_time_next_valid, only: :show
   
   def first_setting
     if current_user.bmr.present?

@@ -41,13 +41,11 @@ class MyfoodsController < ApplicationController
 
   def update
     @myfood = @user.myfoods.find(params[:id])
-    ActiveRecord::Base.transaction do
-      @myfood.update_attributes!(myfood_params)
-        flash[:success] = "更新に成功しました"
-        redirect_to new_user_todaymeal_path(@user, switching: "record", myfood_id: @myfood, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
-    rescue ActiveRecord::RecordInvalid
-        flash[:danger] = "更新に失敗しました"
-        redirect_to edit_user_myfood_path(@user, @myfood, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+    if @myfood.update_attributes(myfood_params)
+      flash[:success] = "更新に成功しました"
+      redirect_to new_user_todaymeal_path(@user, switching: "record", myfood_id: @myfood, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+    else
+      render 'edit'
     end
   end
 
@@ -79,9 +77,19 @@ class MyfoodsController < ApplicationController
   end
 
   def import
-    cnt = @user.myfoods.import(params[:file])
-    flash[:success] = "#{cnt}件の登録に成功しました。"
-    redirect_to user_myfoods_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: 1, start_date: params[:start_date], start_time: params[:start_time])
+    if params[:file].present? && params[:file].original_filename && File.extname(params[:file].original_filename) == ".csv"
+      cnt = @user.myfoods.import(params[:file])
+      unless cnt == 0
+        flash[:success] = "#{cnt}件の登録に成功しました。"
+        redirect_to user_myfoods_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: 1, start_date: params[:start_date], start_time: params[:start_time])
+      else
+        flash[:danger] = "登録件数は０件です"
+        redirect_to user_myfoods_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: 1, start_date: params[:start_date], start_time: params[:start_time])
+      end
+    else
+      flash[:danger] = "登録に失敗しました。"
+      redirect_to user_myfoods_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: 1, start_date: params[:start_date], start_time: params[:start_time])
+    end
   end
 
   private

@@ -3,8 +3,8 @@ class Targetweight < ApplicationRecord
 
   validates :now_body_weight, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 200, message: " : 1 ~ 200 までの数値を入力ください。"}
   validates :goal_body_weight, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 200, message: " : 1 ~ 200 までの数値を入力ください。"}
-  validates :now_bodyfat_percentage, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 100, message: " : 0 ~ 100 までの数値を入力ください。"}
-  validates :goal_bodyfat_percentage, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 100, message: " : 0 ~ 100 までの数値を入力ください。"}
+  validates :now_bodyfat_percentage, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 100, message: " : 1 ~ 100 までの数値を入力ください。"}
+  validates :goal_bodyfat_percentage, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 100, message: " : 1 ~ 100 までの数値を入力ください。"}
   validates :beginning_date, presence: true
   validates :target_date, presence: true
 

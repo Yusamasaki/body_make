@@ -162,7 +162,7 @@
     <div class="mx-auto">
       <div class="fuzzy_search">
       <%= form_with(url: user_myfoods_path, method: :get, local: true) do |f| %>
-        <%= f.text_field :search, placeholder:"食品名を入力" %>
+        <%= f.text_field :search, placeholder: "食品名を入力" %>
         <%= f.hidden_field :start_time, value: params[:start_time] %>
         <%= f.hidden_field :start_date, value: params[:start_date] %>
         <%= f.hidden_field :timezone_id, value: params[:timezone_id] %>
