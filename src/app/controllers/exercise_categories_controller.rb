@@ -16,7 +16,7 @@ class ExerciseCategoriesController < ApplicationController
     if @category.save
       redirect_to admin_url(current_admin), flash: { success: "カテゴリー「#{@category.name}」を登録しました。" }
     else
-      render :new
+      redirect_to admin_url(current_admin)
     end
   end
 

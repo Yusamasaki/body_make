@@ -13,13 +13,29 @@ class TodayExercisesController < ApplicationController
   def index
     @today_exercises = @user.today_exercise.where(start_time: params[:start_time]).order(:id)
 
+    # チャート用の今月分の運動データ
     month_before = params[:start_time].to_date.beginning_of_month
     after_month = month_before.end_of_month
-    gon.start_times = [*month_before.day..after_month.day]
-    month_body_weights = [@user.today_exercise.where(start_time: month_before..after_month).group(:start_time).sum(:body_weight).values]
+    gon.month_start_times = [*month_before.day..after_month.day]
+    # month_body_weights = [@user.today_exercise.where(start_time: month_before..after_month).group(:start_time).sum(:body_weight).values]
 
-    gon.calorie =
+    gon.month_calorie =
       @user.today_exercise.where(start_time: month_before..after_month).order(:id).group_by {|exercise| exercise.start_time }.map { |start_time, value|
+        value.drop(1).sum { |exercise|
+          ((((exercise.exercise_time_hour * 60) + (exercise.exercise_time_min)) / 60.to_f) \
+          * ExerciseContent.find(exercise.exercise_content_id.to_i).mets \
+          * exercise.body_weight.to_f \
+          * 1.05).truncate(1)
+        }
+      }
+
+    # チャート用の今週分の運動データ
+    week_before = params[:start_time].to_date.beginning_of_week
+    after_week = week_before.end_of_week
+    gon.week_start_times = [*week_before.day..after_week.day]
+
+    gon.week_calorie =
+      @user.today_exercise.where(start_time: week_before..after_week).order(:id).group_by {|exercise| exercise.start_time }.map { |start_time, value|
         value.drop(1).sum { |exercise|
           ((((exercise.exercise_time_hour * 60) + (exercise.exercise_time_min)) / 60.to_f) \
           * ExerciseContent.find(exercise.exercise_content_id.to_i).mets \
