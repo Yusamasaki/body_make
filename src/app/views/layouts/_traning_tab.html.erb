@@ -261,7 +261,7 @@
           <% if controller_name == "today_tranings" && action_name == "traning_new" %>
             <a class="nav-link active" href="#Record">Record</a>
           <% else %>
-            <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
+            <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, traningevent_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
           <% end %>
         </li>
         <li class="nav-item">

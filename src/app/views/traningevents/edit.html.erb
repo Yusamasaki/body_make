@@ -7,10 +7,10 @@
 <div class="box1">
   <div class="box-inner">
     <h5>トレーニング種目編集</h5><br>
-    <%= form_with(model: @traningevent, url: user_traningevent_path(@user, @traningevent, start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
+    <%= form_with(model: @traningevent, url: user_traningevent_path(@user, @traningevent, bodypart_id: params[:bodypart_id], subbodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
       
-      <%= f.label :traning_name, class: "label-form" %>
+      <%= f.label :traning_name, class: "label-form" %><a style="color: red; margin-left: 5px;">*入力必須(上のタブで部位名など選択)</a>
       <%= f.text_field :traning_name, class: "form-control" %><br>
       
       <%= f.submit yield(:btn_text), class: "btn btn-md btn-original btn-form  btn-block btn-setup" %>
