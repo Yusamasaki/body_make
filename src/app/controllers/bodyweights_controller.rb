@@ -1,6 +1,6 @@
 class BodyweightsController < ApplicationController
+  before_action :authenticate_user!
   
-  before_action :logged_in_user, only: [:edit, :update, :calender]
   before_action :set_user, only: [:edit, :update, :calender, :bodyfat_percentage_edit, :bodyfat_percentage_update]
   before_action :set_basic, only: [:edit]
 

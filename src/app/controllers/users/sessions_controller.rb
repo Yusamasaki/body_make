@@ -16,9 +16,14 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # GET /resource/sign_in
-  # def new
-  #   super
-  # end
+  def new
+    if admin_signed_in?
+      flash[:danger] = "編集権限がありません。"
+      redirect_to admin_path(current_admin)
+    else
+      super
+    end
+  end
 
   # POST /resource/sign_in
   # def create

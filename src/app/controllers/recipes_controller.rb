@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
 
-  before_action :logged_in_user, only: [:index, :new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  
   before_action :set_user, only: [:index, :new, :create, :edit, :update, :destroy]
 
   def index
@@ -33,17 +34,15 @@ class RecipesController < ApplicationController
 
   def update
     @recipe = @user.recipes.find(params[:id])
-    ActiveRecord::Base.transaction do
-      @recipe.update_attributes!(recipe_params)
+    if @recipe.update_attributes(recipe_params)
       flash[:success] = "#{@recipe.recipe_name}の更新に成功しました。"
       if params[:before] == "new"
         redirect_to new_user_todaymeal_recipe_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
       elsif params[:before] == "edit"
         redirect_to edit_user_todaymeal_recipe_path(@user, params[:todaymeal_recipe_id], before: params[:before], recipe_id: @recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
       end
-    rescue ActiveRecord::RecordInvalid
-      flash[:danger] = "変更に失敗しました。"
-      redirect_to edit_user_recipe_path(@user, @recipe, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time])
+    else
+      render 'edit'
     end
   end
 

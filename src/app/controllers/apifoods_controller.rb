@@ -1,6 +1,7 @@
 class ApifoodsController < ApplicationController
 
-  before_action :logged_in_user, only: :index
+  before_action :authenticate_user!
+  
   before_action :set_user, only: [:index]
   before_action :set_basic, only: [:index]
 

@@ -1,8 +1,8 @@
 class TodayExercisesController < ApplicationController
   include TodayExercisesHelper
 
-  before_action :logged_in_user, only: [:index, :new, :create, :edit, :update, :destroy, :new_contents, :edit_contents, :calender]
   before_action :authenticate_user!
+  
   before_action :set_user
   before_action :set_basic, only: [:index]
   before_action :today_exercise_set_one_month, only: [:index]

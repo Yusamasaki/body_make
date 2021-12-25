@@ -12,6 +12,7 @@
 <div class="form-box1">
   <div class="box-inner">
     <%= form_with(model: @recipe, url: user_recipe_path(@user, @recipe, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
       
       <%= f.label :recipe_name, class: "label-form" %><br>
       <%= f.text_field :recipe_name, class: "form-control" %><br>

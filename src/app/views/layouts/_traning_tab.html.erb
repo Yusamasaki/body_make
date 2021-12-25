@@ -1,15 +1,21 @@
 <div class="jumbotron">
   <% unless controller_name == "traningevents" && action_name == "edit" || controller_name == "traningevents" && action_name == "update" %>
     <div class="box1">
-      <!--大項目選択タブ-->
+      
+      <!--------------- 大項目選択タブ --------------->
+      
       <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
-        <!--HOMEタブ-->
+        
+        <!--------------- HOMEタブ --------------->
+        
         <li class="nav-item">
           <a class="nav-link" href="<%= user_today_tranings_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">
             HOME
           </a>
         </li>
-        <!--Recordタブ-->
+        
+        <!--------------- Recordタブ --------------->
+        
         <li class="nav-item">
           <% if controller_name == "today_tranings" && action_name == "traning_new" || controller_name == "traningevents" && action_name == "new" || controller_name == "traningevents" && action_name == "create" %>
             <a class="nav-link active" href="<%= user_today_tranings_traning_new_path(@user, traningevent_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>">
@@ -21,7 +27,9 @@
             </a>
           <% end %>
         </li>
-        <!--Analysisタブ-->
+        
+        <!--------------- Analysisタブ --------------->
+        
         <li class="nav-item">
           <% if controller_name == "today_tranings" && action_name == "traning_analysis" %>
             <%= link_to(user_today_tranings_traning_analysis_path(@user, traningevent_id: 1, start_time: params[:start_time], start_date: params[:start_date]), class: "nav-link active", data: {"turbolinks"=>false}) do %>
@@ -40,7 +48,9 @@
 
   <div class="box1">
     <div class="tab-area">
-      <!--Bodypartタブ-->
+      
+      <!--------------- Bodypartタブ --------------->
+      
       <ul class="nav nav-fill justify-content-center tab-menu" id="myTab" role="tablist">
         <li class="nav-item">
           <% if controller_name == "today_tranings" && action_name == "traning_new" || controller_name == "today_tranings" && action_name == "update" %>
@@ -101,7 +111,9 @@
       </ul>
     </div>
   </div>
-
+  
+  <!--------------- SubBodypartタブ --------------->
+  
   <% if params[:bodypart_id].present? %>
     <div class="box1">
       <div class="tab-area">
@@ -174,8 +186,9 @@
       </div>
     </div>
   <% end %>
-
-  <!--Traningtypeタブ-->
+  
+  <!--------------- Traningtypeタブ --------------->
+  
   <div class="box1">
     <div class="tab-area">
       <ul class="nav nav-fill justify-content-center tab-menu" id="myTab" role="tablist">
@@ -239,7 +252,8 @@
     </div>
   </div>
 
-  <!--Record && Createタブ-->
+  <!--------------- Record && Createタブ --------------->
+  
   <% unless controller_name == "today_tranings" && action_name == "traning_analysis" || controller_name == "traningevents" && action_name == "edit" || controller_name == "traningevents" && action_name == "update" %>
     <div class="box1">
       <ul class="nav nav-fill justify-content-center mb-3" id="myTab" role="tablist">
@@ -247,7 +261,7 @@
           <% if controller_name == "today_tranings" && action_name == "traning_new" %>
             <a class="nav-link active" href="#Record">Record</a>
           <% else %>
-            <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
+            <a class="nav-link" href="<%= user_today_tranings_traning_new_path(@user, traningevent_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
           <% end %>
         </li>
         <li class="nav-item">
@@ -261,15 +275,17 @@
     </div>
   <% end %>
 
+  <!--------------- Createタブ時タイトル --------------->
+
   <% if controller_name == "traningevents" && action_name == "new" || controller_name == "traningevents" && action_name == "create" %>
     <ul class="nav nav-pills nav-fill justify-content-center" id="myTab" role="tablist">
       <li class="nav-item">
-        <div><h4>現在の種目一覧</h4></div>
+        <br><h4>現在の種目一覧</h4><br>
       </li>
     </ul>
   <% end %>
 
-  <!--Traningeventタブ-->
+  <!--------------- TraningEventタブ --------------->
   <% if controller_name == "traningevents" && action_name == "new" || controller_name == "traningevents" && action_name == "create" || controller_name == "traningevents" && action_name == "edit" || controller_name == "traningevents" && action_name == "update" %>
     <div>
   <% else %>

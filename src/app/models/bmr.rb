@@ -2,7 +2,7 @@ class Bmr < ApplicationRecord
   belongs_to :user
 
   validates :gender, presence: true
-  validates :age, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 200, message: " : 0 ~ 200 までの数値を入力ください。"}
+  validates :age, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 200, message: " : 1 ~ 200 までの数値を入力ください。"}
   validates :height, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 300, message: " : 1 ~ 300 までの数値を入力ください。"}
   validates :activity, presence: true
   

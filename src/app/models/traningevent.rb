@@ -7,5 +7,7 @@ class Traningevent < ApplicationRecord
   
   validates :traning_name, presence: true, length: { maximum: 50 }, uniqueness: true
   validates :bodypart_id, presence: true
+  validates :subbodypart_id, presence: true
+  validates :traningtype_id, presence: true
   
 end
