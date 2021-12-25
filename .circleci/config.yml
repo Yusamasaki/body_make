@@ -11,7 +11,7 @@ jobs:
     # 実際やるjobsの内容
     steps:
       - checkout:
-        path: ~/intern/src
+          path: ~/intern/src
       - ruby/install-deps
       # ↑bundle installのようなもの
       
@@ -31,7 +31,7 @@ jobs:
     working_directory: ~/intern/src
     steps:
       - checkout:
-        path: ~/intern
+          path: ~/intern
       - ruby/install-deps
       - run:
           name: Database setup
