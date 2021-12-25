@@ -18,7 +18,7 @@
 </div>
 
 <div class="box1 box1-padding">
-  <h5 class="center">運動内容選択</h5>
+  <h6 class="center">運動内容選択</h6>
   <div class="f-container exercise-category-group">
     <% @categories.each do |category| %>
       <details>
@@ -39,11 +39,20 @@
   </div>
 </div>
 
-<div class="box1">
+<div class="box1 exercise_pc_display">
   <div class="col-md-12 align-self-center">
     <div class="exercise-chart">
-      <canvas id="exercise_myChart" width="200" height="50"></canvas>
-      <script>exercise_draw_graph();</script>
+      <canvas id="month_exercise_chart" width="200" height="50"></canvas>
+      <script>month_exercise_draw_graph();</script>
+    </div>
+  </div>
+</div>
+
+<div class="box1 exercise_mobile_display">
+  <div class="col-md-12 align-self-center">
+    <div class="exercise-chart">
+      <canvas id="week_exercise_chart" width="200" height="100"></canvas>
+      <script>week_exercise_draw_graph();</script>
     </div>
   </div>
 </div>
