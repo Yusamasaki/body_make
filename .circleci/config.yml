@@ -15,7 +15,7 @@ jobs:
       - run:
           name: Which bundler?
           command: bundle -v
-      - ruby/install-deps
+      - ruby/bundle-install
       # ↑bundle installのようなもの
       
   test:
