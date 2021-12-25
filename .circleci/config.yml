@@ -6,7 +6,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.7
+      - image: circleci/ruby:2.7.3
     working_directory: ~/intern/src
     # 実際やるjobsの内容
     steps:
@@ -15,36 +15,36 @@ jobs:
       - ruby/install-deps
       # ↑bundle installのようなもの
       
-  # test:
-  #   docker:
-  #     - image: circleci/ruby:2.7
-  #     - image: circleci/mysql:5.5
-  #       environment:
-  #         MYSQL_ROOT_PASSWORD: password
-  #         MYSQL_DATABASE: myapp_test
-  #         MYSQL_USER: admin
-  #   environment:
-  #     BUNDLE_JOBS: "3"
-  #     BUNDLE_RETRY: "3"
-  #     APP_DATABASE_HOST: "127.0.0.1"
-  #     RAILS_ENV: test
-  #   working_directory: ~/intern/src
-  #   steps:
-  #     - checkout:
-  #         path: ~/intern
-  #     - ruby/install-deps
-  #     - run:
-  #         name: Database setup
-  #         command: bundle exec rails db:migrate
-  #     - run:
-  #         name: test
-  #         command: bundle exec rake test
+  test:
+    docker:
+      - image: circleci/ruby:2.7
+      - image: circleci/mysql:5.5
+        environment:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: myapp_test
+          MYSQL_USER: admin
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      APP_DATABASE_HOST: "127.0.0.1"
+      RAILS_ENV: test
+    working_directory: ~/intern/src
+    steps:
+      - checkout:
+          path: ~/intern
+      - ruby/install-deps
+      - run:
+          name: Database setup
+          command: bundle exec rails db:migrate
+      - run:
+          name: test
+          command: bundle exec rake test
 
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
-      # - test:
-      #     requires:
-      #       - build
+      - test:
+          requires:
+            - build
