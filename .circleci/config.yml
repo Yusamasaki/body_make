@@ -8,10 +8,12 @@ jobs:
     docker:
       - image: circleci/ruby:2.7
     working_directory: ~/intern/src
+    # 実際やるjobsの内容
     steps:
       - checkout:
         path: ~/intern/src
       - ruby/install-deps
+      # ↑bundle installのようなもの
       
   test:
     docker:
@@ -19,30 +21,28 @@ jobs:
       - image: circleci/mysql:5.5
         environment:
           MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: myapp_development
-          POSTGRES_PASSWORD: ""
+          MYSQL_DATABASE: myapp_test
+          MYSQL_USER: admin
     environment:
-      BUNDLE_JOBS: "4"
+      BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
-      PGHOST: 127.0.0.1
-      PGUSER: postgres
-      PGPASSWORD: ""
+      APP_DATABASE_HOST: "127.0.0.1"
       RAILS_ENV: test
+    working_directory: ~/intern/src
     steps:
-      - setup
-      - run:
-          name: rails db:migrate
-          command: bundle exec rails db:migrate
+      - checkout:
+        path: ~/intern
+      - ruby/install-deps
       - run:
           name: Database setup
-          command: bundle exec rails db:schema:load --trace
+          command: bundle exec rails db:migrate
       - run:
-          name: Rspec
-          command: bundle exec rspec
+          name: test
+          command: bundle exec rake test
 
 workflows:
   version: 2
-  test_and_deploy:
+  build_and_test:
     jobs:
       - build
       - test:
