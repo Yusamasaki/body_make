@@ -2,49 +2,73 @@ version: 2.1
 
 orbs:
   ruby: circleci/ruby@1.1.2
+  heroku: circleci/heroku@1.2.3
 
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.7
+      - image: circleci/ruby:2.7.3
     working_directory: ~/intern/src
+    # 実際やるjobsの内容
     steps:
       - checkout:
-        path: ~/intern/src
+          path: ~/intern
       - ruby/install-deps
+      # ↑bundle installのようなもの
       
-  test:
+  # test:
+  #   docker:
+  #     - image: circleci/ruby:2.7.3
+  #     # - image: circleci/postgres:12
+  #     #   environment:
+  #     #     POSTGRES_PASSWORD: "password"
+  #     #     POSTGRES_DATABASE: "myapp_test"
+  #     #     POSTGRES_USER: "admin"
+  #   # environment:
+  #   #   BUNDLE_JOBS: "3"
+  #   #   BUNDLE_RETRY: "3"
+  #   #   APP_DATABASE_HOST: "127.0.0.1"
+  #   #   RAILS_ENV: test
+  #   # working_directory: ~/intern/src
+  #   steps:
+  #     - checkout:
+  #         path: ~/intern
+  #     # - ruby/install-deps
+  #     # - run:
+  #     #     name: Database setup
+  #     #     command: bundle exec rails db:migrate
+  #     - run:
+  #         name: test
+  #         command: docker-compose run --rm web rspec -f documentation
+  deploy:
     docker:
-      - image: circleci/ruby:2.7
-      - image: circleci/mysql:5.5
-        environment:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: myapp_development
-          POSTGRES_PASSWORD: ""
-    environment:
-      BUNDLE_JOBS: "4"
-      BUNDLE_RETRY: "3"
-      PGHOST: 127.0.0.1
-      PGUSER: postgres
-      PGPASSWORD: ""
-      RAILS_ENV: test
+      - image: circleci/ruby:2.7.3
     steps:
-      - setup
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.13
+      - heroku/install
       - run:
-          name: rails db:migrate
-          command: bundle exec rails db:migrate
+          name: heroku login
+          command: heroku container:login
       - run:
-          name: Database setup
-          command: bundle exec rails db:schema:load --trace
+          name: push docker image
+          command: heroku container:push web -a $HEROKU_APP_NAME
       - run:
-          name: Rspec
-          command: bundle exec rspec
+          name: release docker image
+          command: heroku container:release web -a $HEROKU_APP_NAME
+      - run:
+          name: database setup
+          command: heroku run rails db:migrate -a $HEROKU_APP_NAME
 
 workflows:
   version: 2
-  test_and_deploy:
+  build_and_deploy:
     jobs:
       - build
-      - test:
+      - deploy:
           requires:
             - build
+          filters:
+            branches:
+              only: main
