@@ -31,7 +31,7 @@ jobs:
     working_directory: ~/intern/src
     steps:
       - checkout:
-          path: ~/intern/src
+          path: ~/intern
       # - ruby/install-deps
       # - run:
       #     name: Database setup
