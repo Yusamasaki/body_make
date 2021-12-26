@@ -18,6 +18,11 @@ jobs:
   test:
     docker:
       - image: circleci/ruby:2.7.3
+      # - image: circleci/postgres:12
+      #   environment:
+      #     POSTGRES_PASSWORD: "password"
+      #     POSTGRES_DATABASE: "myapp_test"
+      #     POSTGRES_USER: "admin"
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
@@ -28,9 +33,9 @@ jobs:
       - checkout:
           path: ~/intern
       - ruby/install-deps
-      - run:
-          name: Database setup
-          command: bundle exec rails db:migrate
+      # - run:
+      #     name: Database setup
+      #     command: bundle exec rails db:migrate
       - run:
           name: test
           command: bundle exec rake test
