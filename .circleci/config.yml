@@ -33,12 +33,14 @@ jobs:
       - checkout:
           path: ~/intern
       - ruby/install-deps
+      - checkout:
+          path: ~/intern/src
       # - run:
       #     name: Database setup
       #     command: bundle exec rails db:migrate
-      - run:
-          name: test
-          command: docker-compose run --rm web rspec -f documentation
+        - run:
+            name: test
+            command: docker-compose run --rm web rspec -f documentation
 
 workflows:
   version: 2
