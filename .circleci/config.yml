@@ -15,20 +15,20 @@ jobs:
       - ruby/install-deps
       # ↑bundle installのようなもの
       
-  test:
-    docker:
-      - image: circleci/ruby:2.7.3
-      # - image: circleci/postgres:12
-      #   environment:
-      #     POSTGRES_PASSWORD: "password"
-      #     POSTGRES_DATABASE: "myapp_test"
-      #     POSTGRES_USER: "admin"
-    environment:
-      BUNDLE_JOBS: "3"
-      BUNDLE_RETRY: "3"
-      APP_DATABASE_HOST: "127.0.0.1"
-      RAILS_ENV: test
-    working_directory: ~/intern/src
+  # test:
+  #   docker:
+  #     - image: circleci/ruby:2.7.3
+  #     # - image: circleci/postgres:12
+  #     #   environment:
+  #     #     POSTGRES_PASSWORD: "password"
+  #     #     POSTGRES_DATABASE: "myapp_test"
+  #     #     POSTGRES_USER: "admin"
+  #   environment:
+  #     BUNDLE_JOBS: "3"
+  #     BUNDLE_RETRY: "3"
+  #     APP_DATABASE_HOST: "127.0.0.1"
+  #     RAILS_ENV: test
+  #   working_directory: ~/intern/src
     steps:
       - checkout:
           path: ~/intern
