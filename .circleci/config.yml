@@ -38,7 +38,7 @@ jobs:
       #     command: bundle exec rails db:migrate
       - run:
           name: test
-          command: bundle exec rake test
+          command: docker-compose run --rm web rspec -f documentation
 
 workflows:
   version: 2
