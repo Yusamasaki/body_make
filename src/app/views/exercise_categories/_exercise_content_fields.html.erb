@@ -1,7 +1,7 @@
 <div class="nested-fields">
   <div class="input-group exercise_content-form">
-    <%= f.text_field :content, placeholder: "20文字以内", class: "form-control" %>
-    <%= f.number_field :mets, step: "0.1", class: "form-control" %>
+    <%= f.text_field :content, placeholder: "20文字以内", required: true, maxlength: "20", class: "form-control" %>
+    <%= f.number_field :mets, step: "0.1", required: true, class: "form-control" %>
 
     <div class="input-group-append">
       <%= link_to_remove_association '削除', f, class: 'btn btn-danger' %>

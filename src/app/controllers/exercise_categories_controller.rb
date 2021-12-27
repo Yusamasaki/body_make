@@ -33,7 +33,7 @@ class ExerciseCategoriesController < ApplicationController
 
   def destroy
     @category.destroy
-    redirect_to exercise_categories_url, flash: { danger: "「#{@category.name}」を削除しました。"}
+    redirect_to admin_url(current_admin), flash: { danger: "「#{@category.name}」を削除しました。"}
   end
 
   private
