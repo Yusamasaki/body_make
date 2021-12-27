@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+  db:
+    env_file: web_db.env
+    image: postgres:12
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    
+  web:
+    env_file: web_db.env
+    build: .
+    volumes:
+      - ./src:/myapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+    environment:
+      - "SELENIUM_DRIVER_URL=http://selenium_chrome:4444/wd/hub"
+    
+  selenium_chrome:
+    image: selenium/standalone-chrome-debug
+    logging:
+      driver: none  
+volumes:
+  postgres_data:
+    driver: local
+  

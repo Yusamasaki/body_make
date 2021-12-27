@@ -1,0 +1,34 @@
+<div class="jumbotron">
+  <div class="box1">
+    <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+      <li class="nav-item">
+        <% if params[:switching] == "index" %>
+          <a class="nav-link active" href="<%= user_setting_path(@user, switching: "index", start_date: params[:start_date], start_time: params[:start_time]) %>">INDEX</a>
+        <% else %>
+          <a class="nav-link" href="<%= user_setting_path(@user, switching: "index", start_date: params[:start_date], start_time: params[:start_time]) %>">INDEX</a>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <% if params[:switching] == "target" %>
+          <a class="nav-link active" href="<%= edit_user_targetweight_path(@user, @target_weight, switching: "target", start_date: params[:start_date], start_time: params[:start_time]) %>">目標設定</a>
+        <% else %>
+          <a class="nav-link" href="<%= edit_user_targetweight_path(@user, @target_weight, switching: "target", start_date: params[:start_date], start_time: params[:start_time]) %>">目標設定</a>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <% if params[:switching] == "basic" %>
+          <a class="nav-link active" href="<%= edit_user_bmr_path(@user, @bmr, switching: "basic", start_date: params[:start_date], start_time: params[:start_time]) %>">基本設定</a>
+        <% else %>
+          <a class="nav-link" href="<%= edit_user_bmr_path(@user, @bmr, switching: "basic", start_date: params[:start_date], start_time: params[:start_time]) %>">基本設定</a>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <% if params[:switching] == "pfc" %>
+          <a class="nav-link active" href="<%= edit_user_pfc_ratio_path(@user, @pfc, switching: "pfc", start_date: params[:start_date], start_time: params[:start_time]) %>">PFC設定</a>
+        <% else %>
+          <a class="nav-link" href="<%= edit_user_pfc_ratio_path(@user, @pfc, switching: "pfc", start_date: params[:start_date], start_time: params[:start_time]) %>">PFC設定</a>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>

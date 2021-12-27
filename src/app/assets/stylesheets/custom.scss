@@ -1,0 +1,374 @@
+@import "bootstrap";
+
+// 共通設定
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+// deviseのflashメッセージ
+.flash {
+  color: $white;
+  text-align: center;
+  &__alert{
+    background-color: red;
+  }
+  &__notice {
+    background-color: $blue;
+  }
+}
+
+// ログイン状態の背景
+body.login{
+  background-color: #F9F9F9;
+  font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro";
+}
+
+// ログアウト状態の背景
+body.logout{
+  background-color: #F9F9F9;
+  font-family: "ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro";
+}
+
+// ログイン画面のタイトルロゴ
+.top-logo{
+    text-align: center;
+    background-color: #274277;
+    font-weight: bold;
+    font-size: 2rem;
+    font-style: italic;
+    letter-spacing: .1em;
+    color: #fff;
+    text-shadow: 2px 3px 5px #8fa8da;
+    padding: 100px 0px;
+  }
+
+@media screen and (min-width:768px){
+  .top-logo{
+    text-align: center;
+    background-color: #274277;
+    font-weight: bold;
+    font-size: 2.5rem;
+    font-style: italic;
+    letter-spacing: .1em;
+    color: #fff;
+    text-shadow: 2px 3px 5px #8fa8da;
+  }
+}
+
+// debug(params)
+.debug_dump {
+  clear: both;
+  margin-top: 45px;
+  padding: 5px 0 5px 2%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: solid 3px red; 
+}
+
+// 中央に寄せる
+.center {
+  text-align: center;
+}
+
+// 右に寄せる
+.right {
+  text-align: right;
+}
+
+// 幅
+.w-100px {
+  width: 100px !important;
+}
+
+// 画面上部のタブなど囲う
+.jumbotron {
+  padding: 10px 5px;
+  margin: 0px 0px 10px;
+}
+
+//box1項目を囲うため
+.box1{
+  margin:1em 0;
+  color: #274277;
+  background: white;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.22);
+  height: 100%;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  }
+
+// フォーム用box1
+.form-box1{
+  margin: 1em 5em;
+  color: #274277;
+  background: white;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.22);
+  height: 100%;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h5 {
+  position: relative;
+  padding-left: 25px;
+}
+
+h5:before {
+  position: absolute;
+  content: '';
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border: none;
+  border-left: solid 15px transparent;
+  border-bottom: solid 15px rgb(119, 195, 223);
+}
+
+h5:after {
+  position: absolute;
+  content: '';
+  bottom: -3px;
+  left: 10px;
+  width: 100%;
+  border-bottom: solid 3px rgb(119, 195, 223);
+}
+
+@media screen and (min-width: 768px) {
+  .form-box1{
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+.box1-padding {
+  padding: 10px 0 10px 0;
+}
+
+// --------------- タブ　オリジナル----------------
+.nav-link.active {
+  color: #fff;
+  background-color: #154DBA;
+  font-family:"ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro";
+}
+.nav-link{
+  color: #274277;
+  font-family:"ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro";
+}
+.nav-link:hover{
+  color: #274277;
+  background-color: #66FFFF;
+  font-family:"ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro";
+}
+// --------------- タブ　オリジナル----------------
+
+// traning カレンダー内の部位名表示レイアウト
+.calender-event-box {
+  margin-bottom: 0.2em;
+  text-align: center;
+  color: #FFF;
+  background: #274277;
+  border: solid 1px #274277;
+  border-radius: 10px;
+}
+
+// トレーニング記録画面SET数のレイアウト
+.traning-set {
+  text-align: center;
+  color: #FFF;
+  background: #274277;
+  border: solid 1px #274277;
+  border-radius: 10px;
+}
+
+// 画面サイズ1024ピクセル以上用
+@media screen and (min-width: 1024px) {
+
+}
+
+// 画面サイズ428ピクセル以上1024ピクセル未満用
+@media screen and (min-width: 428px) and (max-width: 1023px) {
+  
+
+}
+
+// 画面サイズ500ピクセル以下用
+@media screen and (max-width: 428px) {
+
+  .tab-area {
+    overflow-x: scroll;
+  }
+  .tab-menu{
+    width: 50em;
+  }
+  
+  .box1{
+    width: 100%;
+  }
+  .login-box1{
+    width: 100%;
+  }
+}
+
+/*------------------------------------
+- COLOR original (サイトイメージカラー)
+------------------------------------*/
+
+$original_t1: #274277;
+$original_t2: #1a2c50;
+$original_t3: #6c8ecf;
+$original_t4: #809cd5;
+$original_t5: #080e1a;
+$original_t6: #162645;
+$original_t7: #1e335c;
+$original_t8: #000000;
+$original_t9: #8fa8da;
+
+$original_shadow: rgba(39, 66, 119, 0.5);
+$original_text_color_dark_bright: #fff;
+
+
+.alert-original {
+  color: $original_t5;
+  background-color: $original_t9;
+  border-color: $original_t4;
+}
+
+.alert-original hr {
+  border-top-color: $original_t3;
+}
+
+.alert-original .alert-link {
+  color: $original_t8;
+}
+
+.badge-original {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t1;
+}
+
+.badge-original[href]:hover, .badge-original[href]:focus {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t2;
+}
+
+.bg-original {
+  background-color: $original_t1 !important;
+}
+
+a.bg-original:hover, a.bg-original:focus,
+button.bg-original:hover,
+button.bg-original:focus {
+  background-color: $original_t2 !important;
+}
+
+.border-original {
+  border-color: $original_t1 !important;
+}
+
+.btn-original {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t1;
+  border-color: $original_t1;
+}
+
+.btn-original:hover {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t7;
+  border-color: $original_t2;
+}
+
+.btn-original:focus, .btn-original.focus {
+  box-shadow: 0 0 0 0.2rem $original_shadow;
+}
+
+.btn-original.disabled, .btn-original:disabled {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t1;
+  border-color: $original_t1;
+}
+
+.btn-original:not(:disabled):not(.disabled):active, .btn-original:not(:disabled):not(.disabled).active, .show > .btn-original.dropdown-toggle {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t2;
+  border-color: $original_t6;
+}
+
+.btn-original:not(:disabled):not(.disabled):active:focus, .btn-original:not(:disabled):not(.disabled).active:focus, .show > .btn-original.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem $original_shadow;
+}
+
+.btn-outline-original {
+  color: $original_t1;
+  background-color: transparent;
+  border-color: $original_t1;
+}
+
+.btn-outline-original:hover {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t1;
+  border-color: $original_t1;
+}
+
+.btn-outline-original:focus, .btn-outline-original.focus {
+  box-shadow: 0 0 0 0.2rem $original_shadow;
+}
+
+.btn-outline-original.disabled, .btn-outline-original:disabled {
+  color: $original_t1;
+  background-color: transparent;
+}
+
+.btn-outline-original:not(:disabled):not(.disabled):active, .btn-outline-original:not(:disabled):not(.disabled).active, .show > .btn-outline-original.dropdown-toggle {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t1;
+  border-color: $original_t1;
+}
+
+.btn-outline-original:not(:disabled):not(.disabled):active:focus, .btn-outline-original:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-original.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem $original_shadow;
+}
+
+.list-group-item-original {
+  color: $original_t5;
+  background-color: $original_t4;
+}
+
+.list-group-item-original.list-group-item-action:hover, .list-group-item-original.list-group-item-action:focus {
+  color: $original_t5;
+  background-color: $original_t3;
+}
+
+.list-group-item-original.list-group-item-action.active {
+  color: $original_text_color_dark_bright;
+  background-color: $original_t5;
+  border-color: $original_t5;
+}
+
+.table-original,
+.table-original > th,
+.table-original > td {
+  background-color: $original_t4;
+}
+
+.table-hover .table-original:hover {
+  background-color: $original_t3;
+}
+
+.table-hover .table-original:hover > td,
+.table-hover .table-original:hover > th {
+  background-color: $original_t3;
+}
+
+.text-original {
+  color: $original_t1 !important;
+}
+
+a.text-original:hover, a.text-original:focus {
+  color: $original_t2 !important;
+}

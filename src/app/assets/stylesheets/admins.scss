@@ -1,0 +1,53 @@
+// @media screen and (min-width: 1024px) {
+  .admin-box1 {
+    padding: 0.5em 1em;
+    // margin: 2em 0;
+    // color: #000;
+    // background: white;
+    // border-top: solid 5px #000;
+    // box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+    // height: 100%;
+    margin:1em 0;
+    color: #274277;
+    background: white;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.22);
+    height: 100%;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .admin-box2 {
+    margin:1em 0;
+    color: #274277;
+    background: white;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.22);
+    height: 100%;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+// }
+
+.admin-menu {
+  color: #274277;
+  font-weight: bolder;
+  margin-left: 5px;
+}
+
+.admin-form {
+  margin-bottom: 5px;
+}
+
+.flex-form {
+  display: flex;
+}
+
+.flex-form-right {
+  margin-left: auto;
+}
+
+.modal-dialog-fluid {
+  max-width: inherit;
+  width: 40%;
+}

@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="doughnut_graph">
+          <canvas id="chart-area" class="doughnut_graph" width="1500" height="1000"></canvas>
+          <script>doughnut_graph();</script>
+          <p><%= bodyweight_achievement_rate(@progress_bodyweight, @target_weight) %>％達成</p>
+          <a>残り<%= @now_body_weight_pull_goal_body_weight.floor(1).abs if @now_body_weight_pull_goal_body_weight.present? %>kg</a>
+        </div>
+      </div> 
+
+      <div class="col-md-4 align-self-center">
+        <div class="row">
+          <div class="mx-auto">
+            <%= link_to "体重記録", edit_user_bodyweight_path(@user, @body_weight, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-lg btn-original" if @body_weight.present? %>
+          </div>
+        </div>
+      </div> 
+      
+      <div class="col-md-4 offset-md-1 align-self-center">
+        <div class="card" style="border: solid 3px #274277;">
+          <div class="card-header">
+            現在の体重
+          </div>
+          <div class="card-body">
+              <p>
+                <% if @newwest_bodyweight == [nil] %>
+                  <%= @target_weight.now_body_weight %>kg
+                <% else %>
+                  <%= @newwest_bodyweight.sum %>kg
+                <% end %>
+              </p>
+              <footer class="blockquote-footer">
+                <%= @newwest_bodyweight_starttime.to_date if @newwest_bodyweight_starttime.present? %>現在
+              </footer>
+              
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-2 align-self-center">
+        <div class="row">
+          <div class="mx-auto">
+            <div class="sample5-1"><a class="arrow sample5-1"></a></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4 align-self-center">
+        <div class="card" style="border: solid 3px #274277;">
+          <div class="card-header">
+            目標の体重
+          </div>
+          <div class="card-body">
+            <p><%= @target_weight.goal_body_weight %>kg</p>
+            <footer class="blockquote-footer">
+              <%= @target_weight.target_date.to_date %>まで
+            </footer>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4 offset-md-1">
+        <div class="home-sub">
+          <div class="card" style="border: solid 3px #274277;">
+            <div class="card-header">
+              あと何日か：
+            </div>
+            <div class="card-body">
+              <%= how_many_days_later(@target_weight, params[:start_time]) %>日
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 offset-md-2">
+        <div class="home-sub">
+          <div class="card" style="border: solid 3px #274277;">
+            <div class="card-header">
+              <%= params[:start_time] %>の予測体重：
+            </div>
+            <div class="card-body">
+              <%= predict_bodyweight(@target_weight, params[:start_time]) %>kg
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 align-self-center home-linecahrt">
+    <div class="card">
+      <div class="card-header">
+        体重進捗グラフ
+      </div>
+      <div class="card-body">
+        <canvas id="myChart" width="400" height="300"></canvas>
+        <script>draw_graph();</script>
+      </div>
+    </div>
+  </div>
+</div>

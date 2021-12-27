@@ -1,0 +1,16 @@
+
+<% provide(:title, "PFCバランス設定") %>
+<% provide(:btn_text, "設定") %>
+
+<%= render "layouts/setting_tab" %>
+
+<div class="box1">
+  <div class="box-inner">
+    <h5>PFC設定</h5>
+    <%= form_with(model: @pfc, url: user_pfc_ratios_path(@user, switching: params[:switching], start_time: params[:start_time], start_date: params[:start_date]), method: :post, local: true) do |f| %>
+    
+      <%= render partial: "form", locals: { f: f }%>
+    
+    <% end %>
+  </div>
+</div>

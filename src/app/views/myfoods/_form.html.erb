@@ -1,0 +1,26 @@
+<%= render 'shared/error_messages', object: f.object %>
+
+<%= f.label :food_name, class: "label-form" %>
+<%= f.text_field :food_name, :placeholder => "食品名", class: "form-control" %><br>
+
+<%= f.label :protein, class: "label-form" %>
+<%= f.number_field :protein, step: '0.1', :placeholder => "たんぱく質", class: "form-control", id: 'protein' %><br>
+
+<%= f.label :fat, class: "label-form" %>
+<%= f.number_field :fat, step: '0.1', :placeholder => "脂質", class: "form-control", id: 'fat' %><br>
+
+<%= f.label :carbo, class: "label-form" %>
+<%= f.number_field :carbo, step: '0.1', :placeholder => "炭水化物", class: "form-control", id: 'carbo' %><br>
+
+<%= f.label :calorie, class: "label-form" %>　<button id="button", class="btn btn-sm btn-outline-original">自動計算</button> ← たんぱく質・脂質・炭水化物を入力後
+<%= f.number_field :calorie, step: '0.1', autofocus: true, :placeholder => "カロリー", class: "form-control", id: "calorie" %><br>
+
+<%= f.label :sugar, class: "label-form" %>
+<%= f.number_field :sugar, step: '0.1', :placeholder => "糖質", class: "form-control" %><br>
+
+<%= f.label :dietary_fiber, class: "label-form" %>
+<%= f.number_field :dietary_fiber, step: '0.1', :placeholder => "食物繊維", class: "form-control" %><br>
+
+<%= f.label :salt, class: "label-form" %>
+<%= f.number_field :salt, step: '0.1', :placeholder => "塩分", class: "form-control" %><br>
+  

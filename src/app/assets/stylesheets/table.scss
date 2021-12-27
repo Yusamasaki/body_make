@@ -1,0 +1,47 @@
+td, th {
+    padding: 0px 10px;
+    text-align: center;
+}
+ 
+thead th {
+    background: #274277;
+    color: #fff;
+}
+
+tbody tr {
+    border-bottom: 1px dotted #D8D5D5;
+}
+
+tbody td {
+    text-align: center;
+    border: 1px dotted #D8D5D5;
+    border-width: 0px 1px;
+    -webkit-transition: background-color .1s linear;
+    -moz-transition: background-color .1s linear;
+    transition: background-color .1s linear;
+}
+
+tbody tr:first-child {
+    border-top: none;
+}
+
+tbody tr.even td {
+    background: #fbfbfb;
+}
+
+tbody tr.clickable:hover td {
+    background: #ecf2fa;
+    cursor: pointer;
+}
+
+table tfoot tr {
+	color: #0060a4;
+	background: #bddbf0;
+}
+
+@media screen and (max-width: 428px) {
+    td, th {
+        padding: 5px 10px;
+        font-size: 10px;
+    }
+}

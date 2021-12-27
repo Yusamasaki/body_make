@@ -5,9 +5,17 @@
 //= require_self
 //= require_tree ./channels
 
+import {Chart} from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
 (function() {
   this.App || (this.App = {});
 
   App.cable = ActionCable.createConsumer();
 
 }).call(this);
+
+/*
+Background Gradients From -- 
+https://uigradients.com
+*/

@@ -1,0 +1,134 @@
+<div class="jumbotron">
+  <div class="box1">
+    <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" href="<%= user_todaymeal_recipes_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<%= user_recipes_path(@user, timezone_id: 1, start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
+      </li>
+      <li class="nav-item">
+        <%= link_to(user_meals_analysis_index_path(@user, graph: "line", start_time: params[:start_time], start_date: params[:start_date]), class: "nav-link",data: {"turbolinks"=>false}) do %>
+          <div>Analysis</div>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="box1">
+    <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+      <li class="nav-item">
+        <% if params[:timezone_id].present? %>
+          <a class="nav-link" href="<%= user_todaymeals_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+        <% else %>
+          <a class="nav-link active" href="<%= user_todaymeals_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>">ALL</a>
+        <% end %>
+      </li>
+      <% @timezones.each do |timezone| %>
+        <li class="nav-item">
+          <% if timezone.id == params[:timezone_id].to_i %>
+            <a class="nav-link active" href="<%= user_todaymeals_path(@user, timezone_id: timezone, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= timezone.time_zone %></a>
+          <% else %>
+            <a class="nav-link" href="<%= user_todaymeals_path(@user, timezone_id: timezone, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= timezone.time_zone %></a>
+          <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<div class="box1 center">
+  <%= link_to(user_todaymeals_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date].to_date.prev_month)) do %>
+    <div class="arrow round-arrow-left"></div>
+  <% end %>
+  <a style="color: #274277;"><%= params[:start_time] %></a>
+  <% unless params[:start_time].to_date.tomorrow == Time.current.to_date.tomorrow %>
+    <%= link_to(user_todaymeals_path(current_user, start_time: params[:start_time].to_date.tomorrow, start_date: params[:start_date].to_date.next_month)) do %>
+      <div class="arrow round-arrow-right"></div>
+    <% end %>
+  <% end %>
+</div>
+
+<% unless params[:timezone_id].present? %>
+<div class="box1">
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <% @attribute_names.each do |attribute_name| %>
+            <th class="align-middle"><%= attribute_name %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+          <% @timezone_meals.each do |timezone, recipe_myfood| %>
+          <tr>
+            <th class="align-middle"><%= timezone.time_zone %></th>
+            <% recipe_myfood.each do |recipemyfood| %>
+              <td class="align-middle"><%= recipemyfood.floor(1) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th class="align-middle">合計</th>
+          <% @day_totalmeals.each do |totalmeal| %>
+            <th class="align-middle"><%= totalmeal.floor(1) %></th>
+          <% end %>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+<% end %>
+
+<% @timezone_meals.each do |timezone, recipe_myfood, recipe, myfood| %>
+  <div class="box1">
+    <div class="panel-group">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <a class="text-original" data-toggle="collapse" href="#collapse<%= timezone.id %>">
+              <h4><%= timezone.time_zone %></h4>
+              <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <% @attribute_names.each do |attribute_name| %>
+                      <th class="align-middle"><%= attribute_name %></th>
+                    <% end %>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <% recipe_myfood.each do |recipemyfood| %>
+                      <th class="align-middle"><%= recipemyfood.floor(1) %></th>
+                    <% end %>
+                  </tr>
+                </tbody>
+              </table>
+            </a>
+          </div>
+        </div>
+        <div id="collapse<%= timezone.id %>" class="panel-collapse collapse">
+          <%= render partial: "myfood", locals: { timezone: timezone }%>
+          <%= render partial: "recipe", locals: { timezone: timezone }%>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  jQuery( function($) {
+      $('tbody tr[data-href]').addClass('clickable').click( function() {
+          window.location = $(this).attr('data-href');
+      }).find('a').hover( function() {
+          $(this).parents('tr').unbind('click');
+      }, function() {
+          $(this).parents('tr').click( function() {
+              window.location = $(this).attr('data-href');
+          });
+      });
+  });
+</script>

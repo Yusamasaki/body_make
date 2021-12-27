@@ -1,0 +1,32 @@
+// 画面サイズ1024ピクセル以上用
+@media screen and (min-width: 1024px) {
+  // 目標設定(show)
+  .weight-new, .weight-edit, .bmr-new, .bmr-edit {
+    width: 50%;
+    margin-left: 25%;
+    h1 {
+      font-size: 5em;
+      font-family: serif;
+    }
+    .label {
+      margin-top: 10px;
+    }
+    .form-control {
+      margin-bottom: 10px;
+    }
+    .btn-setup {
+      margin-top: 30px; 
+      line-height: 20px;
+    }
+  }
+}
+
+// 画面サイズ428ピクセル以上1024ピクセル未満用
+@media screen and (min-width: 428px) and (max-width: 1023px) {
+
+}
+
+// 画面サイズ500ピクセル以下用
+@media screen and (max-width: 428px) {
+
+}

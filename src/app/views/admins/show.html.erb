@@ -1,0 +1,27 @@
+<div class="col col-md-8 offset-md-2">
+  <div class="admin-box1">
+    <h5>管理画面</h5>
+    <div class="right">
+      <%= link_to "管理者情報", edit_admin_registration_path, class: "btn btn-sm btn-original" %>
+      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-sm btn-secondary" %>
+    </div>
+  </div>
+
+  <div class="admin-box2">
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-category-tab" data-toggle="tab" href="#nav-category" role="tab" aria-controls="nav-category" aria-selected="true" style="border: 0.5px solid #f8f9fa;">カテゴリー</a>
+        <a class="nav-item nav-link" id="nav-user-tab" data-toggle="tab" href="#nav-user" role="tab" aria-controls="nav-user" aria-selected="false" style="border: 0.5px solid #f8f9fa;">ユーザー</a>
+      </div>
+    </nav><br>
+
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-category" role="tabpanel" aria-labelledby="nav-category-tab">
+        <%= render 'exercise_categories/index' %><br>
+      </div>
+      <div class="tab-pane fade" id="nav-user" role="tabpanel" aria-labelledby="nav-user-tab">
+        <%= render 'users/index' %><br>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+module TodaymealsHelper
+end

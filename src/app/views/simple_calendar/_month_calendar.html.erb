@@ -1,0 +1,51 @@
+
+<div class="simple-calendar">
+  <div class="calendar-heading">
+    <!--パスをデフォルトから変更してる。calendar.url_for_previous_view → user_path-->
+    <% if controller.controller_name == "bodyweights" %>
+      <%= link_to(user_bodyweights_calender_path(current_user, start_date: @first_day.prev_month, start_time: @first_day), data: {"turbolinks"=>false}) do %>
+        <i class="fas fa-chevron-left"></i>
+      <% end %>
+      <span class="calendar-title"> <%= start_date.year %>年 <%= t('date.month_names')[start_date.month] %></span>
+      <%= link_to(user_bodyweights_calender_path(current_user, start_date: @first_day.next_month, start_time: @first_day), data: {"turbolinks"=>false}) do %>
+        <i class="fas fa-chevron-right"></i>
+      <% end %>
+    <% elsif controller.controller_name == "today_tranings" %>
+      <%= link_to(user_today_tranings_path(current_user, start_date: @first_day.prev_month, start_time: params[:start_time])) do %>
+        <i class="fas fa-chevron-left"></i>
+      <% end %>
+      <span class="calendar-title"> <%= start_date.year %>年 <%= t('date.month_names')[start_date.month] %></span>
+      <%= link_to t('simple_calendar.next', default: 'Next'), user_today_tranings_path(current_user, start_date: @first_day.next_month, start_time: params[:start_time]) %>
+    <% elsif controller.controller_name == "today_exercises" %>
+      <%= link_to t('simple_calendar.previous', default: 'Previous'), user_today_exercise_calender_path(current_user, start_date: @first_day.prev_month), remote: true %>
+      <span class="calendar-title"> <%= start_date.year %>年 <%= t('date.month_names')[start_date.month] %></span>
+      <%= link_to t('simple_calendar.next', default: 'Next'), user_today_exercise_calender_path(current_user, start_date: @first_day.next_month), remote: true %>
+    <% end %>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <% date_range.slice(0, 7).each do |day| %>
+          <th><%= t('date.abbr_day_names')[day.wday] %></th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+        <% date_range.each_slice(7) do |week| %>
+        <tr>
+          <% week.each do |day| %>
+            <%= content_tag :td, class: calendar.td_classes_for(day) do %>
+              <% if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(passed_block) %>
+                <% capture_haml(day, sorted_events.fetch(day, []), &passed_block) %>
+              <% else %>
+                <% passed_block.call day, sorted_events.fetch(day, []) %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

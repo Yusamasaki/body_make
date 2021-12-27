@@ -1,0 +1,16 @@
+<% if object.errors.any? %>
+  <div id= "error_explantion">
+    <div class= "alert alert-danger center">
+      入力エラーが<%= object.errors.count %>件がありました。
+    </div>
+    <div class="row">
+      <div class="mx-auto">
+        <ul>
+          <% object.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+<% end %>

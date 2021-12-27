@@ -1,0 +1,16 @@
+<% provide(:title, "目標設定") %>
+<% provide(:btn_text, "登録") %>
+
+<div class="bg_pattern Paper_v2"></div>
+<div class="section">
+  <div class="form-box1">
+    <div class="box-inner">
+      <h5>目標設定</h5><br>
+      <%= form_with(model:[@user, @tw], url: user_targetweights_path(start_date: params[:start_date], start_time: params[:start_time]), local: true) do |f| %>
+        
+        <%= render partial: "form", locals: { f: f }%>
+        
+      <% end %>
+    </div>
+  </div>
+</div>

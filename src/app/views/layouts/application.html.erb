@@ -1,15 +1,54 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Myapp</title>
+    <!-- width=device-widthにてブラウザの大きさをデバイスに合わせる。initial-scaleは画面の拡大率 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <title><%= full_title(yield(:title)) %></title>
+    <!--ロゴ-->
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <!--side_bar-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/css/adminlte.min.css" integrity="sha512-mxrUXSjrxl8vm5GwafxcqTrEwO1/oBNU25l20GODsysHReZo4uhVISzAKzaABH6/tTfAxZrY2FprmeAP5UZY8A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--/side_bar-->
+    
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+    <%= include_gon %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
 
-  <body>
-    <%= yield %>
-  </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+  </head>
+  
+  
+  <% if controller.controller_name == "bmrs" && controller.action_name == "new" || controller.controller_name == "bmrs" && controller.action_name == "create" || controller.controller_name == "targetweights" && controller.action_name == "new" || controller.controller_name == "targetweights" && controller.action_name == "create" %>
+    <body class="logout">
+      <div class="bg_pattern Paper_v2"></div>
+        <div class="section">
+          <div class="container-field">
+            <%= yield %>
+            <!--<= debug(params) if Rails.env.development? %>-->
+          </div>
+        </div>
+      </div>
+  <% elsif user_signed_in? %>
+    <body class="hold-transition sidebar-mini">
+      <%= render 'layouts/side_bar' %>
+  <% else %>
+    <body class="logout">
+      <div class="bg_pattern Paper_v2"></div>
+        <div class="section">
+          <div class="container-field">
+            <%= yield %>
+            <%= debug(params) if Rails.env.development? %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+    </body>
+    <footer>
+      <!--side_bar-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/js/adminlte.min.js" integrity="sha512-AJUWwfMxFuQLv1iPZOTZX0N/jTCIrLxyZjTRKQostNU71MzZTEPHjajSK20Kj1TwJELpP7gl+ShXw5brpnKwEg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <!--/side_bar-->
+    </footer>
 </html>

@@ -1,0 +1,61 @@
+
+<div class="col-md-12">
+  <a>食品</a>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><%= Myfood.human_attribute_name(:food_name) %></th>
+          <% @attribute_names.each do |attribute_name| %>
+            <th class="align-middle"><%= attribute_name %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @todaymeals = @user.todaymeals.where(start_time: params[:start_time], timezone_id: timezone) %>
+        
+        <% @todaymeals.each do |todaymeal| %>
+        <% @myfood = @user.myfoods.find(todaymeal.myfood_id) %>
+          <tr data-href=<%= edit_user_todaymeal_path(@user, todaymeal, switching: "record", myfood_id: @myfood, timezone_id: timezone, start_time: params[:start_time], start_date: params[:start_date]) %>>
+            <td class="align-middle"><%= @myfood.food_name %>(<%= todaymeal.amount %>人分)</td>
+            <td class="align-middle"><%= (@myfood.calorie * todaymeal.amount).floor(1) %></td>
+            <td class="align-middle"><%= (@myfood.protein * todaymeal.amount).floor(1) %></td>
+            <td class="align-middle"><%= (@myfood.fat * todaymeal.amount).floor(1) %></td>
+            <td class="align-middle"><%= (@myfood.carbo * todaymeal.amount).floor(1) %></td>
+            <td class="align-middle"><%= (@myfood.sugar * todaymeal.amount).floor(1) if @myfood.sugar.present? %></td>
+            <td class="align-middle"><%= (@myfood.dietary_fiber * todaymeal.amount).floor(1) if @myfood.dietary_fiber.present? %></td>
+            <td class="align-middle"><%= (@myfood.salt * todaymeal.amount).floor(1) if @myfood.salt.present? %></td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          
+          
+          <th class="align-middle">合計</th>
+          <th class="align-middle">
+            <% @myfoods_calorie = @todaymeals.pluck(:myfood_id, :amount).map {|todaymeal, amount|@user.myfoods.where(id: todaymeal).pluck(:calorie).sum * amount}.sum %><%= @myfoods_calorie.floor(1) %>
+          </th>
+          <th class="align-middle">
+            <% @myfoods_protein = @todaymeals.pluck(:myfood_id, :amount).map {|todaymeal, amount|@user.myfoods.where(id: todaymeal).pluck(:protein).sum * amount}.sum %><%= @myfoods_protein.floor(1) %>
+          </th>
+          <th class="align-middle">
+            <% @myfoods_fat = @todaymeals.pluck(:myfood_id, :amount).map {|todaymeal, amount|@user.myfoods.where(id: todaymeal).pluck(:fat).sum * amount}.sum %><%= @myfoods_fat.floor(1) %>
+          </th>
+          <th class="align-middle">
+            <% @myfoods_carbo = @todaymeals.pluck(:myfood_id, :amount).map {|todaymeal, amount|@user.myfoods.where(id: todaymeal).pluck(:carbo).sum * amount}.sum %><%= @myfoods_carbo.floor(1) %>
+          </th>
+          <th class="align-middle">
+            <% @myfoods_sugar = @todaymeals.pluck(:myfood_id, :amount).map {|todaymeal, amount|@user.myfoods.where(id: todaymeal).pluck(:sugar).sum * amount}.sum %><%= @myfoods_sugar.floor(1) %>
+          </th>
+          <th class="align-middle">
+            <% @myfoods_dietary_fiber = @todaymeals.pluck(:myfood_id, :amount).map {|todaymeal, amount|@user.myfoods.where(id: todaymeal).pluck(:dietary_fiber).sum * amount}.sum %><%= @myfoods_dietary_fiber.floor(1) %>
+          </th>
+          <th class="align-middle">
+            <% @myfoods_salt = @todaymeals.pluck(:myfood_id, :amount).map {|todaymeal, amount|@user.myfoods.where(id: todaymeal).pluck(:salt).sum * amount}.sum %><%= @myfoods_salt.floor(1) %>
+          </th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>  
+</div>

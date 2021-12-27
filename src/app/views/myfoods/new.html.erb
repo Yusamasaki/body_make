@@ -1,0 +1,40 @@
+<% provide(:title, "食品追加") %>
+<% provide(:btn_text, "追加") %>
+
+<ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link" href="<%= user_myfoods_path(@user, switching: "record", timezone_id: 1, start_time: params[:start_time], todaymeal_recipe_id: params[:todaymeal_recipe_id], 
+                                                    before: params[:before], recipe_id: params[:recipe_id], start_date: params[:start_date]) %>"><i class="fas fa-undo-alt">戻る</i></a>
+  </li>
+</ul>
+
+<div class="form-box1">
+  <div class="box-inner">
+  <h5>食品追加</h5><br>
+  <%= form_with(model: @myfood, url: user_myfoods_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
+    
+    <%= render partial: "form", locals: { f: f }%>
+    
+    <%= f.submit yield(:btn_text), class: "btn btn-md btn-original btn-block" %>
+  <% end %>
+  </div>
+</div>
+<script>
+
+var button = document.getElementById("button");
+
+button.addEventListener("click", function(e) {
+ 
+    e.preventDefault();
+ 
+    var protein = document.getElementById("protein").value;
+    var fat = document.getElementById("fat").value;
+    var carbo = document.getElementById("carbo").value;
+
+    var calc = (protein * 4) + (fat * 9) + (carbo * 4);
+ 
+    var calorie = document.getElementById("calorie");
+    calorie.value = calc;
+});
+ 
+</script>

@@ -1,0 +1,52 @@
+.box2-exercise {
+  border: 2px solid #274277;
+  border-radius: 5px;
+  position: relative;
+  margin-top: 5px;
+  text-decoration: none;
+}
+
+.content-item {
+  text-decoration: none;
+  color: #274277;
+}
+
+.content-item:hover {
+  text-decoration: none;
+  color: #274277;
+}
+
+.f-container{
+  display:flex; 
+  flex-wrap:wrap; 
+  gap: 5px 5px;
+  padding: 0;
+}
+
+/* カテゴリー選択 開いて実行されるアニメーションを設定 */
+details[open] .content {
+  animation: fadeIn 0.5s ease-in-out;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0; /* Transparent */
+    transform: translateY(-5px); 
+    /* translateX(+100px)：右から表示 */
+    /* translateX(-100px)：左から表示 */
+    /* translateY(+100px)：下から表示 */
+    /* translateY(-100px)：上から表示 */
+
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.exercise-category-btn {
+  width: 175px;
+}
+
+.exercise-category-group {
+  padding-left: 10px; 
+}

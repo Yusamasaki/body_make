@@ -1,0 +1,168 @@
+
+<% provide(:title, "#{@recipe.recipe_name}の食事内容記録") %>
+<% provide(:btn_text, "記録") %>
+
+<ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link" href="<%= user_recipes_path(@user, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><i class="fas fa-undo-alt">戻る</i></a>
+  </li>
+</ul>
+
+<div class="box1">
+  <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+    <% @timezones.each do |timezone| %>
+      <li class="nav-item">
+        <% if timezone.id == params[:timezone_id].to_i %>
+          <a class="nav-link active" href="<%= new_user_todaymeal_recipe_path(@user, switching: params[:switching], before: params[:action], recipe_id: @recipe, timezone_id: timezone, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= timezone.time_zone %></a>
+        <% else %>
+          <a class="nav-link" href="<%= new_user_todaymeal_recipe_path(@user, switching: params[:switching], before: params[:action], recipe_id: @recipe, timezone_id: timezone, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= timezone.time_zone %></a>
+        <% end %>
+    <% end %>
+  </ul>
+</div>
+
+<div class="box1">
+  <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+    <li class="nav-item">
+      <% if params[:switching] == "record" %>
+        <a class="nav-link active" href="<%= new_user_todaymeal_recipe_path(@user, switching: "record", recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
+      <% else %>
+        <a class="nav-link" href="<%= new_user_todaymeal_recipe_path(@user, switching: "record", recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <% if params[:switching] == "rader-chart" %>
+        <a class="nav-link active" href="<%= new_user_todaymeal_recipe_path(@user, switching: "rader-chart", recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>">RaderChart</a>
+      <% else %>
+        <a class="nav-link" href="<%= new_user_todaymeal_recipe_path(@user, switching: "rader-chart", recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>">RaderChart</a>
+      <% end %>
+    </li>
+  </ul>
+</div>
+
+<div class="box1">
+  <div class="center" style="padding: 10px;">
+    <h4>
+      <%= @recipe.recipe_name if @recipe.present? %>
+      <%= link_to(edit_user_recipe_path(@user, @recipe, todaymeal_recipe_id: params[:id], before: params[:action], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), class: "traning-title text-original") do %>
+        <i class="fas fa-edit fa-md"></i>
+      <% end %>
+    </h4>
+    <%= link_to(user_myfoods_path(@user, todaymeal_recipe_id: params[:id], before: params[:action], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), class: "btn btn-sm btn-original") do %>
+      <i class="far fa-plus-square fa-lg">食品を追加</i>
+    <% end %>
+  </div>
+  
+  <% @recipefoods.each do |recipefood| %>
+  <% @myfood = @user.myfoods.find(recipefood.myfood_id) %>
+    <div class="panel-group">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <a class="text-original" data-toggle="collapse" href="#collapse<%= @myfood.id %>">
+              <div class="card">
+                <h4 class="card-header"><%= @myfood.food_name %>(<%= recipefood.amount %>個分)</h4>
+                <div class="card-body">
+                  <h4 class="card-title">カロリー：<%= recipefood_format(@myfood.calorie, recipefood.amount) %>kcal</h4>
+                  <p class="card-text">P：<%= recipefood_format(@myfood.protein, recipefood.amount) %>g　
+                    F：<%= recipefood_format(@myfood.fat, recipefood.amount) %>g　
+                    C：<%= recipefood_format(@myfood.carbo, recipefood.amount) %>g
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div id="collapse<%= @myfood.id %>" class="panel-collapse collapse">
+          <table class="table">
+            <thead>
+              <tr>
+                <% @attribute_names.each do |attribute_name| %>
+                  <th class="align-middle"><%= attribute_name %></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td><%= recipefood_format(@myfood.calorie, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.protein, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.fat, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.carbo, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.sugar, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.dietary_fiber, recipefood.amount) %></td>
+                  <td><%= recipefood_format(@myfood.salt, recipefood.amount) %></td>
+                </tr>
+                <tr>
+                  <td colspan="8">
+                    <%= link_to(user_recipefood_path(@user, recipefood, before: params[:action], todaymeal_recipe_id: params[:id], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), method: :delete, class: "text-original") do %>
+                      <i class="fas fa-trash-alt fa-lg"></i>
+                    <% end %>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+  <div class="box1">
+    <div class="card">
+      <div class="card-header">
+        合計
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <% @attribute_names.each do |name| %>
+              <th><%= name %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <% @recipe_myfoods.each do |recipe_myfood| %>
+              <td><%= recipe_myfood %></td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<% if params[:switching] == "rader-chart" %>
+  <% if @recipe.calorie.present? %>
+    <%= render template: "layouts/_nutrition_radar_graph" %>
+  <% else %>
+    <div class="box1">
+      <h4 class="center" style="padding: 10px;">食品が登録されてません。食品を登録してください。</h4>
+    </div>
+  <% end %>
+    
+<% end %>
+
+<% if params[:switching] == "record" %>
+  <div class="box1">
+    <div class="box-inner">
+      <h5><%= yield(:title) %></h5><br>
+      <%= form_with(model: @todaymeal_recipe, url: user_todaymeal_recipes_path(@user, switching: params[:switching], before: params[:before], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        
+        <%= f.label :amount, class: "label-form" %><a style="color: red; margin-left: 5px;">*入力必須</a>
+        <%= f.number_field :amount, :placeholder => "分量(何人分か)", class: "form-control" %><br>
+        
+        <%= f.label :note, class: "label-form" %>
+        <%= f.text_area :note, :placeholder => "備考", class: "form-control" %><br>
+        
+        <%= f.hidden_field :start_time, value: params[:start_time] %>
+        <%= f.hidden_field :recipe_id, value: params[:recipe_id] %>
+        <%= f.hidden_field :timezone_id, value: params[:timezone_id] %>
+    
+        <%= f.submit yield(:btn_text), class: "btn btn-md btn-original btn-block" %>
+    
+      <% end %>
+    </div>
+  </div>
+<% end %>
+

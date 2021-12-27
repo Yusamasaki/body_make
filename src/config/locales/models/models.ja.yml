@@ -1,0 +1,65 @@
+ja:
+  activerecord:
+    models:
+      targetweight: 目標設定
+      bmr: 基礎代謝設定
+      exercise_category: 運動カテゴリー
+      exercise_content: 運動コンテンツ
+      today_exercise: 今日の運動
+    attributes:
+      bodyweight:
+        body_weight: 体重
+        bodyfat_percentage: 体脂肪率
+      targetweight:
+        now_body_weight: 現在の体重
+        goal_body_weight: 目標体重  
+        now_bodyfat_percentage: 現在の体脂肪率
+        goal_bodyfat_percentage: 目標体脂肪率
+        beginning_date: スタート日
+        target_date: 目標日
+      bmr:
+        gender: 性別
+        age: 年齢
+        height: 身長
+        activity: 活動レベル
+      pfc_ratio:
+        protein: たんぱく質(割合)
+        fat: 脂質(割合)
+        carbo: 炭水化物(割合)
+      exercise_category:
+        name: カテゴリー
+      exercise_content:
+        content: コンテンツ
+        mets: メッツ
+      today_exercise:
+        start_time: 日付
+        body_weight: 現在の体重
+        exercise_time_hour: 時間
+        exercise_time_min: 分
+        note: 備考
+      traningevent:
+        bodypart: 部位
+        sub_body_part: 対象部位
+        traning_type: トレーニングタイプ
+        traning_name: トレーニング名
+      myfood:
+        food_name: 食品名
+        amount: 分量
+        calorie: カロリー
+        protein: たんぱく質
+        fat: 脂質
+        carbo: 炭水化物
+        sugar: 糖質
+        dietary_fiber: 食物繊維
+        salt: 塩分
+      recipe:
+        recipe_name: レシピ名
+      recipefood:
+        amount: 分量(何個分か)
+      todaymeal:
+        note: 備考
+        amount: 分量(何人分か)
+      todaymeal_recipe:
+        note: 備考
+        amount: 分量(何人分か)
+        

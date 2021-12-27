@@ -1,0 +1,87 @@
+<% provide(:title, "#{@myfood.food_name}の食事内容記録") %>
+<% provide(:btn_text, "記録") %>
+
+<ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link" href="<%= user_myfoods_path(@user, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>"><i class="fas fa-undo-alt">戻る</i></a>
+  </li>
+</ul>
+
+<div class="box1">
+  <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+    <% @timezones.each do |timezone| %>
+      <li class="nav-item">
+        <% if timezone.id == params[:timezone_id].to_i %>
+          <a class="nav-link active" href="<%= new_user_todaymeal_path(@user, switching: params[:switching], myfood_id: @myfood, timezone_id: timezone, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= timezone.time_zone %></a>
+        <% else %>
+          <a class="nav-link" href="<%= new_user_todaymeal_path(@user, switching: params[:switching], myfood_id: @myfood, timezone_id: timezone, start_time: params[:start_time], start_date: params[:start_date]) %>"><%= timezone.time_zone %></a>
+        <% end %>
+    <% end %>
+  </ul>
+</div>
+
+<div class="box1">
+  <ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+    <li class="nav-item">
+      <% if params[:switching] == "record" %>
+        <a class="nav-link active" href="<%= new_user_todaymeal_path(@user, switching: "record", myfood_id: @myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
+      <% else %>
+        <a class="nav-link" href="<%= new_user_todaymeal_path(@user, switching: "record", myfood_id: @myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>">Record</a>
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <% if params[:switching] == "rader-chart" %>
+        <a class="nav-link active" href="<%= new_user_todaymeal_path(@user, switching: "rader-chart", myfood_id: @myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>">RaderChart</a>
+      <% else %>
+        <a class="nav-link" href="<%= new_user_todaymeal_path(@user, switching: "rader-chart", myfood_id: @myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>">RaderChart</a>
+      <% end %>
+    </li>
+  </ul>
+</div>
+
+<%= link_to(edit_user_myfood_path(@user, @myfood, recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date])) do %>
+  <div class="box1">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <h4 class="card-header"><%= @myfood.food_name %></h4>
+          <table class="table table-striped">
+            <thead>
+              <tr class="text-center">
+                <% @attribute_names.each do |attribute_name| %>
+                  <th class="align-middle"><%= attribute_name %></th>
+                <% end %>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center">
+                <td><%= @myfood.calorie %></td>
+                <td><%= @myfood.protein %></td>
+                <td><%= @myfood.fat %></td>
+                <td><%= @myfood.carbo %></td>
+                <td><%= @myfood.sugar %></td>
+                <td><%= @myfood.dietary_fiber %></td>
+                <td><%= @myfood.salt %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if params[:switching] == "rader-chart" %>
+  <%= render template: "layouts/_nutrition_radar_graph" %>
+<% end %>
+
+<% if params[:switching] == "record" %>
+  <div class="box1">
+    <div class="box-inner">
+      <h5><%= yield(:title) %></h5><br>
+      <%= form_with(model: @todaymeal, url: user_todaymeals_path(@user, switching: params[:switching], myfood_id: params[:myfood_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
+        <%= render partial: "form", locals: { f: f } %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

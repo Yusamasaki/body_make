@@ -1,0 +1,99 @@
+
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="doughnut_graph">
+          <canvas id="bodyfat-chart-area" class="doughnut_graph" width="1500" height="1000"></canvas>
+          <script>bodyfat_doughnut_graph();</script>
+          <p><%= bodyfat_percentage_achievement_rate(@progress_bodyfat_percentage, @target_weight) %>％達成</p>
+          <a>残り<%= @now_bodyfat_percentage_pull_goal_bodyfat_percentage.floor(1).abs %>％</a>
+        </div>
+      </div>
+
+      <div class="col-md-4 align-self-center">
+        <%= link_to "体脂肪率記録", user_bodyweight_bodyfat_percentage_edit_path(@user, @body_weight, start_date: params[:start_date], start_time: params[:start_time]), class: "btn btn-lg btn-original" if @body_weight.present? %>
+      </div> 
+      
+      <div class="col-md-4 offset-md-1 align-self-center">
+        <div class="card" style="border: solid 3px #274277;">
+          <div class="card-header">
+            現在の体脂肪率
+          </div>
+          <div class="card-body">
+            <p>
+              <% if @newwest_bodyweight == [nil] %>
+                <%= @target_weight.now_bodyfat_percentage %>％
+              <% else %>
+                <%= @newwest_bodyfat_percentage.sum %>％
+              <% end %>
+            </p>
+            <footer class="blockquote-footer">
+              <%= @newwest_bodyfat_percentage_starttime.to_date if @newwest_bodyfat_percentage_starttime.present? %>現在
+            </footer>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-2 align-self-center">
+        <div class="row">
+          <div class="mx-auto">
+            <div class="sample5-1"><a class="arrow sample5-1"></a></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4 align-self-center">
+        <div class="card" style="border: solid 3px #274277;">
+          <div class="card-header">
+            目標の体脂肪率
+          </div>
+          <div class="card-body">
+            <p><%= @target_weight.goal_bodyfat_percentage %>％</p>
+            <footer class="blockquote-footer">
+              <%= @target_weight.target_date.to_date %>まで
+            </footer>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4 offset-md-1">
+        <div class="home-sub">
+          <div class="card" style="border: solid 3px #274277;">
+            <div class="card-header">
+              あと何日か：
+            </div>
+            <div class="card-body">
+              <%= how_many_days_later(@target_weight, params[:start_time]) %>日
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 offset-md-2">
+        <div class="home-sub">
+          <div class="card" style="border: solid 3px #274277;">
+            <div class="card-header">
+              <%= params[:start_time] %>の予測体脂肪率：
+            </div>
+            <div class="card-body">
+              <%= predict_bodyfat_percentage(@target_weight, params[:start_time]) %>％
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-6 align-self-center home-linecahrt">
+    <div class="card">
+      <div class="card-header">
+        体重進捗グラフ
+      </div>
+      <div class="card-body">
+        <canvas id="bodyfat-myChart" width="400" height="300"></canvas>
+      <script>bodyfat_draw_graph();</script>
+      </div>
+    </div>
+  </div>
+</div>

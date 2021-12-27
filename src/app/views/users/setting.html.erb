@@ -1,0 +1,53 @@
+
+<%= render "layouts/setting_tab" %>
+
+<div class="box1">
+  <div class="card">
+    <div class="card-header">
+      基礎代謝
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <%= @bmr_format %>kcal
+      </blockquote>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      1日の摂取カロリー
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <%= @day_calorie %>kcal
+      </blockquote>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      1日の可能摂取カロリー
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <%= @day_target_calorie %>kcal
+      </blockquote>
+    </div>
+  </div>
+  
+  <div class="row">
+    <% @target_pfcs.each do |name, calorie, gram, ratio| %>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <%= name %> ( 割合：<%= ratio %>％ )
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <%= gram %>g(<%= calorie %>kcal)
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+    
