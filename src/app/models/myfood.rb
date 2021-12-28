@@ -3,7 +3,7 @@ class Myfood < ApplicationRecord
    has_many :todaymeals, dependent: :destroy
    has_many :recipefoods, dependent: :destroy
 
-   validates :food_name, presence: true, length: { maximum: 100 }, uniqueness: true
+   validates :food_name, presence: true, length: { maximum: 100 }, uniqueness: { scope: :user }
    validates :calorie, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 10000, message: " : 0 ~ 10000 までの数値を入力ください。"}
    validates :protein, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 1000, message: " : 0 ~ 1000 までの数値を入力ください。"}
    validates :fat, presence: true, numericality: {only_float: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 1000, message: " : 0 ~ 1000 までの数値を入力ください。"}
