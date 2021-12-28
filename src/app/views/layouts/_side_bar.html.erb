@@ -74,7 +74,8 @@
                       Setting
                   </p>
               </a>
-          </li><br><br>
+          </li><br>
+          <div style="border-bottom: solid 1px #fff; border-top: solid 1px #fff;">
           <li class="nav-item">
             <%= link_to(destroy_user_session_path, method: :delete, class: "nav-link") do %>
               <i class="nav-icon fas fa-sign-out-alt" style="color: #fff;"></i>
@@ -83,6 +84,7 @@
               </p>
             <% end %>
           </li>
+          </div>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
