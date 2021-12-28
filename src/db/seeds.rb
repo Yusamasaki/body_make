@@ -1,11 +1,4 @@
 
-# ユーザー
-# User.create!( 
-# 	email: "user@email.com",
-# 	password: "password",
-# 	username: "user"
-# )
-
 20.times do |n|
 	User.create!(
 		email: "user#{n + 1}@email.com",
@@ -51,14 +44,6 @@ puts 'Exercise_content作成！'
 
 # -----基本設定関連-----
 
-# Bmr.create!(
-# 	user_id: 1,
-# 	gender: "男性",
-# 	age: 27,
-# 	height: 157,
-# 	activity: 1.725
-# )
-
 gender_array = ["男性", "女性"]
 activity_array = [1.2, 1.375, 1.55, 1.725, 1.9]
 
@@ -71,16 +56,6 @@ User.all.each do |user|
 	)
 end
 puts 'Bmr作成！'
-
-# Targetweight.create!(
-# 	user_id: 1,
-# 	now_body_weight: 80,
-# 	goal_body_weight: 60,
-# 	now_bodyfat_percentage: 20,
-# 	goal_bodyfat_percentage: 10,
-# 	beginning_date: Time.current,
-# 	target_date: Time.current.since(6.month)
-# )
 
 User.all.each do |user|
 	user.create_targetweight!(
@@ -131,11 +106,3 @@ puts 'Traningevent作成！'
 
 Timezone.create!([ {time_zone: "朝食"}, {time_zone: "昼食"}, {time_zone: "夕食"}, {time_zone: "間食"},])
 puts 'Timezone作成！'
-
-30.times do |n|
-	Recipe.create!(
-		user_id: 1,
-		recipe_name: "レシピ#{n + 1}"
-	)
-end
-puts 'Recipe作成！'

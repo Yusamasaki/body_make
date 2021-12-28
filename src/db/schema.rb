@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_26_000142) do
+ActiveRecord::Schema.define(version: 2021_12_23_014245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "id_digest"
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
@@ -149,8 +150,8 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
     t.float "goal_body_weight"
     t.float "now_bodyfat_percentage"
     t.float "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-12-21 00:08:45"
-    t.datetime "target_date", default: "2021-12-22 00:08:45"
+    t.datetime "beginning_date", default: "2021-12-28 08:57:01"
+    t.datetime "target_date", default: "2021-12-29 08:57:01"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -164,7 +165,7 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-12-21", null: false
+    t.date "start_time", default: "2021-12-28", null: false
     t.integer "exercise_time_hour", default: 0, null: false
     t.integer "exercise_time_min", default: 0, null: false
     t.float "body_weight", default: 0.0, null: false
@@ -268,6 +269,7 @@ ActiveRecord::Schema.define(version: 2021_10_26_000142) do
     t.string "provider"
     t.string "uid"
     t.string "username"
+    t.string "id_digest"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

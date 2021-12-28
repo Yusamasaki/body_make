@@ -8,7 +8,6 @@ class User < ApplicationRecord
   has_many :todaymeals, dependent: :destroy
   has_many :todaymeal_recipes, dependent: :destroy
   has_many :meals_analysis, dependent: :destroy
-  has_many :sns_sredential, dependent: :destroy
   
   has_many :traningevents, dependent: :destroy
   has_many :today_tranings, dependent: :destroy
@@ -19,6 +18,8 @@ class User < ApplicationRecord
   has_one :bmr, dependent: :destroy
   has_one :pfc_ratio, dependent: :destroy
 
+  after_save :create_id_digest # saveが完了した後に呼び出されるコールバック
+
   validates :username, presence: true
   
   # Include default devise modules. Others available are:
@@ -26,7 +27,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: %i[facebook google_oauth2]
-  
+
+  def to_param
+    id_digest
+  end
+
   private
   # SNS 認証
   def self.find_oauth(auth)
@@ -42,4 +47,12 @@ class User < ApplicationRecord
     end
     return {user: user}
   end
+
+  def create_id_digest
+    if id_digest.nil?
+      new_digest = Digest::MD5.hexdigest(id.to_s)
+      update_column(:id_digest, new_digest)
+    end
+  end
+
 end

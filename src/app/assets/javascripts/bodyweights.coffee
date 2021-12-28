@@ -4,8 +4,7 @@
 
 # 体重グラフ用
 
-window.draw_graph = -> 
-    document.addEventListener 'turbolinks:load', ->
+window.draw_graph = ->
     ctx = document.getElementById("myChart").getContext('2d')
     myChart = new Chart(ctx, {
         type: 'line',

@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   
+  require 'digest/md5'
+  
   # 小数点の誤差をなくす
   require 'bigdecimal'
   
@@ -13,27 +15,22 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit :sign_in, keys: added_attrs
   end
   
-  def set_user
-    @user = current_user
-  end
-  
-  # ログイン済みのユーザーか確認します。
-  def logged_in_user
-    unless user_signed_in?.to_s == "true"
-      # store_location
-      flash[:danger] = "ログインしてください。"
-      redirect_to root_url
+  def user_access_false
+    if user_signed_in?
+      flash[:danger] = "編集権限がありません。"
+      redirect_to user_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current)
     end
   end
   
-  # ログアウト済みのユーザーか確認。
-  def log_out_user
-    redirect_to user_path(current_user, start_date: Date.current.beginning_of_month, start_time: Date.current) if user_signed_in?
+  def admin_access_false
+    if admin_signed_in?
+      flash[:danger] = "編集権限がありません。"
+      redirect_to admin_path(current_admin)
+    end
   end
-    
-  # アクセスしたユーザーが現在ログインしているユーザーか確認します。
-  def correct_user
-    redirect_to(users_url) unless current_user?(@user)
+  
+  def set_user
+    @user = current_user
   end
   
   # 基礎代謝　＆　目標設定

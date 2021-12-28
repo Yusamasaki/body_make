@@ -3,7 +3,7 @@ class Recipe < ApplicationRecord
   has_many :recipefoods, dependent: :destroy
   has_many :todaymeal_recipes, dependent: :destroy
 
-  validates :recipe_name, presence: true, length: { maximum: 100 }, uniqueness: true
+  validates :recipe_name, presence: true, length: { maximum: 100 }, uniqueness: { scope: :user }
   
   def self.search_recipe(search)
     if search.present?
