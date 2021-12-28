@@ -60,6 +60,12 @@ jobs:
       - run:
           name: database setup
           command: heroku run rails db:migrate -a $HEROKU_APP_NAME
+      - run:
+          name: database reset
+          command: heroku run rails db:migrate:reset -a $HEROKU_APP_NAME
+      - run:
+          name: database seeds setup
+          command: heroku run rails db:seed -a $HEROKU_APP_NAME
 
 workflows:
   version: 2
