@@ -4,7 +4,7 @@
     <div class="flex-form-right" style="padding: 5px 5px 0 0;">登録件数：<%= ExerciseCategory.count %>件</div>
   </div>
 
-  <div class="">
+  <div class="overflow-table">
     <table class="table table-sm table-bordered table-striped">
       <thead class="thead-original">
         <tr>
@@ -24,9 +24,13 @@
               <%= link_to '編集', edit_exercise_category_path(category), remote: true, class: "exercise_categoty-table-edit" %>
             </td>
             <td class="center" style="width: 100px">
-              <%= link_to '削除', exercise_category_path(category), method: :delete,
-                                                                    class: "exercise_categoty-table-delete",
-                                                                    data: { confirm: "本当に削除しますか？" }  %>
+              <% unless TodayExercise.find_by(exercise_category_id: category.id) %>
+                <%= link_to '削除', exercise_category_path(category), method: :delete,
+                                                                      class: "exercise_categoty-table-delete",
+                                                                      data: { confirm: "本当に削除しますか？" }  %>
+              <% else %>
+                使用中
+              <% end %>
             </td>
           </tr>
         <% end %>
