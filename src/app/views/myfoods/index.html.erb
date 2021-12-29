@@ -186,28 +186,30 @@
 <% end %>
 
 <div class="box1">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th><%= Myfood.human_attribute_name(:food_name) %></th>
-        <th><%= Myfood.human_attribute_name(:calorie) %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @myfoods.each do |myfood| %>
-        <% unless params[:recipe_id].present? %>
-          <tr data-href=<%= new_user_todaymeal_path(@user, switching: "record", myfood_id: myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>>
-        <% else %>  
-          <tr data-href=<%= new_user_recipefood_path(@user, switching: "record", myfood_id: myfood, timezone_id: params[:timezone_id], todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], start_time: params[:start_time], start_date: params[:start_date]) %>>
-        <% end %>
-          <td>
-            <%= myfood.food_name %>
-          </td>
-          <td><%= myfood.calorie %></td>
+  <% if @myfoods.present? %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><%= Myfood.human_attribute_name(:food_name) %></th>
+          <th><%= Myfood.human_attribute_name(:calorie) %></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @myfoods.each do |myfood| %>
+          <% unless params[:recipe_id].present? %>
+            <tr data-href=<%= new_user_todaymeal_path(@user, switching: "record", myfood_id: myfood, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]) %>>
+          <% else %>  
+            <tr data-href=<%= new_user_recipefood_path(@user, switching: "record", myfood_id: myfood, timezone_id: params[:timezone_id], todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], start_time: params[:start_time], start_date: params[:start_date]) %>>
+          <% end %>
+            <td><%= myfood.food_name %></td>
+            <td><%= myfood.calorie %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <h3 class="center" style="padding: 10px;">食品を追加して下さい</h3>
+  <% end %>
 </div>
 
 <% unless params[:search].present? %>

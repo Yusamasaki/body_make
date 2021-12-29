@@ -26,18 +26,19 @@
     padding: 0px;
 }
 
-.container-fluid{
-  
-}
-
 #logo {
     font-size: 1.2em;
     float: left;
     color: #fff;
     text-transform: uppercase;
-    padding: 9px 15px;
+    padding: 20px 10px;
     font-weight: bold;
     text-shadow: 2px 3px 3px #8fa8da;
+    text-align: center;
+    border-bottom: solid 1px #fff;
+}
+
+.user-info {
     text-align: center;
     border-bottom: solid 1px #fff;
 }
