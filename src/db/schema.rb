@@ -165,7 +165,7 @@ ActiveRecord::Schema.define(version: 2021_12_23_014245) do
   end
 
   create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-12-28", null: false
+    t.date "start_time", default: "2021-12-29", null: false
     t.integer "exercise_time_hour", default: 0, null: false
     t.integer "exercise_time_min", default: 0, null: false
     t.float "body_weight", default: 0.0, null: false

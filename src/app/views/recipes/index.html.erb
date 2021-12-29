@@ -75,22 +75,26 @@
 <% end %>
 
 <div class="box1">
-  <table class="table table-striped sample">
-    <thead>
-      <tr>
-        <th><%= Recipe.human_attribute_name(:recipe_name) %></th>
-        <th><%= Myfood.human_attribute_name(:calorie) %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @recipes.each do |recipe| %>
-      <tr data-href= <%= new_user_todaymeal_recipe_path(@user, switching: "record", recipe_id: recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]) %>>
-        <td><%= recipe.recipe_name %></td>
-        <td><%= recipe.calorie %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <% if @recipes.present? %>
+    <table class="table table-striped sample">
+      <thead>
+        <tr>
+          <th><%= Recipe.human_attribute_name(:recipe_name) %></th>
+          <th><%= Myfood.human_attribute_name(:calorie) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @recipes.each do |recipe| %>
+        <tr data-href= <%= new_user_todaymeal_recipe_path(@user, switching: "record", recipe_id: recipe, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]) %>>
+          <td><%= recipe.recipe_name %></td>
+          <td><%= recipe.calorie %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <h3 class="center" style="padding: 10px;">レシピを追加して下さい</h3>
+  <% end %>
 </div>
 
 <% unless params[:search].present? %>

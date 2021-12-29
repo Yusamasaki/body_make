@@ -26,7 +26,7 @@
     <div class="form-box1">
       <div class="box-inner">
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-          <h2>ログイン(管理者専用)</h2>
+          <h6><span>ログイン(管理者専用)</span></h6>
           <div class="box-email">
             <%= f.label :email, "Eメール" %><br />
             <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
