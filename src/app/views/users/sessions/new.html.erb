@@ -25,6 +25,7 @@
         <% flash.each do |message_type, msg| %>
           <div class="alert alert-danger center"><%= msg.html_safe %></div>
         <% end %>
+        <h6><span>通常ログイン</span></h6>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="box-email">
             <%= f.label :email, "Eメール" %><br />
@@ -43,26 +44,26 @@
           </div><br />
 
           <div class="box-action">
-            <%= f.submit "ログイン", class: "btn btn-md btn-outline-original btn-block" %>
-            <% if devise_mapping.rememberable? %>
-              <div class="remember">
-                <%= f.check_box :remember_me %>
-                <%= f.label :remember, "ログインしたままにする" %>
-              </div>
-            <% end %>
+            <%= f.submit "ログイン", class: "btn btn-md btn-outline-original btn-block" %><br>
+            
           </div>
         <% end %>
 
-        <%= link_to(user_google_oauth2_omniauth_authorize_path, class: "btn btn-md btn-outline-original btn-block") do %>
-          <i class="fab fa-google"></i>  Sign in with Google
-        <% end %>
+        <div>
+          <h6><span>SNSログイン</span></h6>
+          <%= link_to(user_google_oauth2_omniauth_authorize_path, class: "btn btn-md btn-outline-original btn-block") do %>
+            <i class="fab fa-google"></i>  Sign in with Google
+          <% end %>
 
-        <%= link_to(user_facebook_omniauth_authorize_path, class: "btn btn-md btn-original btn-block") do %>
-          <i class="fab fa-facebook"></i>  Sign in with Facebook
-        <% end %>
+          <%= link_to(user_facebook_omniauth_authorize_path, class: "btn btn-md btn-original btn-block") do %>
+            <i class="fab fa-facebook"></i>  Sign in with Facebook
+          <% end %>
+        </div>
         <br>
-        <%= link_to "アカウントを作成", new_user_registration_path, class: "btn btn-md btn-outline-primary btn-block" %>
-
+        <h6><span>アカウントを作成</span></h6>
+        <%= link_to "アカウントを作成", new_user_registration_path, class: "btn btn-md btn-outline-primary btn-block" %><br>
+        
+        <h6><span>管理ユーザーログイン</span></h6>
         <%= link_to "管理ユーザー", new_admin_session_path, class: "btn btn-md btn-outline-secondary btn-block" %>
       </div>
     </div>
