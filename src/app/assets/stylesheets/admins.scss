@@ -51,3 +51,8 @@
   max-width: inherit;
   width: 40%;
 }
+
+.overflow-table {
+  overflow: auto; /* 横スクロールバーを表示 */
+  white-space: nowrap; /* セル内にあるテキストの折り返しを禁止 */
+}

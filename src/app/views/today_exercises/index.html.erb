@@ -1,14 +1,6 @@
 <div class="box1">
   <div class="center">
-    <!-- <div class="col-md-3 offset-md-5 align-self-center"> -->
-      <!-- <%= link_to user_today_exercises_path(current_user, start_time: params[:start_time].to_date.yesterday, start_date: params[:start_date].to_date.prev_month) do %>
-        <div class="arrow round-arrow-left"></div>
-      <% end %> -->
       <a style="color: #274277;"><%= params[:start_time].to_time.to_s(:date) %></a>
-      <!-- <%= link_to user_today_exercises_path(current_user, start_time: params[:start_time].to_date.tomorrow, start_date: params[:start_date].to_date.next_month) do %>
-        <div class="arrow round-arrow-right"></div>
-      <% end %> -->
-    <!-- </div> -->
     <a class="right">
       <%= link_to(user_today_exercise_calender_path(current_user, @today_exercises.first, start_time: params[:start_time], start_date: params[:start_date]), remote: true, class: "text-original") do %>
         <i class="fas fa-calendar-alt fa-lg"></i>
@@ -18,7 +10,7 @@
 </div>
 
 <div class="box1 box1-padding">
-  <h5 class="center">運動内容選択</h5>
+  <h6 class="center">運動内容選択</h6>
   <div class="f-container exercise-category-group">
     <% @categories.each do |category| %>
       <details>
@@ -39,11 +31,20 @@
   </div>
 </div>
 
-<div class="box1">
+<div class="box1 exercise_pc_display">
   <div class="col-md-12 align-self-center">
     <div class="exercise-chart">
-      <canvas id="exercise_myChart" width="200" height="50"></canvas>
-      <script>exercise_draw_graph();</script>
+      <canvas id="month_exercise_chart" width="200" height="50"></canvas>
+      <script>month_exercise_draw_graph();</script>
+    </div>
+  </div>
+</div>
+
+<div class="box1 exercise_mobile_display">
+  <div class="col-md-12 align-self-center">
+    <div class="exercise-chart">
+      <canvas id="week_exercise_chart" width="200" height="100"></canvas>
+      <script>week_exercise_draw_graph();</script>
     </div>
   </div>
 </div>
@@ -66,7 +67,7 @@
         <% @today_exercises.drop(1).each do |exercise| %>
           <tr>
             <td class="align-middle"><%= category(exercise) %> / <%= content(exercise) %></td>
-            <td><%= exercise.exercise_time_hour %>時間<%= exercise.exercise_time_min %>分</td>
+            <td><%= exercise_hour(exercise) %><%= exercise_min(exercise) %></td>
             <td><%= mets(exercise) %> cal</td>
             <td><%= exercise.note %></td>
             <td class="center">
