@@ -6,7 +6,7 @@
 
 <div class="box1">
   <div class="box-inner">
-    <h5>トレーニング種目編集</h5><br>
+    <div class="title-layout"><span>トレーニング種目編集</span></div><br>
     <%= form_with(model: @traningevent, url: user_traningevent_path(@user, @traningevent, bodypart_id: params[:bodypart_id], subbodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
       

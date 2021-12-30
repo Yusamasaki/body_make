@@ -5,7 +5,7 @@
 
 <div class="form-box1">
   <div class="box-inner">
-    <h5>基本設定変更</h5><br>
+    <div class="title-layout"><span>基本設定変更</span></div><br>
     <%= form_with(model: [@user, @bmr], url: user_bmr_path(switching: params[:switching], start_time: params[:start_time], start_date: params[:start_date]), local: true) do |f| %>
     
       <%= render partial: "form", locals: { f: f }%>

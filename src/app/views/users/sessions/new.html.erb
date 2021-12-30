@@ -25,7 +25,7 @@
         <% flash.each do |message_type, msg| %>
           <div class="alert alert-danger center"><%= msg.html_safe %></div>
         <% end %>
-        <h6><span>通常ログイン</span></h6>
+        <div class="title-layout"><span>通常ログイン</span></div>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="box-email">
             <%= f.label :email, "Eメール" %><br />
@@ -50,7 +50,7 @@
         <% end %>
 
         <div>
-          <h6><span>SNSログイン</span></h6>
+          <div class="title-layout"><span>SNSログイン</span></div>
           <%= link_to(user_google_oauth2_omniauth_authorize_path, class: "btn btn-md btn-outline-original btn-block") do %>
             <i class="fab fa-google"></i>  Sign in with Google
           <% end %>
@@ -60,10 +60,10 @@
           <% end %>
         </div>
         <br>
-        <h6><span>アカウントを作成</span></h6>
+        <div class="title-layout"><span>アカウントを作成</span></div>
         <%= link_to "アカウントを作成", new_user_registration_path, class: "btn btn-md btn-outline-primary btn-block" %><br>
         
-        <h6><span>管理ユーザーログイン</span></h6>
+        <div class="title-layout"><span>管理ユーザーログイン</span></div>
         <%= link_to "管理ユーザー", new_admin_session_path, class: "btn btn-md btn-outline-secondary btn-block" %>
       </div>
     </div>

@@ -6,7 +6,7 @@
 <div class="section">
   <div class="form-box1">
     <div class="box-inner">
-      <h5>基本設定</h5><br>
+      <div class="title-layout"><span>基本設定</span></div><br>
       <%= form_with(model: [@user, @bmr], url: user_bmrs_path(start_time: params[:start_time], start_date: params[:start_date]), local: true) do |f| %>
       
         <%= render partial: "form", locals: { f: f }%>

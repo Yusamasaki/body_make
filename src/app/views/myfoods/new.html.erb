@@ -10,7 +10,7 @@
 
 <div class="form-box1">
   <div class="box-inner">
-  <h5>食品追加</h5><br>
+  <div class="title-layout"><span>食品追加</span></div><br>
   <%= form_with(model: @myfood, url: user_myfoods_path(@user, todaymeal_recipe_id: params[:todaymeal_recipe_id], before: params[:before], recipe_id: params[:recipe_id], timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
     
     <%= render partial: "form", locals: { f: f }%>

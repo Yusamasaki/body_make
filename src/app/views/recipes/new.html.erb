@@ -7,7 +7,7 @@
 
 <div class="form-box1">
   <div class="box-inner">
-    <h5>レシピ追加</h5><br>
+    <div class="title-layout"><span>レシピ追加</span></div><br>
     <%= form_with(model: @recipe, url: user_recipes_path(@user, timezone_id: params[:timezone_id], start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
       
       <%= render 'shared/error_messages', object: f.object %>

@@ -17,16 +17,15 @@
   </ul>
 </div>
 
-<div class="col col-md-4 offset-md-4">
-  <%= render 'layouts/flashes' %>
-</div>
-
 <div class="bg_pattern Paper_v2"></div>
   <div class="section">
     <div class="form-box1">
       <div class="box-inner">
+        <% flash.each do |message_type, msg| %>
+          <div class="alert alert-danger center"><%= msg.html_safe %></div>
+        <% end %>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-          <h6><span>ログイン(管理者専用)</span></h6>
+          <div class="title-layout"><span>ログイン(管理者専用)</span></div>
           <div class="box-email">
             <%= f.label :email, "Eメール" %><br />
             <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
