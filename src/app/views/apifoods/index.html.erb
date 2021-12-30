@@ -4,10 +4,9 @@
                                                     before: params[:before], start_time: params[:start_time], start_date: params[:start_date]) %>"><i class="fas fa-undo-alt">戻る</i></a>
   </li>
 </ul>
-
-
-
-<div class="box1">  
+<br>
+<h4 class="center">API食品検索</h4>
+<div class="box1">
   <%= form_with(url: user_apifoods_path(@user, timezone_id: params[:timezone_id], start_time: params[:start_time], start_date: params[:start_date]), method: :get, class: "search_container", local: true) do |f| %>
     <%= f.text_field :food_name, class: "form-control", :placeholder => "食品名" %>
     <%= f.hidden_field :start_time, value: params[:start_time] %>

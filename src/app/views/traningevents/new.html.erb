@@ -5,7 +5,7 @@
 
 <div class="box1">
   <div class="box-inner">
-    <h5>トレーニング種目追加</h5><br>
+    <div class="title-layout"><span>トレーニング種目追加</span></div><br>
     <%= form_with(model: @traningevent, url: user_traningevents_path(@user, bodypart_id: params[:bodypart_id], subbodypart_id: params[:bodypart_id], traningtype_id: params[:traningtype_id], today_traning_day_id: @today_traning_day, start_date: params[:start_date], start_time: params[:start_time]), method: :post, local: true) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
       

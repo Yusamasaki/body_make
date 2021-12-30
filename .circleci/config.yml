@@ -16,37 +16,51 @@ jobs:
       - ruby/install-deps
       # ↑bundle installのようなもの
       
-  # test:
-  #   parallelism: 3
-  #   docker:
-  #     - image: cimg/ruby:2.7-node
-  #     - image: circleci/postgres:9.5-alpine
-  #       environment:
-  #         POSTGRES_USER: circleci-demo-ruby
-  #         POSTGRES_DB: rails_blog_test
-  #         POSTGRES_PASSWORD: ""
-  #   environment:
-  #     BUNDLE_JOBS: "3"
-  #     BUNDLE_RETRY: "3"
-  #     PGHOST: 127.0.0.1
-  #     PGUSER: circleci-demo-ruby
-  #     PGPASSWORD: ""
-  #     RAILS_ENV: test
-  #   steps:
-  #     - checkout
-  #     - ruby/install-deps
-  #     - node/install-packages:
-  #         pkg-manager: yarn
-  #         cache-key: "yarn.lock"
-  #     - run:
-  #         name: Wait for DB
-  #         command: dockerize -wait tcp://localhost:5432 -timeout 1m
-  #     - run:
-  #         name: Database setup
-  #         command: bundle exec rails db:schema:load --trace
-  #     # Run rspec in parallel
-  #     - ruby/rspec-test
-  #     - ruby/rubocop-check
+  test:  # "test"という名前の２つ目のジョブです。
+    # テストを高速化するために「並列ジョブコンテナ」を実行します。
+    # これによりテストが複数のコンテナに分割されます。
+    parallelism: 3
+    # ここでは、2 つの Docker イメージを設定します。
+    docker:
+      - image: cimg/ruby:2.7-node # プライマリ Docker イメージです。ここでステップコマンドが実行されます。
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # コンテキスト/ プロジェクト UI の環境変数を参照します。
+      - image: circleci/postgres:9.5-alpine
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # コンテキスト/ プロジェクト UI の環境変数を参照します。
+        environment: # POSTGRES 環境変数を追加します。
+          POSTGRES_USER: circleci-demo-ruby
+          POSTGRES_DB: rails_blog_test
+          POSTGRES_PASSWORD: ""
+    # Ruby/Rails 固有の環境変数をプライマリコンテナに適用します。
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      PGHOST: 127.0.0.1
+      PGUSER: circleci-demo-ruby
+      PGPASSWORD: ""
+      RAILS_ENV: test
+    # 実行する一連のステップです。「ビルド」のステップと似たステップもあります。
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
+      # ここでは、データベース上で実行する前に
+      # セカンダリコンテナが起動することを確認します。
+      
+  - run:
+      name: DB の待機
+      command: dockerize -wait tcp://localhost:5432 -timeout 1m
+ 
+  - run:
+      name: データベースのセットアップ
+      command: bundle exec rails db:schema:load --trace
+      # RSpec を並列実行します。
+      - ruby/rspec-test
   
   deploy:
     docker:
