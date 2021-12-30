@@ -1,0 +1,46 @@
+<ul class="nav nav-fill justify-content-center" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link" href="<%= user_today_exercises_path(@user, start_time: params[:start_time], start_date: params[:start_date]) %>"><i class="fas fa-undo-alt">戻る</i></a>
+  </li>
+</ul>
+
+<div class="form-box1">
+  <div class="box-inner">
+  <div class="title-layout"><span>Exercise</span></div><br>
+  <%= form_with(model: @today_exercise, url: user_today_exercise_path(
+      start_date: params[:start_date], start_time: params[:start_time]), method: :patch, local: true) do |f| %>
+    <div>
+      <div class="center">
+        <h3><%= ExerciseCategory.find(@today_exercise.exercise_category_id).name %></h3>
+        <h7><%= ExerciseContent.find(@today_exercise.exercise_content_id).content %> (<%= ExerciseContent.find(@today_exercise.exercise_content_id).mets %>METs)</h7>
+      </div>
+      <br>
+      <div>
+        <div>
+          <%= f.label '運動時間', class: "label-form" %>
+        </div>
+        <%= f.select :exercise_time_hour, options_for_select(0..23, {selected: @today_exercise.exercise_time_hour}), {}, { class: "form-control form-control-sm", style: 'display: inline-block; width: auto;' }  %>
+        <%= f.label :exercise_time_hour, class: "label-form" %>
+        <%= f.select :exercise_time_min, options_for_select((0..55).select { |i| i if i % 5  == 0 }, {selected: @today_exercise.exercise_time_min}), {}, { class: "form-control form-control-sm", style: 'display: inline-block; width: auto;' } %>
+        <%= f.label :exercise_time_min, class: "label-form" %>
+      </div><br>
+
+      <div>
+        <%= f.label :body_weight %>
+        <div class="form-inline">
+          <%= f.number_field :body_weight, step: "0.1", required: true, class: "form-control form-control-sm w-25" %>&nbsp;kg
+        </div>
+      </div><br>
+
+      <div>
+        <%= f.label :note, class: "label-form" %>
+        <%= f.text_field :note, class: "form-control form-control-sm" %>
+      </div><br>
+    </div>
+
+    <div>
+      <%= f.submit "登録", class: "btn btn-sm btn-primary w-25" %>
+    </div>
+  <% end %>
+  </div>
+</div>

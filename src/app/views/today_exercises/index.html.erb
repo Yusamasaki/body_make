@@ -2,7 +2,7 @@
   <div class="center">
       <a style="color: #274277;"><%= params[:start_time].to_time.to_s(:date) %></a>
     <a class="right">
-      <%= link_to(user_today_exercise_calender_path(current_user, @today_exercises.first, start_time: params[:start_time], start_date: params[:start_date]), remote: true, class: "text-original") do %>
+      <%= link_to(user_today_exercise_calender_path(current_user, @today_exercises.first, start_time: params[:start_time], start_date: params[:start_date]), class: "text-original") do %>
         <i class="fas fa-calendar-alt fa-lg"></i>
       <% end %>
     </a>
@@ -21,8 +21,7 @@
           <div class="box2-exercise content">
             <%= link_to content.content, new_user_today_exercise_path(
                 current_user, start_date: params[:start_date], start_time: params[:start_time], exercise_category_id: category.id, exercise_content_id: content.id),
-                class: "content-item",
-                remote: true
+                class: "content-item"
             %>
           </div>
         <% end %>
@@ -76,8 +75,7 @@
                 id: exercise,
                 start_date: params[:start_date], start_time: params[:start_time]
                 ),
-                class: "btn btn-sm btn-success",
-                remote: true do
+                class: "btn btn-sm btn-success" do
               %>
                 <i class="fas fa-pencil-alt"></i>
               <% end %>
@@ -108,7 +106,3 @@
     </table>
   </div>
 </div>
-
-<div id="calender" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
-<div id="new-exercise-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
-<div id="edit-exercise-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
