@@ -22,25 +22,30 @@ class TodayExercisesController < ApplicationController
     gon.month_calorie =
       @user.today_exercise.where(start_time: month_before..after_month).order(:id).group_by {|exercise| exercise.start_time }.map { |start_time, value|
         value.drop(1).sum { |exercise|
-          ((((exercise.exercise_time_hour * 60) + (exercise.exercise_time_min)) / 60.to_f) \
-          * ExerciseContent.find(exercise.exercise_content_id.to_i).mets \
-          * exercise.body_weight.to_f \
-          * 1.05).truncate(1)
+          ((((exercise.exercise_time_hour * 60).rationalize + (exercise.exercise_time_min)).rationalize / 60.rationalize) \
+          * ExerciseContent.find(exercise.exercise_content_id.to_i).mets.rationalize \
+          * exercise.body_weight.rationalize \
+          * 1.05).to_f
         }
       }
 
     # チャート用の今週分の運動データ
     week_before = params[:start_time].to_date.beginning_of_week
     after_week = week_before.end_of_week
-    gon.week_start_times = [*week_before.day..after_week.day]
+    if week_before.day > after_week.day
+      gon.week_start_times = [week_before.day, (week_before + 1).day, (week_before + 2).day, (week_before + 3).day, (week_before + 4).day, (week_before + 5).day, (week_before + 6).day]
+    else
+      gon.week_start_times = [*week_before.day..after_week.day]
+    end
+    
 
     gon.week_calorie =
       @user.today_exercise.where(start_time: week_before..after_week).order(:id).group_by {|exercise| exercise.start_time }.map { |start_time, value|
         value.drop(1).sum { |exercise|
-          ((((exercise.exercise_time_hour * 60) + (exercise.exercise_time_min)) / 60.to_f) \
-          * ExerciseContent.find(exercise.exercise_content_id.to_i).mets \
-          * exercise.body_weight.to_f \
-          * 1.05).truncate(1)
+          ((((exercise.exercise_time_hour * 60).rationalize + (exercise.exercise_time_min).rationalize) / 60.rationalize) \
+          * ExerciseContent.find(exercise.exercise_content_id.to_i).mets.rationalize \
+          * exercise.body_weight.rationalize \
+          * 1.05).to_f
         }
       }
   end
@@ -60,7 +65,9 @@ class TodayExercisesController < ApplicationController
         user_id: current_user, start_date: params[:start_date], start_time: params[:start_time]
       )
     else
-      render :new
+      redirect_to user_today_exercises_url(
+        user_id: current_user, start_date: params[:start_date], start_time: params[:start_time]
+      ), flash: { danger: "登録エラー"}
     end
   end
 
@@ -70,33 +77,21 @@ class TodayExercisesController < ApplicationController
   end
 
   def update
-    ActiveRecord::Base.transaction do
-      if @today_exercise.update_attributes!(exercise_params)
-        flash[:success] = "#{@today_exercise.start_time}の運動を修正しました"
-        redirect_to user_today_exercises_path(
-          user_id: current_user,
-          id: @today_exercise,
-          start_date: params[:start_date],
-          start_time: params[:start_time]
-        )
-      else
-        flash[:danger] = "記録に失敗しました。"
-        redirect_to edit_user_today_exercise_path(
-          user_id: current_user,
-          id: @today_exercise,
-          start_date: params[:start_date],
-          start_time: params[:start_time]
-        )
-      end
-    end
-  rescue ActiveRecord::RecordInvalid
-      flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
-      redirect_to edit_user_today_exercise_path(
+    if @today_exercise.update(exercise_params)
+      flash[:success] = "#{@today_exercise.start_time}の運動を修正しました"
+      redirect_to user_today_exercises_url(
         user_id: current_user,
-        id: @today_exercise,
         start_date: params[:start_date],
         start_time: params[:start_time]
       )
+    else
+      flash[:danger] = "記録に失敗しました。"
+      redirect_to user_today_exercises_url(
+        user_id: current_user,
+        start_date: params[:start_date],
+        start_time: params[:start_time]
+      )
+    end
   end
 
   def destroy

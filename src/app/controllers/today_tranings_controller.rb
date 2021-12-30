@@ -10,6 +10,7 @@ class TodayTraningsController < ApplicationController
     before_action :set_traning_tab, only: [:index, :traning_new, :traning_analysis, :update]
     
     def index
+      @traningevent_first = @user.traningevents.all.first
       @today_tranings = @user.today_tranings.all
     end
 
@@ -60,7 +61,8 @@ class TodayTraningsController < ApplicationController
     end
 
     def traning_new
-      @traningevent = @user.traningevents.find(params[:traningevent_id]) if params[:traningevent_id]
+      @traningevent_first = @user.traningevents.all.first
+      @traningevent = @user.traningevents.find(params[:traningevent_id]) if params[:traningevent_id].present?
       @today_tranings = @user.today_tranings.where(start_time: params[:start_time], traningevent_id: @traningevent).order(:id).pluck(:id)
 
       if params[:traningevent_id]
@@ -74,6 +76,7 @@ class TodayTraningsController < ApplicationController
     end
 
     def traning_analysis
+      @traningevent_first = @user.traningevents.all.first
       @first_day = params[:start_date].nil? ?
       Date.current.beginning_of_month : params[:start_date].to_date
       @last_day = @first_day.end_of_month
