@@ -105,6 +105,7 @@ class ApplicationController < ActionController::Base
       end
       
       # ------トレーニンググラフ------
+      
       def set_analysis_day
         [["ベンチプレス", 2, 1, 1], ["デッドリフト", 5, 2, 2], ["スクワット", 11, 3, 1], ["バーベルショルダープレス", 14, 4, 1], ["バーベルカール", 18, 5, 1]].map{|name, subbodypart, bodypart, traningtype|
           traningevent = @user.traningevents.find_by(traning_name: name)
