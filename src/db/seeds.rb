@@ -93,16 +93,5 @@ SubBodypart.create!(
 )
 puts 'SubBodypart作成！'
 
-Traningevent.create!(
-	[
-		{traning_name: "ベンチプレス", subbodypart_id: 2, bodypart_id: 1, traningtype_id: 1, user_id: 1},
-		{traning_name: "デッドリフト", subbodypart_id: 5, bodypart_id: 2, traningtype_id: 1, user_id: 1},
-		{traning_name: "スクワット", subbodypart_id: 11, bodypart_id: 3, traningtype_id: 1, user_id: 1},
-		{traning_name: "バーベルショルダープレス", subbodypart_id: 14, bodypart_id: 4, traningtype_id: 1, user_id: 1},
-		{traning_name: "バーベルカール", subbodypart_id: 18, bodypart_id: 5, traningtype_id: 1, user_id: 1}
-	]
-)
-puts 'Traningevent作成！'
-
 Timezone.create!([ {time_zone: "朝食"}, {time_zone: "昼食"}, {time_zone: "夕食"}, {time_zone: "間食"},])
 puts 'Timezone作成！'
