@@ -1,0 +1,26 @@
+name: Ruby
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup docker
+      shell: bash
+      run: |
+        # イメージのビルド
+        docker-compose build
+        # データベースの作成
+        docker-compose run app rake db:create
+      env:
+        RAILS_ENV: test
+
+    - name: Run Test
+      shell: bash
+      run:  |
+        docker-compose run --rm web rspec -f documentation
