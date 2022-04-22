@@ -1,7 +1,5 @@
 class TodaymealRecipesController < ApplicationController
-
   before_action :authenticate_user!
-
   before_action :set_user, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_recipe, only: [:new, :create, :edit, :update]
   before_action :set_recipefoods_total, only: [:new, :create, :edit, :update]
@@ -40,34 +38,33 @@ class TodaymealRecipesController < ApplicationController
         if @todaymeal_recipe.save
           
           # -------- @meals_analyのUpdate機能 --------
+          @todaymeals = @user.todaymeals.where(start_time: params[:start_time])
+          @todaymeal_recipes = @user.todaymeal_recipes.where(start_time: params[:start_time])
           
-            @todaymeals = @user.todaymeals.where(start_time: params[:start_time])
-            @todaymeal_recipes = @user.todaymeal_recipes.where(start_time: params[:start_time])
+          if @todaymeals.present?
+            myfoods = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id, :amount).map{ |myfood, amount| 
+                [ @user.myfoods.where(id: myfood).pluck(:calorie).sum * amount ]
+              }.sum.sum
+          end
+          if @todaymeal_recipes.present?
+            recipes = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id, :amount).map{|recipe, amount| 
+              [ @user.recipes.where(id: recipe).pluck(:calorie).sum * amount ]
+            }.sum.sum
+          end
             
-              if @todaymeals.present?
-                myfoods = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id, :amount).map{ |myfood, amount| 
-                            [ @user.myfoods.where(id: myfood).pluck(:calorie).sum * amount ]
-                          }.sum.sum
-              end
-              if @todaymeal_recipes.present?
-                recipes = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id, :amount).map{|recipe, amount| 
-                            [ @user.recipes.where(id: recipe).pluck(:calorie).sum * amount ]
-                          }.sum.sum
-              end
-              
-              if @todaymeals.present? && @todaymeal_recipes.present?
-                total = myfoods + recipes
-              elsif @todaymeals.present? && @todaymeal_recipes.blank?
-                total = myfoods
-              elsif @todaymeal_recipes.present? && @todaymeals.blank?
-                total = recipes
-              else
-                total = nil
-              end
+          if @todaymeals.present? && @todaymeal_recipes.present?
+            total = myfoods + recipes
+          elsif @todaymeals.present? && @todaymeal_recipes.blank?
+            total = myfoods
+          elsif @todaymeal_recipes.present? && @todaymeals.blank?
+            total = recipes
+          else
+            total = nil
+          end
           @meals_analys.update_attributes!(calorie: total)
-          
+
           # -------- @meals_analyのUpdate機能 --------
-  
+
           flash[:success] = "#{@recipe.recipe_name}の登録に成功しました。"
           redirect_to user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time])
         else
@@ -102,38 +99,38 @@ class TodaymealRecipesController < ApplicationController
   def update
     @todaymeal_recipe = @user.todaymeal_recipes.find(params[:id])
     @meals_analys = @user.meals_analysis.find_by(start_time: params[:start_time])
-    
+
     if @todaymeal_recipe.update_attributes(todaymeal_recipe_params)
-      
-        # -------- @meals_analyのUpdate機能 --------
 
-          @todaymeals = @user.todaymeals.where(start_time: params[:start_time])
-          @todaymeal_recipes = @user.todaymeal_recipes.where(start_time: params[:start_time])
+      # -------- @meals_analyのUpdate機能 --------
 
-            if @todaymeals.present?
-              myfoods = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id, :amount).map{ |myfood, amount|
-                          [ @user.myfoods.where(id: myfood).pluck(:calorie).sum * amount ]
-                        }.sum.sum
-            end
-            if @todaymeal_recipes.present?
-              recipes = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id, :amount).map{|recipe, amount|
-                          [ @user.recipes.where(id: recipe).pluck(:calorie).sum * amount ]
-                        }.sum.sum
-            end
+      @todaymeals = @user.todaymeals.where(start_time: params[:start_time])
+      @todaymeal_recipes = @user.todaymeal_recipes.where(start_time: params[:start_time])
 
-            if @todaymeals.present? && @todaymeal_recipes.present?
-              total = myfoods + recipes
-            elsif @todaymeals.present? && @todaymeal_recipes.blank?
-              total = myfoods
-            elsif @todaymeal_recipes.present? && @todaymeals.blank?
-              total = recipes
-            else
-              total = nil
-            end
+      if @todaymeals.present?
+        myfoods = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id, :amount).map{ |myfood, amount|
+          [ @user.myfoods.where(id: myfood).pluck(:calorie).sum * amount ]
+        }.sum.sum
+      end
+      if @todaymeal_recipes.present?
+        recipes = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id, :amount).map{|recipe, amount|
+          [ @user.recipes.where(id: recipe).pluck(:calorie).sum * amount ]
+        }.sum.sum
+      end
 
-        @meals_analys.update_attributes!(calorie: total)
+      if @todaymeals.present? && @todaymeal_recipes.present?
+        total = myfoods + recipes
+      elsif @todaymeals.present? && @todaymeal_recipes.blank?
+        total = myfoods
+      elsif @todaymeal_recipes.present? && @todaymeals.blank?
+        total = recipes
+      else
+        total = nil
+      end
 
-        # -------- @meals_analyのUpdate機能 --------
+      @meals_analys.update_attributes!(calorie: total)
+
+      # -------- @meals_analyのUpdate機能 --------
 
       flash[:success] = "更新に成功しました"
       redirect_to user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time])
@@ -149,44 +146,42 @@ class TodaymealRecipesController < ApplicationController
 
     @todaymeal_recipe.destroy
 
-      # -------- @meals_analyのUpdate機能 --------
+    # -------- @meals_analyのUpdate機能 --------
 
-          @todaymeals = @user.todaymeals.where(start_time: params[:start_time])
-          @todaymeal_recipes = @user.todaymeal_recipes.where(start_time: params[:start_time])
+    @todaymeals = @user.todaymeals.where(start_time: params[:start_time])
+    @todaymeal_recipes = @user.todaymeal_recipes.where(start_time: params[:start_time])
 
-            if @todaymeals.present?
-              myfoods = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id, :amount).map{ |myfood, amount|
-                          [ @user.myfoods.where(id: myfood).pluck(:calorie).sum * amount ]
-                        }.sum.sum
-            end
-            if @todaymeal_recipes.present?
-              recipes = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id, :amount).map{|recipe, amount|
-                          [ @user.recipes.where(id: recipe).pluck(:calorie).sum * amount ]
-                        }.sum.sum
-            end
+    if @todaymeals.present?
+      myfoods = @user.todaymeals.where(start_time: params[:start_time]).pluck(:myfood_id, :amount).map{ |myfood, amount|
+        [ @user.myfoods.where(id: myfood).pluck(:calorie).sum * amount ]
+      }.sum.sum
+    end
+    if @todaymeal_recipes.present?
+      recipes = @user.todaymeal_recipes.where(start_time: params[:start_time]).pluck(:recipe_id, :amount).map{|recipe, amount|
+        [ @user.recipes.where(id: recipe).pluck(:calorie).sum * amount ]
+      }.sum.sum
+    end
 
-            if @todaymeals.present? && @todaymeal_recipes.present?
-              total = myfoods + recipes
-            elsif @todaymeals.present? && @todaymeal_recipes.blank?
-              total = myfoods
-            elsif @todaymeal_recipes.present? && @todaymeals.blank?
-              total = recipes
-            else
-              total = nil
-            end
+    if @todaymeals.present? && @todaymeal_recipes.present?
+      total = myfoods + recipes
+    elsif @todaymeals.present? && @todaymeal_recipes.blank?
+      total = myfoods
+    elsif @todaymeal_recipes.present? && @todaymeals.blank?
+      total = recipes
+    else
+      total = nil
+    end
 
-        @meals_analys.update_attributes!(calorie: total)
+    @meals_analys.update_attributes!(calorie: total)
 
-        # -------- @meals_analyのUpdate機能 --------
-
+    # -------- @meals_analyのUpdate機能 --------
     flash[:success] = "#{@recipe.recipe_name}を削除しました。"
     redirect_to user_todaymeals_path(@user, start_date: params[:start_date], start_time: params[:start_time])
   end
 
   private
 
-    def todaymeal_recipe_params
-      params.require(:todaymeal_recipe).permit(:start_time, :recipe_id, :timezone_id, :note, :amount)
-    end
-
+  def todaymeal_recipe_params
+    params.require(:todaymeal_recipe).permit(:start_time, :recipe_id, :timezone_id, :note, :amount)
+  end
 end

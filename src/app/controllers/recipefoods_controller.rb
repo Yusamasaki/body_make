@@ -1,10 +1,8 @@
 class RecipefoodsController < ApplicationController
-
   before_action :authenticate_user!
-  
   before_action :set_user, only: [:new, :create, :destroy]
   before_action :set_nutritions, only: [:new, :create]
-  
+
   def new
     @recipefood = @user.recipefoods.new
     @recipe = @user.recipes.find(params[:recipe_id])
@@ -29,7 +27,6 @@ class RecipefoodsController < ApplicationController
 
     if recipefood_valid.nil?
       if @recipefood.save
-        
         @recipefoods = @user.recipefoods.where(recipe_id: params[:recipe_id])
 
         @recipe_calorie = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:calorie), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
@@ -41,7 +38,7 @@ class RecipefoodsController < ApplicationController
         @recipe_salt = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:salt), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
 
         @recipe.update_attributes!(calorie: @recipe_calorie, protein: @recipe_protein, fat: @recipe_fat, carbo: @recipe_carbo,
-                                  sugar: @recipe_sugar, dietary_fiber: @recipe_dietary_fiber, salt: @recipe_salt)
+          sugar: @recipe_sugar, dietary_fiber: @recipe_dietary_fiber, salt: @recipe_salt)
 
         flash[:success] = "#{@myfood.food_name}の登録に成功しました。"
 
@@ -76,7 +73,7 @@ class RecipefoodsController < ApplicationController
       @recipe_salt = @recipefoods.map {|recipefood| [@user.myfoods.where(id: recipefood.myfood_id).pluck(:salt), @user.recipefoods.where(id: recipefood).pluck(:amount)].sum.inject(:*)}.sum
 
       @recipe.update_attributes!(calorie: @recipe_calorie, protein: @recipe_protein, fat: @recipe_fat, carbo: @recipe_carbo,
-                                 sugar: @recipe_sugar, dietary_fiber: @recipe_dietary_fiber, salt: @recipe_salt)
+        sugar: @recipe_sugar, dietary_fiber: @recipe_dietary_fiber, salt: @recipe_salt)
 
     flash[:success] = "#{@myfood.food_name}を削除しました。"
     if params[:before] == "new"
@@ -88,8 +85,7 @@ class RecipefoodsController < ApplicationController
 
   private
 
-    def recipefood_params
-      params.require(:recipefood).permit(:myfood_id, :recipe_id, :amount)
-    end
-
+  def recipefood_params
+    params.require(:recipefood).permit(:myfood_id, :recipe_id, :amount)
+  end
 end

@@ -1,6 +1,5 @@
 class PfcRatiosController < ApplicationController
   before_action :authenticate_user!
-  
   before_action :set_user, only: [:new, :create, :edit, :update]
   before_action :set_basic, only: [:new, :create, :edit, :update]
 
@@ -45,8 +44,7 @@ class PfcRatiosController < ApplicationController
 
   private
 
-    def pfc_params
-      params.require(:pfc_ratio).permit(:protein, :fat, :carbo, :user_id)
-    end
-
+  def pfc_params
+    params.require(:pfc_ratio).permit(:protein, :fat, :carbo, :user_id)
+  end
 end

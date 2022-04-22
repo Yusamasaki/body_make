@@ -1,7 +1,5 @@
 class RecipesController < ApplicationController
-
   before_action :authenticate_user!
-  
   before_action :set_user, only: [:index, :new, :create, :edit, :update, :destroy]
 
   def index
@@ -59,8 +57,7 @@ class RecipesController < ApplicationController
 
   private
 
-    def recipe_params
-      params.require(:recipe).permit(:recipe_name)
-    end
-
+  def recipe_params
+    params.require(:recipe).permit(:recipe_name)
+  end
 end

@@ -1,19 +1,16 @@
 class ApifoodsController < ApplicationController
-
   before_action :authenticate_user!
-  
   before_action :set_user, only: [:index]
   before_action :set_basic, only: [:index]
 
   def index
     @timezones = Timezone.all
-
     #値に日本語が入っていてもAPIに正しくリクエストできるよう、コード化（エスケープ）する
     # valueはFormとかでユーザから受け付けた検索のキーワード（ex.ハンバーグの栄養素を検索するならvalue="ハンバーグ"）
     @params = URI.escape(params[:food_name])
 
     #上で取得した値をリクエストに組み込む
-     uri = URI.parse("https://apex.oracle.com/pls/apex/body_make/food/food/#{@params}")
+    uri = URI.parse("https://apex.oracle.com/pls/apex/body_make/food/food/#{@params}")
 
     if params[:food_name].present?
       #ここでAPIのリクエストを実行してる（多分）
@@ -27,5 +24,4 @@ class ApifoodsController < ApplicationController
       @food_hash = @result['items']
     end
   end
-
 end

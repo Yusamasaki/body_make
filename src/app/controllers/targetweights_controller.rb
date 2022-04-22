@@ -1,7 +1,5 @@
 class TargetweightsController < ApplicationController
-
   before_action :authenticate_user!
-  
   before_action :set_user, only: [:new, :create, :edit, :update]
   before_action :set_basic, only: [:new, :edit, :update]
 
@@ -42,5 +40,4 @@ class TargetweightsController < ApplicationController
   def targetweight_params
     params.require(:targetweight).permit(:now_body_weight, :goal_body_weight, :now_bodyfat_percentage, :goal_bodyfat_percentage, :beginning_date, :target_date, :user_id)
   end
-  
 end
