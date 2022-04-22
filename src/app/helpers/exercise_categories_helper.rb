@@ -1,2 +1,0 @@
-module ExerciseCategoriesHelper
-end
