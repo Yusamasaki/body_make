@@ -10,13 +10,6 @@
           <a class="nav-item nav-link" href="<%= user_path(@user, switching: "bodyweight", start_time: params[:start_time], start_date: params[:start_date]) %>">体重</a>
         <% end %>
       </li>
-      <li class="nav-item">
-        <% if params[:switching] == "recovery" %>
-          <a class="nav-item nav-link active" href="<%= user_path(@user, switching: "recovery", start_time: params[:start_time], start_date: params[:start_date]) %>">トレーニング回復部位別状況</a>
-        <% else %>
-          <a class="nav-item nav-link" href="<%= user_path(@user, switching: "recovery", start_time: params[:start_time], start_date: params[:start_date]) %>">トレーニング回復部位別状況</a>
-        <% end %>
-      </li>
     </ul>
   </div>
 </div>
@@ -55,38 +48,5 @@
         <%= render 'bodyfat_percentage' %>
       </div>
     </div>
-  </div>
-<% end %>
-
-<% if params[:switching] == "recovery" %>
-  <div class="box1" style="padding: 5px;"><br>
-    <div class="row">
-      <div class="mx-auto">
-        <h4>トレーニング部位別回復状態</h4>
-      </div>
-    </div><br>
-    <% @bodypart_recoverys.each do |recovery_parcentage, bodypart, current| %>
-      <div class="card" style="margin-bottom: 5px;">
-        <div class="card-header">
-          <%= bodypart.body_part %>
-        </div>
-        <div class="card-body">
-          <% unless current == bodypart.recovery_day %>
-            <p style="color:green;"><%= current %>日経過 (回復日数：<%= bodypart.recovery_day %>日)</p>
-          <% else %>
-            <p style="color:blue;">回復状態です (回復日数：<%= bodypart.recovery_day %>日)</p>
-          <% end %>
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: <%= recovery_parcentage %>%;" aria-valuenow="<%= bodypart.recovery_day %>" aria-valuemin="0" aria-valuemax="<%= bodypart.recovery_day %>">
-              <% unless current == bodypart.recovery_day %>
-                <%= current %>日経過
-              <% else %>
-                回復状態です
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
   </div>
 <% end %>

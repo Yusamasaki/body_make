@@ -2,9 +2,7 @@ class UsersController < ApplicationController
   
   before_action :authenticate_admin!, only: [:index, :detail]
   before_action :authenticate_user!, only: [:show, :setting]
-  
   before_action :first_setting, only: :show
-  before_action :today_exercise_set_one_month, only: :show
   before_action :set_user, only: [:show, :setting]
   before_action :set_basic, only: [:show, :setting]
   before_action :set_bmr, only: :setting
