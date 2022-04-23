@@ -1,6 +1,5 @@
 class BmrsController < ApplicationController
   before_action :authenticate_user!
-  
   before_action :set_user, only: [:new, :create, :edit, :update]
   before_action :set_basic, only: [:new, :edit, :update]
 
@@ -34,8 +33,6 @@ class BmrsController < ApplicationController
     else
       render 'edit'
     end
-
-
   end
 
   private

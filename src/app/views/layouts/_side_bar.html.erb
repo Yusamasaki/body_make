@@ -17,7 +17,6 @@
     <a href="<%= user_path(@user, start_time: Date.current, start_date: Date.current.beginning_of_month) %>" class="brand-link">
       <span class="brand-text font-weight-light" id="logo">BODY MAKE APP</span>
     </a>
-
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -29,9 +28,6 @@
           <a href="<%= edit_user_registration_path %>" class="d-block" style="color: #fff;"><%= @user.username %></a>
         </div>
       </div>
-
-        
-
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -48,22 +44,6 @@
                   <i class="nav-icon fas fa-utensils" style="color: #fff;"></i>
                   <p style="color: #fff;">
                       Meal
-                  </p>
-              </a>
-          </li>
-          <li class="nav-item">
-              <a href="<%= user_today_exercises_path(current_user, start_time: Date.current, start_date: Date.current.beginning_of_month) %>" class="nav-link">
-                  <i class="nav-icon fas fa-running" style="color: #fff;"></i>
-                  <p style="color: #fff;">
-                      Exercise
-                  </p>
-              </a>
-          </li>
-          <li class="nav-item">
-              <a href="<%= user_today_tranings_path(@user, bodypart_id: 1, start_date: Date.current.beginning_of_month, start_time: Date.current) %>" class="nav-link">
-                  <i class="nav-icon fas fa-dumbbell" style="color: #fff;"></i>
-                  <p style="color: #fff;">
-                      Traning
                   </p>
               </a>
           </li>
@@ -90,9 +70,7 @@
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
-    
   </aside>
-
   <div class="content-wrapper">
     <div class="container-field">
       <%= render 'layouts/flashes' %>

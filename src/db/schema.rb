@@ -41,13 +41,6 @@ ActiveRecord::Schema.define(version: 2021_12_23_014245) do
     t.index ["user_id"], name: "index_bmrs_on_user_id"
   end
 
-  create_table "bodyparts", force: :cascade do |t|
-    t.string "body_part"
-    t.integer "recovery_day"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "bodyweights", force: :cascade do |t|
     t.date "start_time"
     t.float "body_weight"
@@ -56,21 +49,6 @@ ActiveRecord::Schema.define(version: 2021_12_23_014245) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_bodyweights_on_user_id"
-  end
-
-  create_table "exercise_categories", force: :cascade do |t|
-    t.string "name", default: "", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "exercise_contents", force: :cascade do |t|
-    t.string "content"
-    t.float "mets"
-    t.bigint "exercise_category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["exercise_category_id"], name: "index_exercise_contents_on_exercise_category_id"
   end
 
   create_table "meals_analyses", force: :cascade do |t|
@@ -136,22 +114,13 @@ ActiveRecord::Schema.define(version: 2021_12_23_014245) do
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
-  create_table "sub_bodyparts", force: :cascade do |t|
-    t.string "sub_body_part"
-    t.integer "recovery_day"
-    t.bigint "bodypart_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["bodypart_id"], name: "index_sub_bodyparts_on_bodypart_id"
-  end
-
   create_table "targetweights", force: :cascade do |t|
     t.float "now_body_weight"
     t.float "goal_body_weight"
     t.float "now_bodyfat_percentage"
     t.float "goal_bodyfat_percentage"
-    t.datetime "beginning_date", default: "2021-12-30 07:48:25"
-    t.datetime "target_date", default: "2021-12-31 07:48:25"
+    t.datetime "beginning_date", default: "2022-04-22 17:30:34"
+    t.datetime "target_date", default: "2022-04-23 17:30:34"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -162,37 +131,6 @@ ActiveRecord::Schema.define(version: 2021_12_23_014245) do
     t.string "time_zone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "today_exercises", force: :cascade do |t|
-    t.date "start_time", default: "2021-12-30", null: false
-    t.integer "exercise_time_hour", default: 0, null: false
-    t.integer "exercise_time_min", default: 0, null: false
-    t.float "body_weight", default: 0.0, null: false
-    t.string "note"
-    t.bigint "exercise_category_id"
-    t.bigint "exercise_content_id"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["exercise_category_id"], name: "index_today_exercises_on_exercise_category_id"
-    t.index ["exercise_content_id"], name: "index_today_exercises_on_exercise_content_id"
-    t.index ["user_id"], name: "index_today_exercises_on_user_id"
-  end
-
-  create_table "today_tranings", force: :cascade do |t|
-    t.date "start_time"
-    t.float "traning_weight"
-    t.float "traning_reps"
-    t.string "traning_note"
-    t.float "total_load"
-    t.bigint "bodypart_id"
-    t.bigint "user_id"
-    t.bigint "traningevent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["traningevent_id"], name: "index_today_tranings_on_traningevent_id"
-    t.index ["user_id"], name: "index_today_tranings_on_user_id"
   end
 
   create_table "todaymeal_recipes", force: :cascade do |t|
@@ -223,35 +161,6 @@ ActiveRecord::Schema.define(version: 2021_12_23_014245) do
     t.index ["user_id"], name: "index_todaymeals_on_user_id"
   end
 
-  create_table "traning_analyses", force: :cascade do |t|
-    t.date "start_time"
-    t.string "total_load"
-    t.float "max_load"
-    t.bigint "user_id"
-    t.bigint "traningevent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["traningevent_id"], name: "index_traning_analyses_on_traningevent_id"
-    t.index ["user_id"], name: "index_traning_analyses_on_user_id"
-  end
-
-  create_table "traningevents", force: :cascade do |t|
-    t.string "traning_name"
-    t.bigint "subbodypart_id"
-    t.bigint "traningtype_id"
-    t.bigint "bodypart_id"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_traningevents_on_user_id"
-  end
-
-  create_table "traningtypes", force: :cascade do |t|
-    t.string "traning_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -276,7 +185,6 @@ ActiveRecord::Schema.define(version: 2021_12_23_014245) do
 
   add_foreign_key "bmrs", "users"
   add_foreign_key "bodyweights", "users"
-  add_foreign_key "exercise_contents", "exercise_categories"
   add_foreign_key "meals_analyses", "users"
   add_foreign_key "myfoods", "users"
   add_foreign_key "pfc_ratios", "users"
@@ -284,20 +192,11 @@ ActiveRecord::Schema.define(version: 2021_12_23_014245) do
   add_foreign_key "recipefoods", "recipes"
   add_foreign_key "recipefoods", "users"
   add_foreign_key "recipes", "users"
-  add_foreign_key "sub_bodyparts", "bodyparts"
   add_foreign_key "targetweights", "users"
-  add_foreign_key "today_exercises", "exercise_categories"
-  add_foreign_key "today_exercises", "exercise_contents"
-  add_foreign_key "today_exercises", "users"
-  add_foreign_key "today_tranings", "traningevents"
-  add_foreign_key "today_tranings", "users"
   add_foreign_key "todaymeal_recipes", "recipes"
   add_foreign_key "todaymeal_recipes", "timezones"
   add_foreign_key "todaymeal_recipes", "users"
   add_foreign_key "todaymeals", "myfoods"
   add_foreign_key "todaymeals", "timezones"
   add_foreign_key "todaymeals", "users"
-  add_foreign_key "traning_analyses", "traningevents"
-  add_foreign_key "traning_analyses", "users"
-  add_foreign_key "traningevents", "users"
 end
