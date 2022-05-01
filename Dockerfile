@@ -1,4 +1,4 @@
-FROM ruby:2.7.3
+FROM ruby:3.1.2
 
 LABEL name="Artificial intern" version="1.0" description="Artificial intern"
 
